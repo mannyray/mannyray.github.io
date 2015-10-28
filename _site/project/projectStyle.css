@@ -1,0 +1,31 @@
+#links a{
+	float:center;
+	display:block;
+	margin: 20% 20%;
+	text-align:center;
+	border:dashed;
+	border-width:1px;
+	border-color:#FF9900;
+	margin-top:5px;	
+	margin-bottom:5px;
+	text-decoration:none; 
+}
+
+#links a:link {
+    color: #0079E7;
+}
+
+/* visited link */
+#links a:visited {
+    color: #0079E7;
+}
+
+/* mouse over link */
+#links a:hover {
+    color: #FF9900;
+}
+
+/* selected link */
+#links a:active {
+    color: #0079E7;
+}

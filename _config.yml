@@ -1,0 +1,14 @@
+# Site settings
+title: Stan Zonov
+email: szonovcontact@gmail.com
+
+
+include: ['courses']
+include: ['games']
+github_username:  mannyray
+
+
+# Build settings
+markdown: rdiscount
+permalink: pretty
+
