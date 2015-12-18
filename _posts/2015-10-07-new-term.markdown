@@ -2,7 +2,7 @@
 layout: post
 title:  "New Term"
 date:   2015-10-07 11:52:00
-categories: new
+categories: school
 ---
 
 A little late for a new term post as it started about a month ago, but it is better now than never.
