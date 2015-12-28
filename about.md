@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-Hello! My name is Stanislav Zonov, or simply Stan. I am a third year student enrolled in Computer Science Honours Joint Applied Mathematics program at the University of Waterloo. I have a strong passion for computer science and an equally strong passion for mathematics, somewhat of a taboo amongst the majority of my computer science peers.
+Hello! My name is Stanislav Zonov, or simply Stan. I am a fourth year student enrolled in Computer Science Honours Joint Applied Mathematics program at the University of Waterloo. I have a strong passion for computer science and an equally strong passion for mathematics, somewhat of a taboo amongst the majority of my computer science peers.
 
 I used to think that the two areas are separate, but as I continue my studies I increasingly observe how closely they are interconnected. This realization fuels my passions and my love to apply the knowledge and skills learned in both of these areas to solve all kinds of problems and challenges.
 
