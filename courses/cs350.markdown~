@@ -3,6 +3,9 @@ layout: page
 title:  "CS 350"
 ---
 
+Operating Systems
+
+
 One of my favourite CS courses taken at Waterloo by far. The mix of assignments and concepts geared towards learning operating systems made the course highly interesting and busy.
 
 The course taught everything from synchronization all the way down to memory management and I/O. The assignments allowed the student to directly apply the theory straight to the test by constantly adding new features to a basic shell OS 161 operating system.
