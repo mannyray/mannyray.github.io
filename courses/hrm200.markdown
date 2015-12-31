@@ -12,3 +12,5 @@ In HRM 200 I got a preview about the complex organization and structure of compa
 [Next Course]({{ site.baseurl }}/courses/math237)
 
 [Previous Course]({{ site.baseurl }}/courses/cs246)
+
+[All Courses]({{ site.baseurl }}/courses/)

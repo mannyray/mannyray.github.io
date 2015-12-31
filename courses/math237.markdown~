@@ -14,3 +14,5 @@ First year math was tough. After first year, I thought I was really bad at math.
 [Next Course]({{ site.baseurl }}/courses/stat230)
 
 [Previous Course]({{ site.baseurl }}/courses/hrm200)
+
+[All Courses]({{ site.baseurl }}/courses/)

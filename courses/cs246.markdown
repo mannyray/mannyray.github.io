@@ -21,3 +21,5 @@ The course also gave me a taste of applying the concepts learned of OOP learned 
 
 [Previous Course]({{ site.baseurl }}/courses/cs245)
 
+[All Courses]({{ site.baseurl }}/courses/)
+
