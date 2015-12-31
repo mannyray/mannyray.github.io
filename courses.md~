@@ -52,7 +52,7 @@ Courses for my Computer Science Honours Joint Applied Mathematics at University 
 - CS 348 - Introduction to Database Management
 - CS 456 - Computer Networks
 - CS 458 - Computer Security and Privacy
-- PHYS 121 - Mechanics
+- [PHYS 121 - Mechanics]({{ site.baseurl }}/courses/phys121)
 
 The three hour prison room (fun prison room) where your knowledge gets tested:
 ![examination]({{ site.url }}/assets/dread.jpg)
