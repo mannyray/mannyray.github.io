@@ -10,3 +10,6 @@ Distributions like the poisson, normal, binomial helped me understand how many d
 In addition to learning how to count the ways I could do a specific task or arrange a set of elements (which became very applicable in many settings later on) I also learned the central limit theorem.
 
 Even though the time spent exploring the implications of the theorem weren't long, it still was a great introduction to the types of concepts that would be learned in the upcoming STAT 231 (Statistics).
+
+
+[Previous Course]({{ site.baseurl }}/courses/math237)

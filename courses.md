@@ -4,7 +4,7 @@ title: Courses
 permalink: /courses/
 ---
 
-Courses for my Computer Science Honours Joint Applied Mathematics at University of Waterloo.
+Courses for my Computer Science Honours Joint Applied Mathematics at University of Waterloo. Still working on getting this page up to date. 
 
 1A:
 
@@ -27,7 +27,7 @@ Courses for my Computer Science Honours Joint Applied Mathematics at University 
  - [CS 245 - Logic and Computation]({{ site.baseurl }}/courses/cs245)
  - [CS 246 - Object-Oriented Software Development]({{ site.baseurl }}/courses/cs246)
  - [HRM 200 - Basic Human Resources Management]({{ site.baseurl }}/courses/hrm200)
- - MATH 237 - Calculus 3 for Honours Mathematics
+ - [MATH 237 - Calculus 3 for Honours Mathematics]({{ site.baseurl }}/courses/math237)
  - [STAT 230 - Probability]({{ site.baseurl }}/courses/stat230)
 
 2B:
