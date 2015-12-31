@@ -11,4 +11,6 @@ I also had the opportunity to use Maple as part of the coursework. Maple was fun
 
 [Next Course]({{ site.baseurl }}/courses/cs348)
 
+[Previous Course]({{ site.baseurl }}/courses/stat231)
+
 [All Courses]({{ site.baseurl }}/courses/)

@@ -21,3 +21,9 @@ My advice for those planning on taking this course: *start assignments early*.
 Here is a little view of my operating system while it is running:
 
 ![os161]({{ site.url }}/assets/os161.png)
+
+[Next Course]({{ site.baseurl }}/courses/math235)
+
+[Previous Course]({{ site.baseurl }}/courses/cs341)
+
+[All Courses]({{ site.baseurl }}/courses/)

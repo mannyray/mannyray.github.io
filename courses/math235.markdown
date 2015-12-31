@@ -10,3 +10,9 @@ The course is very pattern based. A lot of theorems and ideas are repeated but i
 
 
 I love and respect eigenvalues, but they give me nightmares from time to time. 
+
+[Next Course]({{ site.baseurl }}/courses/stat231)
+
+[Previous Course]({{ site.baseurl }}/courses/cs350)
+
+[All Courses]({{ site.baseurl }}/courses/)
