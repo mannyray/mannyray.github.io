@@ -40,7 +40,7 @@ Courses for my Computer Science Honours Joint Applied Mathematics at University 
 
 3A:
 
-- [AMATH 332 - Applied Complex Analysis]({{ site.baseurl }}/courses/cs341)
+- [AMATH 332 - Applied Complex Analysis]({{ site.baseurl }}/courses/amath332)
 - [CS 341 - Algorithms]({{ site.baseurl }}/courses/cs341)
 - [CS 350 - Operating Systems]({{ site.baseurl }}/courses/cs350)
 - [MATH 235 - Linear Algebra 2]({{ site.baseurl }}/courses/math235)
