@@ -50,7 +50,7 @@ Courses for my Computer Science Honours Joint Applied Mathematics at University 
 
 - [AMATH 251 - Introduction to Differential Equations]({{ site.baseurl }}/courses/amath251)
 - [CS 348 - Introduction to Database Management]({{ site.baseurl }}/courses/cs348)
-- CS 456 - Computer Networks
+- [CS 456 - Computer Networks]({{ site.baseurl }}/courses/cs456)
 - [CS 458 - Computer Security and Privacy]({{ site.baseurl }}/courses/cs458)
 - [PHYS 121 - Mechanics]({{ site.baseurl }}/courses/phys121)
 
