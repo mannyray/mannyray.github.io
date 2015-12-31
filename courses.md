@@ -20,7 +20,7 @@ Courses for my Computer Science Honours Joint Applied Mathematics at University 
 - COMM 231 - Commercial and Business Law
 - MATH 136 - Linear Algebra 1 For Honours Mathematics
 - MATH 138 - Calculus 2 for Honours Mathematics
-- SPCOM 223 - Public Speaking
+- [SPCOM 223 - Public Speaking]({{ site.baseurl }}/courses/spcom223)
 
 2A:
 
