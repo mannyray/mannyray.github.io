@@ -49,7 +49,7 @@ Courses for my Computer Science Honours Joint Applied Mathematics at University 
 3B:
 
 - [AMATH 251 - Introduction to Differential Equations]({{ site.baseurl }}/courses/amath251)
-- CS 348 - Introduction to Database Management
+- [CS 348 - Introduction to Database Management]({{ site.baseurl }}/courses/cs348)
 - CS 456 - Computer Networks
 - CS 458 - Computer Security and Privacy
 - [PHYS 121 - Mechanics]({{ site.baseurl }}/courses/phys121)
