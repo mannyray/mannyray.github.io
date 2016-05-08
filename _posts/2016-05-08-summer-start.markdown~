@@ -17,6 +17,9 @@ Here is a mapping of this website:
 Here is a mapping of the directory mapping of my URA project:
 ![glitch]({{ site.url }}/assets/ura.png)
 
+Here is a mapping of my course work for the past two terms:
+![glitch]({{ site.url }}/assets/course_work.png)
+
 Unfortunately, the current script doesn't scale too well for large file structures, but the script can be easily adjusted for that if necessary. 
 
 Here is the [script]({{ site.url }}/assets/map.sh). 
