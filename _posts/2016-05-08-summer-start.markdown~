@@ -20,6 +20,9 @@ Here is a mapping of the directory mapping of my URA project:
 Here is a mapping of my course work for the past two terms:
 ![glitch]({{ site.url }}/assets/course_work.png)
 
+And finally a combination of the past three directories:
+![glitch]({{ site.url }}/assets/all3.png)
+
 Unfortunately, the current script doesn't scale too well for large file structures, but the script can be easily adjusted for that if necessary. 
 
 Here is the [script]({{ site.url }}/assets/map.sh). 
