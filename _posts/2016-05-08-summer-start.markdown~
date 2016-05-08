@@ -16,18 +16,18 @@ I was recently playing around with a little bit of data visualization. Here is a
 
 
 Here is a mapping of this website:
-![glitch]({{ site.url }}/assets/website.png)
+![graph]({{ site.url }}/assets/website.png)
 
 Here is a mapping of the directory mapping of my URA project:
-![glitch]({{ site.url }}/assets/ura.png)
+![graph]({{ site.url }}/assets/ura.png)
 
 Here is a mapping of my course work for the past two terms:
-![glitch]({{ site.url }}/assets/course_work.png)
+![graph]({{ site.url }}/assets/course_work.png)
 
 And finally a combination of the past three directories:
-![glitch]({{ site.url }}/assets/all3.png)
+![graph]({{ site.url }}/assets/all3.png)
 
 Unfortunately, the current script doesn't scale too well for large file structures, but the script can be easily adjusted for that if necessary. 
 
 Here is the [script]({{ site.url }}/assets/map.sh) and a picture of me studying for exams:
-![glitch]({{ site.url }}/assets/studying.png)
+![study]({{ site.url }}/assets/studying.jpg)
