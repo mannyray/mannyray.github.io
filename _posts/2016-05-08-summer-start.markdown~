@@ -26,4 +26,6 @@ And finally a combination of the past three directories:
 Unfortunately, the current script doesn't scale too well for large file structures, but the script can be easily adjusted for that if necessary. 
 
 Here is the [script]({{ site.url }}/assets/map.sh) and a picture of me studying for exams:
-![study]({{ site.url }}/assets/studying.jpg =108x192)
+
+<img src="http://szonov.com/assets/studying.jpg" width="108px" height="192px" />
+
