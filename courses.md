@@ -54,6 +54,14 @@ Courses for my Computer Science Honours Joint Applied Mathematics at University 
 - [CS 458 - Computer Security and Privacy]({{ site.baseurl }}/courses/cs458)
 - [PHYS 121 - Mechanics]({{ site.baseurl }}/courses/phys121)
 
+4A:
+
+- [AMATH 353 - Partial Differential Equations 1]({{ site.baseurl }}/courses/amath353)
+- [CS 343 - Concurrent and Parallel Programming]({{ site.baseurl }}/courses/cs343)
+- [CS 371 - Introduction to Computational Mathematics]({{ site.baseurl }}/courses/cs371)
+- [PHYS 122 - Waves, Electricity and Magnetism]({{ site.baseurl }}/courses/phys122)
+
+
 The three hour prison room (fun prison room) where your knowledge gets tested:
 ![examination]({{ site.url }}/assets/dread.jpg)
 Prison room with people:
