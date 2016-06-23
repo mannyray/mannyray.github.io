@@ -18,11 +18,6 @@ Hey! This page has some of the projects that I've been working on. I'll keep add
 - [Vending Machine Craze]({{ site.baseurl }}/courses/cs343). I named this originally nameless project based on the problem details. This project was a masterpiece of my concurrency course CS 343 developed with Wesley Chalmers. **+**
 
 
- - _Platform falling game:_ A Java Object Oriented Programming based game that I worked on with as part of group project in highschool. Here is a [screen cap]({{ site.url }}/assets/platform.png). If you are interested in the creation of this or any of the other projects, then just shoot me a message! 
-
-
-** \* ** 
-
-
+ - [Infinite Fun](https://github.com/mannyray/InfiniteFun): A Java Object Oriented Programming based game that I worked on with as part of group project in highschool(Dan Wei and Braden Cok). Here is a [screen cap]({{ site.url }}/assets/platform.png). We called it Infinite Fun because there was no way of beating the game... it just kept going (just like Space Shooter).
 
 
