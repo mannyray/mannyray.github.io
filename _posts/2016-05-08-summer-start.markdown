@@ -25,7 +25,7 @@ And finally a combination of the past three directories:
 
 Unfortunately, the current script doesn't scale too well for large file structures, but the script can be easily adjusted for that if necessary. 
 
-Here is the [script]({{ site.url }}/assets/map.sh) and a picture of me studying for exams:
+Here is the [script]({{ site.url }}/assets/map.sh) ([updated and better version](https://github.com/mannyray/mapOutDirectory)) and a picture of me studying for exams (while rocking my old high school shirt):
 <p align="center">
 	<img src="http://szonov.com/assets/studying.jpg" width="216px" height="384px" />
 </p>
