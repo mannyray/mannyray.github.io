@@ -110,7 +110,7 @@ If we assume `13` is the current number being processed and we want to know how 
 
 ![image]({{ site.url }}/assets/binary_tree_passed_to_left_included.png)
 
-Therefore to calculate the numbers less than 13 we would have to follow the following logic:
+Therefore to calculate the numbers less than 13 we would have to follow the following logic:  
 ```
 less_than_13 = 0  
 
@@ -314,7 +314,6 @@ int main() {
     }
     cout<<result<<endl;
 }
-
 ```
 
 <a name="skipcode"></a>
