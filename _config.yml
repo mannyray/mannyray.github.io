@@ -9,6 +9,6 @@ github_username:  mannyray
 
 
 # Build settings
-markdown: maruku
+markdown: kramdown
 permalink: pretty
 
