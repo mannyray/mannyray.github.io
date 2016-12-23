@@ -41,7 +41,7 @@ The black force is caused by tension of the string and the blue force is caused 
 
 
 
-For the angle, $\theta$ is the angle, then velocity is $\theta'$ and acceleration is $\theta''$. If we want to consider the amount of distance the mass on the pendulum covered with a change of $\theta$ in the angle, then the distance must be the arc length covered by the motion - which would be $\theta l$ where $l$ is the length of the string (if the pendulum was to do a full rotation, then that would be the circumference of a circle of radius - $l$, $2 \pi l$). Therefore the acceleration with respect to position (not angle) must be $l \theta''$. Using all this information we can derive the following:
+For the angle, $\theta$ is the angle, then velocity is $\theta'$ and acceleration is $\theta''$. If we want to consider the amount of distance the mass on the pendulum covered with a change of $\theta$ in the angle, then the distance must be the arc length covered by the motion - which would be $\theta l$ where $l$ is the length of the string ( if the pendulum was to do a full rotation, then that would be the circumference of a circle of radius - $l$, $2 \pi l$ ). Therefore the acceleration with respect to position (not angle) must be $l \theta''$. Using all this information we can derive the following:
 
 
 $F = ma$
