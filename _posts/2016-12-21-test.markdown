@@ -26,7 +26,7 @@ When we think about a simple pendulum, we think of a string attached to a pivot 
 Since we are talking about applied mathematics here, then we need some sort of equation to work with. So how does one turn the pendulum motion into an equation?
 
 
-One thing we can start off with is the $F = ma$ equation (Newton's third law). The $F$ is the net force and in our case will be the force acting on the mass hanging on to the string, $m$ the mass and $a$ the acceleration of the mass. Since we are dealing with the pendulum then what we will be using to keep track of position will be the angle ($\theta$) of the string from the pendulum's equilibrium position. We now upgrade our image to the following:
+One thing we can start off with is the $F = ma$ equation $($Newton's third law$)$. The $F$ is the net force and in our case will be the force acting on the mass hanging on to the string, $m$ the mass and $a$ the acceleration of the mass. Since we are dealing with the pendulum then what we will be using to keep track of position will be the angle $($$\theta$$)$ of the string from the pendulum's equilibrium position. We now upgrade our image to the following:
 
 
 ![image]({{ site.url }}/assets/updated_pendulum.jpg)
@@ -42,7 +42,7 @@ The black force is caused by tension of the string and the blue force is caused 
 
 
 
-For the angle, $\theta$ is the angle, then velocity is $\theta'$ and acceleration is $\theta''$. If we want to consider the amount of distance the mass on the pendulum covered with a change of $\theta$ in the angle, then the distance must be the arc length covered by the motion - which would be $\theta l$ where $l$ is the length of the string ( if the pendulum was to do a full rotation, then that would be the circumference of a circle of radius - $l$, $2 \pi l$ ). Therefore the acceleration with respect to position (not angle) must be $l \theta''$. Using all this information we can derive the following:
+For the angle, $\theta$ is the angle, then velocity is $\theta'$ and acceleration is $\theta''$. If we want to consider the amount of distance the mass on the pendulum covered with a change of $\theta$ in the angle, then the distance must be the arc length covered by the motion - which would be $\theta l$ where $l$ is the length of the string $($ if the pendulum was to do a full rotation, then that would be the circumference of a circle of radius - $l$, $2 \pi l$ $)$. Therefore the acceleration with respect to position $($not angle$)$ must be $l \theta''$. Using all this information we can derive the following:
 
 
 $F = ma$
