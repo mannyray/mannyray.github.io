@@ -1,3 +1,6 @@
 [submodule "Space_Adventure"]
 	path = Space_Adventure
 	url = https://github.com/fvranes/Space_Adventure.git
+[submodule "pendulum"]
+	path = pendulum
+	url = https://github.com/mannyray/pendulum.git
