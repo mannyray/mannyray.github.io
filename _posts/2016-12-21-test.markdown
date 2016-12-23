@@ -19,7 +19,7 @@ Simple harmonic motion is used to model periodic motion, motion that repeats its
 
 
 
-When we think about a simple pendulum, we think of a string attached to a pivot on one end and a heavy mass attached on the other(assuming string is massless). Something like this:
+When we think about a simple pendulum, we think of a string attached to a pivot on one end and a heavy mass attached on the other \(assuming string is massless\). Something like this:
 
 ![image]({{ site.url }}/assets/pendulum.jpg)
 
