@@ -61,7 +61,7 @@ $ \theta'' + \frac{g}{l}sin(\theta) = 0$
 What we have derived is a differential equation for the motion of the pendulum. There is some sort of function $\theta$ that describes the angle of the pendulum from equilibrium as a function of $t$, time. Now whatever that function may be, it must satisfy out derived differential equation. We will now work on solving this equation.
 
 
-
+One way we can solve this differential equation is by getting rid of the $sin$. We can use the fact that for small $\theta$, $\theta ~= sin(\theta)$. This transforms our differential equation to: $\theta'' + \frac{g}{l}\theta = 0$ for which the solution is of the form $\theta = A sin(root(\frac{g}{l}) + B cos(root(\frac{g}{l}))$ where $A$ and $B$ are constants.
 
 CHANGE
 
