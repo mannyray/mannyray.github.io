@@ -19,7 +19,7 @@ Simple harmonic motion is used to model periodic motion, motion that repeats its
 
 
 
-When we think about a simple pendulum, we think of a string attached to a pivot on one end and a heavy mass attached on the other $($assuming string is massless$)$. Something like this:
+When we think about a simple pendulum, we think of a string attached to a pivot on one end and a heavy mass attached on the other $($assuming string has no mass$)$. Something like this:
 
 ![image]({{ site.url }}/assets/pendulum.jpg)
 
@@ -64,17 +64,124 @@ What we have derived is a differential equation for the motion of the pendulum. 
 One way we can solve this differential equation is by getting rid of the $sin$. We can use the fact that for small $\theta$, $\theta ~= sin(\theta)$. This transforms our differential equation to: $\theta'' + \frac{g}{l}\theta = 0$ for which the solution is of the form $\theta = A sin(\sqrt(\frac{g}{l}) + B cos(\sqrt(\frac{g}{l}))$ where $A$ and $B$ are constants.
 
 
-If we decide to solve the original equation with the $sin$ we might as well work on approximation techniques in order to save some time. One well known method is called the Euler method. In the Euler method we have an expression for the derivative of the form $y' = f(t,y(t))$ and a starting point $y_0$ where $y(t_0) = y_0$. If we recall, $y'$ is the slope of the tangent of the curve $y$. Using the slope and the starting point $y_0$, we can approximate for the next value of the function, $y_1$ at $t = t_0+\delta t$ as  $y(t_0 + \delta t) = y_1 = y_0 + f(t_0,y_0)\delta t$. Here is a great image from wikipedia to help visualize the explanation:
+If we decide to solve the original equation with the $sin$ we might as well work on approximation techniques in order to save some time. One well known method is called the Euler method. In the Euler method we have an expression for the derivative of the form $y' = f(t,y(t))$ and a starting point $y_0$ where $y(t_0) = y_0$. If we recall, $y'$ is the slope of the tangent of the curve $y$. Using the slope and the starting point $y_0$, we can approximate for the next value of the function, $y_1$ at $t = t_0+\delta t$ as  $y(t_0 + \delta t) = y_1 = y_0 + f(t_0,y_0)\delta t$. Here is a great image from Wikipedia to help visualize the explanation:
 
 
 ![image]({{ site.url }}/assets/euler_method.png)
 
 
-The Euler method can be extended to our differential equation as well. I employed the Euler method, the $sin$ approximation  as well as a different method called the RK4 ~ Runge-Kutta to the pendulum problem in order to help visualize the approximation techniques right over [here]({{ site.url }}/pendulum/simple_pendulum/index.html). The RK4 is the most accurate, closely followed by the Euler and then finally the small $\theta$ approximation. You can play around with the initial conditions to see the differences in approximation. For the most part, the appoximations match each other fairly well, but for some initial values they really differ $($ I recommed setting angle ~ 236, dtheta - 15, damping - 0, length - 150, gravity - 9.8 and selecting all the  approxiation techniques$)$. The application also has the damping setting that you can play around with. I won't say much about it as you can discover for yourself what it does.
+The Euler method can be extended to our differential equation as well. I employed the Euler method, the $sin$ approximation  as well as a different method called the RK4 ~ Runge-Kutta to the pendulum problem in order to help visualize the approximation techniques right over [here]({{ site.url }}/pendulum/simple_pendulum/index.html). The RK4 is the most accurate, closely followed by the Euler and then finally the small $\theta$ approximation. You can play around with the initial conditions to see the differences in approximation. For the most part, the approximations match each other fairly well, but for some initial values they really differ $($ I recommend setting angle ~ 236, dtheta - 15, damping - 0, length - 150, gravity - 9.8 and selecting all the  approximation techniques$)$. The application also has the damping setting that you can play around with. I won't say much about it as you can discover for yourself what it does.
 
 
 $($There is another part to the web app for the spring pendulum that I haven't yet finished. It will be finished for another post.$)$
 
+
+
+## Automation
+
+
+Something neat I discovered a while back is Google App Scripts $($GAS$)$. As Google describes it, it is: "a JavaScript cloud scripting language that provides easy ways to automate tasks across Google products and third party services and build web applications." Basically, GAS can be used to connect the different Google services $($like Google Sheets$)$ to your creativity with a little bit of scripting. You can use GAS for many many [things](http://www.labnol.org/internet/google-scripts/28281/). One thing that we are going to build together today is a birthday email bot. 
+
+
+The motivation behind this example is that it is a great introduction to GAS and a potential real world application. I noticed one of my friends on Facebook opening up one of those '3 friends have a birthday today' notifications and then typing up a lame 'Happy Birthday!' to each person. It didn't look like it was sincere and felt like a chore. Why not automate this?
+
+
+If you think that automating this sounds a little cheap then consider the fact that the amount of time you will spend creating the sender will put more thought and time in to those emails for years to come.
+
+
+##### Setting up
+
+I will assume the reader has a Google account and is remotely familiar with Google Drive. You will need to create a new Google Sheet. In the Google sheet, fill it up in the following manner (with the birthdays of people you know):
+
+
+![image]({{ site.url }}/assets/birthdays_sheet.png)
+
+
+The first row is for the column titles and the rest of the rows is for the data. The data in the rows does not have to be organized in any particular order.
+
+
+Once you have done that, go to *Tools > Script Editor...* and enter the following code (and then save it).
+
+
+```
+function checkReminder(){
+  // get the spreadsheet object
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  // set the first sheet as active
+  SpreadsheetApp.setActiveSheet(spreadsheet.getSheets()[0]);
+  // fetch this sheet
+  var sheet = spreadsheet.getActiveSheet();
+   
+  // figure out what the last row is
+  var lastRow = sheet.getLastRow();
+ 
+  // the rows are indexed starting at 1, and the first row
+  // is the headers, so start with row 2
+  var startRow = 2;
+  
+  //get today's month and date
+  var dateData = getMonthAndDay(new Date());
+  var month = dateData[0];
+  var day = dateData[1];
+  
+  //get tomorrows month and date
+  var today = new Date();
+  var tomorrow = new Date();
+  tomorrow.setDate(today.getDate()+1);
+  
+  var tomorrowDateData = getMonthAndDay(tomorrow);
+  var tomorrowMonth = tomorrowDateData[0];
+  var tomorrowDay = tomorrowDateData[1];
+      
+  
+  //get the data in the spreadsheet to loop over
+  var range = sheet.getRange(2,1,lastRow-startRow+1,5 );
+  var numRows = range.getNumRows();
+  var data = range.getValues();
+  
+  //for all the rows with data
+  for (var i = 0; i <= numRows - 1; i++) {
+    //get the month and date
+    var m = data[i][0];//columns start indexing at zero unlike rows
+    var d = data[i][1];
+    //if today's month and date matches the rows month and date ---> then it means it is the person's birthday
+    if(m==month&&d==day){//it is the person's birthday
+      //Then shoot the person an email!
+      MailApp.sendEmail("your email in quotation marks",data[i][4], "Happy Birthday EMAIL TITLE", "MAKE YOUR OWN BDAY BODY MESSAGE");
+    }//if tomorrow is the row's date and month, then it means it is the person's birthday tomorrow ---> shoot yourself a warning message
+    else if(m==tomorrowMonth&&d==tomorrowDay){
+      MailApp.sendEmail("your email in quotation marks", "Birthday automation warning.", "Birthday of "+data[i][2]+" is tomorrow.");
+    }
+  }
+};
+
+
+//for a given Date object return the Month and date
+function getMonthAndDay(d){
+  var month = new Array();
+  month[0] = "January";
+  month[1] = "February";
+  month[2] = "March";
+  month[3] = "April";
+  month[4] = "May";
+  month[5] = "June";
+  month[6] = "July";
+  month[7] = "August";
+  month[8] = "September";
+  month[9] = "October";
+  month[10] = "November";
+  month[11] = "December";
+  var n = month[d.getMonth()]; 
+  return [n,d.getDate()];
+}
+
+```
+
+I have added comments throughout the code in order to help explain it. The code essentially checks the spreadsheet and checks if today's date matches a date on the sheet. If there is a match then it sends the person a happy birthday email. If the person's email is tomorrow then it sends you a warning in advance $($ in case you want to do something more than just an email $)$. $($If you have a friend who has a birthday on Feb 29 then you might have to do some extra thinking :$)$  $)$.
+
+
+
+Since we want to automate this process and have it run everyday then we still have some work to do. You need to go to *Resources > All your triggers*, Add a new trigger and set it to Time-driven, Day timer between 7-8am and press save. Then go to *Publish > Deploy as Web App...* and give the app the permissions it needs. There you go! You have created your very own birthday bot. 
 
 
 
