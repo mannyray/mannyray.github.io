@@ -89,9 +89,9 @@ The motivation behind this example is that it is a great introduction to GAS and
 If you think that automating this sounds a little cheap then consider the fact that the amount of time you will spend creating the sender will put more thought and time in to those emails for years to come.
 
 
-##### Setting up
+### Setting up
 
-I will assume the reader has a Google account and is remotely familiar with Google Drive. You will need to create a new Google Sheet. In the Google sheet, fill it up in the following manner (with the birthdays of people you know):
+I will assume the reader has a Google account and is remotely familiar with Google Drive. You will need to create a new Google Sheet. In the Google sheet, fill it up in the following manner $($with the birthdays of people you know$)$:
 
 
 ![image]({{ site.url }}/assets/birthdays_sheet.png)
@@ -100,10 +100,10 @@ I will assume the reader has a Google account and is remotely familiar with Goog
 The first row is for the column titles and the rest of the rows is for the data. The data in the rows does not have to be organized in any particular order.
 
 
-Once you have done that, go to *Tools > Script Editor...* and enter the following code (and then save it).
+Once you have done that, go to *Tools > Script Editor...* and enter the following code $($and then save it$)$.
 
 
-```
+```javascript
 function checkReminder(){
   // get the spreadsheet object
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
