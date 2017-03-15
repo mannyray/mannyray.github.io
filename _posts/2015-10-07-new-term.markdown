@@ -27,5 +27,4 @@ Outside of academics and work, in the small sliver of time left, I enjoy working
 
 As this post had a rushed start, I will finish in the same fashion with a quote from a friend: "Time is passing, but are you ?". Stop procrastinating and GET TO WORK!
 
-![The game]({{ site.url }}/assets/dress.jpg)
  
