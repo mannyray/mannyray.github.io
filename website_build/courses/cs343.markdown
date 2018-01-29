@@ -1,0 +1,21 @@
+---
+layout: page
+title:  "CS 343"
+---
+
+Concurrent and Parallel Programming
+
+The first half of the course mainly was about coroutines and basic concurrency related to locks, conditional variables and semaphores. I found the topic of coroutines very interesting as it was a new concept and not review.
+
+The second half of the course went in depth with concurrency by studying monitors and tasks and their interaction. It was interesting to see throughout the course how the same problem can be solved/coded up in many different ways. However, experiencing this phenomenon in the assignments wasn't as fun (I'm looking at your barber shop).
+
+I found programming in this course challenging and interesting as it now took a little more thought than usual. Planning to make sure all the tasks work together as required and then TESTING was very interesting. With concurrent code, gaining confidence in your solution is a little more difficult as the order of execution is different every time and this takes time getting used to.
+
+**Vending Machine Craze**
+
+For the final summative I teamed up with Wesley Chalmers to work on a complicated problem. The problem specification was 9 pages, so I will give you the equivalent thousand word valued picture:  
+![picture]({{ site.url }}/assets/cs343.png)
+
+The picture shows the dependencies between the different elements in a system of selling soda to students. 
+
+The project (as the entire course material) was coded in [μC++](https://plg.uwaterloo.ca/usystem/uC++.html). The approach chosen to tackle the project was to code up the elements one by one and slowly put them together. After two full days of coding, we were finally prepared to run all the code together and start TESTING. As expected with concurrency, the bugs were there but rare to show themselves during running. After another two days we finished spraying the code with gallons of insecticide and submitted our beautiful work of art.

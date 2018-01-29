@@ -1,0 +1,15 @@
+---
+layout: page
+title:  "CS 456"
+---
+
+Computer Networks
+
+
+It was interesting to have a more memorization based class compared to other CS courses. Many details of the network protocol stack were covered that gave a large picture of what was behind the internet. In addition, I really loved the assignments as they were direct applications of the class material.
+
+[Next Course]({{ site.baseurl }}/courses/cs458)
+
+[Previous Course]({{ site.baseurl }}/courses/cs348)
+
+[All Courses]({{ site.baseurl }}/courses/)
