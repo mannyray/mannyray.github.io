@@ -5,9 +5,30 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 28 Jan 2018 21:15:25 -0500</pubDate>
-    <lastBuildDate>Sun, 28 Jan 2018 21:15:25 -0500</lastBuildDate>
+    <pubDate>Thu, 01 Mar 2018 22:56:49 -0500</pubDate>
+    <lastBuildDate>Thu, 01 Mar 2018 22:56:49 -0500</lastBuildDate>
     <generator>Jekyll v3.0.1</generator>
+    
+      <item>
+        <title>Simulation</title>
+        <description>&lt;p&gt;Here is a neat simulation I ran recently (play with double speed).&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/vXwqjX3IU18&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;It is  based on the following equations:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/equations.png&quot; alt=&quot;equations&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;and with inspiration from &lt;a href=&quot;http://geoffboeing.com/2016/12/animating-lorenz-attractor-python/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 01 Mar 2018 18:00:00 -0500</pubDate>
+        <link>/programming/2018/03/01/simulation/</link>
+        <guid isPermaLink="true">/programming/2018/03/01/simulation/</guid>
+        
+        
+        <category>programming</category>
+        
+      </item>
     
       <item>
         <title>Gallery Test</title>
@@ -1320,23 +1341,6 @@ cout&amp;lt;&amp;lt;result&amp;lt;&amp;lt;endl; } ```
         <pubDate>Sun, 08 May 2016 07:40:00 -0400</pubDate>
         <link>/school/2016/05/08/summer-start/</link>
         <guid isPermaLink="true">/school/2016/05/08/summer-start/</guid>
-        
-        
-        <category>school</category>
-        
-      </item>
-    
-      <item>
-        <title>Good Mistakes</title>
-        <description>&lt;p&gt;During stressful exam times, where your eye bags are so deep that you could hide things in them, little mistakes (like the one below) really make you smile.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/noway.png&quot; alt=&quot;glitch&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Off to enjoy a break after finishing my exams. Wish you happy holidays and may the mistakes that you encounter make you smile!&lt;/p&gt;
-</description>
-        <pubDate>Thu, 17 Dec 2015 22:34:00 -0500</pubDate>
-        <link>/school/2015/12/17/good-mistakes/</link>
-        <guid isPermaLink="true">/school/2015/12/17/good-mistakes/</guid>
         
         
         <category>school</category>
