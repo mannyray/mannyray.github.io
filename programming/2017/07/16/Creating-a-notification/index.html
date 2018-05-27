@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Stan Zonov</title>
-  <meta name="description" content="">
+  <title>Creating a Notification</title>
+  <meta name="description" content="Are you running some code that takes a long time to finish? Want to know exactly when it is done?">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="/">
+  <link rel="canonical" href="/programming/2017/07/16/Creating-a-notification/">
   <link rel="alternate" type="application/rss+xml" title="Stan Zonov" href="/feed.xml" />
 </head>
 
@@ -165,138 +165,68 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <div class="home">
+        <div class="post">
 
-  <h1 class="page-heading">Posts</h1>
+  <header class="post-header">
+ 	 
+    <h1 class="post-title">Creating a Notification</h1>
+    <p class="post-meta">Jul 16, 2017</p>
+  </header>
 
-  <ul class="post-list">
-    
-	
-	      <li>
-		<span class="post-meta">Mar 1, 2018</span>
+  <article class="post-content">
+    <p>Are you running some code that takes a long time to finish? Want to know exactly when it is done?</p>
 
-		<h2>
-		  <a class="post-link" href="/programming/2018/03/01/simulation/">Simulation</a>
-		</h2>
-	      </li>
-	
-    
-	
-	
-    
-	
-	      <li>
-		<span class="post-meta">Jul 16, 2017</span>
+<p>Are you running some cron job? Want to know when some specific event occurs?</p>
 
-		<h2>
-		  <a class="post-link" href="/programming/2017/07/16/Creating-a-notification/">Creating a Notification</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">Jul 14, 2017</span>
+<p>Want to know via email?</p>
 
-		<h2>
-		  <a class="post-link" href="/programming/2017/07/14/Beautiful-3-set/">Beautiful 3 Set</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">Mar 14, 2017</span>
+<p>A simple way to solve your questions is to use Google App Script and create a web app:</p>
 
-		<h2>
-		  <a class="post-link" href="/programming/2017/03/14/Some-graphs/">Some graphs</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">Dec 20, 2016</span>
+<ol>
+  <li>
+    <p>Open up your Google Drive.</p>
+  </li>
+  <li>
+    <p>Create a new Google App Script called <code class="highlighter-rouge">AlertMessage</code></p>
+  </li>
+  <li>
+    <p>Add the code to <code class="highlighter-rouge">code.gs</code><br />
+ <code class="highlighter-rouge">
+ function doGet(request) {
+     MailApp.sendEmail("your@gmail.com", request.parameter.subject, request.parameter.message);
+     var result = {
+         sent: 0 == 0
+     };
+     return ContentService.createTextOutput(JSON.stringify(result))
+ }
+</code>
+ Where <code class="highlighter-rouge">your@gmail.com</code> is your Google email account on which you made the Google App Script.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">Publish &gt; Deploy as web app...</code>.</p>
+  </li>
+  <li>
+    <p>Who has access to the app:<code class="highlighter-rouge">Anyone, even anonymous</code></p>
+  </li>
+  <li>
+    <p>Press <code class="highlighter-rouge">Deploy</code> and give the appropriate permissions.</p>
+  </li>
+  <li>
+    <p>Copy the full current web app URL: <code class="highlighter-rouge">https://script.google.com/macros/s/.../exec</code> (<code class="highlighter-rouge">...</code> is the Google generated portion)</p>
+  </li>
+  <li>
+    <p>On your computer terminal you can now send notifications via:<br />
+ <code class="highlighter-rouge">
+ curl -L "https://script.google.com/macros/s/.../exec?subject=TITLE&amp;message=UNDERSCORE_FOR_SPACES_INSIDE_MESSAGE"
+</code>
+ which will cause your Gmail inbox to get a new message.</p>
+  </li>
+</ol>
 
-		<h2>
-		  <a class="post-link" href="/programming/2016/12/20/pendulum/">Pendulums and automation</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">Nov 19, 2016</span>
+<p>This is a very simple script that can be modified to do some really neat stuff. Hope this helps.</p>
 
-		<h2>
-		  <a class="post-link" href="/programming/2016/11/19/piano-robot/">Piano Robot</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">Sep 12, 2016</span>
 
-		<h2>
-		  <a class="post-link" href="/programming/2016/09/12/winter-research/">Winter Research</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">Aug 29, 2016</span>
-
-		<h2>
-		  <a class="post-link" href="/programming/2016/08/29/triplets/">Triplets</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">May 8, 2016</span>
-
-		<h2>
-		  <a class="post-link" href="/school/2016/05/08/summer-start/">Summer Start</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">Dec 17, 2015</span>
-
-		<h2>
-		  <a class="post-link" href="/school/2015/12/17/good-mistakes/">Good Mistakes</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">Oct 7, 2015</span>
-
-		<h2>
-		  <a class="post-link" href="/school/2015/10/07/new-term/">New Term</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">Aug 10, 2015</span>
-
-		<h2>
-		  <a class="post-link" href="/jekyll/update/2015/08/10/welcome-to-jekyll/">Revamp</a>
-		</h2>
-	      </li>
-	
-    
-  </ul>
-
-  <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p>
+  </article>
 
 </div>
 
