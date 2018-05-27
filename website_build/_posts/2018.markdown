@@ -1,0 +1,4 @@
+I wanted to share a project that I have been working slowly on in the background for the last little while. It is one of those projects that you work on for a an evening one day and then don't touch for the next three months and before you know it... it ends up lasting longer than I would like to admit.
+
+
+This project revolved creating a web scaper on a web server 
