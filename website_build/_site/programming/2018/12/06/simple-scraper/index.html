@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Simple Scraper</title>
+  <meta name="description" content="This is something that I did a while ago but kept forgetting to post. I needed to build a web scaper of sorts that would save online data at certains times o...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="/programming/2018/12/06/simple-scraper/">
+  <link rel="alternate" type="application/rss+xml" title="Stan Zonov" href="/feed.xml" />
+</head>
+
+
+  <body>
+	
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Stan Zonov</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+	<a class="page-link" href=""></a>
+        
+		
+			<a class="page-link" href="/about/">About</a>
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			<a class="page-link" href="/projects/">Projects</a>
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			<a class="page-link" href="/photos/">Photos</a>
+		
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+ 	 
+    <h1 class="post-title">Simple Scraper</h1>
+    <p class="post-meta">Dec 6, 2018</p>
+  </header>
+
+  <article class="post-content">
+    <p>This is something that I did a while ago but kept forgetting to post. I needed to build a web scaper of sorts that would save online data at certains times of the day. Since I did not have a desktop or my own server I needed to find a location for my scripts to run on their own. For this purpose I chose Amazon Web Service (AWS). At the time AWS provided a basic free EC2 instance (Amazon Elastic Compute Cloud). In Amazon’s owns words EC2 can be used ‘to launch as many or as few virtual servers as you need, configure security and networking, and manage storage’. Essentially it is a computer that runs nonstop and you connect to set and specify tasks for it to work on. For the example in this post I scraped the <a href="https://github.com/uWaterloo/api-documentation/blob/master/v2/weather/current.md">weather</a> in Waterloo (I scrapped other stuff as well).</p>
+
+<p>This post will skip the details for setting up an EC2 instance. There are many good resources for that such as <a href="">here</a>. The actual script for ‘scraping’ the data is simple:
+The script for recording the weather:</p>
+
+<p><em>scrape.py</em></p>
+
+<p>```
+#!/usr/bin/python
+import requests
+import json
+import time
+import os</p>
+
+<p>response = requests.get(“https://api.uwaterloo.ca/v2/weather/current.json”)
+if response.status_code == 200: #200 means everything is OK
+	json_data = json.loads(response.text)
+	current_temperature = json_data[“data”][“temperature_current_c”]</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#record temperature in file with current date
+    os.environ['TZ']='America/New_York'
+current_date_file = time.strftime("%Y_%m_%d_%H.txt")
+
+#files are stored in folder called data
+if not os.path.exists("data"):
+	os.makedirs("data")
+			
+f = open("data/"+current_date_file, "a+")
+f.write(str(current_temperature)+"\n")
+f.close() else:
+raise RuntimeError("API request failed.")  ```  
+</code></pre>
+</div>
+
+<p>A response is obtained from api.uwaterloo.ca which contains all sorts of weather data. Only the current temperature in celcius is saved in a file with format <code class="highlighter-rouge">%Y_%m_%d_%H.txt</code> in directory <code class="highlighter-rouge">data</code>. Let’s assume your script is running on this instance scraping data on a daily basis. What if something goes wrong? A very easy/rough (not best) solution uses my previous <a href="http://szonov.com/programming/2017/07/16/Creating-a-notification/">post</a> describing how to send yourself an email by using curl. This leads to the following error handling, wrapper script:</p>
+
+<p><em>dailyScript.sh</em></p>
+
+<p>```
+#!/bin/bash</p>
+
+<h1 id="assuming-scrapepy-is-located-in-homeec2-user">assuming scrape.py is located in /home/ec2-user</h1>
+<p>cd /home/ec2-user</p>
+
+<h1 id="if-scrapepy-crashes-then-we-can-check-for-error-in-errorfiletxt">if scrape.py crashes then we can check for error in error_file.txt</h1>
+<p>/usr/bin/python scrape.py 2»error_file.txt</p>
+
+<h1 id="if-file-is-present-and-has-size-greater-than-zero">if file is present and has size greater than zero</h1>
+<p>if [[ -s error_file.txt  ]]; then
+	#if the file is not empty then we must alert the server that something is wrong
+	curl -L “https://script.google.com/macros/s/some_sort_of_id/exec?subject=SERVER_ERROR&amp;message=AWS_SCRIPT_HAS_CRASHED_NEED_TO_FIX_INFO”
+else
+	#backup and communicate that everything is OK
+	curl -L “https://script.google.com/macros/s/some_sort_of_id/exec?subject=Working&amp;message=Everything_is_working”
+fi</p>
+
+<p><code class="highlighter-rouge">
+Once an error happens for the first time then you will be emailed until you fix the error (and `rm error_file.txt`). However, this if-else does not catch the error of the `dailyScript.sh` not running in the first place. Now, let's add the additional feauture of backing up our scraped results. A nice of doing this (for small amounts of data) involves using a private Github repository. First you need to allow your EC2 to connect to github without entering your password. Within your EC2 instance:
+</code>
+$ cd ~
+$ ssh-keygen -t rsa
+<code class="highlighter-rouge">
+(and press enter all the way through). Go to `github.com &gt; settings` and copy the contents of your `~/.ssh/id_rsa.pub` into the field labeled 'Key'. Then on the EC2:
+</code>
+git remote set-url origin git+ssh://git@github.com/username/insert_your_repo_name.git
+<code class="highlighter-rouge">
+where `insert_your_repo_name` is a private repo you will make on github.com. Next modify *dailyScript.sh* to push/backup the newly added `%Y_%m_%d_%H.txt` file:
+</code>
+#!/bin/bash</p>
+
+<p>cd /home/ec2-user/insert_your_repo_name</p>
+
+<h1 id="if-scrapepy-crashes-then-we-can-check-for-error-in-errorfiletxt-1">if scrape.py crashes then we can check for error in error_file.txt</h1>
+<p>/usr/bin/python scrape.py 2&gt;error_file.txt</p>
+
+<h1 id="if-file-is-present-and-has-size-greater-than-zero-1">if file is present and has size greater than zero</h1>
+<p>if [[ -s error_file.txt  ]]; then
+	#if the file is not empty then we must alert the server that something is wrong
+	curl -L “https://script.google.com/macros/s/some_sort_of_id/exec?subject=SERVER_ERROR&amp;message=AWS_SCRIPT_HAS_CRASHED_NEED_TO_FIX_INFO”
+else
+	#backup and communicate that everything is OK
+	git add .
+	git commit -m “backup”
+	git push
+	curl -L “https://script.google.com/macros/s/some_sort_of_id/exec?subject=Working&amp;message=Everything_is_working”
+fi</p>
+
+<p><code class="highlighter-rouge">
+(where *scrape.py* and *dailyScript.sh* are located within `insert_your_repo_name`). All that is left to do is make sure the scripts run and records the weather at set hours of the day everyday. Let's say that you are interested in recording the weather every day at 0000,0600,1200,1800 then you would have to call `dailyScript.sh` at those times. This can be done using `crontab`. In your EC2 instance you run
+</code>
+$ crontab -e
+<code class="highlighter-rouge">
+and enter
+</code>
+CRON_TZ=America/New_York
+0 0,6,12,18 * * * cd /home/ec2-user/insert_your_repo_name; ./dailyScript.sh
+```
+(don’t forget to <code class="highlighter-rouge">chmod u+x dailyScript.sh</code>). You have now created a scraper that runs on its own that backups the data with emails if there is something wrong.</p>
+
+<h4 id="bonus-content">Bonus content</h4>
+
+<p>Let’s assume the scraper has already been running for a while. And you now want to analyse the temperature results on local. We will do this using mysql:</p>
+
+<p><code class="highlighter-rouge">
+$ sudo apt-get update
+$ sudo apt-get install mysql-server
+$ mysql_secure_installation
+</code></p>
+
+<p>Create file <em>createTable.sql</em>:
+<code class="highlighter-rouge">
+CREATE DATABASE IF NOT EXISTS weather_data;
+USE weather_data;
+DROP TABLE IF EXISTS temperature_waterloo;
+CREATE TABLE temperature_waterloo (YEAR INT NOT NULL, MONTH INT NOT NULL, DAY INT NOT NULL, HOUR INT NOT NULL, TEMPERATURE DOUBLE NOT NULL, ID VARCHAR(13) NOT NULL) 
+</code></p>
+
+<p>and run in order to create table organize the temperature data 
+<code class="highlighter-rouge">
+sudo mysql &lt; createTable.sql
+</code></p>
+
+<p>Now clone the repository and cd into the directory with all the <code class="highlighter-rouge">%Y_%m_%d_%H.txt</code> files and run the following script to fill the table:</p>
+
+<p><em>loadData.sh</em></p>
+
+<p>```
+#!/bin/bash</p>
+
+<p>for file in data/*.txt
+do
+	#echo $file</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cat $file | while read temperature; do
+	id=${file##*/}
+	id=${id%.txt}
+	arr=($(echo $id | awk -F '_' '{print $1, $2, $3, $4}' ))
+	year=${arr[0]}
+	month=${arr[1]}
+	day=${arr[2]}
+	hour=${arr[3]}
+	echo "USE weather_data;INSERT INTO temperature_waterloo (YEAR,MONTH,DAY,HOUR,TEMPERATURE,ID) VALUES ($year, $month, $day, $hour, $temperature,'$id');"
+done | sudo mysql 
+</code></pre>
+</div>
+
+<p>done
+```</p>
+
+<p>and run <code class="highlighter-rouge">./loadData.sh</code>. Now we have the data loaded and can run some queries:</p>
+
+<p><code class="highlighter-rouge">
+$ sudo mysql;
+mysql&gt; USE weather_data;
+mysql&gt; SELECT COUNT(*) FROM temperature_waterloo;
++----------+
+| COUNT(*) |
++----------+
+|      900 |
++----------+
+mysql&gt; 
+</code></p>
+
+<p><code class="highlighter-rouge">
+mysql&gt; SELECT * FROM  (SELECT * FROM temperature_waterloo WHERE ID = (SELECT MAX(ID) FROM temperature_waterloo))xxx;
++------+-------+-----+------+-------------+---------------+
+| YEAR | MONTH | DAY | HOUR | TEMPERATURE | ID            |
++------+-------+-----+------+-------------+---------------+
+| 2018 |     3 |   1 |   18 |         1.5 | 2018_03_01_18 |
++------+-------+-----+------+-------------+---------------+
+mysql&gt; SELECT * FROM  (SELECT * FROM temperature_waterloo WHERE ID = (SELECT MIN(ID) FROM temperature_waterloo))xxx;
++------+-------+-----+------+-------------+---------------+
+| YEAR | MONTH | DAY | HOUR | TEMPERATURE | ID            |
++------+-------+-----+------+-------------+---------------+
+| 2017 |     7 |  19 |   18 |        28.6 | 2017_07_19_18 |
++------+-------+-----+------+-------------+---------------+
+</code></p>
+
+<p>The scraper ran from 2017/07/19 18:00 to 2018/03/01 18:00. Using similar queries we find the max temperature in this time period was 30.3 celcius and min temperature was -28.5. You can obviously do more complicated stuff with more interesting scraped data sets. This post was meant to show an ad-hoc way of scraping data that will remove the task of writing the scraper and will just let you focus on the data you are interested in.</p>
+
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+	<div class="wrapper">
+
+	 <p style="color:grey">Welcome to my site. Take a look around and don't be shy, shoot me a message!</p>
+	</div>
+  <div class="wrapper">
+
+    <!--<h2 class="footer-heading">Stan Zonov</h2>-->
+
+    <!--<div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-2">
+        <ul class="contact-list">
+          <!--<li>Stan Zonov</li>-->
+          <!--<li>contact at zonov.ca</li>
+        </ul>
+      </div>-->
+
+      <div class="footer-col  footer-col-1">
+        <ul class="social-media-list">
+									<li>
+            <p>
+
+<span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+																	<g transform="scale(0.035)">
+                  <path fill="#828282" d="M101.3 141.6v228.9h0.3 308.4 0.8V141.6H101.3zM375.7 167.8l-119.7 91.5 -119.6-91.5H375.7zM127.6 194.1l64.1 49.1 -64.1 64.1V194.1zM127.8 344.2l84.9-84.9 43.2 33.1 43-32.9 84.7 84.7L127.8 344.2 127.8 344.2zM384.4 307.8l-64.4-64.4 64.4-49.3V307.8z"/>
+																</g>
+                </svg>
+              </span>
+
+              <span class="username">contact at zonov.ca</span>
+            </p>
+          </li>
+
+
+          
+
+          
+
+
+          
+
+
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text"></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
