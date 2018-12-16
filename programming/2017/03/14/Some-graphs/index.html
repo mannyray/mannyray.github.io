@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Stan Zonov</title>
-  <meta name="description" content="">
+  <title>Some graphs</title>
+  <meta name="description" content="I was looking for sets of data to play around with and I came across the Waterloo Regional Police Service data that is available to the public. I created som...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="/">
+  <link rel="canonical" href="/programming/2017/03/14/Some-graphs/">
   <link rel="alternate" type="application/rss+xml" title="Stan Zonov" href="/feed.xml" />
 </head>
 
@@ -165,158 +165,43 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <div class="home">
+        <div class="post">
 
-  <h1 class="page-heading">Posts</h1>
+  <header class="post-header">
+ 	 
+    <h1 class="post-title">Some graphs</h1>
+    <p class="post-meta">Mar 14, 2017</p>
+  </header>
 
-  <ul class="post-list">
-    
-	
-	      <li>
-		<span class="post-meta">Dec 16, 2018</span>
+  <article class="post-content">
+    <p>I was looking for sets of data to play around with and I came across the <a href="http://www.wrps.on.ca/inside-wrps/corporate-planning-systems">Waterloo Regional Police Service</a> data that is available to the public. I created some graphs of the data for the reader to check out. The data was filtered for vehicle stops for the year 2015. Time and location data was plotted. If you are interested in the scripts used in generating the plots, then let me know.</p>
 
-		<h2>
-		  <a class="post-link" href="/programming/2018/12/16/bifurcation/">Bifurcations</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">Dec 6, 2018</span>
+<p>The following image contains a sort of histogram that placed the stops in bins based on their time of day occurence in a 24 hour time span.</p>
 
-		<h2>
-		  <a class="post-link" href="/programming/2018/12/06/simple-scraper/">Simple Scraper</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">Mar 1, 2018</span>
+<p><img src="/assets/average_day_frequency.png" alt="image" /></p>
 
-		<h2>
-		  <a class="post-link" href="/programming/2018/03/01/simulation/">Simulation</a>
-		</h2>
-	      </li>
-	
-    
-	
-	
-    
-	
-	      <li>
-		<span class="post-meta">Jul 16, 2017</span>
+<p>The next image is similar to the previous one, except now it places the stops in bins based on the day of the year in a one year span.</p>
 
-		<h2>
-		  <a class="post-link" href="/programming/2017/07/16/Creating-a-notification/">Creating a Notification</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">Jul 14, 2017</span>
+<p><img src="/assets/year_frequency.png" alt="image" /></p>
 
-		<h2>
-		  <a class="post-link" href="/programming/2017/07/14/Beautiful-3-set/">Beautiful 3 Set</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">Mar 14, 2017</span>
+<p>The next few images are of the location based frequency of vehicle stops based on an entire year.</p>
 
-		<h2>
-		  <a class="post-link" href="/programming/2017/03/14/Some-graphs/">Some graphs</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">Dec 20, 2016</span>
+<h6 id="tri-city-area">Tri-city area:</h6>
 
-		<h2>
-		  <a class="post-link" href="/programming/2016/12/20/pendulum/">Pendulums and automation</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">Nov 19, 2016</span>
+<p><img src="/assets/location.png" alt="image" /></p>
 
-		<h2>
-		  <a class="post-link" href="/programming/2016/11/19/piano-robot/">Piano Robot</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">Sep 12, 2016</span>
+<h6 id="waterloo-area">Waterloo area:</h6>
 
-		<h2>
-		  <a class="post-link" href="/programming/2016/09/12/winter-research/">Winter Research</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">Aug 29, 2016</span>
+<p><img src="/assets/waterloo_zoom.png" alt="image" /></p>
 
-		<h2>
-		  <a class="post-link" href="/programming/2016/08/29/triplets/">Triplets</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">May 8, 2016</span>
+<h6 id="cambridge-area">Cambridge area:</h6>
 
-		<h2>
-		  <a class="post-link" href="/school/2016/05/08/summer-start/">Summer Start</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">Dec 17, 2015</span>
+<p><img src="/assets/cambridge_zoom.png" alt="image" /></p>
 
-		<h2>
-		  <a class="post-link" href="/school/2015/12/17/good-mistakes/">Good Mistakes</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">Oct 7, 2015</span>
+<p>It can be hard to appreciate the number of stops done throughout the year by looking at the maps or previous histograms. The actual number of stops is over 40000. I will let the user make ‘conclusions’ on their own. The purpose of the post was not for analysis but instead for a small example of visualization and turning a huge csv file into a some neat graphs and plots. I will also provide the disclaimer for the users to go to the <a href="http://www.wrps.on.ca/inside-wrps/corporate-planning-systems">Waterloo Regional Police Service</a> website if they want to learn more about the data and its limits.</p>
 
-		<h2>
-		  <a class="post-link" href="/school/2015/10/07/new-term/">New Term</a>
-		</h2>
-	      </li>
-	
-    
-	
-	      <li>
-		<span class="post-meta">Aug 10, 2015</span>
 
-		<h2>
-		  <a class="post-link" href="/jekyll/update/2015/08/10/welcome-to-jekyll/">Revamp</a>
-		</h2>
-	      </li>
-	
-    
-  </ul>
-
-  <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p>
+  </article>
 
 </div>
 
