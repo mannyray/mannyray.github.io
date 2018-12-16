@@ -181,99 +181,94 @@ The script for recording the weather:</p>
 
 <p><em>scrape.py</em></p>
 
-<p>```
-#!/usr/bin/python
-import requests
-import json
-import time
-import os</p>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/usr/bin/python</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">os</span>
 
-<p>response = requests.get(“https://api.uwaterloo.ca/v2/weather/current.json”)
-if response.status_code == 200: #200 means everything is OK
-	json_data = json.loads(response.text)
-	current_temperature = json_data[“data”][“temperature_current_c”]</p>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://api.uwaterloo.ca/v2/weather/current.json"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span> <span class="c">#200 means everything is OK</span>
+	<span class="n">json_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+	<span class="n">current_temperature</span> <span class="o">=</span> <span class="n">json_data</span><span class="p">[</span><span class="s">"data"</span><span class="p">][</span><span class="s">"temperature_current_c"</span><span class="p">]</span>
+	
+	<span class="c">#record temperature in file with current date</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">'TZ'</span><span class="p">]</span><span class="o">=</span><span class="s">'America/New_York'</span>
+	<span class="n">current_date_file</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">"</span><span class="si">%</span><span class="s">Y_</span><span class="si">%</span><span class="s">m_</span><span class="si">%</span><span class="s">d_</span><span class="si">%</span><span class="s">H.txt"</span><span class="p">)</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>#record temperature in file with current date
-    os.environ['TZ']='America/New_York'
-current_date_file = time.strftime("%Y_%m_%d_%H.txt")
-
-#files are stored in folder called data
-if not os.path.exists("data"):
-	os.makedirs("data")
-			
-f = open("data/"+current_date_file, "a+")
-f.write(str(current_temperature)+"\n")
-f.close() else:
-raise RuntimeError("API request failed.")  ```  
-</code></pre>
-</div>
+	<span class="c">#files are stored in folder called data</span>
+	<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s">"data"</span><span class="p">):</span>
+		<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s">"data"</span><span class="p">)</span>
+				
+	<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"data/"</span><span class="o">+</span><span class="n">current_date_file</span><span class="p">,</span> <span class="s">"a+"</span><span class="p">)</span>
+	<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">current_temperature</span><span class="p">)</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+	<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+	<span class="k">raise</span> <span class="nb">RuntimeError</span><span class="p">(</span><span class="s">"API request failed."</span><span class="p">)</span> </code></pre></figure>
 
 <p>A response is obtained from api.uwaterloo.ca which contains all sorts of weather data. Only the current temperature in celcius is saved in a file with format <code class="highlighter-rouge">%Y_%m_%d_%H.txt</code> in directory <code class="highlighter-rouge">data</code>. Let’s assume your script is running on this instance scraping data on a daily basis. What if something goes wrong? A very easy/rough (not best) solution uses my previous <a href="http://szonov.com/programming/2017/07/16/Creating-a-notification/">post</a> describing how to send yourself an email by using curl. This leads to the following error handling, wrapper script:</p>
 
 <p><em>dailyScript.sh</em></p>
 
-<p>```
-#!/bin/bash</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
 
-<h1 id="assuming-scrapepy-is-located-in-homeec2-user">assuming scrape.py is located in /home/ec2-user</h1>
-<p>cd /home/ec2-user</p>
+<span class="c">#assuming scrape.py is located in /home/ec2-user</span>
+<span class="nb">cd</span> /home/ec2-user
 
-<h1 id="if-scrapepy-crashes-then-we-can-check-for-error-in-errorfiletxt">if scrape.py crashes then we can check for error in error_file.txt</h1>
-<p>/usr/bin/python scrape.py 2»error_file.txt</p>
+<span class="c">#if scrape.py crashes then we can check for error in error_file.txt</span>
+/usr/bin/python scrape.py 2&gt;&gt;error_file.txt
 
-<h1 id="if-file-is-present-and-has-size-greater-than-zero">if file is present and has size greater than zero</h1>
-<p>if [[ -s error_file.txt  ]]; then
-	#if the file is not empty then we must alert the server that something is wrong
-	curl -L “https://script.google.com/macros/s/some_sort_of_id/exec?subject=SERVER_ERROR&amp;message=AWS_SCRIPT_HAS_CRASHED_NEED_TO_FIX_INFO”
-else
-	#backup and communicate that everything is OK
-	curl -L “https://script.google.com/macros/s/some_sort_of_id/exec?subject=Working&amp;message=Everything_is_working”
-fi</p>
+<span class="c">#if file is present and has size greater than zero</span>
+<span class="k">if</span> <span class="o">[[</span> -s error_file.txt  <span class="o">]]</span>; <span class="k">then</span>
+	<span class="c">#if the file is not empty then we must alert the server that something is wrong</span>
+	curl -L <span class="s2">"https://script.google.com/macros/s/some_sort_of_id/exec?subject=SERVER_ERROR&amp;message=AWS_SCRIPT_HAS_CRASHED_NEED_TO_FIX_INFO"</span>
+<span class="k">else</span>
+	<span class="c">#backup and communicate that everything is OK</span>
+	curl -L <span class="s2">"https://script.google.com/macros/s/some_sort_of_id/exec?subject=Working&amp;message=Everything_is_working"</span>
+<span class="k">fi</span></code></pre></figure>
 
-<p><code class="highlighter-rouge">
-Once an error happens for the first time then you will be emailed until you fix the error (and `rm error_file.txt`). However, this if-else does not catch the error of the `dailyScript.sh` not running in the first place. Now, let's add the additional feauture of backing up our scraped results. A nice of doing this (for small amounts of data) involves using a private Github repository. First you need to allow your EC2 to connect to github without entering your password. Within your EC2 instance:
-</code>
+<p>Once an error happens for the first time then you will be emailed until you fix the error (and <code class="highlighter-rouge">rm error_file.txt</code>). However, this if-else does not catch the error of the <code class="highlighter-rouge">dailyScript.sh</code> not running in the first place. Now, let’s add the additional feauture of backing up our scraped results. A nice of doing this (for small amounts of data) involves using a private Github repository. First you need to allow your EC2 to connect to github without entering your password. Within your EC2 instance:
+<code class="highlighter-rouge">
 $ cd ~
 $ ssh-keygen -t rsa
+</code> 
+(and press enter all the way through). Go to <code class="highlighter-rouge">github.com &gt; settings</code> and copy the contents of your <code class="highlighter-rouge">~/.ssh/id_rsa.pub</code> into the field labeled ‘Key’. Then on the EC2:
 <code class="highlighter-rouge">
-(and press enter all the way through). Go to `github.com &gt; settings` and copy the contents of your `~/.ssh/id_rsa.pub` into the field labeled 'Key'. Then on the EC2:
-</code>
 git remote set-url origin git+ssh://git@github.com/username/insert_your_repo_name.git
-<code class="highlighter-rouge">
-where `insert_your_repo_name` is a private repo you will make on github.com. Next modify *dailyScript.sh* to push/backup the newly added `%Y_%m_%d_%H.txt` file:
 </code>
-#!/bin/bash</p>
+where <code class="highlighter-rouge">insert_your_repo_name</code> is a private repo you will make on github.com. Next modify <em>dailyScript.sh</em> to push/backup the newly added <code class="highlighter-rouge">%Y_%m_%d_%H.txt</code> file:</p>
 
-<p>cd /home/ec2-user/insert_your_repo_name</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
 
-<h1 id="if-scrapepy-crashes-then-we-can-check-for-error-in-errorfiletxt-1">if scrape.py crashes then we can check for error in error_file.txt</h1>
-<p>/usr/bin/python scrape.py 2&gt;error_file.txt</p>
+<span class="nb">cd</span> /home/ec2-user/insert_your_repo_name
 
-<h1 id="if-file-is-present-and-has-size-greater-than-zero-1">if file is present and has size greater than zero</h1>
-<p>if [[ -s error_file.txt  ]]; then
-	#if the file is not empty then we must alert the server that something is wrong
-	curl -L “https://script.google.com/macros/s/some_sort_of_id/exec?subject=SERVER_ERROR&amp;message=AWS_SCRIPT_HAS_CRASHED_NEED_TO_FIX_INFO”
-else
-	#backup and communicate that everything is OK
+<span class="c">#if scrape.py crashes then we can check for error in error_file.txt</span>
+/usr/bin/python scrape.py 2&gt;error_file.txt
+
+<span class="c">#if file is present and has size greater than zero</span>
+<span class="k">if</span> <span class="o">[[</span> -s error_file.txt  <span class="o">]]</span>; <span class="k">then</span>
+	<span class="c">#if the file is not empty then we must alert the server that something is wrong</span>
+	curl -L <span class="s2">"https://script.google.com/macros/s/some_sort_of_id/exec?subject=SERVER_ERROR&amp;message=AWS_SCRIPT_HAS_CRASHED_NEED_TO_FIX_INFO"</span>
+<span class="k">else</span>
+	<span class="c">#backup and communicate that everything is OK</span>
 	git add .
-	git commit -m “backup”
+	git commit -m <span class="s2">"backup"</span>
 	git push
-	curl -L “https://script.google.com/macros/s/some_sort_of_id/exec?subject=Working&amp;message=Everything_is_working”
-fi</p>
+	curl -L <span class="s2">"https://script.google.com/macros/s/some_sort_of_id/exec?subject=Working&amp;message=Everything_is_working"</span>
+<span class="k">fi</span></code></pre></figure>
 
-<p><code class="highlighter-rouge">
-(where *scrape.py* and *dailyScript.sh* are located within `insert_your_repo_name`). All that is left to do is make sure the scripts run and records the weather at set hours of the day everyday. Let's say that you are interested in recording the weather every day at 0000,0600,1200,1800 then you would have to call `dailyScript.sh` at those times. This can be done using `crontab`. In your EC2 instance you run
-</code>
-$ crontab -e
+<p>(where <em>scrape.py</em> and <em>dailyScript.sh</em> are located within <code class="highlighter-rouge">insert_your_repo_name</code>). All that is left to do is make sure the scripts run and records the weather at set hours of the day everyday. Let’s say that you are interested in recording the weather every day at 0000,0600,1200,1800 then you would have to call <code class="highlighter-rouge">dailyScript.sh</code> at those times. This can be done using <code class="highlighter-rouge">crontab</code>. In your EC2 instance you run
 <code class="highlighter-rouge">
-and enter
+$ crontab -e
 </code>
+and enter
+<code class="highlighter-rouge">
 CRON_TZ=America/New_York
 0 0,6,12,18 * * * cd /home/ec2-user/insert_your_repo_name; ./dailyScript.sh
-```
+</code>
 (don’t forget to <code class="highlighter-rouge">chmod u+x dailyScript.sh</code>). You have now created a scraper that runs on its own that backups the data with emails if there is something wrong.</p>
 
-<h4 id="bonus-content">Bonus content</h4>
+<h2 id="bonus-content">Bonus content</h2>
 
 <p>Let’s assume the scraper has already been running for a while. And you now want to analyse the temperature results on local. We will do this using mysql:</p>
 
@@ -283,13 +278,12 @@ $ sudo apt-get install mysql-server
 $ mysql_secure_installation
 </code></p>
 
-<p>Create file <em>createTable.sql</em>:
-<code class="highlighter-rouge">
-CREATE DATABASE IF NOT EXISTS weather_data;
-USE weather_data;
-DROP TABLE IF EXISTS temperature_waterloo;
-CREATE TABLE temperature_waterloo (YEAR INT NOT NULL, MONTH INT NOT NULL, DAY INT NOT NULL, HOUR INT NOT NULL, TEMPERATURE DOUBLE NOT NULL, ID VARCHAR(13) NOT NULL) 
-</code></p>
+<p>Create file <em>createTable.sql</em>:</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">CREATE</span> <span class="k">DATABASE</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">weather_data</span><span class="p">;</span>
+<span class="n">USE</span> <span class="n">weather_data</span><span class="p">;</span>
+<span class="k">DROP</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">EXISTS</span> <span class="n">temperature_waterloo</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">temperature_waterloo</span> <span class="p">(</span><span class="k">YEAR</span> <span class="n">INT</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span> <span class="k">MONTH</span> <span class="n">INT</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span> <span class="k">DAY</span> <span class="n">INT</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span> <span class="n">HOUR</span> <span class="n">INT</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span> <span class="n">TEMPERATURE</span> <span class="n">DOUBLE</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span> <span class="n">ID</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">)</span> </code></pre></figure>
 
 <p>and run in order to create table organize the temperature data 
 <code class="highlighter-rouge">
@@ -300,57 +294,49 @@ sudo mysql &lt; createTable.sql
 
 <p><em>loadData.sh</em></p>
 
-<p>```
-#!/bin/bash</p>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
 
-<p>for file in data/*.txt
-do
-	#echo $file</p>
+<span class="k">for </span>file <span class="k">in </span>data/<span class="k">*</span>.txt
+<span class="k">do</span>
+	<span class="c">#echo $file</span>
+		
+	cat <span class="nv">$file</span> | <span class="k">while </span><span class="nb">read </span>temperature; <span class="k">do
+		</span><span class="nv">id</span><span class="o">=</span><span class="k">${</span><span class="nv">file</span><span class="p">##*/</span><span class="k">}</span>
+		<span class="nv">id</span><span class="o">=</span><span class="k">${</span><span class="nv">id</span><span class="p">%.txt</span><span class="k">}</span>
+		<span class="nv">arr</span><span class="o">=(</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$id</span> | awk -F <span class="s1">'_'</span> <span class="s1">'{print $1, $2, $3, $4}'</span> <span class="k">)</span><span class="o">)</span>
+		<span class="nv">year</span><span class="o">=</span><span class="k">${</span><span class="nv">arr</span><span class="p">[0]</span><span class="k">}</span>
+		<span class="nv">month</span><span class="o">=</span><span class="k">${</span><span class="nv">arr</span><span class="p">[1]</span><span class="k">}</span>
+		<span class="nv">day</span><span class="o">=</span><span class="k">${</span><span class="nv">arr</span><span class="p">[2]</span><span class="k">}</span>
+		<span class="nv">hour</span><span class="o">=</span><span class="k">${</span><span class="nv">arr</span><span class="p">[3]</span><span class="k">}</span>
+		<span class="nb">echo</span> <span class="s2">"USE weather_data;INSERT INTO temperature_waterloo (YEAR,MONTH,DAY,HOUR,TEMPERATURE,ID) VALUES (</span><span class="nv">$year</span><span class="s2">, </span><span class="nv">$month</span><span class="s2">, </span><span class="nv">$day</span><span class="s2">, </span><span class="nv">$hour</span><span class="s2">, </span><span class="nv">$temperature</span><span class="s2">,'</span><span class="nv">$id</span><span class="s2">');"</span>
+	<span class="k">done</span> | sudo mysql 
 
-<div class="highlighter-rouge"><pre class="highlight"><code>cat $file | while read temperature; do
-	id=${file##*/}
-	id=${id%.txt}
-	arr=($(echo $id | awk -F '_' '{print $1, $2, $3, $4}' ))
-	year=${arr[0]}
-	month=${arr[1]}
-	day=${arr[2]}
-	hour=${arr[3]}
-	echo "USE weather_data;INSERT INTO temperature_waterloo (YEAR,MONTH,DAY,HOUR,TEMPERATURE,ID) VALUES ($year, $month, $day, $hour, $temperature,'$id');"
-done | sudo mysql 
-</code></pre>
-</div>
-
-<p>done
-```</p>
+<span class="k">done</span></code></pre></figure>
 
 <p>and run <code class="highlighter-rouge">./loadData.sh</code>. Now we have the data loaded and can run some queries:</p>
 
-<p><code class="highlighter-rouge">
-$ sudo mysql;
-mysql&gt; USE weather_data;
-mysql&gt; SELECT COUNT(*) FROM temperature_waterloo;
-+----------+
-| COUNT(*) |
-+----------+
-|      900 |
-+----------+
-mysql&gt; 
-</code></p>
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="err">$</span> <span class="n">sudo</span> <span class="n">mysql</span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="n">USE</span> <span class="n">weather_data</span><span class="p">;</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">temperature_waterloo</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----------+
+</span><span class="o">|</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----------+
+</span><span class="o">|</span>      <span class="mi">900</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----------+
+</span><span class="n">mysql</span><span class="o">&gt;</span> </code></pre></figure>
 
-<p><code class="highlighter-rouge">
-mysql&gt; SELECT * FROM  (SELECT * FROM temperature_waterloo WHERE ID = (SELECT MAX(ID) FROM temperature_waterloo))xxx;
-+------+-------+-----+------+-------------+---------------+
-| YEAR | MONTH | DAY | HOUR | TEMPERATURE | ID            |
-+------+-------+-----+------+-------------+---------------+
-| 2018 |     3 |   1 |   18 |         1.5 | 2018_03_01_18 |
-+------+-------+-----+------+-------------+---------------+
-mysql&gt; SELECT * FROM  (SELECT * FROM temperature_waterloo WHERE ID = (SELECT MIN(ID) FROM temperature_waterloo))xxx;
-+------+-------+-----+------+-------------+---------------+
-| YEAR | MONTH | DAY | HOUR | TEMPERATURE | ID            |
-+------+-------+-----+------+-------------+---------------+
-| 2017 |     7 |  19 |   18 |        28.6 | 2017_07_19_18 |
-+------+-------+-----+------+-------------+---------------+
-</code></p>
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span>  <span class="p">(</span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">temperature_waterloo</span> <span class="k">WHERE</span> <span class="n">ID</span> <span class="o">=</span> <span class="p">(</span><span class="k">SELECT</span> <span class="k">MAX</span><span class="p">(</span><span class="n">ID</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">temperature_waterloo</span><span class="p">))</span><span class="n">xxx</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">------+-------+-----+------+-------------+---------------+
+</span><span class="o">|</span> <span class="k">YEAR</span> <span class="o">|</span> <span class="k">MONTH</span> <span class="o">|</span> <span class="k">DAY</span> <span class="o">|</span> <span class="n">HOUR</span> <span class="o">|</span> <span class="n">TEMPERATURE</span> <span class="o">|</span> <span class="n">ID</span>            <span class="o">|</span>
+<span class="o">+</span><span class="c1">------+-------+-----+------+-------------+---------------+
+</span><span class="o">|</span> <span class="mi">2018</span> <span class="o">|</span>     <span class="mi">3</span> <span class="o">|</span>   <span class="mi">1</span> <span class="o">|</span>   <span class="mi">18</span> <span class="o">|</span>         <span class="mi">1</span><span class="p">.</span><span class="mi">5</span> <span class="o">|</span> <span class="mi">2018</span><span class="n">_03_01_18</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">------+-------+-----+------+-------------+---------------+
+</span><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span>  <span class="p">(</span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">temperature_waterloo</span> <span class="k">WHERE</span> <span class="n">ID</span> <span class="o">=</span> <span class="p">(</span><span class="k">SELECT</span> <span class="k">MIN</span><span class="p">(</span><span class="n">ID</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">temperature_waterloo</span><span class="p">))</span><span class="n">xxx</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">------+-------+-----+------+-------------+---------------+
+</span><span class="o">|</span> <span class="k">YEAR</span> <span class="o">|</span> <span class="k">MONTH</span> <span class="o">|</span> <span class="k">DAY</span> <span class="o">|</span> <span class="n">HOUR</span> <span class="o">|</span> <span class="n">TEMPERATURE</span> <span class="o">|</span> <span class="n">ID</span>            <span class="o">|</span>
+<span class="o">+</span><span class="c1">------+-------+-----+------+-------------+---------------+
+</span><span class="o">|</span> <span class="mi">2017</span> <span class="o">|</span>     <span class="mi">7</span> <span class="o">|</span>  <span class="mi">19</span> <span class="o">|</span>   <span class="mi">18</span> <span class="o">|</span>        <span class="mi">28</span><span class="p">.</span><span class="mi">6</span> <span class="o">|</span> <span class="mi">2017</span><span class="n">_07_19_18</span> <span class="o">|</span>
+<span class="o">+------+-------+-----+------+-------------+---------------+</span></code></pre></figure>
 
 <p>The scraper ran from 2017/07/19 18:00 to 2018/03/01 18:00. Using similar queries we find the max temperature in this time period was 30.3 celcius and min temperature was -28.5. You can obviously do more complicated stuff with more interesting scraped data sets. This post was meant to show an ad-hoc way of scraping data that will remove the task of writing the scraper and will just let you focus on the data you are interested in.</p>
 

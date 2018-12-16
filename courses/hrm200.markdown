@@ -1,0 +1,16 @@
+---
+layout: page
+title:  "HRM 200"
+---
+
+Basic Human Resources Management
+
+
+In HRM 200 I got a preview about the complex organization and structure of companies. I learned the different processes that companies can go through in order to organize and manage the people that work for them. This course gave me a neat and new perspective.
+
+
+[Next Course]({{ site.baseurl }}/courses/math237)
+
+[Previous Course]({{ site.baseurl }}/courses/cs246)
+
+[All Courses]({{ site.baseurl }}/courses/)
