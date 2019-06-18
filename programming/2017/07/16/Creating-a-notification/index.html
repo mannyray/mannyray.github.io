@@ -10,8 +10,8 @@
   <meta name="description" content="Are you running some code that takes a long time to finish? Want to know exactly when it is done?">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="/programming/2017/07/16/Creating-a-notification/">
-  <link rel="alternate" type="application/rss+xml" title="Stan Zonov" href="/feed.xml" />
+  <link rel="canonical" href="http://localhost:4000/programming/2017/07/16/Creating-a-notification/">
+  <link rel="alternate" type="application/rss+xml" title="Stan Zonov" href="http://localhost:4000/feed.xml" />
 </head>
 
 
@@ -189,18 +189,16 @@
   <li>
     <p>Create a new Google App Script called <code class="highlighter-rouge">AlertMessage</code></p>
   </li>
-  <li>
-    <p>Add the code to <code class="highlighter-rouge">code.gs</code><br />
- <code class="highlighter-rouge">
- function doGet(request) {
+  <li>Add the code to <code class="highlighter-rouge">code.gs</code>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> function doGet(request) {
      MailApp.sendEmail("your@gmail.com", request.parameter.subject, request.parameter.message);
      var result = {
          sent: 0 == 0
      };
      return ContentService.createTextOutput(JSON.stringify(result))
  }
-</code>
- Where <code class="highlighter-rouge">your@gmail.com</code> is your Google email account on which you made the Google App Script.</p>
+</code></pre></div>    </div>
+    <p>Where <code class="highlighter-rouge">your@gmail.com</code> is your Google email account on which you made the Google App Script.</p>
   </li>
   <li>
     <p><code class="highlighter-rouge">Publish &gt; Deploy as web app...</code>.</p>
@@ -214,12 +212,10 @@
   <li>
     <p>Copy the full current web app URL: <code class="highlighter-rouge">https://script.google.com/macros/s/.../exec</code> (<code class="highlighter-rouge">...</code> is the Google generated portion)</p>
   </li>
-  <li>
-    <p>On your computer terminal you can now send notifications via:<br />
- <code class="highlighter-rouge">
- curl -L "https://script.google.com/macros/s/.../exec?subject=TITLE&amp;message=UNDERSCORE_FOR_SPACES_INSIDE_MESSAGE"
-</code>
- which will cause your Gmail inbox to get a new message.</p>
+  <li>On your computer terminal you can now send notifications via:
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> curl -L "https://script.google.com/macros/s/.../exec?subject=TITLE&amp;message=UNDERSCORE_FOR_SPACES_INSIDE_MESSAGE"
+</code></pre></div>    </div>
+    <p>which will cause your Gmail inbox to get a new message.</p>
   </li>
 </ol>
 

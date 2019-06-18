@@ -10,8 +10,8 @@
   <meta name="description" content="I was on hackerrank the other day trying to solve ‘Beautiful 3 Set’. The problem goes like this:">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="/programming/2017/07/14/Beautiful-3-set/">
-  <link rel="alternate" type="application/rss+xml" title="Stan Zonov" href="/feed.xml" />
+  <link rel="canonical" href="http://localhost:4000/programming/2017/07/14/Beautiful-3-set/">
+  <link rel="alternate" type="application/rss+xml" title="Stan Zonov" href="http://localhost:4000/feed.xml" />
 </head>
 
 
@@ -176,10 +176,12 @@
   <article class="post-content">
     <p>I was on hackerrank the other day trying to solve <a href="https://www.hackerrank.com/challenges/beautiful-3-set">‘Beautiful 3 Set’</a>. The problem goes like this:</p>
 
-<p>You are given an integer <code class="highlighter-rouge">n</code>. A set, <code class="highlighter-rouge">S</code>, of triples <code class="highlighter-rouge">(x_i, y_i, z_i)</code> is beautiful if and only if:
- 1. <code class="highlighter-rouge">0 &lt;= x_i, y_i, z_i</code>
- 2. <code class="highlighter-rouge">x_i + y_i + z_i = n</code>, For all <code class="highlighter-rouge">i</code> such that <code class="highlighter-rouge">1 &lt;= i &lt;= |S|</code>
- 3. Let X be the set of different <code class="highlighter-rouge">x_i</code>’s in S, Y be the set of different <code class="highlighter-rouge">y_i</code>’s in S, and Z be the set of different <code class="highlighter-rouge">z_i</code> in S. Then <code class="highlighter-rouge">|X| = |Y| = |Z| = |S|</code></p>
+<p>You are given an integer <code class="highlighter-rouge">n</code>. A set, <code class="highlighter-rouge">S</code>, of triples <code class="highlighter-rouge">(x_i, y_i, z_i)</code> is beautiful if and only if:</p>
+<ol>
+  <li><code class="highlighter-rouge">0 &lt;= x_i, y_i, z_i</code></li>
+  <li><code class="highlighter-rouge">x_i + y_i + z_i = n</code>, For all <code class="highlighter-rouge">i</code> such that <code class="highlighter-rouge">1 &lt;= i &lt;= |S|</code></li>
+  <li>Let X be the set of different <code class="highlighter-rouge">x_i</code>’s in S, Y be the set of different <code class="highlighter-rouge">y_i</code>’s in S, and Z be the set of different <code class="highlighter-rouge">z_i</code> in S. Then <code class="highlighter-rouge">|X| = |Y| = |Z| = |S|</code></li>
+</ol>
 
 <p>The third condition means that all <code class="highlighter-rouge">x_i</code>’s are pairwise distinct. The same goes for <code class="highlighter-rouge">y_i</code> and <code class="highlighter-rouge">z_i</code>.</p>
 
@@ -199,96 +201,96 @@
 
 <p>Once you have generated all the possible triplets and have filtered all the invalid ones out by the second condition, then you can start generating potential <code class="highlighter-rouge">S</code> candidates. For any given set <code class="highlighter-rouge">S</code>, each existing triplet in the basis is either in <code class="highlighter-rouge">S</code> or not ~ a binary choice. The binary choice is a good hint on some sort of recursive approach. By checking all potential <code class="highlighter-rouge">S</code> our runtime for this will be <code class="highlighter-rouge">O(2^{|triplet_basis_set_size})</code> which has an upper bound. Definitely won’t work for <code class="highlighter-rouge">n=300</code> on hackerrank.</p>
 
-<p>Thus the runtime of our brute force approach is <code class="highlighter-rouge">O(2^{n^2})</code> (it is easy to optimize the brute force algorithm… but it would still be too slow for hackerrank). That is crazy slow! This is why we are doing this brute force approach on our machine and not hackerrank. Here is the brute force code:
-```
-#include <iostream>
-#include <fstream>
-#include <sstream></sstream></fstream></iostream></p>
+<p>Thus the runtime of our brute force approach is <code class="highlighter-rouge">O(2^{n^2})</code> (it is easy to optimize the brute force algorithm… but it would still be too slow for hackerrank). That is crazy slow! This is why we are doing this brute force approach on our machine and not hackerrank. Here is the brute force code:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;sstream&gt;
 
-<p>using namespace std;</p>
+using namespace std;
 
-<p>int n_limit = 20;</p>
+int n_limit = 20;
 
-<p>bool is_file_exist(const char *fileName){
+bool is_file_exist(const char *fileName){
     std::ifstream infile(fileName);
     return infile.good();
-}</p>
+}
 
-<p>/*
+
+/*
 x,y,z array are responsible for storing the basis of triples from which we select
-The ith indeces of these arrays contain the ith triple.</p>
+The ith indeces of these arrays contain the ith triple.
 
-<p>index represents the current index we are looking at in our recursive binary method</p>
+index represents the current index we are looking at in our recursive binary method
 
-<p>//curNum is the current number we are processing (from n_limit)
+//curNum is the current number we are processing (from n_limit)
 this is useful for file writing/appending
 */
-int generatingS(int * x,int * y,int * z,int index,int arrLength, int *x_cov, int *y_cov, int *z_cov, int max, int curNum){</p>
+int generatingS(int * x,int * y,int * z,int index,int arrLength, int *x_cov, int *y_cov, int *z_cov, int max, int curNum){
+	
+	//not enough space left to maximize set
+	//TODO: implement this feature
 
-<div class="highlighter-rouge"><pre class="highlight"><code>//not enough space left to maximize set
-//TODO: implement this feature
-
-if(index==arrLength){
-	//we reached the bottom. check the set size by counting x_cov
-	//and returning that number 
-	int size=0;
-	for(int i = 0; i &lt; curNum+1; i++){
-		if(x_cov[i]!=0){
-			size++;
+	if(index==arrLength){
+		//we reached the bottom. check the set size by counting x_cov
+		//and returning that number 
+		int size=0;
+		for(int i = 0; i &lt; curNum+1; i++){
+			if(x_cov[i]!=0){
+				size++;
+			}
 		}
+		if(max &gt; size){//current entry is not bigger
+			return max;
+		}			
+		//write it to file
+		
+		std::ofstream outfile;
+
+		stringstream ss;
+		ss&lt;&lt;curNum&lt;&lt;".txt";
+		
+		outfile.open(ss.str(), std::ios_base::app);
+		outfile&lt;&lt;size&lt;&lt;endl;
+		for(int i = 0; i &lt; curNum+1; i++){
+			if(x_cov[i]!=0){//output out all the pairs
+				outfile&lt;&lt;x[x_cov[i]-1]&lt;&lt;" "&lt;&lt;y[x_cov[i]-1]&lt;&lt;" "&lt;&lt;z[x_cov[i]-1]&lt;&lt;endl;
+			}
+		}outfile&lt;&lt;endl;
+
+		
+		return size;
 	}
-	if(max &gt; size){//current entry is not bigger
-		return max;
-	}			
-	//write it to file
 	
-	std::ofstream outfile;
 
-	stringstream ss;
-	ss&lt;&lt;curNum&lt;&lt;".txt";
+	//assume that (x[index], y[index], z[index]) is in S
+	//in order to make this assumption valid we need to check if 
+	//(x|y|z)[index] has already been tagged in (x|y|z)_cov[(x|y|z)[index]]
+	//This is an optimization that says if this triplet can't possibly be
+	//part of the solution the don't recurse further with assumption that it is
+	//part of solution
+	if(x_cov[x[index]]==0&amp;&amp;y_cov[y[index]]==0&amp;&amp;z_cov[z[index]]==0){
+		//tag so that inner layers of recursion now that the numbers in triplet
+		//are in use
+		x_cov[x[index]]=index+1;
+		y_cov[y[index]]=index+1;
+		z_cov[z[index]]=index+1;
+		max = generatingS(x,y,z,index+1,arrLength,x_cov,y_cov,z_cov,max,curNum);
+		
+		//untag the values
+		x_cov[x[index]]=0;
+		y_cov[y[index]]=0;
+		z_cov[z[index]]=0;
+	}
 	
-	outfile.open(ss.str(), std::ios_base::app);
-	outfile&lt;&lt;size&lt;&lt;endl;
-	for(int i = 0; i &lt; curNum+1; i++){
-		if(x_cov[i]!=0){//output out all the pairs
-			outfile&lt;&lt;x[x_cov[i]-1]&lt;&lt;" "&lt;&lt;y[x_cov[i]-1]&lt;&lt;" "&lt;&lt;z[x_cov[i]-1]&lt;&lt;endl;
-		}
-	}outfile&lt;&lt;endl;
-
-	
-	return size;
-}
-
-
-//assume that (x[index], y[index], z[index]) is in S
-//in order to make this assumption valid we need to check if 
-//(x|y|z)[index] has already been tagged in (x|y|z)_cov[(x|y|z)[index]]
-//This is an optimization that says if this triplet can't possibly be
-//part of the solution the don't recurse further with assumption that it is
-//part of solution
-if(x_cov[x[index]]==0&amp;&amp;y_cov[y[index]]==0&amp;&amp;z_cov[z[index]]==0){
-	//tag so that inner layers of recursion now that the numbers in triplet
-	//are in use
-	x_cov[x[index]]=index+1;
-	y_cov[y[index]]=index+1;
-	z_cov[z[index]]=index+1;
+	//assume that (x[index], y[index], z[index]) is not in S
 	max = generatingS(x,y,z,index+1,arrLength,x_cov,y_cov,z_cov,max,curNum);
-	
-	//untag the values
-	x_cov[x[index]]=0;
-	y_cov[y[index]]=0;
-	z_cov[z[index]]=0;
+	return max;
 }
 
-//assume that (x[index], y[index], z[index]) is not in S
-max = generatingS(x,y,z,index+1,arrLength,x_cov,y_cov,z_cov,max,curNum);
-return max; }
-</code></pre>
-</div>
 
-<p>int main(){
+int main(){
 	for(int n = 2; n &lt;= n_limit; n++){
-		cout«n«endl;
+		cout&lt;&lt;n&lt;&lt;endl;
 		int index = 0;
 		int upperBound = n*n;
 		int * basis_x = new int[upperBound];
@@ -303,45 +305,43 @@ return max; }
 				basis_x[index] = i;
 				basis_y[index] = j;
 				basis_z[index] = k;
-				//cout«i«” ”«j«” ”«k«endl;
+				//cout&lt;&lt;i&lt;&lt;" "&lt;&lt;j&lt;&lt;" "&lt;&lt;k&lt;&lt;endl;
 				index++;	
 			}
-		}cout«index«endl«endl;//continue;</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	//output all pairs
-	//for(int i = 0; i &lt; index; i++){
-		//cout&lt;&lt;basis_x[index]&lt;&lt;" "&lt;&lt;basis_y[index]&lt;&lt;" "&lt;&lt;basis_z[index]&lt;&lt;endl;
-	//}
-	
-	
-	//we now have our basis and we can now generate all S
-	int *x_cov = new int[n+1];
-	int *y_cov = new int[n+1];
-	int *z_cov = new int[n+1];
-	for(int i = 0; i &lt;= n; i++){
-		x_cov[i] = 0;
-		y_cov[i] = 0;
-		z_cov[i] = 0;
+		}cout&lt;&lt;index&lt;&lt;endl&lt;&lt;endl;//continue;
+		
+		//output all pairs
+		//for(int i = 0; i &lt; index; i++){
+			//cout&lt;&lt;basis_x[index]&lt;&lt;" "&lt;&lt;basis_y[index]&lt;&lt;" "&lt;&lt;basis_z[index]&lt;&lt;endl;
+		//}
+		
+		
+		//we now have our basis and we can now generate all S
+		int *x_cov = new int[n+1];
+		int *y_cov = new int[n+1];
+		int *z_cov = new int[n+1];
+		for(int i = 0; i &lt;= n; i++){
+			x_cov[i] = 0;
+			y_cov[i] = 0;
+			z_cov[i] = 0;
+		}
+		generatingS(basis_x,basis_y,basis_z,0,index,x_cov,y_cov,z_cov,0,n);
+		
+		
+		delete [] basis_x;
+		delete [] basis_y;
+		delete [] basis_z;
+		delete [] x_cov;
+		delete [] y_cov;
+		delete [] z_cov;
 	}
-	generatingS(basis_x,basis_y,basis_z,0,index,x_cov,y_cov,z_cov,0,n);
-	
-	
-	delete [] basis_x;
-	delete [] basis_y;
-	delete [] basis_z;
-	delete [] x_cov;
-	delete [] y_cov;
-	delete [] z_cov;
-} }
-</code></pre>
-</div>
+}
 
-<p>```</p>
+</code></pre></div></div>
 
 <p>I only had the patience to run up to <code class="highlighter-rouge">n = 17</code>. I observed that there were many sets of max <code class="highlighter-rouge">|S|</code> stored for each <code class="highlighter-rouge">n</code>. Given the way the basis was derived and the recursive function ran, I decided to only filter for the first max <code class="highlighter-rouge">|S|</code> printed for each <code class="highlighter-rouge">n</code>. Here are the first for <code class="highlighter-rouge">n=2</code> to <code class="highlighter-rouge">n=17</code>:</p>
 
-<p>```
-n=2:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>n=2:
 2
 0 0 2
 1 1 0
@@ -360,34 +360,34 @@ n=5:
 0 0 5
 1 2 2
 2 3 0
-3 1 1</p>
+3 1 1
 
-<p>n=6:
+n=6:
 5
 0 2 4
 1 3 2
 2 4 0
 3 0 3
-4 1 1</p>
+4 1 1
 
-<p>n=7:
+n=7:
 5
 0 0 7
 1 1 5
 2 3 2
 3 4 0
-4 2 1</p>
+4 2 1
 
-<p>n=8:
+n=8:
 6
 0 0 8
 1 3 4
 2 4 2
 3 5 0
 4 1 3
-5 2 1</p>
+5 2 1
 
-<p>n=9:
+n=9:
 7
 0 3 6
 1 4 4
@@ -395,9 +395,9 @@ n=5:
 3 6 0
 4 0 5
 5 1 3
-6 2 1</p>
+6 2 1
 
-<p>n=10:
+n=10:
 7
 0 0 10
 1 1 8
@@ -405,9 +405,9 @@ n=5:
 3 5 2
 4 6 0
 5 2 3
-6 3 1</p>
+6 3 1
 
-<p>n=11:
+n=11:
 8
 0 0 11
 1 4 6
@@ -416,9 +416,9 @@ n=5:
 4 7 0
 5 1 5
 6 2 3
-7 3 1</p>
+7 3 1
 
-<p>n=12:
+n=12:
 9
 0 4 8
 1 5 6
@@ -428,9 +428,9 @@ n=5:
 5 6 1
 6 1 5
 7 2 3
-8 0 4</p>
+8 0 4
 
-<p>n=13:
+n=13:
 9
 0 0 13
 1 1 11
@@ -440,9 +440,9 @@ n=5:
 5 8 0
 6 2 5
 7 3 3
-8 4 1</p>
+8 4 1
 
-<p>n=14:
+n=14:
 10
 0 0 14
 1 5 8
@@ -453,9 +453,9 @@ n=5:
 6 7 1
 7 2 5
 8 3 3
-9 1 4</p>
+9 1 4
 
-<p>n=15:
+n=15:
 11
 0 5 10
 1 6 8
@@ -467,9 +467,9 @@ n=5:
 7 1 7
 8 3 4
 9 0 6
-10 2 3</p>
+10 2 3
 
-<p>n=16:
+n=16:
 11
 0 0 16
 1 1 14
@@ -481,9 +481,9 @@ n=5:
 7 8 1
 8 3 5
 9 4 3
-10 2 4</p>
+10 2 4
 
-<p>n=17:
+n=17:
 12
 0 0 17
 1 6 10
@@ -497,7 +497,7 @@ n=5:
 9 4 4
 10 1 6
 11 3 3
-```</p>
+</code></pre></div></div>
 
 <table>
   <tbody>
@@ -669,67 +669,65 @@ n=5:
 
 <p>Our solution now does not depend on <code class="highlighter-rouge">y</code> and <code class="highlighter-rouge">z</code> but on the left most number of the bottom row. If you plot out the ‘chessboards’ for first 10 <code class="highlighter-rouge">n</code>, then when will notice that the pattern is <code class="highlighter-rouge">mod 3</code> and thus the <code class="highlighter-rouge">O(n)</code> solution is formed:</p>
 
-<p>```
-#include <cmath>
-#include <cstdio>
-#include <vector>
-#include <iostream>
-#include <algorithm>
-using namespace std;</algorithm></iostream></vector></cstdio></cmath></p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;cmath&gt;
+#include &lt;cstdio&gt;
+#include &lt;vector&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+using namespace std;
 
-<p>int main() {
-    int n;cin»n;</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>int pairCount = 0;
-vector &lt;int&gt; x_y_zPairsOrdered;
-int y=0,z=0,x=0;
-if(n%3==0){
-    y=(2*n)/3 ; 
+int main() {
+    int n;cin&gt;&gt;n;
+    
+    int pairCount = 0;
+    vector &lt;int&gt; x_y_zPairsOrdered;
+    int y=0,z=0,x=0;
+    if(n%3==0){
+        y=(2*n)/3 ; 
+    }
+    else if(n%3==1){
+        y=(2*n - 2) /3 ;
+    }
+    else{//n%3==2
+        y=( 2*n-1 )/3;
+    }
+    
+    //bottom diagonal from left to right
+    do{
+        x=n-y-z;
+        x_y_zPairsOrdered.push_back(x);
+        x_y_zPairsOrdered.push_back(y);
+        x_y_zPairsOrdered.push_back(z);
+        y-=1;
+        z+=2;
+        pairCount++;
+    }while(y+z &lt;= n);
+    
+    //upper diagonal from left to right
+    z=-1;
+    for(;y &gt;= 0;y--){
+        z+=2;
+        x=n-z-y;
+        pairCount++;
+        x_y_zPairsOrdered.push_back(x);
+        x_y_zPairsOrdered.push_back(y);
+        x_y_zPairsOrdered.push_back(z);
+    }
+    
+    
+    //output:
+    cout&lt;&lt;pairCount&lt;&lt;endl;
+    for(int i = 0; i &lt; pairCount; i++){
+        cout&lt;&lt;x_y_zPairsOrdered[i*3]&lt;&lt;" ";
+        cout&lt;&lt;x_y_zPairsOrdered[i*3+1]&lt;&lt;" ";
+        cout&lt;&lt;x_y_zPairsOrdered[i*3+2]&lt;&lt;" ";
+        cout&lt;&lt;endl;
+    }
+    
 }
-else if(n%3==1){
-    y=(2*n - 2) /3 ;
-}
-else{//n%3==2
-    y=( 2*n-1 )/3;
-}
 
-//bottom diagonal from left to right
-do{
-    x=n-y-z;
-    x_y_zPairsOrdered.push_back(x);
-    x_y_zPairsOrdered.push_back(y);
-    x_y_zPairsOrdered.push_back(z);
-    y-=1;
-    z+=2;
-    pairCount++;
-}while(y+z &lt;= n);
-
-//upper diagonal from left to right
-z=-1;
-for(;y &gt;= 0;y--){
-    z+=2;
-    x=n-z-y;
-    pairCount++;
-    x_y_zPairsOrdered.push_back(x);
-    x_y_zPairsOrdered.push_back(y);
-    x_y_zPairsOrdered.push_back(z);
-}
-
-
-//output:
-cout&lt;&lt;pairCount&lt;&lt;endl;
-for(int i = 0; i &lt; pairCount; i++){
-    cout&lt;&lt;x_y_zPairsOrdered[i*3]&lt;&lt;" ";
-    cout&lt;&lt;x_y_zPairsOrdered[i*3+1]&lt;&lt;" ";
-    cout&lt;&lt;x_y_zPairsOrdered[i*3+2]&lt;&lt;" ";
-    cout&lt;&lt;endl;
-}
-</code></pre>
-</div>
-
-<p>}</p>
-
-<p>```</p>
+</code></pre></div></div>
 
 <h3 id="conclusion">Conclusion</h3>
 

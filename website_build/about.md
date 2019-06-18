@@ -4,8 +4,10 @@ title: About
 permalink: /about/
 ---
 
-Hello! My name is Stan Zonov. I am a recent UWaterloo graduate in [BMath ~ Honours Computer Science, Joint Applied Mathematics]({{site.url}}/courses/). Currently back in Waterloo furthering my studies.
+Hello! My name is Stan Zonov. I am UWaterloo graduate in [BMath ~ Honours Computer Science, Joint Applied Mathematics]({{site.url}}/courses/) and graduate in [Masters of Mathematics at Uwaterloo](https://uwspace.uwaterloo.ca/handle/10012/14740).
 
 
+I have created this website to share stuff that I am currently working on and find interesting in order to keep my friends and acquantaines in the loop. When I have the time, I post the stuff here in hopes that it will inspire the reader to try something new.
 
-I have created this website to share stuff that I am currently working on and find interesting. When I have the time, I post the stuff here in hopes that it will inspire the reader to try something new.
+
+![image]({{ site.url }}/assets/profile.JPG)
