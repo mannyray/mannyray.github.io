@@ -10,8 +10,8 @@
   <meta name="description" content="There will be two topics to this post. The first one will be about pendulums and the second one will be about automation. The topics aren’t related, but I pu...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://localhost:4000/programming/2016/12/20/pendulum/">
-  <link rel="alternate" type="application/rss+xml" title="Stan Zonov" href="http://localhost:4000/feed.xml" />
+  <link rel="canonical" href="/programming/2016/12/20/pendulum/">
+  <link rel="alternate" type="application/rss+xml" title="Stan Zonov" href="/feed.xml" />
 </head>
 
 
@@ -203,17 +203,17 @@
 
 <p>When we think about a simple pendulum, we think of a string attached to a pivot on one end and a heavy mass attached on the other $($assuming string has no mass$)$. Something like this:</p>
 
-<p><img src="http://localhost:4000/assets/pendulum.jpg" alt="image" /></p>
+<p><img src="/assets/pendulum.jpg" alt="image" /></p>
 
 <p>Since we are talking about applied mathematics here, then we need some sort of equation to work with. So how does one turn the pendulum motion into an equation?</p>
 
 <p>One thing we can start off with is the $F = ma$ equation $($Newton’s third law$)$. The $F$ is the net force and in our case will be the force acting on the mass hanging on to the string, $m$ the mass and $a$ the acceleration of the mass. Since we are dealing with the pendulum then what we will be using to keep track of position will be the angle $(<script type="math/tex">\theta</script>)$ of the string from the pendulum’s equilibrium position. We now upgrade our image to the following:</p>
 
-<p><img src="http://localhost:4000/assets/updated_pendulum.jpg" alt="image" /></p>
+<p><img src="/assets/updated_pendulum.jpg" alt="image" /></p>
 
 <p>To understand the net force on the mass, we need to consider all the forces acting on the mass. These forces will be gravity and tension of the string. By understanding the forces acting upon the mass we can then understand the motion induced by the forces:</p>
 
-<p><img src="http://localhost:4000/assets/forces_pendulum.jpg" alt="image" /></p>
+<p><img src="/assets/forces_pendulum.jpg" alt="image" /></p>
 
 <p>The black force is caused by tension of the string and the blue force is caused by gravity. The gravity force can be broken down to the two red forces with the help of geometry. Since the mass on the string is not flying off the string then it must be the case that $F_g cos(\theta) = F_T$ and they cancel each other out. Therefore, the net force is $F = - mg sin(\theta)$.</p>
 
@@ -233,9 +233,9 @@
 
 <p>If we decide to solve the original equation with the $sin$ we might as well work on approximation techniques in order to save some time. One well known method is called the Euler method. In the Euler method we have an expression for the derivative of the form $y’ = f(t,y(t))$ and a starting point $y_0$ where $y(t_0) = y_0$. If we recall, $y’$ is the slope of the tangent of the curve $y$. Using the slope and the starting point $y_0$, we can approximate for the next value of the function, $y_1$ at $t = t_0+\delta t$ as  $y(t_0 + \delta t) = y_1 = y_0 + f(t_0,y_0)\delta t$. Here is a great image from Wikipedia to help visualize the explanation:</p>
 
-<p><img src="http://localhost:4000/assets/euler_method.png" alt="image" /></p>
+<p><img src="/assets/euler_method.png" alt="image" /></p>
 
-<p>The Euler method can be extended to our differential equation as well. I employed the Euler method, the $sin$ approximation  as well as a different method called the RK4 ~ Runge-Kutta to the pendulum problem in order to help visualize the approximation techniques right over <a href="http://localhost:4000/pendulum/simple_pendulum/index.html">here</a>. The RK4 is the most accurate, closely followed by the Euler and then finally the small $\theta$ approximation. You can play around with the initial conditions to see the differences in approximation. For the most part, the approximations match each other fairly well, but for some initial values they really differ $($ I recommend setting angle ~ 236, dtheta - 15, damping - 0, length - 150, gravity - 9.8 and selecting all the  approximation techniques$)$. The application also has the damping setting that you can play around with. I won’t say much about it as you can discover for yourself what it does.</p>
+<p>The Euler method can be extended to our differential equation as well. I employed the Euler method, the $sin$ approximation  as well as a different method called the RK4 ~ Runge-Kutta to the pendulum problem in order to help visualize the approximation techniques right over <a href="/pendulum/simple_pendulum/index.html">here</a>. The RK4 is the most accurate, closely followed by the Euler and then finally the small $\theta$ approximation. You can play around with the initial conditions to see the differences in approximation. For the most part, the approximations match each other fairly well, but for some initial values they really differ $($ I recommend setting angle ~ 236, dtheta - 15, damping - 0, length - 150, gravity - 9.8 and selecting all the  approximation techniques$)$. The application also has the damping setting that you can play around with. I won’t say much about it as you can discover for yourself what it does.</p>
 
 <p>$($There is another part to the web app for the spring pendulum that I haven’t yet finished. It will be finished for another post.$)$</p>
 
@@ -251,7 +251,7 @@
 
 <p>I will assume the reader has a Google account and is remotely familiar with Google Drive. You will need to create a new Google Sheet. In the Google sheet, fill it up in the following manner $($with the birthdays of people you know$)$:</p>
 
-<p><img src="http://localhost:4000/assets/birthdays_sheet.png" alt="image" /></p>
+<p><img src="/assets/birthdays_sheet.png" alt="image" /></p>
 
 <p>The first row is for the column titles and the rest of the rows is for the data. The data in the rows does not have to be organized in any particular order.</p>
 

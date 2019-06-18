@@ -3,10 +3,10 @@
   <channel>
     <title>Stan Zonov</title>
     <description></description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 18 Jun 2019 12:09:33 -0700</pubDate>
-    <lastBuildDate>Tue, 18 Jun 2019 12:09:33 -0700</lastBuildDate>
+    <link>/</link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Tue, 18 Jun 2019 12:20:01 -0700</pubDate>
+    <lastBuildDate>Tue, 18 Jun 2019 12:20:01 -0700</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -31,16 +31,16 @@
 
 &lt;p&gt;The hall way outside my office where I was during my masters:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/masters2.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/masters2.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The hallway was in the MC building:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/masters1.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/masters1.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 </description>
         <pubDate>Tue, 18 Jun 2019 05:00:00 -0700</pubDate>
-        <link>http://localhost:4000/programming/2019/06/18/mathematician/</link>
-        <guid isPermaLink="true">http://localhost:4000/programming/2019/06/18/mathematician/</guid>
+        <link>/programming/2019/06/18/mathematician/</link>
+        <guid isPermaLink="true">/programming/2019/06/18/mathematician/</guid>
         
         
         <category>programming</category>
@@ -69,13 +69,13 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;We can plot the derivative &lt;code class=&quot;highlighter-rouge&quot;&gt;x_t&lt;/code&gt; against &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt;:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bifurcations1.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/bifurcations1.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The first equilibrium is unstable since a slight perturbation will cause to move away from it (similar to a ball on top of a hill being slightly pushed will roll away). It is unstable because if &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; is slightly less than zero then the negative derivative (refer to previous plot) will cause &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; to decrease away from 0 and similarly if &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; is slightly greater than zero then the positive derivative will cause &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; to increase away from 0. Using similar logic the other two equilbiriums can be shown to be stable (a ball in a valley pushed will roll back).&lt;/p&gt;
 
 &lt;p&gt;When &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; is less than or equal to zero there is only one equilibrium (&lt;code class=&quot;highlighter-rouge&quot;&gt;x=0&lt;/code&gt; which is stable). Once again we plot &lt;code class=&quot;highlighter-rouge&quot;&gt;x_t&lt;/code&gt; against &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt;:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bifurcations2.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/bifurcations2.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;When varying &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; from negative to positive we move from one stable point to two stable points. &lt;code class=&quot;highlighter-rouge&quot;&gt;r=0&lt;/code&gt; is the bifurcation point where small variation  will cause strong qualititative change in the solution.&lt;/p&gt;
 
@@ -86,19 +86,19 @@
 
 &lt;p&gt;where &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; is the parameter. We will restrict &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; to be in the range &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;4&lt;/code&gt; (this provides that if &lt;code class=&quot;highlighter-rouge&quot;&gt;x_{n}&lt;/code&gt; is between 0 and 1 then &lt;code class=&quot;highlighter-rouge&quot;&gt;x_{n+1}&lt;/code&gt; will also be between 0 and 1 - can be checked via derivative tests). The logistic map reprents a population model where &lt;code class=&quot;highlighter-rouge&quot;&gt;x_{n}&lt;/code&gt; between &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; represents the percentage out of a total maximum possible population. Below are some sample populations for different &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; values&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bifurcations3.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/bifurcations3.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;For &lt;code class=&quot;highlighter-rouge&quot;&gt;r=0.5&lt;/code&gt; the steady value is &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; meaning that the population starting at &lt;code class=&quot;highlighter-rouge&quot;&gt;x_{0} = 0.5&lt;/code&gt; will lead to population extinction (&lt;code class=&quot;highlighter-rouge&quot;&gt;x_{n} = 0&lt;/code&gt;). For &lt;code class=&quot;highlighter-rouge&quot;&gt;r=1.25&lt;/code&gt; the population reaches steady state of about &lt;code class=&quot;highlighter-rouge&quot;&gt;0.2&lt;/code&gt;. &lt;code class=&quot;highlighter-rouge&quot;&gt;r=2.75&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;r=2&lt;/code&gt; also reach a single steady state. Now for &lt;code class=&quot;highlighter-rouge&quot;&gt;r=3.5&lt;/code&gt; things get interesting - there are now &lt;code class=&quot;highlighter-rouge&quot;&gt;4&lt;/code&gt; steady values about which the curve oscillates about regularly: &lt;code class=&quot;highlighter-rouge&quot;&gt;0.8269, 0.5009, 0.8750, 0.3828&lt;/code&gt;. By changing the parameter &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; from &lt;code class=&quot;highlighter-rouge&quot;&gt;2.75&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;3.5&lt;/code&gt; we have change the amount of steady values from &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;4&lt;/code&gt;. This leads us to plot a bifurcation diagram. Below the diagram plots for various &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; (Growth Rate) the steady values. For &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; less than &lt;code class=&quot;highlighter-rouge&quot;&gt;3&lt;/code&gt; there is only one steady value and at about &lt;code class=&quot;highlighter-rouge&quot;&gt;3&lt;/code&gt; (bifurcation point) we now have two steady points and once &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; is about &lt;code class=&quot;highlighter-rouge&quot;&gt;3.5&lt;/code&gt; there are four (as demonstrated earlier).&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bifurcations4.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/bifurcations4.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;If we zoom in to a smaller range we see the following:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bifurcations5.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/bifurcations5.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;and if we zoom in even further we start noticing a fractal type pattern emerging - same structure at every scale. From the simple logistic map equation we obtain a beautiful pattern.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bifurcations4_5.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/bifurcations4_5.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Some of the code used to generate the figures, insipiration as well as additional reading material can be found here:&lt;/p&gt;
 
@@ -110,8 +110,8 @@
 &lt;/ol&gt;
 </description>
         <pubDate>Sun, 16 Dec 2018 12:00:00 -0800</pubDate>
-        <link>http://localhost:4000/programming/2018/12/16/bifurcation/</link>
-        <guid isPermaLink="true">http://localhost:4000/programming/2018/12/16/bifurcation/</guid>
+        <link>/programming/2018/12/16/bifurcation/</link>
+        <guid isPermaLink="true">/programming/2018/12/16/bifurcation/</guid>
         
         
         <category>programming</category>
@@ -282,8 +282,8 @@ $ mysql_secure_installation
 
 </description>
         <pubDate>Thu, 06 Dec 2018 17:00:00 -0800</pubDate>
-        <link>http://localhost:4000/programming/2018/12/06/simple-scraper/</link>
-        <guid isPermaLink="true">http://localhost:4000/programming/2018/12/06/simple-scraper/</guid>
+        <link>/programming/2018/12/06/simple-scraper/</link>
+        <guid isPermaLink="true">/programming/2018/12/06/simple-scraper/</guid>
         
         
         <category>programming</category>
@@ -298,13 +298,13 @@ $ mysql_secure_installation
 
 &lt;p&gt;It is  based on the following equations:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/equations.png&quot; alt=&quot;equations&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/equations.png&quot; alt=&quot;equations&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;and with inspiration from &lt;a href=&quot;http://geoffboeing.com/2016/12/animating-lorenz-attractor-python/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Thu, 01 Mar 2018 15:00:00 -0800</pubDate>
-        <link>http://localhost:4000/programming/2018/03/01/simulation/</link>
-        <guid isPermaLink="true">http://localhost:4000/programming/2018/03/01/simulation/</guid>
+        <link>/programming/2018/03/01/simulation/</link>
+        <guid isPermaLink="true">/programming/2018/03/01/simulation/</guid>
         
         
         <category>programming</category>
@@ -316,8 +316,8 @@ $ mysql_secure_installation
         <description>
 </description>
         <pubDate>Tue, 26 Dec 2017 16:00:00 -0800</pubDate>
-        <link>http://localhost:4000/photos/2017/12/26/gallery-test/</link>
-        <guid isPermaLink="true">http://localhost:4000/photos/2017/12/26/gallery-test/</guid>
+        <link>/photos/2017/12/26/gallery-test/</link>
+        <guid isPermaLink="true">/photos/2017/12/26/gallery-test/</guid>
         
         
         <category>photos</category>
@@ -375,8 +375,8 @@ $ mysql_secure_installation
 
 </description>
         <pubDate>Sun, 16 Jul 2017 15:00:00 -0700</pubDate>
-        <link>http://localhost:4000/programming/2017/07/16/Creating-a-notification/</link>
-        <guid isPermaLink="true">http://localhost:4000/programming/2017/07/16/Creating-a-notification/</guid>
+        <link>/programming/2017/07/16/Creating-a-notification/</link>
+        <guid isPermaLink="true">/programming/2017/07/16/Creating-a-notification/</guid>
         
         
         <category>programming</category>
@@ -950,8 +950,8 @@ int main() {
 
 </description>
         <pubDate>Fri, 14 Jul 2017 13:44:00 -0700</pubDate>
-        <link>http://localhost:4000/programming/2017/07/14/Beautiful-3-set/</link>
-        <guid isPermaLink="true">http://localhost:4000/programming/2017/07/14/Beautiful-3-set/</guid>
+        <link>/programming/2017/07/14/Beautiful-3-set/</link>
+        <guid isPermaLink="true">/programming/2017/07/14/Beautiful-3-set/</guid>
         
         
         <category>programming</category>
@@ -964,32 +964,32 @@ int main() {
 
 &lt;p&gt;The following image contains a sort of histogram that placed the stops in bins based on their time of day occurence in a 24 hour time span.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/average_day_frequency.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/average_day_frequency.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The next image is similar to the previous one, except now it places the stops in bins based on the day of the year in a one year span.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/year_frequency.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/year_frequency.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The next few images are of the location based frequency of vehicle stops based on an entire year.&lt;/p&gt;
 
 &lt;h6 id=&quot;tri-city-area&quot;&gt;Tri-city area:&lt;/h6&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/location.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/location.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;h6 id=&quot;waterloo-area&quot;&gt;Waterloo area:&lt;/h6&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/waterloo_zoom.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/waterloo_zoom.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;h6 id=&quot;cambridge-area&quot;&gt;Cambridge area:&lt;/h6&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/cambridge_zoom.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/cambridge_zoom.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;It can be hard to appreciate the number of stops done throughout the year by looking at the maps or previous histograms. The actual number of stops is over 40000. I will let the user make ‘conclusions’ on their own. The purpose of the post was not for analysis but instead for a small example of visualization and turning a huge csv file into a some neat graphs and plots. I will also provide the disclaimer for the users to go to the &lt;a href=&quot;http://www.wrps.on.ca/inside-wrps/corporate-planning-systems&quot;&gt;Waterloo Regional Police Service&lt;/a&gt; website if they want to learn more about the data and its limits.&lt;/p&gt;
 
 </description>
         <pubDate>Tue, 14 Mar 2017 17:27:00 -0700</pubDate>
-        <link>http://localhost:4000/programming/2017/03/14/Some-graphs/</link>
-        <guid isPermaLink="true">http://localhost:4000/programming/2017/03/14/Some-graphs/</guid>
+        <link>/programming/2017/03/14/Some-graphs/</link>
+        <guid isPermaLink="true">/programming/2017/03/14/Some-graphs/</guid>
         
         
         <category>programming</category>
@@ -1008,17 +1008,17 @@ int main() {
 
 &lt;p&gt;When we think about a simple pendulum, we think of a string attached to a pivot on one end and a heavy mass attached on the other $($assuming string has no mass$)$. Something like this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/pendulum.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/pendulum.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Since we are talking about applied mathematics here, then we need some sort of equation to work with. So how does one turn the pendulum motion into an equation?&lt;/p&gt;
 
 &lt;p&gt;One thing we can start off with is the $F = ma$ equation $($Newton’s third law$)$. The $F$ is the net force and in our case will be the force acting on the mass hanging on to the string, $m$ the mass and $a$ the acceleration of the mass. Since we are dealing with the pendulum then what we will be using to keep track of position will be the angle $(&lt;script type=&quot;math/tex&quot;&gt;\theta&lt;/script&gt;)$ of the string from the pendulum’s equilibrium position. We now upgrade our image to the following:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/updated_pendulum.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/updated_pendulum.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;To understand the net force on the mass, we need to consider all the forces acting on the mass. These forces will be gravity and tension of the string. By understanding the forces acting upon the mass we can then understand the motion induced by the forces:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/forces_pendulum.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/forces_pendulum.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The black force is caused by tension of the string and the blue force is caused by gravity. The gravity force can be broken down to the two red forces with the help of geometry. Since the mass on the string is not flying off the string then it must be the case that $F_g cos(\theta) = F_T$ and they cancel each other out. Therefore, the net force is $F = - mg sin(\theta)$.&lt;/p&gt;
 
@@ -1038,9 +1038,9 @@ int main() {
 
 &lt;p&gt;If we decide to solve the original equation with the $sin$ we might as well work on approximation techniques in order to save some time. One well known method is called the Euler method. In the Euler method we have an expression for the derivative of the form $y’ = f(t,y(t))$ and a starting point $y_0$ where $y(t_0) = y_0$. If we recall, $y’$ is the slope of the tangent of the curve $y$. Using the slope and the starting point $y_0$, we can approximate for the next value of the function, $y_1$ at $t = t_0+\delta t$ as  $y(t_0 + \delta t) = y_1 = y_0 + f(t_0,y_0)\delta t$. Here is a great image from Wikipedia to help visualize the explanation:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/euler_method.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/euler_method.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;The Euler method can be extended to our differential equation as well. I employed the Euler method, the $sin$ approximation  as well as a different method called the RK4 ~ Runge-Kutta to the pendulum problem in order to help visualize the approximation techniques right over &lt;a href=&quot;http://localhost:4000/pendulum/simple_pendulum/index.html&quot;&gt;here&lt;/a&gt;. The RK4 is the most accurate, closely followed by the Euler and then finally the small $\theta$ approximation. You can play around with the initial conditions to see the differences in approximation. For the most part, the approximations match each other fairly well, but for some initial values they really differ $($ I recommend setting angle ~ 236, dtheta - 15, damping - 0, length - 150, gravity - 9.8 and selecting all the  approximation techniques$)$. The application also has the damping setting that you can play around with. I won’t say much about it as you can discover for yourself what it does.&lt;/p&gt;
+&lt;p&gt;The Euler method can be extended to our differential equation as well. I employed the Euler method, the $sin$ approximation  as well as a different method called the RK4 ~ Runge-Kutta to the pendulum problem in order to help visualize the approximation techniques right over &lt;a href=&quot;/pendulum/simple_pendulum/index.html&quot;&gt;here&lt;/a&gt;. The RK4 is the most accurate, closely followed by the Euler and then finally the small $\theta$ approximation. You can play around with the initial conditions to see the differences in approximation. For the most part, the approximations match each other fairly well, but for some initial values they really differ $($ I recommend setting angle ~ 236, dtheta - 15, damping - 0, length - 150, gravity - 9.8 and selecting all the  approximation techniques$)$. The application also has the damping setting that you can play around with. I won’t say much about it as you can discover for yourself what it does.&lt;/p&gt;
 
 &lt;p&gt;$($There is another part to the web app for the spring pendulum that I haven’t yet finished. It will be finished for another post.$)$&lt;/p&gt;
 
@@ -1056,7 +1056,7 @@ int main() {
 
 &lt;p&gt;I will assume the reader has a Google account and is remotely familiar with Google Drive. You will need to create a new Google Sheet. In the Google sheet, fill it up in the following manner $($with the birthdays of people you know$)$:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/birthdays_sheet.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/birthdays_sheet.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The first row is for the column titles and the rest of the rows is for the data. The data in the rows does not have to be organized in any particular order.&lt;/p&gt;
 
@@ -1141,8 +1141,8 @@ int main() {
 
 </description>
         <pubDate>Tue, 20 Dec 2016 16:27:00 -0800</pubDate>
-        <link>http://localhost:4000/programming/2016/12/20/pendulum/</link>
-        <guid isPermaLink="true">http://localhost:4000/programming/2016/12/20/pendulum/</guid>
+        <link>/programming/2016/12/20/pendulum/</link>
+        <guid isPermaLink="true">/programming/2016/12/20/pendulum/</guid>
         
         
         <category>programming</category>
@@ -1161,7 +1161,7 @@ int main() {
 
 &lt;p&gt;Here is a picture of our robot during construction:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/legoBot.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/legoBot.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;And here is a &lt;a href=&quot;https://www.youtube.com/watch?v=er5BoZVnoGs&amp;amp;feature=youtu.be&quot;&gt;video&lt;/a&gt; of our robot in action.&lt;/p&gt;
 
@@ -1174,8 +1174,8 @@ int main() {
 &lt;p&gt;At this moment, it is hard to predict or to fully appreciate how new technology will affect the future and our reaction to it. At least, in terms of robots and music, I think there is lots of room for creativity. However, with my past experience with music, I will still look for that human connection, effort and talent to fully enjoy and connect with music.&lt;/p&gt;
 </description>
         <pubDate>Sat, 19 Nov 2016 16:27:00 -0800</pubDate>
-        <link>http://localhost:4000/programming/2016/11/19/piano-robot/</link>
-        <guid isPermaLink="true">http://localhost:4000/programming/2016/11/19/piano-robot/</guid>
+        <link>/programming/2016/11/19/piano-robot/</link>
+        <guid isPermaLink="true">/programming/2016/11/19/piano-robot/</guid>
         
         
         <category>programming</category>

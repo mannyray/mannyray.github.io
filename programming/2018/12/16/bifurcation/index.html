@@ -10,8 +10,8 @@
   <meta name="description" content="In this post I will discuss bifurcation.">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://localhost:4000/programming/2018/12/16/bifurcation/">
-  <link rel="alternate" type="application/rss+xml" title="Stan Zonov" href="http://localhost:4000/feed.xml" />
+  <link rel="canonical" href="/programming/2018/12/16/bifurcation/">
+  <link rel="alternate" type="application/rss+xml" title="Stan Zonov" href="/feed.xml" />
 </head>
 
 
@@ -194,13 +194,13 @@
 </code></pre></div></div>
 <p>We can plot the derivative <code class="highlighter-rouge">x_t</code> against <code class="highlighter-rouge">x</code>:</p>
 
-<p><img src="http://localhost:4000/assets/bifurcations1.jpg" alt="image" /></p>
+<p><img src="/assets/bifurcations1.jpg" alt="image" /></p>
 
 <p>The first equilibrium is unstable since a slight perturbation will cause to move away from it (similar to a ball on top of a hill being slightly pushed will roll away). It is unstable because if <code class="highlighter-rouge">x</code> is slightly less than zero then the negative derivative (refer to previous plot) will cause <code class="highlighter-rouge">x</code> to decrease away from 0 and similarly if <code class="highlighter-rouge">x</code> is slightly greater than zero then the positive derivative will cause <code class="highlighter-rouge">x</code> to increase away from 0. Using similar logic the other two equilbiriums can be shown to be stable (a ball in a valley pushed will roll back).</p>
 
 <p>When <code class="highlighter-rouge">r</code> is less than or equal to zero there is only one equilibrium (<code class="highlighter-rouge">x=0</code> which is stable). Once again we plot <code class="highlighter-rouge">x_t</code> against <code class="highlighter-rouge">x</code>:</p>
 
-<p><img src="http://localhost:4000/assets/bifurcations2.jpg" alt="image" /></p>
+<p><img src="/assets/bifurcations2.jpg" alt="image" /></p>
 
 <p>When varying <code class="highlighter-rouge">r</code> from negative to positive we move from one stable point to two stable points. <code class="highlighter-rouge">r=0</code> is the bifurcation point where small variation  will cause strong qualititative change in the solution.</p>
 
@@ -211,19 +211,19 @@
 
 <p>where <code class="highlighter-rouge">r</code> is the parameter. We will restrict <code class="highlighter-rouge">r</code> to be in the range <code class="highlighter-rouge">0</code> to <code class="highlighter-rouge">4</code> (this provides that if <code class="highlighter-rouge">x_{n}</code> is between 0 and 1 then <code class="highlighter-rouge">x_{n+1}</code> will also be between 0 and 1 - can be checked via derivative tests). The logistic map reprents a population model where <code class="highlighter-rouge">x_{n}</code> between <code class="highlighter-rouge">0</code> and <code class="highlighter-rouge">1</code> represents the percentage out of a total maximum possible population. Below are some sample populations for different <code class="highlighter-rouge">r</code> values</p>
 
-<p><img src="http://localhost:4000/assets/bifurcations3.png" alt="image" /></p>
+<p><img src="/assets/bifurcations3.png" alt="image" /></p>
 
 <p>For <code class="highlighter-rouge">r=0.5</code> the steady value is <code class="highlighter-rouge">0</code> meaning that the population starting at <code class="highlighter-rouge">x_{0} = 0.5</code> will lead to population extinction (<code class="highlighter-rouge">x_{n} = 0</code>). For <code class="highlighter-rouge">r=1.25</code> the population reaches steady state of about <code class="highlighter-rouge">0.2</code>. <code class="highlighter-rouge">r=2.75</code> and <code class="highlighter-rouge">r=2</code> also reach a single steady state. Now for <code class="highlighter-rouge">r=3.5</code> things get interesting - there are now <code class="highlighter-rouge">4</code> steady values about which the curve oscillates about regularly: <code class="highlighter-rouge">0.8269, 0.5009, 0.8750, 0.3828</code>. By changing the parameter <code class="highlighter-rouge">r</code> from <code class="highlighter-rouge">2.75</code> to <code class="highlighter-rouge">3.5</code> we have change the amount of steady values from <code class="highlighter-rouge">1</code> to <code class="highlighter-rouge">4</code>. This leads us to plot a bifurcation diagram. Below the diagram plots for various <code class="highlighter-rouge">r</code> (Growth Rate) the steady values. For <code class="highlighter-rouge">r</code> less than <code class="highlighter-rouge">3</code> there is only one steady value and at about <code class="highlighter-rouge">3</code> (bifurcation point) we now have two steady points and once <code class="highlighter-rouge">r</code> is about <code class="highlighter-rouge">3.5</code> there are four (as demonstrated earlier).</p>
 
-<p><img src="http://localhost:4000/assets/bifurcations4.png" alt="image" /></p>
+<p><img src="/assets/bifurcations4.png" alt="image" /></p>
 
 <p>If we zoom in to a smaller range we see the following:</p>
 
-<p><img src="http://localhost:4000/assets/bifurcations5.png" alt="image" /></p>
+<p><img src="/assets/bifurcations5.png" alt="image" /></p>
 
 <p>and if we zoom in even further we start noticing a fractal type pattern emerging - same structure at every scale. From the simple logistic map equation we obtain a beautiful pattern.</p>
 
-<p><img src="http://localhost:4000/assets/bifurcations4_5.png" alt="image" /></p>
+<p><img src="/assets/bifurcations4_5.png" alt="image" /></p>
 
 <p>Some of the code used to generate the figures, insipiration as well as additional reading material can be found here:</p>
 
