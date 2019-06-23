@@ -5,8 +5,8 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 22 Jun 2019 16:47:06 -0700</pubDate>
-    <lastBuildDate>Sat, 22 Jun 2019 16:47:06 -0700</lastBuildDate>
+    <pubDate>Sat, 22 Jun 2019 16:57:01 -0700</pubDate>
+    <lastBuildDate>Sat, 22 Jun 2019 16:57:01 -0700</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -267,8 +267,8 @@ z_init[2] 3.132       0 0.000 3.132 3.132 3.132   154 1.001
 
 </description>
         <pubDate>Wed, 19 Jun 2019 05:00:00 -0700</pubDate>
-        <link>/programming/2019/06/19/stan-working-with-studs/</link>
-        <guid isPermaLink="true">/programming/2019/06/19/stan-working-with-studs/</guid>
+        <link>/programming/2019/06/19/stan-working-with-stans/</link>
+        <guid isPermaLink="true">/programming/2019/06/19/stan-working-with-stans/</guid>
         
         
         <category>programming</category>
