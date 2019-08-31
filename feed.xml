@@ -3,11 +3,31 @@
   <channel>
     <title>Stan Zonov</title>
     <description></description>
-    <link>/</link>
-    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 22 Jun 2019 16:57:01 -0700</pubDate>
-    <lastBuildDate>Sat, 22 Jun 2019 16:57:01 -0700</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 31 Aug 2019 11:20:46 -0700</pubDate>
+    <lastBuildDate>Sat, 31 Aug 2019 11:20:46 -0700</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Bike trip</title>
+        <description>&lt;p&gt;Hey everyone! I have recently completed a bike trip across Canada - from Vancouver to St John’s. The trip took two months - from June 23rd to August 23rd. I completed my thesis for my masters in late spring and thus had the time for such a journey. There were many reasons for the trip, some of which I haven’t fully formulated myself. The main reason was a desire for adventure and to challenge myself to something big. I will be eventually posting a more detailed and organized day to day account with pictures, videos and text. This will be in order to help remember things for myself in the future as well create an information source for those that are curious or are considering bike trips themselves.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bike_trip1.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bike_trip2.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bike_trip3.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 31 Aug 2019 05:00:00 -0700</pubDate>
+        <link>http://localhost:4000/travel/2019/08/31/bike_trip/</link>
+        <guid isPermaLink="true">http://localhost:4000/travel/2019/08/31/bike_trip/</guid>
+        
+        
+        <category>travel</category>
+        
+      </item>
     
       <item>
         <title>Stan working with Stan</title>
@@ -83,7 +103,7 @@
 	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;model&lt;/code&gt; block takes the state &lt;code class=&quot;highlighter-rouge&quot;&gt;z&lt;/code&gt; solved for in &lt;code class=&quot;highlighter-rouge&quot;&gt;transformed parameters&lt;/code&gt; and adds sensor noise. In addition, it provides initial guess or prior for the assumed pendulum length as well the initial conditions defined  in &lt;code class=&quot;highlighter-rouge&quot;&gt;z_init&lt;/code&gt;. The full &lt;code class=&quot;highlighter-rouge&quot;&gt;.stan&lt;/code&gt; file can be found in &lt;a href=&quot;/assets/pendulum.stan&quot;&gt;pendulum.stan&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;model&lt;/code&gt; block takes the state &lt;code class=&quot;highlighter-rouge&quot;&gt;z&lt;/code&gt; solved for in &lt;code class=&quot;highlighter-rouge&quot;&gt;transformed parameters&lt;/code&gt; and adds sensor noise. In addition, it provides initial guess or prior for the assumed pendulum length as well the initial conditions defined  in &lt;code class=&quot;highlighter-rouge&quot;&gt;z_init&lt;/code&gt;. The full &lt;code class=&quot;highlighter-rouge&quot;&gt;.stan&lt;/code&gt; file can be found in &lt;a href=&quot;http://localhost:4000/assets/pendulum.stan&quot;&gt;pendulum.stan&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;To estimate parameters we need data to work with - that is the measurements. To generated the measurements, we first need to solve the DE model and then add noise to it. Consider the &lt;code class=&quot;highlighter-rouge&quot;&gt;matlab&lt;/code&gt; script (scavanged version of &lt;a href=&quot;https://wiki.math.uwaterloo.ca/sheets/matlab/html/stoch_pendulum_white.html&quot;&gt;this&lt;/a&gt;):&lt;/p&gt;
 
@@ -151,9 +171,9 @@
 
 &lt;p&gt;$\theta = \pi - 0.01$&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/stan_pendulum1.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/stan_pendulum1.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;By time $20$ the state has been mostly damped out. We now have everything we need to estimate the length. We run &lt;code class=&quot;highlighter-rouge&quot;&gt;Stan&lt;/code&gt; through &lt;code class=&quot;highlighter-rouge&quot;&gt;R&lt;/code&gt;. The &lt;code class=&quot;highlighter-rouge&quot;&gt;R&lt;/code&gt; script is below and can be found in &lt;a href=&quot;/assets/script.r&quot;&gt;script.r&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;By time $20$ the state has been mostly damped out. We now have everything we need to estimate the length. We run &lt;code class=&quot;highlighter-rouge&quot;&gt;Stan&lt;/code&gt; through &lt;code class=&quot;highlighter-rouge&quot;&gt;R&lt;/code&gt;. The &lt;code class=&quot;highlighter-rouge&quot;&gt;R&lt;/code&gt; script is below and can be found in &lt;a href=&quot;http://localhost:4000/assets/script.r&quot;&gt;script.r&lt;/a&gt;.&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rstan&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 
@@ -227,11 +247,11 @@ z_init[2] 1.452   0.527 0.746  1.017  1.023 2.762     2 66.696
 
 &lt;p&gt;The first plot is the computed by &lt;code class=&quot;highlighter-rouge&quot;&gt;Stan&lt;/code&gt; posterior distribution of the length, initial velocity and initial theta. The red is the true initial state specified within the matlab script while black is the computed posterior mean. For both theta and velocity we see a multimodal distribution.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/stan_posterior2.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/stan_posterior2.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The plot shows that there is no clear guess as to what the initial conditions or the lengths is. The overlay of all the computed simulated $\theta$ s by &lt;code class=&quot;highlighter-rouge&quot;&gt;Stan&lt;/code&gt; in the non warm-up phase is below [hence the fat curves].&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/stan_theta2.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/stan_theta2.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;There are two main simulated trajectories of $\theta$. This is because the initial condition and its variance assumed in &lt;code class=&quot;highlighter-rouge&quot;&gt;Stan&lt;/code&gt; in variable &lt;code class=&quot;highlighter-rouge&quot;&gt;z_init&lt;/code&gt; is too close to $\pi$ as seen in figure below&lt;/p&gt;
 
@@ -241,7 +261,7 @@ z_init[2] 1.452   0.527 0.746  1.017  1.023 2.762     2 66.696
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;abline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lty&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dev.off&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/stan_norm.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/stan_norm.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The red line is at $\pi$. Part of the area is over $\pi$ meaning that some conditions are less than $\pi$ while others are greater than. This results in two different types of behaviours of the pendulum swinging down leftwards or rightwards.&lt;/p&gt;
 
@@ -251,7 +271,7 @@ z_init[2] 1.452   0.527 0.746  1.017  1.023 2.762     2 66.696
 
 &lt;p&gt;The variance is now shrunk to avoid having significant probablity for initial $\theta$ greater than $\pi$ to match the actual physical initial conditions defined in matlab script [pendulum falling towards the left]. Variance is now $0.0001^2$ for the prior:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/stan_norm2.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/stan_norm2.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;After running &lt;code class=&quot;highlighter-rouge&quot;&gt;Stan&lt;/code&gt; again we obtain results that more closely match the true values of the parameters:&lt;/p&gt;
 
@@ -261,14 +281,14 @@ z_init[1] 0.000       0 0.000 0.000 0.000 0.000   249 0.998
 z_init[2] 3.132       0 0.000 3.132 3.132 3.132   154 1.001
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/stan_posterior1.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/stan_posterior1.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;In conclusion, this somewhat contrived examples goes to show that knowledge of the priors and model is very important for conducting a successful experiment.&lt;/p&gt;
 
 </description>
         <pubDate>Wed, 19 Jun 2019 05:00:00 -0700</pubDate>
-        <link>/programming/2019/06/19/stan-working-with-stans/</link>
-        <guid isPermaLink="true">/programming/2019/06/19/stan-working-with-stans/</guid>
+        <link>http://localhost:4000/programming/2019/06/19/stan-working-with-stans/</link>
+        <guid isPermaLink="true">http://localhost:4000/programming/2019/06/19/stan-working-with-stans/</guid>
         
         
         <category>programming</category>
@@ -297,16 +317,16 @@ z_init[2] 3.132       0 0.000 3.132 3.132 3.132   154 1.001
 
 &lt;p&gt;The hall way outside my office where I was during my masters:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/masters2.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/masters2.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The hallway was in the MC building:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/masters1.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/masters1.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 </description>
         <pubDate>Tue, 18 Jun 2019 05:00:00 -0700</pubDate>
-        <link>/programming/2019/06/18/mathematician/</link>
-        <guid isPermaLink="true">/programming/2019/06/18/mathematician/</guid>
+        <link>http://localhost:4000/programming/2019/06/18/mathematician/</link>
+        <guid isPermaLink="true">http://localhost:4000/programming/2019/06/18/mathematician/</guid>
         
         
         <category>programming</category>
@@ -335,13 +355,13 @@ z_init[2] 3.132       0 0.000 3.132 3.132 3.132   154 1.001
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;We can plot the derivative &lt;code class=&quot;highlighter-rouge&quot;&gt;x_t&lt;/code&gt; against &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt;:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/bifurcations1.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bifurcations1.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The first equilibrium is unstable since a slight perturbation will cause to move away from it (similar to a ball on top of a hill being slightly pushed will roll away). It is unstable because if &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; is slightly less than zero then the negative derivative (refer to previous plot) will cause &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; to decrease away from 0 and similarly if &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; is slightly greater than zero then the positive derivative will cause &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; to increase away from 0. Using similar logic the other two equilbiriums can be shown to be stable (a ball in a valley pushed will roll back).&lt;/p&gt;
 
 &lt;p&gt;When &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; is less than or equal to zero there is only one equilibrium (&lt;code class=&quot;highlighter-rouge&quot;&gt;x=0&lt;/code&gt; which is stable). Once again we plot &lt;code class=&quot;highlighter-rouge&quot;&gt;x_t&lt;/code&gt; against &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt;:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/bifurcations2.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bifurcations2.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;When varying &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; from negative to positive we move from one stable point to two stable points. &lt;code class=&quot;highlighter-rouge&quot;&gt;r=0&lt;/code&gt; is the bifurcation point where small variation  will cause strong qualititative change in the solution.&lt;/p&gt;
 
@@ -352,19 +372,19 @@ z_init[2] 3.132       0 0.000 3.132 3.132 3.132   154 1.001
 
 &lt;p&gt;where &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; is the parameter. We will restrict &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; to be in the range &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;4&lt;/code&gt; (this provides that if &lt;code class=&quot;highlighter-rouge&quot;&gt;x_{n}&lt;/code&gt; is between 0 and 1 then &lt;code class=&quot;highlighter-rouge&quot;&gt;x_{n+1}&lt;/code&gt; will also be between 0 and 1 - can be checked via derivative tests). The logistic map reprents a population model where &lt;code class=&quot;highlighter-rouge&quot;&gt;x_{n}&lt;/code&gt; between &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; represents the percentage out of a total maximum possible population. Below are some sample populations for different &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; values&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/bifurcations3.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bifurcations3.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;For &lt;code class=&quot;highlighter-rouge&quot;&gt;r=0.5&lt;/code&gt; the steady value is &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; meaning that the population starting at &lt;code class=&quot;highlighter-rouge&quot;&gt;x_{0} = 0.5&lt;/code&gt; will lead to population extinction (&lt;code class=&quot;highlighter-rouge&quot;&gt;x_{n} = 0&lt;/code&gt;). For &lt;code class=&quot;highlighter-rouge&quot;&gt;r=1.25&lt;/code&gt; the population reaches steady state of about &lt;code class=&quot;highlighter-rouge&quot;&gt;0.2&lt;/code&gt;. &lt;code class=&quot;highlighter-rouge&quot;&gt;r=2.75&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;r=2&lt;/code&gt; also reach a single steady state. Now for &lt;code class=&quot;highlighter-rouge&quot;&gt;r=3.5&lt;/code&gt; things get interesting - there are now &lt;code class=&quot;highlighter-rouge&quot;&gt;4&lt;/code&gt; steady values about which the curve oscillates about regularly: &lt;code class=&quot;highlighter-rouge&quot;&gt;0.8269, 0.5009, 0.8750, 0.3828&lt;/code&gt;. By changing the parameter &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; from &lt;code class=&quot;highlighter-rouge&quot;&gt;2.75&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;3.5&lt;/code&gt; we have change the amount of steady values from &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;4&lt;/code&gt;. This leads us to plot a bifurcation diagram. Below the diagram plots for various &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; (Growth Rate) the steady values. For &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; less than &lt;code class=&quot;highlighter-rouge&quot;&gt;3&lt;/code&gt; there is only one steady value and at about &lt;code class=&quot;highlighter-rouge&quot;&gt;3&lt;/code&gt; (bifurcation point) we now have two steady points and once &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; is about &lt;code class=&quot;highlighter-rouge&quot;&gt;3.5&lt;/code&gt; there are four (as demonstrated earlier).&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/bifurcations4.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bifurcations4.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;If we zoom in to a smaller range we see the following:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/bifurcations5.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bifurcations5.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;and if we zoom in even further we start noticing a fractal type pattern emerging - same structure at every scale. From the simple logistic map equation we obtain a beautiful pattern.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/bifurcations4_5.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bifurcations4_5.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Some of the code used to generate the figures, insipiration as well as additional reading material can be found here:&lt;/p&gt;
 
@@ -376,8 +396,8 @@ z_init[2] 3.132       0 0.000 3.132 3.132 3.132   154 1.001
 &lt;/ol&gt;
 </description>
         <pubDate>Sun, 16 Dec 2018 12:00:00 -0800</pubDate>
-        <link>/programming/2018/12/16/bifurcation/</link>
-        <guid isPermaLink="true">/programming/2018/12/16/bifurcation/</guid>
+        <link>http://localhost:4000/programming/2018/12/16/bifurcation/</link>
+        <guid isPermaLink="true">http://localhost:4000/programming/2018/12/16/bifurcation/</guid>
         
         
         <category>programming</category>
@@ -548,8 +568,8 @@ $ mysql_secure_installation
 
 </description>
         <pubDate>Thu, 06 Dec 2018 17:00:00 -0800</pubDate>
-        <link>/programming/2018/12/06/simple-scraper/</link>
-        <guid isPermaLink="true">/programming/2018/12/06/simple-scraper/</guid>
+        <link>http://localhost:4000/programming/2018/12/06/simple-scraper/</link>
+        <guid isPermaLink="true">http://localhost:4000/programming/2018/12/06/simple-scraper/</guid>
         
         
         <category>programming</category>
@@ -564,13 +584,13 @@ $ mysql_secure_installation
 
 &lt;p&gt;It is  based on the following equations:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/equations.png&quot; alt=&quot;equations&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/equations.png&quot; alt=&quot;equations&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;and with inspiration from &lt;a href=&quot;http://geoffboeing.com/2016/12/animating-lorenz-attractor-python/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Thu, 01 Mar 2018 15:00:00 -0800</pubDate>
-        <link>/programming/2018/03/01/simulation/</link>
-        <guid isPermaLink="true">/programming/2018/03/01/simulation/</guid>
+        <link>http://localhost:4000/programming/2018/03/01/simulation/</link>
+        <guid isPermaLink="true">http://localhost:4000/programming/2018/03/01/simulation/</guid>
         
         
         <category>programming</category>
@@ -582,8 +602,8 @@ $ mysql_secure_installation
         <description>
 </description>
         <pubDate>Tue, 26 Dec 2017 16:00:00 -0800</pubDate>
-        <link>/photos/2017/12/26/gallery-test/</link>
-        <guid isPermaLink="true">/photos/2017/12/26/gallery-test/</guid>
+        <link>http://localhost:4000/photos/2017/12/26/gallery-test/</link>
+        <guid isPermaLink="true">http://localhost:4000/photos/2017/12/26/gallery-test/</guid>
         
         
         <category>photos</category>
@@ -641,8 +661,8 @@ $ mysql_secure_installation
 
 </description>
         <pubDate>Sun, 16 Jul 2017 15:00:00 -0700</pubDate>
-        <link>/programming/2017/07/16/Creating-a-notification/</link>
-        <guid isPermaLink="true">/programming/2017/07/16/Creating-a-notification/</guid>
+        <link>http://localhost:4000/programming/2017/07/16/Creating-a-notification/</link>
+        <guid isPermaLink="true">http://localhost:4000/programming/2017/07/16/Creating-a-notification/</guid>
         
         
         <category>programming</category>
@@ -1216,8 +1236,8 @@ int main() {
 
 </description>
         <pubDate>Fri, 14 Jul 2017 13:44:00 -0700</pubDate>
-        <link>/programming/2017/07/14/Beautiful-3-set/</link>
-        <guid isPermaLink="true">/programming/2017/07/14/Beautiful-3-set/</guid>
+        <link>http://localhost:4000/programming/2017/07/14/Beautiful-3-set/</link>
+        <guid isPermaLink="true">http://localhost:4000/programming/2017/07/14/Beautiful-3-set/</guid>
         
         
         <category>programming</category>
@@ -1230,185 +1250,32 @@ int main() {
 
 &lt;p&gt;The following image contains a sort of histogram that placed the stops in bins based on their time of day occurence in a 24 hour time span.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/average_day_frequency.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/average_day_frequency.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The next image is similar to the previous one, except now it places the stops in bins based on the day of the year in a one year span.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/year_frequency.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/year_frequency.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The next few images are of the location based frequency of vehicle stops based on an entire year.&lt;/p&gt;
 
 &lt;h6 id=&quot;tri-city-area&quot;&gt;Tri-city area:&lt;/h6&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/location.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/location.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;h6 id=&quot;waterloo-area&quot;&gt;Waterloo area:&lt;/h6&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/waterloo_zoom.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/waterloo_zoom.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;h6 id=&quot;cambridge-area&quot;&gt;Cambridge area:&lt;/h6&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/cambridge_zoom.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/cambridge_zoom.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;It can be hard to appreciate the number of stops done throughout the year by looking at the maps or previous histograms. The actual number of stops is over 40000. I will let the user make ‘conclusions’ on their own. The purpose of the post was not for analysis but instead for a small example of visualization and turning a huge csv file into a some neat graphs and plots. I will also provide the disclaimer for the users to go to the &lt;a href=&quot;http://www.wrps.on.ca/inside-wrps/corporate-planning-systems&quot;&gt;Waterloo Regional Police Service&lt;/a&gt; website if they want to learn more about the data and its limits.&lt;/p&gt;
 
 </description>
         <pubDate>Tue, 14 Mar 2017 17:27:00 -0700</pubDate>
-        <link>/programming/2017/03/14/Some-graphs/</link>
-        <guid isPermaLink="true">/programming/2017/03/14/Some-graphs/</guid>
-        
-        
-        <category>programming</category>
-        
-      </item>
-    
-      <item>
-        <title>Pendulums and automation</title>
-        <description>&lt;p&gt;There will be two topics to this post. The first one will be about pendulums and the second one will be about automation. The topics aren’t related, but I put them together anyways. I hope you enjoy reading about them!&lt;/p&gt;
-
-&lt;h2 id=&quot;pendulums&quot;&gt;Pendulums&lt;/h2&gt;
-
-&lt;p&gt;Up to this current point, I have taken a few courses that deal with simple harmonic motion. PHYS 121, PHYS 122, AMATH 251, AMATH 351 are only some of the courses that have covered this topic. It occurs so frequently in my AMATH courses that I thought it would very selfish of me to hord all the knowledge to myself.&lt;/p&gt;
-
-&lt;p&gt;Simple harmonic motion is used to model periodic motion, motion that repeats itself after a set period of time. Some examples would be a spring or a pendulum. In applied mathematics there is an attraction to this subject as simple harmonic motion occurs all over the place. Starting off and understanding something simple as the pendulum, we can work on tackling more complicated problems.&lt;/p&gt;
-
-&lt;p&gt;When we think about a simple pendulum, we think of a string attached to a pivot on one end and a heavy mass attached on the other $($assuming string has no mass$)$. Something like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/pendulum.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Since we are talking about applied mathematics here, then we need some sort of equation to work with. So how does one turn the pendulum motion into an equation?&lt;/p&gt;
-
-&lt;p&gt;One thing we can start off with is the $F = ma$ equation $($Newton’s third law$)$. The $F$ is the net force and in our case will be the force acting on the mass hanging on to the string, $m$ the mass and $a$ the acceleration of the mass. Since we are dealing with the pendulum then what we will be using to keep track of position will be the angle $(&lt;script type=&quot;math/tex&quot;&gt;\theta&lt;/script&gt;)$ of the string from the pendulum’s equilibrium position. We now upgrade our image to the following:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/updated_pendulum.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;To understand the net force on the mass, we need to consider all the forces acting on the mass. These forces will be gravity and tension of the string. By understanding the forces acting upon the mass we can then understand the motion induced by the forces:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/forces_pendulum.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The black force is caused by tension of the string and the blue force is caused by gravity. The gravity force can be broken down to the two red forces with the help of geometry. Since the mass on the string is not flying off the string then it must be the case that $F_g cos(\theta) = F_T$ and they cancel each other out. Therefore, the net force is $F = - mg sin(\theta)$.&lt;/p&gt;
-
-&lt;p&gt;For the angle, $\theta$ is the angle, then velocity is $\theta’$ and acceleration is $\theta’’$. If we want to consider the amount of distance the mass on the pendulum covered with a change of $\theta$ in the angle, then the distance must be the arc length covered by the motion - which would be $\theta l$ where $l$ is the length of the string $($ if the pendulum was to do a full rotation, then that would be the circumference of a circle of radius - $l$, $2 \pi l$ $)$. Therefore the acceleration with respect to position $($not angle$)$ must be $l \theta’’$. Using all this information we can derive the following:&lt;/p&gt;
-
-&lt;p&gt;$F = ma$&lt;/p&gt;
-
-&lt;p&gt;$- m g sin(\theta) = m l \theta’’$&lt;/p&gt;
-
-&lt;p&gt;$ - g sin(\theta) = l \theta’’$&lt;/p&gt;
-
-&lt;p&gt;$ \theta’’ + \frac{g}{l}sin(\theta) = 0$&lt;/p&gt;
-
-&lt;p&gt;What we have derived is a differential equation for the motion of the pendulum. There is some sort of function $\theta$ that describes the angle of the pendulum from equilibrium as a function of $t$, time. Now whatever that function may be, it must satisfy out derived differential equation. One thing we can observe from our equation is that it does not depend on mass $($ no matter what the mass is on the pendulum, the motion will not be changed $)$. We will now work on solving this equation.&lt;/p&gt;
-
-&lt;p&gt;One way we can solve this differential equation is by getting rid of the $sin$. We can use the fact that for small $\theta$, $\theta ~= sin(\theta)$. This transforms our differential equation to: $\theta’’ + \frac{g}{l}\theta = 0$ for which the solution is of the form $\theta = A sin(\sqrt(\frac{g}{l}) + B cos(\sqrt(\frac{g}{l}))$ where $A$ and $B$ are constants.&lt;/p&gt;
-
-&lt;p&gt;If we decide to solve the original equation with the $sin$ we might as well work on approximation techniques in order to save some time. One well known method is called the Euler method. In the Euler method we have an expression for the derivative of the form $y’ = f(t,y(t))$ and a starting point $y_0$ where $y(t_0) = y_0$. If we recall, $y’$ is the slope of the tangent of the curve $y$. Using the slope and the starting point $y_0$, we can approximate for the next value of the function, $y_1$ at $t = t_0+\delta t$ as  $y(t_0 + \delta t) = y_1 = y_0 + f(t_0,y_0)\delta t$. Here is a great image from Wikipedia to help visualize the explanation:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/euler_method.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The Euler method can be extended to our differential equation as well. I employed the Euler method, the $sin$ approximation  as well as a different method called the RK4 ~ Runge-Kutta to the pendulum problem in order to help visualize the approximation techniques right over &lt;a href=&quot;/pendulum/simple_pendulum/index.html&quot;&gt;here&lt;/a&gt;. The RK4 is the most accurate, closely followed by the Euler and then finally the small $\theta$ approximation. You can play around with the initial conditions to see the differences in approximation. For the most part, the approximations match each other fairly well, but for some initial values they really differ $($ I recommend setting angle ~ 236, dtheta - 15, damping - 0, length - 150, gravity - 9.8 and selecting all the  approximation techniques$)$. The application also has the damping setting that you can play around with. I won’t say much about it as you can discover for yourself what it does.&lt;/p&gt;
-
-&lt;p&gt;$($There is another part to the web app for the spring pendulum that I haven’t yet finished. It will be finished for another post.$)$&lt;/p&gt;
-
-&lt;h2 id=&quot;automation&quot;&gt;Automation&lt;/h2&gt;
-
-&lt;p&gt;Something neat I discovered a while back is Google App Scripts $($GAS$)$. As Google describes it, it is: “a JavaScript cloud scripting language that provides easy ways to automate tasks across Google products and third party services and build web applications.” Basically, GAS can be used to connect the different Google services $($like Google Sheets$)$ to your creativity with a little bit of scripting. You can use GAS for many many &lt;a href=&quot;http://www.labnol.org/internet/google-scripts/28281/&quot;&gt;things&lt;/a&gt;. One thing that we are going to build together today is a birthday email bot.&lt;/p&gt;
-
-&lt;p&gt;The motivation behind this example is that it is a great introduction to GAS and a potential real world application. I noticed one of my friends on Facebook opening up one of those ‘3 friends have a birthday today’ notifications and then typing up a lame ‘Happy Birthday!’ to each person. It didn’t look like it was sincere and felt like a chore. Why not automate this?&lt;/p&gt;
-
-&lt;p&gt;If you think that automating this sounds a little cheap then consider the fact that the amount of time you will spend creating the sender will put more thought and time in to those emails for years to come.&lt;/p&gt;
-
-&lt;h3 id=&quot;setting-up&quot;&gt;Setting up&lt;/h3&gt;
-
-&lt;p&gt;I will assume the reader has a Google account and is remotely familiar with Google Drive. You will need to create a new Google Sheet. In the Google sheet, fill it up in the following manner $($with the birthdays of people you know$)$:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/birthdays_sheet.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The first row is for the column titles and the rest of the rows is for the data. The data in the rows does not have to be organized in any particular order.&lt;/p&gt;
-
-&lt;p&gt;Once you have done that, go to &lt;em&gt;Tools &amp;gt; Script Editor…&lt;/em&gt; and enter the following code $($and then save it$)$.&lt;/p&gt;
-
-&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;checkReminder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// get the spreadsheet object&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;spreadsheet&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SpreadsheetApp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getActiveSpreadsheet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// set the first sheet as active&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;SpreadsheetApp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setActiveSheet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;spreadsheet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getSheets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// fetch this sheet&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sheet&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;spreadsheet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getActiveSheet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-   
-  &lt;span class=&quot;c1&quot;&gt;// figure out what the last row is&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;lastRow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sheet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getLastRow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
- 
-  &lt;span class=&quot;c1&quot;&gt;// the rows are indexed starting at 1, and the first row&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// is the headers, so start with row 2&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;startRow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  
-  &lt;span class=&quot;c1&quot;&gt;//get today's month and date&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;dateData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;getMonthAndDay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;month&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;dateData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;day&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;dateData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-  
-  &lt;span class=&quot;c1&quot;&gt;//get tomorrows month and date&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;today&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tomorrow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;tomorrow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setDate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;today&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getDate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  
-  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tomorrowDateData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;getMonthAndDay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tomorrow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tomorrowMonth&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tomorrowDateData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tomorrowDay&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tomorrowDateData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-      
-  
-  &lt;span class=&quot;c1&quot;&gt;//get the data in the spreadsheet to loop over&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;range&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sheet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getRange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;lastRow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;startRow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;numRows&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getNumRows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getValues&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-  
-  &lt;span class=&quot;c1&quot;&gt;//for all the rows with data&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;numRows&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;//get the month and date&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//columns start indexing at zero unlike rows&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;//if today's month and date matches the rows month and date ---&amp;gt; then it means it is the person's birthday&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;day&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//it is the person's birthday&lt;/span&gt;
-      &lt;span class=&quot;c1&quot;&gt;//Then shoot the person an email!&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;MailApp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sendEmail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;your email in quotation marks&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Happy Birthday EMAIL TITLE&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;MAKE YOUR OWN BDAY BODY MESSAGE&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//if tomorrow is the row's date and month, then it means it is the person's birthday tomorrow ---&amp;gt; shoot yourself a warning message&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tomorrowMonth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;tomorrowDay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;MailApp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sendEmail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;your email in quotation marks&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Birthday automation warning.&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Birthday of &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; is tomorrow.&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-
-&lt;span class=&quot;c1&quot;&gt;//for a given Date object return the Month and date&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;getMonthAndDay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;month&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;January&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;February&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;March&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;April&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;May&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;June&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;July&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;August&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;September&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;October&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;November&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;December&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getMonth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()];&lt;/span&gt; 
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getDate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()];&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;I have added comments throughout the code in order to help explain it. The code essentially checks the spreadsheet and checks if today’s date matches a date on the sheet. If there is a match then it sends the person a happy birthday email. If the person’s email is tomorrow then it sends you a warning in advance $($ in case you want to do something more than just an email $)$. $($If you have a friend who has a birthday on Feb 29 then you might have to do some extra thinking :$)$  $)$.&lt;/p&gt;
-
-&lt;p&gt;Since we want to automate this process and have it run everyday then we still have some work to do. You need to go to &lt;em&gt;Resources &amp;gt; All your triggers&lt;/em&gt;, Add a new trigger and set it to Time-driven, Day timer between 7-8am and press save. Then go to &lt;em&gt;Publish &amp;gt; Deploy as Web App…&lt;/em&gt; and give the app the permissions it needs. There you go! You have created your very own birthday bot.&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 20 Dec 2016 16:27:00 -0800</pubDate>
-        <link>/programming/2016/12/20/pendulum/</link>
-        <guid isPermaLink="true">/programming/2016/12/20/pendulum/</guid>
+        <link>http://localhost:4000/programming/2017/03/14/Some-graphs/</link>
+        <guid isPermaLink="true">http://localhost:4000/programming/2017/03/14/Some-graphs/</guid>
         
         
         <category>programming</category>
