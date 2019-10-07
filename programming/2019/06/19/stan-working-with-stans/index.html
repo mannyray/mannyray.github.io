@@ -21,8 +21,8 @@
   <meta name="description" content="Stan is a language used for statistical inference. Here we will investigate estimating the unknown length of a pendulum based on measurements of velocity and...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://localhost:4000/programming/2019/06/19/stan-working-with-stans/">
-  <link rel="alternate" type="application/rss+xml" title="Stan Zonov" href="http://localhost:4000/feed.xml" />
+  <link rel="canonical" href="/programming/2019/06/19/stan-working-with-stans/">
+  <link rel="alternate" type="application/rss+xml" title="Stan Zonov" href="/feed.xml" />
 </head>
 
 
@@ -284,7 +284,7 @@
 	<span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>The <code class="highlighter-rouge">model</code> block takes the state <code class="highlighter-rouge">z</code> solved for in <code class="highlighter-rouge">transformed parameters</code> and adds sensor noise. In addition, it provides initial guess or prior for the assumed pendulum length as well the initial conditions defined  in <code class="highlighter-rouge">z_init</code>. The full <code class="highlighter-rouge">.stan</code> file can be found in <a href="http://localhost:4000/assets/pendulum.stan">pendulum.stan</a>.</p>
+<p>The <code class="highlighter-rouge">model</code> block takes the state <code class="highlighter-rouge">z</code> solved for in <code class="highlighter-rouge">transformed parameters</code> and adds sensor noise. In addition, it provides initial guess or prior for the assumed pendulum length as well the initial conditions defined  in <code class="highlighter-rouge">z_init</code>. The full <code class="highlighter-rouge">.stan</code> file can be found in <a href="/assets/pendulum.stan">pendulum.stan</a>.</p>
 
 <p>To estimate parameters we need data to work with - that is the measurements. To generated the measurements, we first need to solve the DE model and then add noise to it. Consider the <code class="highlighter-rouge">matlab</code> script (scavanged version of <a href="https://wiki.math.uwaterloo.ca/sheets/matlab/html/stoch_pendulum_white.html">this</a>):</p>
 
@@ -352,9 +352,9 @@
 
 <p>$\theta = \pi - 0.01$</p>
 
-<p><img src="http://localhost:4000/assets/stan_pendulum1.png" alt="image" /></p>
+<p><img src="/assets/stan_pendulum1.png" alt="image" /></p>
 
-<p>By time $20$ the state has been mostly damped out. We now have everything we need to estimate the length. We run <code class="highlighter-rouge">Stan</code> through <code class="highlighter-rouge">R</code>. The <code class="highlighter-rouge">R</code> script is below and can be found in <a href="http://localhost:4000/assets/script.r">script.r</a>.</p>
+<p>By time $20$ the state has been mostly damped out. We now have everything we need to estimate the length. We run <code class="highlighter-rouge">Stan</code> through <code class="highlighter-rouge">R</code>. The <code class="highlighter-rouge">R</code> script is below and can be found in <a href="/assets/script.r">script.r</a>.</p>
 
 <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="s2">"rstan"</span><span class="p">)</span><span class="w">
 
@@ -428,11 +428,11 @@ z_init[2] 1.452   0.527 0.746  1.017  1.023 2.762     2 66.696
 
 <p>The first plot is the computed by <code class="highlighter-rouge">Stan</code> posterior distribution of the length, initial velocity and initial theta. The red is the true initial state specified within the matlab script while black is the computed posterior mean. For both theta and velocity we see a multimodal distribution.</p>
 
-<p><img src="http://localhost:4000/assets/stan_posterior2.jpg" alt="image" /></p>
+<p><img src="/assets/stan_posterior2.jpg" alt="image" /></p>
 
 <p>The plot shows that there is no clear guess as to what the initial conditions or the lengths is. The overlay of all the computed simulated $\theta$ s by <code class="highlighter-rouge">Stan</code> in the non warm-up phase is below [hence the fat curves].</p>
 
-<p><img src="http://localhost:4000/assets/stan_theta2.jpg" alt="image" /></p>
+<p><img src="/assets/stan_theta2.jpg" alt="image" /></p>
 
 <p>There are two main simulated trajectories of $\theta$. This is because the initial condition and its variance assumed in <code class="highlighter-rouge">Stan</code> in variable <code class="highlighter-rouge">z_init</code> is too close to $\pi$ as seen in figure below</p>
 
@@ -442,7 +442,7 @@ z_init[2] 1.452   0.527 0.746  1.017  1.023 2.762     2 66.696
 </span><span class="n">abline</span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">pi</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">lty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
 </span><span class="n">dev.off</span><span class="p">()</span></code></pre></figure>
 
-<p><img src="http://localhost:4000/assets/stan_norm.jpg" alt="image" /></p>
+<p><img src="/assets/stan_norm.jpg" alt="image" /></p>
 
 <p>The red line is at $\pi$. Part of the area is over $\pi$ meaning that some conditions are less than $\pi$ while others are greater than. This results in two different types of behaviours of the pendulum swinging down leftwards or rightwards.</p>
 
@@ -452,7 +452,7 @@ z_init[2] 1.452   0.527 0.746  1.017  1.023 2.762     2 66.696
 
 <p>The variance is now shrunk to avoid having significant probablity for initial $\theta$ greater than $\pi$ to match the actual physical initial conditions defined in matlab script [pendulum falling towards the left]. Variance is now $0.0001^2$ for the prior:</p>
 
-<p><img src="http://localhost:4000/assets/stan_norm2.jpg" alt="image" /></p>
+<p><img src="/assets/stan_norm2.jpg" alt="image" /></p>
 
 <p>After running <code class="highlighter-rouge">Stan</code> again we obtain results that more closely match the true values of the parameters:</p>
 
@@ -462,7 +462,7 @@ z_init[1] 0.000       0 0.000 0.000 0.000 0.000   249 0.998
 z_init[2] 3.132       0 0.000 3.132 3.132 3.132   154 1.001
 </code></pre></div></div>
 
-<p><img src="http://localhost:4000/assets/stan_posterior1.jpg" alt="image" /></p>
+<p><img src="/assets/stan_posterior1.jpg" alt="image" /></p>
 
 <p>In conclusion, this somewhat contrived examples goes to show that knowledge of the priors and model is very important for conducting a successful experiment.</p>
 

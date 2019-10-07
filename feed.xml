@@ -3,26 +3,26 @@
   <channel>
     <title>Stan Zonov</title>
     <description></description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 06 Oct 2019 23:16:01 -0700</pubDate>
-    <lastBuildDate>Sun, 06 Oct 2019 23:16:01 -0700</lastBuildDate>
+    <link>/</link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sun, 06 Oct 2019 23:50:50 -0700</pubDate>
+    <lastBuildDate>Sun, 06 Oct 2019 23:50:50 -0700</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
         <title>Bike trip</title>
         <description>&lt;p&gt;Hey everyone! I have recently completed a bike trip across Canada - from Vancouver to St John’s. The trip took two months - from June 23rd to August 23rd. I completed my thesis for my masters in late spring and thus had the time for such a journey. There were many reasons for the trip, some of which I haven’t fully formulated myself. The main reason was a desire for adventure and to challenge myself to something big. I will be eventually posting a more detailed and organized day to day account with pictures, videos and text. This will be in order to help remember things for myself in the future as well create an information source for those that are curious or are considering bike trips themselves.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bike_trip1.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/bike_trip1.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bike_trip2.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/bike_trip2.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bike_trip3.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/bike_trip3.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 </description>
         <pubDate>Sat, 31 Aug 2019 05:00:00 -0700</pubDate>
-        <link>http://localhost:4000/travel/2019/08/31/bike_trip/</link>
-        <guid isPermaLink="true">http://localhost:4000/travel/2019/08/31/bike_trip/</guid>
+        <link>/travel/2019/08/31/bike_trip/</link>
+        <guid isPermaLink="true">/travel/2019/08/31/bike_trip/</guid>
         
         
         <category>travel</category>
@@ -103,7 +103,7 @@
 	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;model&lt;/code&gt; block takes the state &lt;code class=&quot;highlighter-rouge&quot;&gt;z&lt;/code&gt; solved for in &lt;code class=&quot;highlighter-rouge&quot;&gt;transformed parameters&lt;/code&gt; and adds sensor noise. In addition, it provides initial guess or prior for the assumed pendulum length as well the initial conditions defined  in &lt;code class=&quot;highlighter-rouge&quot;&gt;z_init&lt;/code&gt;. The full &lt;code class=&quot;highlighter-rouge&quot;&gt;.stan&lt;/code&gt; file can be found in &lt;a href=&quot;http://localhost:4000/assets/pendulum.stan&quot;&gt;pendulum.stan&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;model&lt;/code&gt; block takes the state &lt;code class=&quot;highlighter-rouge&quot;&gt;z&lt;/code&gt; solved for in &lt;code class=&quot;highlighter-rouge&quot;&gt;transformed parameters&lt;/code&gt; and adds sensor noise. In addition, it provides initial guess or prior for the assumed pendulum length as well the initial conditions defined  in &lt;code class=&quot;highlighter-rouge&quot;&gt;z_init&lt;/code&gt;. The full &lt;code class=&quot;highlighter-rouge&quot;&gt;.stan&lt;/code&gt; file can be found in &lt;a href=&quot;/assets/pendulum.stan&quot;&gt;pendulum.stan&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;To estimate parameters we need data to work with - that is the measurements. To generated the measurements, we first need to solve the DE model and then add noise to it. Consider the &lt;code class=&quot;highlighter-rouge&quot;&gt;matlab&lt;/code&gt; script (scavanged version of &lt;a href=&quot;https://wiki.math.uwaterloo.ca/sheets/matlab/html/stoch_pendulum_white.html&quot;&gt;this&lt;/a&gt;):&lt;/p&gt;
 
@@ -171,9 +171,9 @@
 
 &lt;p&gt;$\theta = \pi - 0.01$&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/stan_pendulum1.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/stan_pendulum1.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;By time $20$ the state has been mostly damped out. We now have everything we need to estimate the length. We run &lt;code class=&quot;highlighter-rouge&quot;&gt;Stan&lt;/code&gt; through &lt;code class=&quot;highlighter-rouge&quot;&gt;R&lt;/code&gt;. The &lt;code class=&quot;highlighter-rouge&quot;&gt;R&lt;/code&gt; script is below and can be found in &lt;a href=&quot;http://localhost:4000/assets/script.r&quot;&gt;script.r&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;By time $20$ the state has been mostly damped out. We now have everything we need to estimate the length. We run &lt;code class=&quot;highlighter-rouge&quot;&gt;Stan&lt;/code&gt; through &lt;code class=&quot;highlighter-rouge&quot;&gt;R&lt;/code&gt;. The &lt;code class=&quot;highlighter-rouge&quot;&gt;R&lt;/code&gt; script is below and can be found in &lt;a href=&quot;/assets/script.r&quot;&gt;script.r&lt;/a&gt;.&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;rstan&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 
@@ -247,11 +247,11 @@ z_init[2] 1.452   0.527 0.746  1.017  1.023 2.762     2 66.696
 
 &lt;p&gt;The first plot is the computed by &lt;code class=&quot;highlighter-rouge&quot;&gt;Stan&lt;/code&gt; posterior distribution of the length, initial velocity and initial theta. The red is the true initial state specified within the matlab script while black is the computed posterior mean. For both theta and velocity we see a multimodal distribution.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/stan_posterior2.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/stan_posterior2.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The plot shows that there is no clear guess as to what the initial conditions or the lengths is. The overlay of all the computed simulated $\theta$ s by &lt;code class=&quot;highlighter-rouge&quot;&gt;Stan&lt;/code&gt; in the non warm-up phase is below [hence the fat curves].&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/stan_theta2.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/stan_theta2.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;There are two main simulated trajectories of $\theta$. This is because the initial condition and its variance assumed in &lt;code class=&quot;highlighter-rouge&quot;&gt;Stan&lt;/code&gt; in variable &lt;code class=&quot;highlighter-rouge&quot;&gt;z_init&lt;/code&gt; is too close to $\pi$ as seen in figure below&lt;/p&gt;
 
@@ -261,7 +261,7 @@ z_init[2] 1.452   0.527 0.746  1.017  1.023 2.762     2 66.696
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;abline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;col&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lty&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dev.off&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/stan_norm.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/stan_norm.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The red line is at $\pi$. Part of the area is over $\pi$ meaning that some conditions are less than $\pi$ while others are greater than. This results in two different types of behaviours of the pendulum swinging down leftwards or rightwards.&lt;/p&gt;
 
@@ -271,7 +271,7 @@ z_init[2] 1.452   0.527 0.746  1.017  1.023 2.762     2 66.696
 
 &lt;p&gt;The variance is now shrunk to avoid having significant probablity for initial $\theta$ greater than $\pi$ to match the actual physical initial conditions defined in matlab script [pendulum falling towards the left]. Variance is now $0.0001^2$ for the prior:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/stan_norm2.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/stan_norm2.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;After running &lt;code class=&quot;highlighter-rouge&quot;&gt;Stan&lt;/code&gt; again we obtain results that more closely match the true values of the parameters:&lt;/p&gt;
 
@@ -281,14 +281,14 @@ z_init[1] 0.000       0 0.000 0.000 0.000 0.000   249 0.998
 z_init[2] 3.132       0 0.000 3.132 3.132 3.132   154 1.001
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/stan_posterior1.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/stan_posterior1.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;In conclusion, this somewhat contrived examples goes to show that knowledge of the priors and model is very important for conducting a successful experiment.&lt;/p&gt;
 
 </description>
         <pubDate>Wed, 19 Jun 2019 05:00:00 -0700</pubDate>
-        <link>http://localhost:4000/programming/2019/06/19/stan-working-with-stans/</link>
-        <guid isPermaLink="true">http://localhost:4000/programming/2019/06/19/stan-working-with-stans/</guid>
+        <link>/programming/2019/06/19/stan-working-with-stans/</link>
+        <guid isPermaLink="true">/programming/2019/06/19/stan-working-with-stans/</guid>
         
         
         <category>programming</category>
@@ -317,16 +317,16 @@ z_init[2] 3.132       0 0.000 3.132 3.132 3.132   154 1.001
 
 &lt;p&gt;The hall way outside my office where I was during my masters:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/masters2.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/masters2.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The hallway was in the MC building:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/masters1.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/masters1.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 </description>
         <pubDate>Tue, 18 Jun 2019 05:00:00 -0700</pubDate>
-        <link>http://localhost:4000/programming/2019/06/18/mathematician/</link>
-        <guid isPermaLink="true">http://localhost:4000/programming/2019/06/18/mathematician/</guid>
+        <link>/programming/2019/06/18/mathematician/</link>
+        <guid isPermaLink="true">/programming/2019/06/18/mathematician/</guid>
         
         
         <category>programming</category>
@@ -355,13 +355,13 @@ z_init[2] 3.132       0 0.000 3.132 3.132 3.132   154 1.001
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;We can plot the derivative &lt;code class=&quot;highlighter-rouge&quot;&gt;x_t&lt;/code&gt; against &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt;:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bifurcations1.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/bifurcations1.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The first equilibrium is unstable since a slight perturbation will cause to move away from it (similar to a ball on top of a hill being slightly pushed will roll away). It is unstable because if &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; is slightly less than zero then the negative derivative (refer to previous plot) will cause &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; to decrease away from 0 and similarly if &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; is slightly greater than zero then the positive derivative will cause &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; to increase away from 0. Using similar logic the other two equilbiriums can be shown to be stable (a ball in a valley pushed will roll back).&lt;/p&gt;
 
 &lt;p&gt;When &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; is less than or equal to zero there is only one equilibrium (&lt;code class=&quot;highlighter-rouge&quot;&gt;x=0&lt;/code&gt; which is stable). Once again we plot &lt;code class=&quot;highlighter-rouge&quot;&gt;x_t&lt;/code&gt; against &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt;:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bifurcations2.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/bifurcations2.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;When varying &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; from negative to positive we move from one stable point to two stable points. &lt;code class=&quot;highlighter-rouge&quot;&gt;r=0&lt;/code&gt; is the bifurcation point where small variation  will cause strong qualititative change in the solution.&lt;/p&gt;
 
@@ -372,19 +372,19 @@ z_init[2] 3.132       0 0.000 3.132 3.132 3.132   154 1.001
 
 &lt;p&gt;where &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; is the parameter. We will restrict &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; to be in the range &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;4&lt;/code&gt; (this provides that if &lt;code class=&quot;highlighter-rouge&quot;&gt;x_{n}&lt;/code&gt; is between 0 and 1 then &lt;code class=&quot;highlighter-rouge&quot;&gt;x_{n+1}&lt;/code&gt; will also be between 0 and 1 - can be checked via derivative tests). The logistic map reprents a population model where &lt;code class=&quot;highlighter-rouge&quot;&gt;x_{n}&lt;/code&gt; between &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; represents the percentage out of a total maximum possible population. Below are some sample populations for different &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; values&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bifurcations3.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/bifurcations3.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;For &lt;code class=&quot;highlighter-rouge&quot;&gt;r=0.5&lt;/code&gt; the steady value is &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; meaning that the population starting at &lt;code class=&quot;highlighter-rouge&quot;&gt;x_{0} = 0.5&lt;/code&gt; will lead to population extinction (&lt;code class=&quot;highlighter-rouge&quot;&gt;x_{n} = 0&lt;/code&gt;). For &lt;code class=&quot;highlighter-rouge&quot;&gt;r=1.25&lt;/code&gt; the population reaches steady state of about &lt;code class=&quot;highlighter-rouge&quot;&gt;0.2&lt;/code&gt;. &lt;code class=&quot;highlighter-rouge&quot;&gt;r=2.75&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;r=2&lt;/code&gt; also reach a single steady state. Now for &lt;code class=&quot;highlighter-rouge&quot;&gt;r=3.5&lt;/code&gt; things get interesting - there are now &lt;code class=&quot;highlighter-rouge&quot;&gt;4&lt;/code&gt; steady values about which the curve oscillates about regularly: &lt;code class=&quot;highlighter-rouge&quot;&gt;0.8269, 0.5009, 0.8750, 0.3828&lt;/code&gt;. By changing the parameter &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; from &lt;code class=&quot;highlighter-rouge&quot;&gt;2.75&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;3.5&lt;/code&gt; we have change the amount of steady values from &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;4&lt;/code&gt;. This leads us to plot a bifurcation diagram. Below the diagram plots for various &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; (Growth Rate) the steady values. For &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; less than &lt;code class=&quot;highlighter-rouge&quot;&gt;3&lt;/code&gt; there is only one steady value and at about &lt;code class=&quot;highlighter-rouge&quot;&gt;3&lt;/code&gt; (bifurcation point) we now have two steady points and once &lt;code class=&quot;highlighter-rouge&quot;&gt;r&lt;/code&gt; is about &lt;code class=&quot;highlighter-rouge&quot;&gt;3.5&lt;/code&gt; there are four (as demonstrated earlier).&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bifurcations4.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/bifurcations4.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;If we zoom in to a smaller range we see the following:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bifurcations5.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/bifurcations5.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;and if we zoom in even further we start noticing a fractal type pattern emerging - same structure at every scale. From the simple logistic map equation we obtain a beautiful pattern.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bifurcations4_5.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/bifurcations4_5.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Some of the code used to generate the figures, insipiration as well as additional reading material can be found here:&lt;/p&gt;
 
@@ -396,8 +396,8 @@ z_init[2] 3.132       0 0.000 3.132 3.132 3.132   154 1.001
 &lt;/ol&gt;
 </description>
         <pubDate>Sun, 16 Dec 2018 12:00:00 -0800</pubDate>
-        <link>http://localhost:4000/programming/2018/12/16/bifurcation/</link>
-        <guid isPermaLink="true">http://localhost:4000/programming/2018/12/16/bifurcation/</guid>
+        <link>/programming/2018/12/16/bifurcation/</link>
+        <guid isPermaLink="true">/programming/2018/12/16/bifurcation/</guid>
         
         
         <category>programming</category>
@@ -568,8 +568,8 @@ $ mysql_secure_installation
 
 </description>
         <pubDate>Thu, 06 Dec 2018 17:00:00 -0800</pubDate>
-        <link>http://localhost:4000/programming/2018/12/06/simple-scraper/</link>
-        <guid isPermaLink="true">http://localhost:4000/programming/2018/12/06/simple-scraper/</guid>
+        <link>/programming/2018/12/06/simple-scraper/</link>
+        <guid isPermaLink="true">/programming/2018/12/06/simple-scraper/</guid>
         
         
         <category>programming</category>
@@ -584,13 +584,13 @@ $ mysql_secure_installation
 
 &lt;p&gt;It is  based on the following equations:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/equations.png&quot; alt=&quot;equations&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/equations.png&quot; alt=&quot;equations&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;and with inspiration from &lt;a href=&quot;http://geoffboeing.com/2016/12/animating-lorenz-attractor-python/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Thu, 01 Mar 2018 15:00:00 -0800</pubDate>
-        <link>http://localhost:4000/programming/2018/03/01/simulation/</link>
-        <guid isPermaLink="true">http://localhost:4000/programming/2018/03/01/simulation/</guid>
+        <link>/programming/2018/03/01/simulation/</link>
+        <guid isPermaLink="true">/programming/2018/03/01/simulation/</guid>
         
         
         <category>programming</category>
@@ -602,8 +602,8 @@ $ mysql_secure_installation
         <description>
 </description>
         <pubDate>Tue, 26 Dec 2017 16:00:00 -0800</pubDate>
-        <link>http://localhost:4000/photos/2017/12/26/gallery-test/</link>
-        <guid isPermaLink="true">http://localhost:4000/photos/2017/12/26/gallery-test/</guid>
+        <link>/photos/2017/12/26/gallery-test/</link>
+        <guid isPermaLink="true">/photos/2017/12/26/gallery-test/</guid>
         
         
         <category>photos</category>
@@ -661,8 +661,8 @@ $ mysql_secure_installation
 
 </description>
         <pubDate>Sun, 16 Jul 2017 15:00:00 -0700</pubDate>
-        <link>http://localhost:4000/programming/2017/07/16/Creating-a-notification/</link>
-        <guid isPermaLink="true">http://localhost:4000/programming/2017/07/16/Creating-a-notification/</guid>
+        <link>/programming/2017/07/16/Creating-a-notification/</link>
+        <guid isPermaLink="true">/programming/2017/07/16/Creating-a-notification/</guid>
         
         
         <category>programming</category>
@@ -1236,8 +1236,8 @@ int main() {
 
 </description>
         <pubDate>Fri, 14 Jul 2017 13:44:00 -0700</pubDate>
-        <link>http://localhost:4000/programming/2017/07/14/Beautiful-3-set/</link>
-        <guid isPermaLink="true">http://localhost:4000/programming/2017/07/14/Beautiful-3-set/</guid>
+        <link>/programming/2017/07/14/Beautiful-3-set/</link>
+        <guid isPermaLink="true">/programming/2017/07/14/Beautiful-3-set/</guid>
         
         
         <category>programming</category>
@@ -1250,32 +1250,32 @@ int main() {
 
 &lt;p&gt;The following image contains a sort of histogram that placed the stops in bins based on their time of day occurence in a 24 hour time span.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/average_day_frequency.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/average_day_frequency.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The next image is similar to the previous one, except now it places the stops in bins based on the day of the year in a one year span.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/year_frequency.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/year_frequency.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The next few images are of the location based frequency of vehicle stops based on an entire year.&lt;/p&gt;
 
 &lt;h6 id=&quot;tri-city-area&quot;&gt;Tri-city area:&lt;/h6&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/location.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/location.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;h6 id=&quot;waterloo-area&quot;&gt;Waterloo area:&lt;/h6&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/waterloo_zoom.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/waterloo_zoom.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;h6 id=&quot;cambridge-area&quot;&gt;Cambridge area:&lt;/h6&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/cambridge_zoom.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/cambridge_zoom.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;It can be hard to appreciate the number of stops done throughout the year by looking at the maps or previous histograms. The actual number of stops is over 40000. I will let the user make ‘conclusions’ on their own. The purpose of the post was not for analysis but instead for a small example of visualization and turning a huge csv file into a some neat graphs and plots. I will also provide the disclaimer for the users to go to the &lt;a href=&quot;http://www.wrps.on.ca/inside-wrps/corporate-planning-systems&quot;&gt;Waterloo Regional Police Service&lt;/a&gt; website if they want to learn more about the data and its limits.&lt;/p&gt;
 
 </description>
         <pubDate>Tue, 14 Mar 2017 17:27:00 -0700</pubDate>
-        <link>http://localhost:4000/programming/2017/03/14/Some-graphs/</link>
-        <guid isPermaLink="true">http://localhost:4000/programming/2017/03/14/Some-graphs/</guid>
+        <link>/programming/2017/03/14/Some-graphs/</link>
+        <guid isPermaLink="true">/programming/2017/03/14/Some-graphs/</guid>
         
         
         <category>programming</category>

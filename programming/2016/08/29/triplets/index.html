@@ -21,8 +21,8 @@
   <meta name="description" content="Hello reader! If you’re not a fan of reading about programming puzzles then feel free to skip ahead.">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://localhost:4000/programming/2016/08/29/triplets/">
-  <link rel="alternate" type="application/rss+xml" title="Stan Zonov" href="http://localhost:4000/feed.xml" />
+  <link rel="canonical" href="/programming/2016/08/29/triplets/">
+  <link rel="alternate" type="application/rss+xml" title="Stan Zonov" href="/feed.xml" />
 </head>
 
 
@@ -270,7 +270,7 @@
 
 <p>There is a very important property of binary search trees that you should be aware of: <a href="http://research.cs.queensu.ca/~jstewart/applets/bst/bst-property.html">“for a node with key k , every key in the left subtree is less than k and every key in the right subtree is greater than k”</a>: Let us consider the following binary search tree:</p>
 
-<p><img src="http://localhost:4000/assets/binary_tree.png" alt="image" /></p>
+<p><img src="/assets/binary_tree.png" alt="image" /></p>
 
 <p>Let us assume the current number we are processing and just inserted into the tree is <code class="highlighter-rouge">4</code>, meaning that all the numbers to the left of <code class="highlighter-rouge">4</code> have already been inserted into the tree. How do we tell how many numbers are smaller than 4 (1 and 3)?</p>
 
@@ -278,7 +278,7 @@
 
 <p>If we assume <code class="highlighter-rouge">13</code> is the current number being processed and we want to know how many numbers are less than <code class="highlighter-rouge">13</code> then we have to start at the root node (<code class="highlighter-rouge">8</code>) and proceed down to <code class="highlighter-rouge">13</code> and count all the left path when we go right as well as counting the nodes we go through themselves.</p>
 
-<p><img src="http://localhost:4000/assets/binary_tree_passed_to_left_included.png" alt="image" /></p>
+<p><img src="/assets/binary_tree_passed_to_left_included.png" alt="image" /></p>
 
 <p>Therefore to calculate the numbers less than 13 we would have to follow the following logic:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>less_than_13 = 0  
@@ -316,7 +316,7 @@ less_than_13 = 7+0 = 7
 
 <p>If you keep all these ideas in mind then you should be able to reproduce the solution in code and get your very own:</p>
 
-<p><img src="http://localhost:4000/assets/hacker_rank_pass.png" alt="image" /></p>
+<p><img src="/assets/hacker_rank_pass.png" alt="image" /></p>
 
 <p>Here is my rough code for those who still have any questions (The solution is so rough that it does not even clean up memory after itself. You have been warned):</p>
 
@@ -487,13 +487,13 @@ int main() {
 
 <p>Currently in British Columbia before the school term starts. Really excited to be back in Waterloo. Here are some pictures of BC life:</p>
 
-<p><img src="http://localhost:4000/assets/coast_view.jpg" alt="image" /></p>
+<p><img src="/assets/coast_view.jpg" alt="image" /></p>
 
-<p><img src="http://localhost:4000/assets/cat_graffiti.jpg" alt="image" /></p>
+<p><img src="/assets/cat_graffiti.jpg" alt="image" /></p>
 
-<p><img src="http://localhost:4000/assets/ships_in_bc.jpg" alt="image" /></p>
+<p><img src="/assets/ships_in_bc.jpg" alt="image" /></p>
 
-<p><img src="http://localhost:4000/assets/trucks_in_bc.jpg" alt="image" /></p>
+<p><img src="/assets/trucks_in_bc.jpg" alt="image" /></p>
 
 <p>Just had to recently renew my domain name. Hard to believe that it has already been two years since I first purchased it. Time flies.</p>
 
