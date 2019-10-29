@@ -11,6 +11,9 @@ include: ['games']
 markdown: kramdown
 permalink: pretty
 
+url: "https://szonov.com"
+
+
 gems:
  - jekyll-gallery-generator
 
