@@ -1,0 +1,21 @@
+\form#0:$ \hat{x}_{k+1}^- = \phi_k \hat{x}_{k} $
+\form#1:$ \bf{\Phi}_k $
+\form#2:$ \bf{Q}_k $
+\form#3:$ z_k = C(x_k) $
+\form#4:$ H_k $
+\form#5:$R_k$
+\form#6:\[ \ddot{x} + \sqrt{2}w_0\dot{x} + w_0^2x = b\sigma u \]
+\form#7:$ x $
+\form#8:\[ \frac{d}{dt}\begin{bmatrix}x_1 \\ x_2\end{bmatrix} = \begin{bmatrix} 0 & 1\\ -w_0^2 & -\sqrt{2}w_0 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \]
+\form#9:$x_1 = x $
+\form#10:$ x_2 = \dot{x} $
+\form#11:$ \Delta t = 1$
+\form#12:\[ \begin{bmatrix} X_1 \\ X_2 \end{bmatrix}_{k+1} = \begin{bmatrix} 0.9952315 & 0.9309552 \\ -0.0093096 & 0.8635746 \end{bmatrix} \begin{bmatrix}X_1 \\ X_2 \end{bmatrix}_k \]
+\form#13:$(X_1)_k \approx x_1(t = k) $
+\form#14:$(X_2)_k \approx x_2(t = k) $
+\form#15:\[ \bf{Q}_k = \begin{bmatrix} 8.4741e-04 & 1.2257e-03 \\ 1.2257e-03 & 2.4557e-03 \end{bmatrix}. \]
+\form#16:$X_1$
+\form#17:\[ z_k = \begin{bmatrix}1 & 0 \end{bmatrix} \begin{bmatrix}X_1 \\ X_2 \end{bmatrix}. \]
+\form#18:\[ R_k = (0.5)^2 = 0.25. \]
+\form#19:\[ \begin{bmatrix} 0.9952315 & 0.9309552 \\ -0.0093096 & 0.8635746 \end{bmatrix} \]
+\form#20:\[ \begin{bmatrix}1 & 0 \end{bmatrix}. \]
