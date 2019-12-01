@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-39729658-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-39729658-3');
+</script>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>A little bit of SLAM</title>
+  <meta name="description" content="A little bit of SLAM">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://szonov.com/programming/2019/12/01/a-little-bit-of-slam/">
+  <link rel="alternate" type="application/rss+xml" title="Stan Zonov" href="https://szonov.com/feed.xml" />
+</head>
+
+
+  <body>
+	
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Stan Zonov</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+	<a class="page-link" href=""></a>
+        
+		
+			<a class="page-link" href="/about/">About</a>
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			<a class="page-link" href="/projects/">Projects</a>
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			<a class="page-link" href="/photos/">Photos</a>
+		
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+ 	 
+    <h1 class="post-title">A little bit of SLAM</h1>
+    <p class="post-meta">Dec 1, 2019</p>
+  </header>
+
+  <article class="post-content">
+    <h1 id="a-little-bit-of-slam">A little bit of SLAM</h1>
+
+<p>Let’s work with SLAM. A great series of papers on the topic are here:</p>
+
+<ul>
+  <li>Simultaneous Localisation and Mapping (SLAM):Part I The Essential Algorithms - Tim Bailey and Hugh Durrant-Whyte</li>
+  <li>Simultaneous Localisation and Mapping (SLAM):Part II State of the Art - Tim Bailey and Hugh Durrant-Whyte</li>
+</ul>
+
+<p>Simultaneous Localization and Mapping (SLAM) “problem asks if it is possible for a mobile robot to be placed at an unknown location in an unknown environment and for the robot to incrementally build a consistent map of this environment while simultaneously determining its location within this map.”</p>
+
+<p>Let’s get our hands dirty right away and formulate a system to work with. We will be working with a 2D system where our robot along with landmarks will be treated as (x,y) points. To keep things simple, our robot will be moving on a predefined path such that it does not collide with the landmarks to avoid adding additional logic to the robot. We will be working with Octave.</p>
+
+<p>We first define the robot starting conditions as well as the landmarks:</p>
+
+<pre><code class="language-Matlab">clear all;
+close all;
+%set the seed - one of the few commands used here that is _unique_ to Octave
+randn("seed",1);
+
+%robot starting initial conditions
+robotX = 100;
+robotY = 1;
+
+spreadFromCenter=40;
+xMin = 100-spreadFromCenter;
+xMax=100+spreadFromCenter;
+yMin=100-spreadFromCenter;
+yMax=100+spreadFromCenter;
+
+%landmarks on the map
+xCoords = [80,90,110,120,80,90,110,120];
+yCoords = [80,90,110,120,90,100,120,130];
+pointNumber = length(xCoords);
+</code></pre>
+
+<p>Let’s setup the robot’s movement, before worrying about the landmarks. Assume the robot is on a rail road - the y coordinate is unaffected. The robot will be moving at a constant speed with white noise affecting the motion. The following image will describe the situation:</p>
+
+<pre><code class="language-Matlab">h = figure;
+hold on;
+scatter(xCoords,yCoords,'*b');
+scatter(robotX,robotY,'or','filled');
+plot([robotX,robotX],[robotY,200],'k--')
+legend('Landmarks','Robot','Robot path');
+xlim([100-spreadFromCenter,100+spreadFromCenter]);
+ylim([0,200]);
+xlabel('x');
+ylabel('y');
+axis("equal")
+</code></pre>
+
+<p><img src="https://szonov.com/assets/SLAM/setup1.png" alt="" /></p>
+
+<p>Now lets generate an actual instance of the robot’s motion.</p>
+
+<pre><code class="language-Matlab">%total timesteps of robot
+timesteps = 400;
+%speed of the robot (distance covered by timestep)
+speed = 0.5;
+%function representing the movement - first entry is x coordinate, second y.
+next_func= @(coord,time) coord + [0;speed]; 
+%process noise - a little noise is added to model in order to be able to do Cholesky decomposition
+processNoiseCovariance = [0.00000000001,0;0,0.2];
+%store the results
+movementCoords = zeros(2,timesteps+1);
+%initial conditions
+movementCoords(1,1) = robotX;
+movementCoords(2,1) = robotY;
+for i=1:timesteps
+	movementCoords(:,i+1) = next_func(movementCoords(:,i),i) + chol(processNoiseCovariance)'*randn(2,1); 
+end
+</code></pre>
+
+<p>Now, let’s plot the y-coordinate evolution:</p>
+
+<pre><code class="language-Matlab">h = figure;
+plot(1:(timesteps+1),movementCoords(2,:))
+ylabel('Y')
+xlabel('Time')
+axis("equal")
+</code></pre>
+
+<p><img src="https://szonov.com/assets/SLAM/setup2.png" alt="" /></p>
+
+<p>We will set it so that the robot has a maximum measurement radius. Read <a href="https://www.cs.utexas.edu/~kuipers/slides/L17-FastSLAM.pdf">this</a> for more info on the measurement function used. We will generate noisy measurements of the landmarks based on the position of the landmark.</p>
+
+<pre><code class="language-Matlab">measurementRadius = 40;
+angles = -1*ones(timesteps,pointNumber);
+distances = -1*ones(timesteps,pointNumber); 
+for i=1:timesteps
+	curRobotX = movementCoords(1,i);
+	curRobotY = movementCoords(2,i);	
+
+	for j=1:pointNumber
+		distance = norm([curRobotX;curRobotY] - [xCoords(j); yCoords(j)]); 
+		if distance &lt;= measurementRadius
+			distances(i,j) = distance;  
+			angles(i,j) = atan2( yCoords(j) - curRobotY , xCoords(j) - curRobotX);
+		end	
+	end
+end
+%add noise
+angleCovariance = 0.004;
+distanceCovariance = 0.2;
+anglesNoisy = angles + randn(size(angles)).*sqrt(angleCovariance);
+distancesNoisy = distances + randn(size(distances)).*sqrt(distanceCovariance);
+</code></pre>
+
+<p>Now that we have measurements we are ready to code up our robot exploring the environment. We will assume that the robot does not know now anything about the landmarks:</p>
+
+<pre><code class="language-Matlab">landMarkDiscoveredCount = 0;
+</code></pre>
+
+<p>We will set the following variable to be used in identifying if a measurement is associated with a new landmark. If we already are aware that there are <code class="highlighter-rouge">n</code> landmarks then we can compare the current measurement’s distance from the estimated location of the other <code class="highlighter-rouge">n</code> landmarks to decide if the new measurement is far enough to belong to a new landmark.</p>
+
+<pre><code class="language-Matlab">minMahalanobisDistance = 7;
+</code></pre>
+
+<p>The rest of the script is given below. In it the robot moves forward and once it is at the appropriate measurement range, it ‘receives’ measurements from the landmark (the distance and angle with respect to the robot). The robot then decides if it is associated with a new landmark or not. If yes, then it is registered and a new estimate and associated covariance is set up for the landmark’s Kalman filter. Otherwise, the Kalman filter (specifically the update phase) is used to update the estimate (that is closest to the measured landmark).</p>
+
+<pre><code class="language-Matlab">%estimate location of discovered landmarks
+landMarkMeans = {};
+%estimate of angle and distance from robot to landmark
+landMarkAngleDistances = {};
+%associated covariance with landMarkAngleDIstances
+landMarkCovariances = {};
+%record of measurements 
+landMarkMeasurements = {};
+%record of all estimates
+landMarkEstimates = {};
+
+
+%creating animation to store images 
+%can be a little slow in octave - remove saveas part 
+%to just view it
+h = figure;
+hold on;
+axis('equal');
+xlim([100-spreadFromCenter,100+spreadFromCenter]);
+ylim([0,200]);
+
+for i=1:timesteps
+	%current position of robot - here it is known 
+	%next extension would let the position be unknown 
+	%and the predict phase of the Kalman filter to deal with it
+	curRobotX = movementCoords(1,i);
+	curRobotY = movementCoords(2,i);	
+	
+	%there are a total pointNumber landmarks - which our robot has no idea.
+	%However, we still have to cycle through all the landmarks at a given timestep
+	%in order to simulate an incoming measurement based on measurementRadius value.
+	for j=1:pointNumber
+		if distances(i,j) ~= -1%-1 flag used to signify that landmark is not in range
+			%landmark in measurementRadius range
+			%convert the measured angle and distance to an X and Y position
+			landmarkX = curRobotX + distancesNoisy(i,j)*cos(anglesNoisy(i,j)); 
+			landmarkY = curRobotY + distancesNoisy(i,j)*sin(anglesNoisy(i,j));
+
+			%variables to figure if landmark is new and if not then to 
+			%which recorded one does it associate with
+			landMarkIndex = 0;
+			isNew = false;
+			
+			%compute distance between measured landmark and all other estimates
+			minIndex = 1;
+			minVal = -1; 
+			for k=1:landMarkDiscoveredCount
+				mahalanobisDistance = sqrt( ([landmarkX;landmarkY] - landMarkMeans{k})'
+					*([landmarkX;landmarkY] - landMarkMeans{k}));
+				if minVal == -1
+					minVal = mahalanobisDistance;
+				elseif minVal &gt; mahalanobisDistance
+					minVal = mahalanobisDistance;
+					minIndex = k;
+				end
+			end
+	
+			
+			if minVal == -1 || minVal &gt; minMahalanobisDistance
+				%-1 for first index
+				%minVal &gt; ... means that it is far away from all previous measurements
+				isNew = true;
+				landMarkDiscoveredCount = landMarkDiscoveredCount + 1;
+				landMarkIndex = landMarkDiscoveredCount; 
+			else
+				%measurement is associated with estimate that already exists 
+				landMarkIndex = minIndex;
+			end
+
+			if isNew ~= true
+				%run Kalman filter's update phase 
+				
+				%to define current estimate we need to compute the angle and distance keeping 
+				%in mind that the robot has moved since we computed the estimate last (we are updating
+				%the estimate before running the update phase) 
+				previous_position = landMarkMeans{landMarkIndex};
+				C_measurement = [norm([curRobotX;curRobotY] - [previous_position(1); previous_position(2)]);
+					atan2(previous_position(2) - curRobotY,previous_position(1) - curRobotX)];
+				%our update phase deals in [distance;angle] format
+				%which is converted in the previous calculation meaning
+				%that we can set jacobian to the identity matrix
+				C_jacobian = eye(2);
+				
+
+				%run the update phase
+				[estimate_next, covariance_sqrt] = ddekf_update_phase(...
+					chol([50*distanceCovariance,0;0,angleCovariance])',...
+					chol(landMarkCovariances{landMarkIndex})',...
+					C_jacobian,C_measurement,C_measurement,...
+					[distancesNoisy(i,j);anglesNoisy(i,j)]);
+					
+				%store computed results
+				landMarkAngleDistances{landMarkIndex} = estimate_next;
+				landMarkCovariances{landMarkIndex} = covariance_sqrt*covariance_sqrt';
+				landMarkMeans{landMarkIndex} = [curRobotX + estimate_next(1)*cos(estimate_next(2));...
+					curRobotY + estimate_next(1)*sin(estimate_next(2))];
+				landMarkMeasurements{landMarkIndex}(1:2,end+1) = [landmarkX;landmarkY];
+				landMarkEstimates{landMarkIndex}(1:2,end+1) = [landMarkMeans{landMarkIndex}];
+			else
+				%in case landmark is new, then record results and intialise estimate and covariance 
+				landMarkMeans{landMarkIndex} = [landmarkX;landmarkY];
+				landMarkAngleDistances{landMarkIndex} = [distancesNoisy(i,j);anglesNoisy(i,j)]; 
+				landMarkCovariances{landMarkIndex} = [2*distanceCovariance,0;0,angleCovariance*100];
+				landMarkIndex = landMarkDiscoveredCount;
+				landMarkMeasurements{landMarkIndex} =  [landmarkX;landmarkY];
+				landMarkEstimates{landMarkIndex} = [landMarkMeans{landMarkIndex}];	
+			end
+		end
+	end
+	%plot results
+	for jj=1:landMarkDiscoveredCount
+		for kk=1:length(landMarkMeasurements)
+			ttmp = landMarkMeasurements{kk};
+			scatter(ttmp(1,end),ttmp(2,end),'r','.')
+		end
+	end
+	%scatter(xCoords,yCoords,'b','*'); %actual location of the landmarks
+	f1 = drawCircle(curRobotX,curRobotY,measurementRadius,'g');
+	f2 = scatter(curRobotX,curRobotY,'r','filled');
+	f3 = plot([curRobotX,curRobotX],[curRobotY,200],'k--');
+	
+	tmpPlot = [];
+	for jj=1:landMarkDiscoveredCount
+		ttmp = landMarkMeans{jj};
+		tmpPlot = [tmpPlot,scatter(ttmp(1),ttmp(2),"k")];
+	end
+	%%%REMOVE saveas line for speedup
+	saveas(h,strcat('output',num2str(i,'%04d')),'png');
+	delete(f1);
+	delete(f2);
+	delete(f3);
+	for jj=1:length(tmpPlot)
+		delete(tmpPlot(jj));
+	end
+	
+	pause(0.001)
+end
+</code></pre>
+
+<p>Gif below shows the robot discovering the landmarks. Black circles are the computed estimates while the red dots are the measurements of the landmarks.</p>
+
+<p><img src="https://szonov.com/assets/SLAM/outputName.gif" alt="" /></p>
+
+<p>How close were the estimates? The blue stars are the true landmark locations, red dots are measurements throughout and black circles are the computed final estimates.</p>
+
+<p><img src="https://szonov.com/assets/SLAM/setup3.png" alt="" /></p>
+
+<p>If you want to see the code used here then see <a href="https://szonov.com/assets/SLAM/script.m">script.m</a> and assist <a href="ddekf_update_phase.m">file</a>. Also check out this <a href="https://github.com/randvoorhies/SimpleSLAM">repository</a> that was inspiration for this little project.</p>
+
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+	<div class="wrapper">
+
+	 <p style="color:grey">Welcome to my site. Take a look around and don't be shy, shoot me a message!</p>
+	</div>
+  <div class="wrapper">
+
+    <!--<h2 class="footer-heading">Stan Zonov</h2>-->
+
+    <!--<div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-2">
+        <ul class="contact-list">
+          <!--<li>Stan Zonov</li>-->
+          <!--<li>contact at zonov.ca</li>
+        </ul>
+      </div>-->
+
+      <div class="footer-col  footer-col-1">
+        <ul class="social-media-list">
+									<li>
+            <p>
+
+<span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+																	<g transform="scale(0.035)">
+                  <path fill="#828282" d="M101.3 141.6v228.9h0.3 308.4 0.8V141.6H101.3zM375.7 167.8l-119.7 91.5 -119.6-91.5H375.7zM127.6 194.1l64.1 49.1 -64.1 64.1V194.1zM127.8 344.2l84.9-84.9 43.2 33.1 43-32.9 84.7 84.7L127.8 344.2 127.8 344.2zM384.4 307.8l-64.4-64.4 64.4-49.3V307.8z"/>
+																</g>
+                </svg>
+              </span>
+
+              <span class="username">contact at zonov.ca</span>
+            </p>
+          </li>
+
+
+          
+
+          
+
+
+          
+
+
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text"></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
