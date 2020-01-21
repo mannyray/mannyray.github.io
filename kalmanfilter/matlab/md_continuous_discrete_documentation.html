@@ -74,17 +74,17 @@ $(function() {
 <div class="fragment"><div class="line">%filter the noisy measurements</div><div class="line">rk4_steps = 1;%internal for code - type &#39;help cdekf&#39; for more info </div><div class="line">[estimates,covariances] = cdekf(deriv_func,jacobian_func,dt,rk4_steps,t_start,...</div><div class="line">    state_count,sensor_count,outputs,C,chol(Q_c)&#39;,chol(R_d)&#39;,chol(P_0)&#39;,x_0,measurements);</div></div><!-- fragment --><p>Plot the results:</p>
 <div class="fragment"><div class="line">%The ideal data is not plotted and is only for reference</div><div class="line">time = 0:dt:(outputs-1)*dt;</div><div class="line">h = figure;</div><div class="line">hold on;</div><div class="line">limit = 100;</div><div class="line">plot(time(1:limit),measurements(1:limit),&#39;LineWidth&#39;,2); </div><div class="line">plot(time(1:limit),process_noise_data(1:limit),&#39;LineWidth&#39;,2);</div><div class="line">plot(time(1:limit),estimates(1:limit),&#39;LineWidth&#39;,2);</div><div class="line">legend(&#39;Measurement&#39;,&#39;Real data&#39;,&#39;Estimate&#39;);</div><div class="line">xlabel(&#39;Time&#39;)</div><div class="line">ylabel(&#39;Population&#39;)</div><div class="line"></div><div class="line">h = figure;</div><div class="line">hold on;</div><div class="line">plot(0:dt:(outputs-1)*dt,measurements); </div><div class="line">plot(0:dt:(outputs-1)*dt,process_noise_data);</div><div class="line">plot(0:dt:(outputs-1)*dt,estimates(1:end-1));</div><div class="line">legend(&#39;Measurement&#39;,&#39;Real data&#39;,&#39;Estimate&#39;);</div><div class="line">xlabel(&#39;Time&#39;)</div><div class="line">ylabel(&#39;Population&#39;)</div></div><!-- fragment --><p>to produce</p>
 <div class="image">
-<img src="../../continuous_discrete/examples/logistic1.png" alt="drawing2" style="width:80%;max-width:600px;"/>
+<img src="assets/continuous_discrete/examples/logistic1.png" alt="drawing2" style="width:80%;max-width:600px;"/>
 </div>
 <div class="image">
-<img src="../../continuous_discrete/examples/logistic2.png" alt="drawing2" style="width:80%;max-width:600px;"/>
+<img src="assets/continuous_discrete/examples/logistic2.png" alt="drawing2" style="width:80%;max-width:600px;"/>
 </div>
 <h2>Example 2</h2>
 <p>The example is located in <code><a class="el" href="continuous__linear_8m.html">matlab_implementation/continuous_discrete/examples/continuous_linear.m</a></code> and has a model with two states. The script is very similar to the one in the previous example. The result produced is</p>
 <div class="fragment"><div class="line">ans =</div><div class="line"></div><div class="line">   5.0489e-07   2.4509e-08</div><div class="line">   2.4509e-08   4.9755e-07</div></div><!-- fragment --> </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 17 2020 21:56:57 for KalmanFilter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 21 2020 01:28:33 for KalmanFilter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
