@@ -11,6 +11,13 @@ var searchData=
   ['cdekf_5fupdate_5fphase_2em',['cdekf_update_phase.m',['../cdekf__update__phase_8m.html',1,'']]],
   ['continuous_5flinear_2em',['continuous_linear.m',['../continuous__linear_8m.html',1,'']]],
   ['continuous_5flogistic_2em',['continuous_logistic.m',['../continuous__logistic_8m.html',1,'']]],
+  ['cubature',['cubature',['../cubature_8m.html#a066cac91621789a9f79a284ec8908766',1,'cubature.m']]],
+  ['cubature_2em',['cubature.m',['../cubature_8m.html',1,'']]],
+  ['cubature_5fpredict_5fphase',['cubature_predict_phase',['../cubature__predict__phase_8m.html#a485d68a5b1f16bb0066c0d4506ee0cbb',1,'cubature_predict_phase.m']]],
+  ['cubature_5fpredict_5fphase_2em',['cubature_predict_phase.m',['../cubature__predict__phase_8m.html',1,'']]],
+  ['cubature_5fupdate_5fphase',['cubature_update_phase',['../cubature__update__phase_8m.html#a5c0eb347a49069f6d0bb062ea379d723',1,'cubature_update_phase.m']]],
+  ['cubature_5fupdate_5fphase_2em',['cubature_update_phase.m',['../cubature__update__phase_8m.html',1,'']]],
   ['continuous_2dcontinuous_20kalman_20filter',['Continuous-continuous Kalman Filter',['../md_continuous_continuous_documentation.html',1,'']]],
-  ['continuous_2ddiscrete_20extended_20kalman_20filter',['Continuous-Discrete Extended Kalman filter',['../md_continuous_discrete_documentation.html',1,'']]]
+  ['continuous_2ddiscrete_20extended_20kalman_20filter',['Continuous-Discrete Extended Kalman filter',['../md_continuous_discrete_documentation.html',1,'']]],
+  ['cubature_20kalman_20filter',['Cubature Kalman filter',['../md_cubature_documentation.html',1,'']]]
 ];

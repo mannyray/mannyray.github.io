@@ -3,6 +3,7 @@ var menudata={children:[
 {text:"DD-EKF",url:"md_discrete_discrete_documentation.html"},
 {text:"CD-EKF",url:"md_continuous_discrete_documentation.html"},
 {text:"UKF",url:"md_unscented_documentation.html"},
+{text:"Cubature",url:"md_cubature_documentation.html"},
 {text:"CC-KF",url:"md_continuous_continuous_documentation.html"},
 {text:"SS-KF",url:"md_steady_state_documentation.html"},
 {text:"Particle",url:"md_particle_documentation.html"},
