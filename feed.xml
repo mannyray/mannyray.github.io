@@ -5,8 +5,8 @@
     <description></description>
     <link>https://szonov.com/</link>
     <atom:link href="https://szonov.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 26 Feb 2021 11:42:02 -0600</pubDate>
-    <lastBuildDate>Fri, 26 Feb 2021 11:42:02 -0600</lastBuildDate>
+    <pubDate>Fri, 26 Feb 2021 11:52:01 -0600</pubDate>
+    <lastBuildDate>Fri, 26 Feb 2021 11:52:01 -0600</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -20,9 +20,9 @@
 &lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/starwars.gif&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 </description>
-        <pubDate>Thu, 25 Feb 2021 07:00:00 -0600</pubDate>
-        <link>https://szonov.com/programming/2021/02/25/first-project/</link>
-        <guid isPermaLink="true">https://szonov.com/programming/2021/02/25/first-project/</guid>
+        <pubDate>Fri, 26 Feb 2021 07:00:00 -0600</pubDate>
+        <link>https://szonov.com/programming/2021/02/26/first-project/</link>
+        <guid isPermaLink="true">https://szonov.com/programming/2021/02/26/first-project/</guid>
         
         
         <category>programming</category>
