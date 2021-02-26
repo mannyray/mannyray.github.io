@@ -1,0 +1,25 @@
+I"
+<p>Operating Systems</p>
+
+<p>One of my favourite CS courses taken at Waterloo by far. The mix of assignments and concepts geared towards learning operating systems made the course highly interesting and busy.</p>
+
+<p>The course taught everything from synchronization all the way down to memory management and I/O. The assignments allowed the student to directly apply the theory straight to the test by constantly adding new features to a basic shell OS 161 operating system.</p>
+
+<p>The first assignment was about implementing locks and conditional variables and using them in a cat/mouse themed synchronization problem. The second assignment involved the implementation of primitive OS functions: fork, exec, waitpid and exit. The final assignment had the student implement memory management functions so that the OS could ‘run forever’.</p>
+
+<p>The assignments were dependent on each other so that you would be using stuff you developed in assignment 1 to help you solve assignment 2 and so on. At the end of the term, this made your modified OS 161 seem like a beautiful work of art that you felt really proud of for pouring so much time in and accomplishing something.</p>
+
+<p>Overall, the assignments were quite long. This was because it took a while to figure out where to start. Even though the OS theory wasn’t ground shattering, figuring how to implement it specifically on OS 161 took sometime.</p>
+
+<p>My advice for those planning on taking this course: <em>start assignments early</em>.</p>
+
+<p>Here is a little view of my operating system while it is running:</p>
+
+<p><img src="https://szonov.com/assets/os161.png" alt="os161" /></p>
+
+<p><a href="/courses/math235">Next Course</a></p>
+
+<p><a href="/courses/cs341">Previous Course</a></p>
+
+<p><a href="/courses/">All Courses</a></p>
+:ET

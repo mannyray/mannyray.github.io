@@ -194,24 +194,24 @@
 
   <article class="post-content">
     <p>There is a lot of easily accessible data online waiting to be explored and analyzed. Recently, I came across a <a href="https://ioos.noaa.gov/news/the-first-u-s-ioos-biological-data-training-workshop/">work shop</a> for a U.S. Integrated Ocean Observing System (IOOS) Biological Data Training Workshop. Workshops are great as they usually post their code and slide shows for everyone to see and explore. One of the code examples on the posted <a href="https://github.com/ioos/BioData-Training-Workshop">github</a> dealt with animal telemetry data - let’s explore the data together. First load the libraries</p>
-<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="s2">"rerddap"</span><span class="p">)</span><span class="w">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="s2">"rerddap"</span><span class="p">)</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="s2">"akima"</span><span class="p">)</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="s2">"dplyr"</span><span class="p">)</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="s2">"ggplot2"</span><span class="p">)</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="s2">"mapdata"</span><span class="p">)</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="s2">"ncdf4"</span><span class="p">)</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="s2">"plot3D"</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-<p><a href="https://oceanview.pfeg.noaa.gov/erddap/index.html">ERDDAP</a> is a data server that provides a way to download various scientific data sets. There are lots of various data sets available through IOOS such as trawl surveys, ocean temperatures and others. Coding in <code class="highlighter-rouge">R</code> throughout this post, we will first specify the animal telemetry data (<code class="highlighter-rouge">gtoppAT</code>):</p>
+</span><span class="n">library</span><span class="p">(</span><span class="s2">"plot3D"</span><span class="p">)</span></code></pre></figure>
 
-<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">atnURL</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s1">'http://oceanview.pfeg.noaa.gov/erddap/'</span><span class="w">
+<p><a href="https://oceanview.pfeg.noaa.gov/erddap/index.html">ERDDAP</a> is a data server that provides a way to download various scientific data sets. There are lots of various data sets available through IOOS such as trawl surveys, ocean temperatures and others. Coding in <code class="language-plaintext highlighter-rouge">R</code> throughout this post, we will first specify the animal telemetry data (<code class="language-plaintext highlighter-rouge">gtoppAT</code>):</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">atnURL</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s1">'http://oceanview.pfeg.noaa.gov/erddap/'</span><span class="w">
 </span><span class="n">atnInfo</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">info</span><span class="p">(</span><span class="s1">'gtoppAT'</span><span class="p">,</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atnURL</span><span class="p">)</span><span class="w">
-</span><span class="n">atnInfo</span><span class="w">
-</span></code></pre></div></div>
+</span><span class="n">atnInfo</span></code></pre></figure>
 
 <p>produces</p>
 
-<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="n">Variables</span><span class="o">:</span><span class="w">  
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="w"> </span><span class="n">Variables</span><span class="o">:</span><span class="w">  
      </span><span class="n">commonName</span><span class="o">:</span><span class="w"> 
      </span><span class="n">isDrifter</span><span class="o">:</span><span class="w"> 
          </span><span class="n">Range</span><span class="o">:</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="w"> 
@@ -227,19 +227,20 @@
      </span><span class="n">serialNumber</span><span class="o">:</span><span class="w"> 
      </span><span class="n">time</span><span class="o">:</span><span class="w"> 
          </span><span class="n">Range</span><span class="o">:</span><span class="w"> </span><span class="m">1.02512583108E9</span><span class="p">,</span><span class="w"> </span><span class="m">1.572152616E9</span><span class="w"> 
-         </span><span class="n">Units</span><span class="o">:</span><span class="w"> </span><span class="n">seconds</span><span class="w"> </span><span class="n">since</span><span class="w"> </span><span class="m">1970-01-01</span><span class="nb">T</span><span class="m">00</span><span class="o">:</span><span class="m">00</span><span class="o">:</span><span class="m">00</span><span class="n">Z</span><span class="w"> 
+         </span><span class="n">Units</span><span class="o">:</span><span class="w"> </span><span class="n">seconds</span><span class="w"> </span><span class="n">since</span><span class="w"> </span><span class="m">1970-01-01</span><span class="n">T00</span><span class="o">:</span><span class="m">00</span><span class="o">:</span><span class="m">00</span><span class="n">Z</span><span class="w"> 
      </span><span class="n">toppID</span><span class="o">:</span><span class="w"> 
      </span><span class="n">yearDeployed</span><span class="o">:</span><span class="w"> 
-         </span><span class="n">Range</span><span class="o">:</span><span class="w"> </span><span class="m">1995</span><span class="p">,</span><span class="w"> </span><span class="m">9999</span><span class="w"> 
-</span></code></pre></div></div>
+         </span><span class="n">Range</span><span class="o">:</span><span class="w"> </span><span class="m">1995</span><span class="p">,</span><span class="w"> </span><span class="m">9999</span><span class="w"> </span></code></pre></figure>
 
 <p>which give’s us the data ‘column’ names. Running the command</p>
-<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">atnData</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tabledap</span><span class="p">(</span><span class="n">atnInfo</span><span class="p">,</span><span class="w"> </span><span class="n">fields</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"commonName"</span><span class="p">),</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atnURL</span><span class="p">)</span><span class="w">
-</span><span class="n">atnData</span><span class="w">
-</span></code></pre></div></div>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">atnData</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tabledap</span><span class="p">(</span><span class="n">atnInfo</span><span class="p">,</span><span class="w"> </span><span class="n">fields</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"commonName"</span><span class="p">),</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atnURL</span><span class="p">)</span><span class="w">
+</span><span class="n">atnData</span></code></pre></figure>
+
 <p>gives us the names of all the animals that are avaiable in the data set:</p>
-<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="n">ERDDAP</span><span class="w"> </span><span class="n">tabledap</span><span class="o">&gt;</span><span class="w"> </span><span class="n">gtoppAT</span><span class="w">
-   </span><span class="n">Path</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">stan</span><span class="o">/</span><span class="n">.cache</span><span class="o">/</span><span class="n">R</span><span class="o">/</span><span class="n">rerddap</span><span class="o">/</span><span class="m">8</span><span class="n">c</span><span class="m">470</span><span class="n">a</span><span class="m">421</span><span class="n">cf8d42a59fd20a943fc89dd.csv</span><span class="p">]</span><span class="w">
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="o">&lt;</span><span class="n">ERDDAP</span><span class="w"> </span><span class="n">tabledap</span><span class="o">&gt;</span><span class="w"> </span><span class="n">gtoppAT</span><span class="w">
+   </span><span class="n">Path</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">stan</span><span class="o">/</span><span class="n">.cache</span><span class="o">/</span><span class="n">R</span><span class="o">/</span><span class="n">rerddap</span><span class="o">/</span><span class="m">8</span><span class="n">c470a421cf8d42a59fd20a943fc89dd.csv</span><span class="p">]</span><span class="w">
    </span><span class="n">Last</span><span class="w"> </span><span class="n">updated</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="m">2019-10-28</span><span class="w"> </span><span class="m">17</span><span class="o">:</span><span class="m">11</span><span class="o">:</span><span class="m">13</span><span class="p">]</span><span class="w">
    </span><span class="n">File</span><span class="w"> </span><span class="n">size</span><span class="o">:</span><span class="w">    </span><span class="p">[</span><span class="m">0</span><span class="w"> </span><span class="n">mb</span><span class="p">]</span><span class="w">
 </span><span class="c1"># A tibble: 53 x 1</span><span class="w">
@@ -255,10 +256,11 @@
  </span><span class="m">8</span><span class="w"> </span><span class="n">Blue</span><span class="w"> </span><span class="n">Whale</span><span class="w">            
  </span><span class="m">9</span><span class="w"> </span><span class="n">California</span><span class="w"> </span><span class="n">Sea</span><span class="w"> </span><span class="n">Lion</span><span class="w">   
 </span><span class="m">10</span><span class="w"> </span><span class="n">Common</span><span class="w"> </span><span class="n">Thresher</span><span class="w"> </span><span class="n">Shark</span><span class="w"> 
-</span><span class="c1"># … with 43 more rows</span><span class="w">
-</span></code></pre></div></div>
-<p>There are <code class="highlighter-rouge">53</code> species tracked in the database. Let’s track the one with the largest <code class="highlighter-rouge">toppID</code> count</p>
-<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">res</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tabledap</span><span class="p">(</span><span class="n">atnInfo</span><span class="p">,</span><span class="w"> </span><span class="n">fields</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"toppID"</span><span class="p">),</span><span class="w"> </span><span class="s1">'commonName="Atlantic Sailfish"'</span><span class="p">,</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atnURL</span><span class="p">)</span><span class="w">
+</span><span class="c1"># … with 43 more rows</span></code></pre></figure>
+
+<p>There are <code class="language-plaintext highlighter-rouge">53</code> species tracked in the database. Let’s track the one with the largest <code class="language-plaintext highlighter-rouge">toppID</code> count</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">res</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tabledap</span><span class="p">(</span><span class="n">atnInfo</span><span class="p">,</span><span class="w"> </span><span class="n">fields</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"toppID"</span><span class="p">),</span><span class="w"> </span><span class="s1">'commonName="Atlantic Sailfish"'</span><span class="p">,</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atnURL</span><span class="p">)</span><span class="w">
 </span><span class="n">maxLength</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">res</span><span class="o">$</span><span class="n">toppID</span><span class="p">)</span><span class="w">
 </span><span class="n">maxName</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"Atlantic Sailfish"</span><span class="w">
 </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">atnData</span><span class="o">$</span><span class="n">commonName</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -270,17 +272,19 @@
 	</span><span class="n">maxName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="w">
    </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span><span class="n">print</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="n">maxName</span><span class="p">,</span><span class="s2">"has the maximum toppID count of"</span><span class="p">,</span><span class="n">maxLength</span><span class="p">))</span><span class="w">
-</span></code></pre></div></div>
+</span><span class="n">print</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="n">maxName</span><span class="p">,</span><span class="s2">"has the maximum toppID count of"</span><span class="p">,</span><span class="n">maxLength</span><span class="p">))</span></code></pre></figure>
+
 <p>returns</p>
-<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="s2">"Northern Elephant Seal has the maximum toppID count of 387"</span><span class="w">
-</span></code></pre></div></div>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="s2">"Northern Elephant Seal has the maximum toppID count of 387"</span></code></pre></figure>
+
 <p>Here’s a picture of the North Elephant Seal from Wikipedia:
 <img src="https://szonov.com/assets/north_elephant_seal.jpg" alt="image" />
 <img src="" alt="" /></p>
 
-<p>There are a total of <code class="highlighter-rouge">146,668</code> data entries for the Northern Elephant Seal. Let’s focus on <code class="highlighter-rouge">toppID=2006008</code>:</p>
-<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">res</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tabledap</span><span class="p">(</span><span class="n">atnInfo</span><span class="p">,</span><span class="w"> </span><span class="n">fields</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"time"</span><span class="p">,</span><span class="s2">"longitude"</span><span class="p">,</span><span class="w"> </span><span class="s2">"latitude"</span><span class="p">,</span><span class="s2">"toppID"</span><span class="p">),</span><span class="w"> </span><span class="s1">'commonName="Northern Elephant Seal"'</span><span class="p">,</span><span class="s1">'toppID="2006008"'</span><span class="p">,</span><span class="w"> </span><span class="n">orderby</span><span class="o">=</span><span class="s2">"time"</span><span class="p">,</span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atnURL</span><span class="p">)</span><span class="w">
+<p>There are a total of <code class="language-plaintext highlighter-rouge">146,668</code> data entries for the Northern Elephant Seal. Let’s focus on <code class="language-plaintext highlighter-rouge">toppID=2006008</code>:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">res</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tabledap</span><span class="p">(</span><span class="n">atnInfo</span><span class="p">,</span><span class="w"> </span><span class="n">fields</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"time"</span><span class="p">,</span><span class="s2">"longitude"</span><span class="p">,</span><span class="w"> </span><span class="s2">"latitude"</span><span class="p">,</span><span class="s2">"toppID"</span><span class="p">),</span><span class="w"> </span><span class="s1">'commonName="Northern Elephant Seal"'</span><span class="p">,</span><span class="s1">'toppID="2006008"'</span><span class="p">,</span><span class="w"> </span><span class="n">orderby</span><span class="o">=</span><span class="s2">"time"</span><span class="p">,</span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">atnURL</span><span class="p">)</span><span class="w">
 </span><span class="n">res</span><span class="o">$</span><span class="n">longitude</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">res</span><span class="o">$</span><span class="n">longitude</span><span class="p">)</span><span class="w">
 </span><span class="n">res</span><span class="o">$</span><span class="n">latitude</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">res</span><span class="o">$</span><span class="n">latitude</span><span class="p">)</span><span class="w">
 </span><span class="n">xmin</span><span class="o">&lt;-</span><span class="nf">min</span><span class="p">(</span><span class="n">res</span><span class="o">$</span><span class="n">longitude</span><span class="m">-360</span><span class="p">)</span><span class="w">
@@ -291,15 +295,15 @@
 </span><span class="n">w</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_data</span><span class="p">(</span><span class="s2">"worldHires"</span><span class="p">,</span><span class="w"> </span><span class="n">ylim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">ymin</span><span class="p">,</span><span class="n">ymax</span><span class="p">),</span><span class="w"> </span><span class="n">xlim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span><span class="n">xmax</span><span class="p">))</span><span class="w">
 </span><span class="k">for</span><span class="w">
 </span><span class="n">alldata</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">longitude</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res</span><span class="o">$</span><span class="n">longitude</span><span class="m">-360</span><span class="p">,</span><span class="w"> </span><span class="n">latitude</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res</span><span class="o">$</span><span class="n">latitude</span><span class="p">)</span><span class="w">
-</span><span class="n">ggplot</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_point</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">alldata</span><span class="p">,</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">longitude</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">latitude</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_polygon</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">w</span><span class="p">,</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">long</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">lat</span><span class="p">,</span><span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">),</span><span class="n">fill</span><span class="o">=</span><span class="s2">"grey80"</span><span class="p">)</span><span class="w"> 
-</span></code></pre></div></div>
+</span><span class="n">ggplot</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_point</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">alldata</span><span class="p">,</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">longitude</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">latitude</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">geom_polygon</span><span class="p">(</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">w</span><span class="p">,</span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">long</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">lat</span><span class="p">,</span><span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">),</span><span class="n">fill</span><span class="o">=</span><span class="s2">"grey80"</span><span class="p">)</span><span class="w"> </span></code></pre></figure>
+
 <p>This produces the figure that shows where a specific seal visisted during the time period 2006-01-17 to 2006-05-16:</p>
 
 <p><img src="https://szonov.com/assets/scatter.png" alt="" /></p>
 
 <p>Let’s animate the results</p>
 
-<div class="language-R highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">res</span><span class="o">$</span><span class="n">time</span><span class="p">)){</span><span class="w">
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">res</span><span class="o">$</span><span class="n">time</span><span class="p">)){</span><span class="w">
 
 	</span><span class="n">alldata</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">longitude</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res</span><span class="o">$</span><span class="n">longitude</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="n">i</span><span class="p">]</span><span class="m">-360</span><span class="p">,</span><span class="w"> </span><span class="n">latitude</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">res</span><span class="o">$</span><span class="n">latitude</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="n">i</span><span class="p">])</span><span class="w">
 
@@ -308,11 +312,12 @@
 	
 	</span><span class="n">ggsave</span><span class="p">(</span><span class="n">plot</span><span class="p">,</span><span class="n">file</span><span class="o">=</span><span class="n">paste0</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="s1">'.png'</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s2">""</span><span class="p">))</span><span class="w">
 	</span><span class="n">dev.off</span><span class="p">()</span><span class="w">
-</span><span class="p">}</span><span class="w">  
-</span></code></pre></div></div>
+</span><span class="p">}</span><span class="w">  </span></code></pre></figure>
+
 <p>in bash run</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>convert <span class="nt">-delay</span> 10 <span class="nt">-loop</span> 0 <span class="k">*</span>.png total.gif
-</code></pre></div></div>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">convert <span class="nt">-delay</span> 10 <span class="nt">-loop</span> 0 <span class="k">*</span>.png total.gif</code></pre></figure>
+
 <p>to produce</p>
 
 <p><img src="https://szonov.com/assets/total.gif" alt="" /></p>

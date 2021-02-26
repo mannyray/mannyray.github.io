@@ -212,7 +212,7 @@
   </header>
 
   <article class="post-content">
-    <p><a href="https://mc-stan.org/">Stan</a> is a language used for statistical inference. Here we will investigate estimating the unknown length of a pendulum based on measurements of velocity and angle $\theta$. Two good examples to get started with <code class="highlighter-rouge">Stan</code> are</p>
+    <p><a href="https://mc-stan.org/">Stan</a> is a language used for statistical inference. Here we will investigate estimating the unknown length of a pendulum based on measurements of velocity and angle $\theta$. Two good examples to get started with <code class="language-plaintext highlighter-rouge">Stan</code> are</p>
 
 <ol>
   <li><a href="https://ourcodingclub.github.io/2018/04/17/stan-intro.html">Intro to Stan</a></li>
@@ -235,7 +235,7 @@
 
 <p>$\frac{d \theta}{dt} = v$.</p>
 
-<p>We can encode the DEs in <code class="highlighter-rouge">Stan</code> as follows:</p>
+<p>We can encode the DEs in <code class="language-plaintext highlighter-rouge">Stan</code> as follows:</p>
 
 <figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="n">functions</span> <span class="p">{</span>
 	<span class="n">real</span><span class="p">[]</span> <span class="n">dz_dt</span><span class="p">(</span><span class="n">real</span> <span class="n">t</span><span class="p">,</span> <span class="n">real</span><span class="p">[]</span> <span class="n">z</span><span class="p">,</span> <span class="n">real</span><span class="p">[]</span> <span class="n">params</span><span class="p">,</span> <span class="n">real</span><span class="p">[]</span> <span class="n">x_r</span><span class="p">,</span> <span class="kt">int</span><span class="p">[]</span> <span class="n">x_i</span><span class="p">){</span>
@@ -252,17 +252,17 @@
 	<span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>where <code class="highlighter-rouge">dz_dt</code> returns</p>
+<p>where <code class="language-plaintext highlighter-rouge">dz_dt</code> returns</p>
 
 <p>$ \begin{bmatrix} \frac{d v}{dt} \\ \frac{d\theta}{dt}\end{bmatrix} $</p>
 
-<p>evaluated at a particular $\theta$ and $v$. <code class="highlighter-rouge">x_r</code> and <code class="highlighter-rouge">x_i</code> are unused arguments that could be used to provide additional arguments to the function. The ODE is solved in</p>
+<p>evaluated at a particular $\theta$ and $v$. <code class="language-plaintext highlighter-rouge">x_r</code> and <code class="language-plaintext highlighter-rouge">x_i</code> are unused arguments that could be used to provide additional arguments to the function. The ODE is solved in</p>
 
 <figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="n">transformed</span> <span class="n">parameters</span><span class="p">{</span>
 	<span class="n">real</span> <span class="n">z</span><span class="p">[</span><span class="n">N</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">integrate_ode_rk45</span><span class="p">(</span><span class="n">dz_dt</span><span class="p">,</span> <span class="n">z_init</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ts</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">rep_array</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">rep_array</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="mf">1e-5</span><span class="p">,</span> <span class="mf">1e6</span><span class="p">);</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>where the arguments to the ode solvers are provided by the <code class="highlighter-rouge">data</code> block:</p>
+<p>where the arguments to the ode solvers are provided by the <code class="language-plaintext highlighter-rouge">data</code> block:</p>
 
 <figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="n">data</span> <span class="p">{</span>
 	<span class="kt">int</span> <span class="o">&lt;</span><span class="n">lower</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">&gt;</span> <span class="n">N</span><span class="p">;</span>		<span class="c1">//number of measurements</span>
@@ -272,7 +272,7 @@
 	<span class="n">real</span> <span class="o">&lt;</span><span class="n">lower</span> <span class="o">=</span> <span class="mi">0</span><span class="o">&gt;</span> <span class="n">sigma</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>	<span class="c1">//sensor noise measurement standard deviation of velocity and theta</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>$N$ in this case is the total measurement counts where the $i^{\text{th}}$ measurement is taken at time <code class="highlighter-rouge">ts[i]</code>. The measurements along with an initial guess known as the prior will be used to estimate the length. The assumed initial conditions provided in <code class="highlighter-rouge">y_init</code> and <code class="highlighter-rouge">y</code> are the measurements of $v$ and $\theta$. In <code class="highlighter-rouge">transformed parameters</code> the first two arguments of <code class="highlighter-rouge">rep_array(0.0,0), rep_array(0,0), 1e-6, 1e-5, 1e6</code> are <code class="highlighter-rouge">NULL</code> equivalent while the rest are ode solver specific. The user provided <code class="highlighter-rouge">data</code> variables <code class="highlighter-rouge">y_init</code> and <code class="highlighter-rouge">y</code> are related to internal parameters <code class="highlighter-rouge">z_init</code> in the <code class="highlighter-rouge">model</code> block.</p>
+<p>$N$ in this case is the total measurement counts where the $i^{\text{th}}$ measurement is taken at time <code class="language-plaintext highlighter-rouge">ts[i]</code>. The measurements along with an initial guess known as the prior will be used to estimate the length. The assumed initial conditions provided in <code class="language-plaintext highlighter-rouge">y_init</code> and <code class="language-plaintext highlighter-rouge">y</code> are the measurements of $v$ and $\theta$. In <code class="language-plaintext highlighter-rouge">transformed parameters</code> the first two arguments of <code class="language-plaintext highlighter-rouge">rep_array(0.0,0), rep_array(0,0), 1e-6, 1e-5, 1e6</code> are <code class="language-plaintext highlighter-rouge">NULL</code> equivalent while the rest are ode solver specific. The user provided <code class="language-plaintext highlighter-rouge">data</code> variables <code class="language-plaintext highlighter-rouge">y_init</code> and <code class="language-plaintext highlighter-rouge">y</code> are related to internal parameters <code class="language-plaintext highlighter-rouge">z_init</code> in the <code class="language-plaintext highlighter-rouge">model</code> block.</p>
 
 <figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="n">model</span> <span class="p">{</span>
 	<span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">~</span> <span class="n">normal</span><span class="p">(</span><span class="mf">1.9</span><span class="p">,</span><span class="mf">0.1</span><span class="p">);</span>
@@ -284,9 +284,9 @@
 	<span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>The <code class="highlighter-rouge">model</code> block takes the state <code class="highlighter-rouge">z</code> solved for in <code class="highlighter-rouge">transformed parameters</code> and adds sensor noise. In addition, it provides initial guess or prior for the assumed pendulum length as well the initial conditions defined  in <code class="highlighter-rouge">z_init</code>. The full <code class="highlighter-rouge">.stan</code> file can be found in <a href="https://szonov.com/assets/pendulum.stan">pendulum.stan</a>.</p>
+<p>The <code class="language-plaintext highlighter-rouge">model</code> block takes the state <code class="language-plaintext highlighter-rouge">z</code> solved for in <code class="language-plaintext highlighter-rouge">transformed parameters</code> and adds sensor noise. In addition, it provides initial guess or prior for the assumed pendulum length as well the initial conditions defined  in <code class="language-plaintext highlighter-rouge">z_init</code>. The full <code class="language-plaintext highlighter-rouge">.stan</code> file can be found in <a href="https://szonov.com/assets/pendulum.stan">pendulum.stan</a>.</p>
 
-<p>To estimate parameters we need data to work with - that is the measurements. To generated the measurements, we first need to solve the DE model and then add noise to it. Consider the <code class="highlighter-rouge">matlab</code> script (scavanged version of <a href="https://wiki.math.uwaterloo.ca/sheets/matlab/html/stoch_pendulum_white.html">this</a>):</p>
+<p>To estimate parameters we need data to work with - that is the measurements. To generated the measurements, we first need to solve the DE model and then add noise to it. Consider the <code class="language-plaintext highlighter-rouge">matlab</code> script (scavanged version of <a href="https://wiki.math.uwaterloo.ca/sheets/matlab/html/stoch_pendulum_white.html">this</a>):</p>
 
 <figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="nb">rng</span><span class="p">(</span><span class="s1">'shuffle'</span><span class="p">);</span>
 
@@ -346,7 +346,7 @@
 <span class="k">!</span><span class="nb">cat </span>pendulum_noisy.csv <span class="o">&gt;&gt;</span> pend_noisy.csv
 <span class="k">!</span><span class="nb">rm </span>pendulum_noisy.csv</code></pre></figure>
 
-<p>This script creates a csv file <code class="highlighter-rouge">pend_noise.csv</code> with the noisy measurements of velocity and theta. A plot below shows the curve of $v$ and $\theta$ given that at time $t=0$</p>
+<p>This script creates a csv file <code class="language-plaintext highlighter-rouge">pend_noise.csv</code> with the noisy measurements of velocity and theta. A plot below shows the curve of $v$ and $\theta$ given that at time $t=0$</p>
 
 <p>$v = 0$</p>
 
@@ -354,7 +354,7 @@
 
 <p><img src="https://szonov.com/assets/stan_pendulum1.png" alt="image" /></p>
 
-<p>By time $20$ the state has been mostly damped out. We now have everything we need to estimate the length. We run <code class="highlighter-rouge">Stan</code> through <code class="highlighter-rouge">R</code>. The <code class="highlighter-rouge">R</code> script is below and can be found in <a href="https://szonov.com/assets/script.r">script.r</a>.</p>
+<p>By time $20$ the state has been mostly damped out. We now have everything we need to estimate the length. We run <code class="language-plaintext highlighter-rouge">Stan</code> through <code class="language-plaintext highlighter-rouge">R</code>. The <code class="language-plaintext highlighter-rouge">R</code> script is below and can be found in <a href="https://szonov.com/assets/script.r">script.r</a>.</p>
 
 <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="s2">"rstan"</span><span class="p">)</span><span class="w">
 
@@ -373,7 +373,7 @@
 </span><span class="n">fit</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sampling</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pendulum</span><span class="p">,</span><span class="w"> </span><span class="n">seed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">123</span><span class="p">,</span><span class="n">chains</span><span class="o">=</span><span class="m">4</span><span class="p">,</span><span class="n">iter</span><span class="o">=</span><span class="m">1000</span><span class="p">,</span><span class="w"> </span><span class="n">control</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">adapt_delta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.99</span><span class="p">))</span><span class="w">
 </span><span class="n">print</span><span class="p">(</span><span class="n">fit</span><span class="p">,</span><span class="w"> </span><span class="n">pars</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s2">"params"</span><span class="p">,</span><span class="s2">"z_init"</span><span class="p">),</span><span class="n">probs</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span><span class="m">0.5</span><span class="p">,</span><span class="m">0.9</span><span class="p">),</span><span class="n">digits</span><span class="o">=</span><span class="m">4</span><span class="p">)</span></code></pre></figure>
 
-<p>In the terminal, open up <code class="highlighter-rouge">R</code> and run</p>
+<p>In the terminal, open up <code class="language-plaintext highlighter-rouge">R</code> and run</p>
 
 <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="o">&gt;</span><span class="w"> </span><span class="n">source</span><span class="p">(</span><span class="s2">"script.r"</span><span class="p">)</span></code></pre></figure>
 
@@ -381,21 +381,21 @@
 
 <p><strong>Case 1:</strong></p>
 
-<p>The initial conditions used to generate the measurements and those in the prior are similair. Both the assumed in <code class="highlighter-rouge">Stan</code>’s <code class="highlighter-rouge">model</code> as well as the matlab script:</p>
+<p>The initial conditions used to generate the measurements and those in the prior are similair. Both the assumed in <code class="language-plaintext highlighter-rouge">Stan</code>’s <code class="language-plaintext highlighter-rouge">model</code> as well as the matlab script:</p>
 
 <p>$\theta = \pi - 0.01$</p>
 
 <p>$v = 0$</p>
 
-<p>In <code class="highlighter-rouge">Stan</code> the conditions have an assumed variance of $0.01^2$ for each parameter. The pendulum length is $1.9$ with variance $0.1^2$ while the true pendulum is of length $2$. The results of the script are</p>
+<p>In <code class="language-plaintext highlighter-rouge">Stan</code> the conditions have an assumed variance of $0.01^2$ for each parameter. The pendulum length is $1.9$ with variance $0.1^2$ while the true pendulum is of length $2$. The results of the script are</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>           mean se_mean    sd    10%    50%   90% n_eff   Rhat
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>           mean se_mean    sd    10%    50%   90% n_eff   Rhat
 params[1] 1.866   0.054 0.076  1.820  1.823 1.998     2 39.819
 z_init[1] 0.217   0.302 0.434 -0.038 -0.027 1.049     2 16.054
 z_init[2] 1.452   0.527 0.746  1.017  1.023 2.762     2 66.696
 </code></pre></div></div>
 
-<p>The high <code class="highlighter-rouge">Rhat</code> suggests that something is wrong. Debugging <code class="highlighter-rouge">Stan</code> code and correctly interpreting the results is a lengthy topic not fully explored here. Further material can be found in the <code class="highlighter-rouge">mc-stan</code> forums or in books like “Bayesian Data Analysis Third Edition” by Gelman et. al. We run the following script in <code class="highlighter-rouge">R</code> to produce plots in order to further debug:</p>
+<p>The high <code class="language-plaintext highlighter-rouge">Rhat</code> suggests that something is wrong. Debugging <code class="language-plaintext highlighter-rouge">Stan</code> code and correctly interpreting the results is a lengthy topic not fully explored here. Further material can be found in the <code class="language-plaintext highlighter-rouge">mc-stan</code> forums or in books like “Bayesian Data Analysis Third Edition” by Gelman et. al. We run the following script in <code class="language-plaintext highlighter-rouge">R</code> to produce plots in order to further debug:</p>
 
 <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">jpeg</span><span class="p">(</span><span class="s1">'posterior2.jpg'</span><span class="p">)</span><span class="w">
 </span><span class="n">par</span><span class="p">(</span><span class="n">mfrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">1</span><span class="p">))</span><span class="w">
@@ -426,15 +426,15 @@ z_init[2] 1.452   0.527 0.746  1.017  1.023 2.762     2 66.696
 </span><span class="p">}</span><span class="w">
 </span><span class="n">dev.off</span><span class="p">()</span></code></pre></figure>
 
-<p>The first plot is the computed by <code class="highlighter-rouge">Stan</code> posterior distribution of the length, initial velocity and initial theta. The red is the true initial state specified within the matlab script while black is the computed posterior mean. For both theta and velocity we see a multimodal distribution.</p>
+<p>The first plot is the computed by <code class="language-plaintext highlighter-rouge">Stan</code> posterior distribution of the length, initial velocity and initial theta. The red is the true initial state specified within the matlab script while black is the computed posterior mean. For both theta and velocity we see a multimodal distribution.</p>
 
 <p><img src="https://szonov.com/assets/stan_posterior2.jpg" alt="image" /></p>
 
-<p>The plot shows that there is no clear guess as to what the initial conditions or the lengths is. The overlay of all the computed simulated $\theta$ s by <code class="highlighter-rouge">Stan</code> in the non warm-up phase is below [hence the fat curves].</p>
+<p>The plot shows that there is no clear guess as to what the initial conditions or the lengths is. The overlay of all the computed simulated $\theta$ s by <code class="language-plaintext highlighter-rouge">Stan</code> in the non warm-up phase is below [hence the fat curves].</p>
 
 <p><img src="https://szonov.com/assets/stan_theta2.jpg" alt="image" /></p>
 
-<p>There are two main simulated trajectories of $\theta$. This is because the initial condition and its variance assumed in <code class="highlighter-rouge">Stan</code> in variable <code class="highlighter-rouge">z_init</code> is too close to $\pi$ as seen in figure below</p>
+<p>There are two main simulated trajectories of $\theta$. This is because the initial condition and its variance assumed in <code class="language-plaintext highlighter-rouge">Stan</code> in variable <code class="language-plaintext highlighter-rouge">z_init</code> is too close to $\pi$ as seen in figure below</p>
 
 <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">jpeg</span><span class="p">(</span><span class="s1">'norm.jpg'</span><span class="p">)</span><span class="w">
 </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rnorm</span><span class="p">(</span><span class="m">500000</span><span class="p">,</span><span class="nb">pi</span><span class="m">-0.01</span><span class="p">,</span><span class="m">0.01</span><span class="p">)</span><span class="w">
@@ -446,7 +446,7 @@ z_init[2] 1.452   0.527 0.746  1.017  1.023 2.762     2 66.696
 
 <p>The red line is at $\pi$. Part of the area is over $\pi$ meaning that some conditions are less than $\pi$ while others are greater than. This results in two different types of behaviours of the pendulum swinging down leftwards or rightwards.</p>
 
-<p>Although through the matlab script we technically know the true pendulum length, that knowledge is unknown to the <code class="highlighter-rouge">Stan</code> script. If the previous figures in <code class="highlighter-rouge">Stan</code> is all that we had to work with then we would have lack confidence in our estimate of the pendulum length.</p>
+<p>Although through the matlab script we technically know the true pendulum length, that knowledge is unknown to the <code class="language-plaintext highlighter-rouge">Stan</code> script. If the previous figures in <code class="language-plaintext highlighter-rouge">Stan</code> is all that we had to work with then we would have lack confidence in our estimate of the pendulum length.</p>
 
 <p><strong>Case 2:</strong></p>
 
@@ -454,9 +454,9 @@ z_init[2] 1.452   0.527 0.746  1.017  1.023 2.762     2 66.696
 
 <p><img src="https://szonov.com/assets/stan_norm2.jpg" alt="image" /></p>
 
-<p>After running <code class="highlighter-rouge">Stan</code> again we obtain results that more closely match the true values of the parameters:</p>
+<p>After running <code class="language-plaintext highlighter-rouge">Stan</code> again we obtain results that more closely match the true values of the parameters:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>           mean se_mean    sd   10%   50%   90% n_eff  Rhat
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>           mean se_mean    sd   10%   50%   90% n_eff  Rhat
 params[1] 1.999       0 0.002 1.997 1.999 2.001    63 1.000
 z_init[1] 0.000       0 0.000 0.000 0.000 0.000   249 0.998
 z_init[2] 3.132       0 0.000 3.132 3.132 3.132   154 1.001

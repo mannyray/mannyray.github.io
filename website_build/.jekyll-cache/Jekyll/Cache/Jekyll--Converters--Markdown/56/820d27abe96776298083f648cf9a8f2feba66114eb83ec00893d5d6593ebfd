@@ -1,0 +1,49 @@
+I"h<p>Are you running some code that takes a long time to finish? Want to know exactly when it is done?</p>
+
+<p>Are you running some cron job? Want to know when some specific event occurs?</p>
+
+<p>Want to know via email?</p>
+
+<p>A simple way to solve your questions is to use Google App Script and create a web app:</p>
+
+<ol>
+  <li>
+    <p>Open up your Google Drive.</p>
+  </li>
+  <li>
+    <p>Create a new Google App Script called <code class="language-plaintext highlighter-rouge">AlertMessage</code></p>
+  </li>
+  <li>Add the code to <code class="language-plaintext highlighter-rouge">code.gs</code>
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">function</span> <span class="nx">doGet</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+     <span class="nx">MailApp</span><span class="p">.</span><span class="nx">sendEmail</span><span class="p">(</span><span class="dl">"</span><span class="s2">your@gmail.com</span><span class="dl">"</span><span class="p">,</span> <span class="nx">request</span><span class="p">.</span><span class="nx">parameter</span><span class="p">.</span><span class="nx">subject</span><span class="p">,</span> <span class="nx">request</span><span class="p">.</span><span class="nx">parameter</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+     <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">{</span>
+         <span class="na">sent</span><span class="p">:</span> <span class="mi">0</span> <span class="o">==</span> <span class="mi">0</span>
+     <span class="p">};</span>
+     <span class="k">return</span> <span class="nx">ContentService</span><span class="p">.</span><span class="nx">createTextOutput</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+
+    <p>Where <code class="language-plaintext highlighter-rouge">your@gmail.com</code> is your Google email account on which you made the Google App Script.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">Publish &gt; Deploy as web app...</code>.</p>
+  </li>
+  <li>
+    <p>Who has access to the app:<code class="language-plaintext highlighter-rouge">Anyone, even anonymous</code></p>
+  </li>
+  <li>
+    <p>Press <code class="language-plaintext highlighter-rouge">Deploy</code> and give the appropriate permissions.</p>
+  </li>
+  <li>
+    <p>Copy the full current web app URL: <code class="language-plaintext highlighter-rouge">https://script.google.com/macros/s/.../exec</code> (<code class="language-plaintext highlighter-rouge">...</code> is the Google generated portion)</p>
+  </li>
+  <li>On your computer terminal you can now send notifications via:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> curl -L "https://script.google.com/macros/s/.../exec?subject=TITLE&amp;message=UNDERSCORE_FOR_SPACES_INSIDE_MESSAGE"
+</code></pre></div>    </div>
+    <p>which will cause your Gmail inbox to get a new message.</p>
+  </li>
+</ol>
+
+<p>This is a very simple script that can be modified to do some really neat stuff. Hope this helps.</p>
+
+:ET

@@ -208,249 +208,241 @@
 
 <p>We first define the robot starting conditions as well as the landmarks:</p>
 
-<pre><code class="language-Matlab">clear all;
-close all;
-%set the seed - one of the few commands used here that is _unique_ to Octave
-randn("seed",1);
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="nb">clear</span> <span class="nb">all</span><span class="p">;</span>
+<span class="nb">close</span> <span class="nb">all</span><span class="p">;</span>
+<span class="c1">%set the seed - one of the few commands used here that is _unique_ to Octave</span>
+<span class="nb">randn</span><span class="p">(</span><span class="s2">"seed"</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
 
-%robot starting initial conditions
-robotX = 100;
-robotY = 1;
+<span class="c1">%robot starting initial conditions</span>
+<span class="n">robotX</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="n">robotY</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 
-spreadFromCenter=40;
-xMin = 100-spreadFromCenter;
-xMax=100+spreadFromCenter;
-yMin=100-spreadFromCenter;
-yMax=100+spreadFromCenter;
+<span class="n">spreadFromCenter</span><span class="o">=</span><span class="mi">40</span><span class="p">;</span>
+<span class="n">xMin</span> <span class="o">=</span> <span class="mi">100</span><span class="o">-</span><span class="n">spreadFromCenter</span><span class="p">;</span>
+<span class="n">xMax</span><span class="o">=</span><span class="mi">100</span><span class="o">+</span><span class="n">spreadFromCenter</span><span class="p">;</span>
+<span class="n">yMin</span><span class="o">=</span><span class="mi">100</span><span class="o">-</span><span class="n">spreadFromCenter</span><span class="p">;</span>
+<span class="n">yMax</span><span class="o">=</span><span class="mi">100</span><span class="o">+</span><span class="n">spreadFromCenter</span><span class="p">;</span>
 
-%landmarks on the map
-xCoords = [80,90,110,120,80,90,110,120];
-yCoords = [80,90,110,120,90,100,120,130];
-pointNumber = length(xCoords);
-</code></pre>
+<span class="c1">%landmarks on the map</span>
+<span class="n">xCoords</span> <span class="o">=</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">110</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">110</span><span class="p">,</span><span class="mi">120</span><span class="p">];</span>
+<span class="n">yCoords</span> <span class="o">=</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">110</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">120</span><span class="p">,</span><span class="mi">130</span><span class="p">];</span>
+<span class="n">pointNumber</span> <span class="o">=</span> <span class="nb">length</span><span class="p">(</span><span class="n">xCoords</span><span class="p">);</span></code></pre></figure>
 
 <p>Let’s setup the robot’s movement, before worrying about the landmarks. Assume the robot is on a rail road - the y coordinate is unaffected. The robot will be moving at a constant speed with white noise affecting the motion. The following image will describe the situation:</p>
 
-<pre><code class="language-Matlab">h = figure;
-hold on;
-scatter(xCoords,yCoords,'*b');
-scatter(robotX,robotY,'or','filled');
-plot([robotX,robotX],[robotY,200],'k--')
-legend('Landmarks','Robot','Robot path');
-xlim([100-spreadFromCenter,100+spreadFromCenter]);
-ylim([0,200]);
-xlabel('x');
-ylabel('y');
-axis("equal")
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">h</span> <span class="o">=</span> <span class="nb">figure</span><span class="p">;</span>
+<span class="nb">hold</span> <span class="n">on</span><span class="p">;</span>
+<span class="nb">scatter</span><span class="p">(</span><span class="n">xCoords</span><span class="p">,</span><span class="n">yCoords</span><span class="p">,</span><span class="s1">'*b'</span><span class="p">);</span>
+<span class="nb">scatter</span><span class="p">(</span><span class="n">robotX</span><span class="p">,</span><span class="n">robotY</span><span class="p">,</span><span class="s1">'or'</span><span class="p">,</span><span class="s1">'filled'</span><span class="p">);</span>
+<span class="nb">plot</span><span class="p">([</span><span class="n">robotX</span><span class="p">,</span><span class="n">robotX</span><span class="p">],[</span><span class="n">robotY</span><span class="p">,</span><span class="mi">200</span><span class="p">],</span><span class="s1">'k--'</span><span class="p">)</span>
+<span class="nb">legend</span><span class="p">(</span><span class="s1">'Landmarks'</span><span class="p">,</span><span class="s1">'Robot'</span><span class="p">,</span><span class="s1">'Robot path'</span><span class="p">);</span>
+<span class="nb">xlim</span><span class="p">([</span><span class="mi">100</span><span class="o">-</span><span class="n">spreadFromCenter</span><span class="p">,</span><span class="mi">100</span><span class="o">+</span><span class="n">spreadFromCenter</span><span class="p">]);</span>
+<span class="nb">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">]);</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">);</span>
+<span class="nb">ylabel</span><span class="p">(</span><span class="s1">'y'</span><span class="p">);</span>
+<span class="nb">axis</span><span class="p">(</span><span class="s2">"equal"</span><span class="p">)</span></code></pre></figure>
 
 <p><img src="https://szonov.com/assets/SLAM/setup1.png" alt="" /></p>
 
 <p>Now lets generate an actual instance of the robot’s motion.</p>
 
-<pre><code class="language-Matlab">%total timesteps of robot
-timesteps = 400;
-%speed of the robot (distance covered by timestep)
-speed = 0.5;
-%function representing the movement - first entry is x coordinate, second y.
-next_func= @(coord,time) coord + [0;speed]; 
-%process noise - a little noise is added to model in order to be able to do Cholesky decomposition
-processNoiseCovariance = [0.00000000001,0;0,0.2];
-%store the results
-movementCoords = zeros(2,timesteps+1);
-%initial conditions
-movementCoords(1,1) = robotX;
-movementCoords(2,1) = robotY;
-for i=1:timesteps
-	movementCoords(:,i+1) = next_func(movementCoords(:,i),i) + chol(processNoiseCovariance)'*randn(2,1); 
-end
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="c1">%total timesteps of robot</span>
+<span class="n">timesteps</span> <span class="o">=</span> <span class="mi">400</span><span class="p">;</span>
+<span class="c1">%speed of the robot (distance covered by timestep)</span>
+<span class="n">speed</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">;</span>
+<span class="c1">%function representing the movement - first entry is x coordinate, second y.</span>
+<span class="n">next_func</span><span class="o">=</span> <span class="o">@</span><span class="p">(</span><span class="n">coord</span><span class="p">,</span><span class="nb">time</span><span class="p">)</span> <span class="n">coord</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span><span class="n">speed</span><span class="p">];</span> 
+<span class="c1">%process noise - a little noise is added to model in order to be able to do Cholesky decomposition</span>
+<span class="n">processNoiseCovariance</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.00000000001</span><span class="p">,</span><span class="mi">0</span><span class="p">;</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.2</span><span class="p">];</span>
+<span class="c1">%store the results</span>
+<span class="n">movementCoords</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">timesteps</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+<span class="c1">%initial conditions</span>
+<span class="n">movementCoords</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">robotX</span><span class="p">;</span>
+<span class="n">movementCoords</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">robotY</span><span class="p">;</span>
+<span class="k">for</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">timesteps</span>
+	<span class="n">movementCoords</span><span class="p">(:,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">next_func</span><span class="p">(</span><span class="n">movementCoords</span><span class="p">(:,</span><span class="n">i</span><span class="p">),</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="nb">chol</span><span class="p">(</span><span class="n">processNoiseCovariance</span><span class="p">)</span><span class="o">'*</span><span class="nb">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> 
+<span class="k">end</span></code></pre></figure>
 
 <p>Now, let’s plot the y-coordinate evolution:</p>
 
-<pre><code class="language-Matlab">h = figure;
-plot(1:(timesteps+1),movementCoords(2,:))
-ylabel('Y')
-xlabel('Time')
-axis("equal")
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">h</span> <span class="o">=</span> <span class="nb">figure</span><span class="p">;</span>
+<span class="nb">plot</span><span class="p">(</span><span class="mi">1</span><span class="p">:(</span><span class="n">timesteps</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="n">movementCoords</span><span class="p">(</span><span class="mi">2</span><span class="p">,:))</span>
+<span class="nb">ylabel</span><span class="p">(</span><span class="s1">'Y'</span><span class="p">)</span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
+<span class="nb">axis</span><span class="p">(</span><span class="s2">"equal"</span><span class="p">)</span></code></pre></figure>
 
 <p><img src="https://szonov.com/assets/SLAM/setup2.png" alt="" /></p>
 
 <p>We will set it so that the robot has a maximum measurement radius. Read <a href="https://www.cs.utexas.edu/~kuipers/slides/L17-FastSLAM.pdf">this</a> for more info on the measurement function used. We will generate noisy measurements of the landmarks based on the position of the landmark.</p>
 
-<pre><code class="language-Matlab">measurementRadius = 40;
-angles = -1*ones(timesteps,pointNumber);
-distances = -1*ones(timesteps,pointNumber); 
-for i=1:timesteps
-	curRobotX = movementCoords(1,i);
-	curRobotY = movementCoords(2,i);	
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">measurementRadius</span> <span class="o">=</span> <span class="mi">40</span><span class="p">;</span>
+<span class="n">angles</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">timesteps</span><span class="p">,</span><span class="n">pointNumber</span><span class="p">);</span>
+<span class="nb">distances</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="nb">ones</span><span class="p">(</span><span class="n">timesteps</span><span class="p">,</span><span class="n">pointNumber</span><span class="p">);</span> 
+<span class="k">for</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">timesteps</span>
+	<span class="n">curRobotX</span> <span class="o">=</span> <span class="n">movementCoords</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
+	<span class="n">curRobotY</span> <span class="o">=</span> <span class="n">movementCoords</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>	
 
-	for j=1:pointNumber
-		distance = norm([curRobotX;curRobotY] - [xCoords(j); yCoords(j)]); 
-		if distance &lt;= measurementRadius
-			distances(i,j) = distance;  
-			angles(i,j) = atan2( yCoords(j) - curRobotY , xCoords(j) - curRobotX);
-		end	
-	end
-end
-%add noise
-angleCovariance = 0.004;
-distanceCovariance = 0.2;
-anglesNoisy = angles + randn(size(angles)).*sqrt(angleCovariance);
-distancesNoisy = distances + randn(size(distances)).*sqrt(distanceCovariance);
-</code></pre>
+	<span class="k">for</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">pointNumber</span>
+		<span class="n">distance</span> <span class="o">=</span> <span class="nb">norm</span><span class="p">([</span><span class="n">curRobotX</span><span class="p">;</span><span class="n">curRobotY</span><span class="p">]</span> <span class="o">-</span> <span class="p">[</span><span class="n">xCoords</span><span class="p">(</span><span class="n">j</span><span class="p">);</span> <span class="n">yCoords</span><span class="p">(</span><span class="n">j</span><span class="p">)]);</span> 
+		<span class="k">if</span> <span class="n">distance</span> <span class="o">&lt;=</span> <span class="n">measurementRadius</span>
+			<span class="nb">distances</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="o">=</span> <span class="n">distance</span><span class="p">;</span>  
+			<span class="n">angles</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="o">=</span> <span class="nb">atan2</span><span class="p">(</span> <span class="n">yCoords</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">-</span> <span class="n">curRobotY</span> <span class="p">,</span> <span class="n">xCoords</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">-</span> <span class="n">curRobotX</span><span class="p">);</span>
+		<span class="k">end</span>	
+	<span class="k">end</span>
+<span class="k">end</span>
+<span class="c1">%add noise</span>
+<span class="n">angleCovariance</span> <span class="o">=</span> <span class="mf">0.004</span><span class="p">;</span>
+<span class="n">distanceCovariance</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">;</span>
+<span class="n">anglesNoisy</span> <span class="o">=</span> <span class="n">angles</span> <span class="o">+</span> <span class="nb">randn</span><span class="p">(</span><span class="nb">size</span><span class="p">(</span><span class="n">angles</span><span class="p">))</span><span class="o">.*</span><span class="nb">sqrt</span><span class="p">(</span><span class="n">angleCovariance</span><span class="p">);</span>
+<span class="n">distancesNoisy</span> <span class="o">=</span> <span class="nb">distances</span> <span class="o">+</span> <span class="nb">randn</span><span class="p">(</span><span class="nb">size</span><span class="p">(</span><span class="nb">distances</span><span class="p">))</span><span class="o">.*</span><span class="nb">sqrt</span><span class="p">(</span><span class="n">distanceCovariance</span><span class="p">);</span></code></pre></figure>
 
 <p>Now that we have measurements we are ready to code up our robot exploring the environment. We will assume that the robot does not know now anything about the landmarks:</p>
 
-<pre><code class="language-Matlab">landMarkDiscoveredCount = 0;
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">landMarkDiscoveredCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></code></pre></figure>
 
-<p>We will set the following variable to be used in identifying if a measurement is associated with a new landmark. If we already are aware that there are <code class="highlighter-rouge">n</code> landmarks then we can compare the current measurement’s distance from the estimated location of the other <code class="highlighter-rouge">n</code> landmarks to decide if the new measurement is far enough to belong to a new landmark.</p>
+<p>We will set the following variable to be used in identifying if a measurement is associated with a new landmark. If we already are aware that there are <code class="language-plaintext highlighter-rouge">n</code> landmarks then we can compare the current measurement’s distance from the estimated location of the other <code class="language-plaintext highlighter-rouge">n</code> landmarks to decide if the new measurement is far enough to belong to a new landmark.</p>
 
-<pre><code class="language-Matlab">minMahalanobisDistance = 7;
-</code></pre>
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">minMahalanobisDistance</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span></code></pre></figure>
 
 <p>The rest of the script is given below. In it the robot moves forward and once it is at the appropriate measurement range, it ‘receives’ measurements from the landmark (the distance and angle with respect to the robot). The robot then decides if it is associated with a new landmark or not. If yes, then it is registered and a new estimate and associated covariance is set up for the landmark’s Kalman filter. Otherwise, the Kalman filter (specifically the update phase) is used to update the estimate (that is closest to the measured landmark).</p>
 
-<pre><code class="language-Matlab">%estimate location of discovered landmarks
-landMarkMeans = {};
-%estimate of angle and distance from robot to landmark
-landMarkAngleDistances = {};
-%associated covariance with landMarkAngleDIstances
-landMarkCovariances = {};
-%record of measurements 
-landMarkMeasurements = {};
-%record of all estimates
-landMarkEstimates = {};
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="c1">%estimate location of discovered landmarks</span>
+<span class="n">landMarkMeans</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="c1">%estimate of angle and distance from robot to landmark</span>
+<span class="n">landMarkAngleDistances</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="c1">%associated covariance with landMarkAngleDIstances</span>
+<span class="n">landMarkCovariances</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="c1">%record of measurements </span>
+<span class="n">landMarkMeasurements</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="c1">%record of all estimates</span>
+<span class="n">landMarkEstimates</span> <span class="o">=</span> <span class="p">{};</span>
 
 
-%creating animation to store images 
-%can be a little slow in octave - remove saveas part 
-%to just view it
-h = figure;
-hold on;
-axis('equal');
-xlim([100-spreadFromCenter,100+spreadFromCenter]);
-ylim([0,200]);
+<span class="c1">%creating animation to store images </span>
+<span class="c1">%can be a little slow in octave - remove saveas part </span>
+<span class="c1">%to just view it</span>
+<span class="n">h</span> <span class="o">=</span> <span class="nb">figure</span><span class="p">;</span>
+<span class="nb">hold</span> <span class="n">on</span><span class="p">;</span>
+<span class="nb">axis</span><span class="p">(</span><span class="s1">'equal'</span><span class="p">);</span>
+<span class="nb">xlim</span><span class="p">([</span><span class="mi">100</span><span class="o">-</span><span class="n">spreadFromCenter</span><span class="p">,</span><span class="mi">100</span><span class="o">+</span><span class="n">spreadFromCenter</span><span class="p">]);</span>
+<span class="nb">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">]);</span>
 
-for i=1:timesteps
-	%current position of robot - here it is known 
-	%next extension would let the position be unknown 
-	%and the predict phase of the Kalman filter to deal with it
-	curRobotX = movementCoords(1,i);
-	curRobotY = movementCoords(2,i);	
+<span class="k">for</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">timesteps</span>
+	<span class="c1">%current position of robot - here it is known </span>
+	<span class="c1">%next extension would let the position be unknown </span>
+	<span class="c1">%and the predict phase of the Kalman filter to deal with it</span>
+	<span class="n">curRobotX</span> <span class="o">=</span> <span class="n">movementCoords</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
+	<span class="n">curRobotY</span> <span class="o">=</span> <span class="n">movementCoords</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>	
 	
-	%there are a total pointNumber landmarks - which our robot has no idea.
-	%However, we still have to cycle through all the landmarks at a given timestep
-	%in order to simulate an incoming measurement based on measurementRadius value.
-	for j=1:pointNumber
-		if distances(i,j) ~= -1%-1 flag used to signify that landmark is not in range
-			%landmark in measurementRadius range
-			%convert the measured angle and distance to an X and Y position
-			landmarkX = curRobotX + distancesNoisy(i,j)*cos(anglesNoisy(i,j)); 
-			landmarkY = curRobotY + distancesNoisy(i,j)*sin(anglesNoisy(i,j));
+	<span class="c1">%there are a total pointNumber landmarks - which our robot has no idea.</span>
+	<span class="c1">%However, we still have to cycle through all the landmarks at a given timestep</span>
+	<span class="c1">%in order to simulate an incoming measurement based on measurementRadius value.</span>
+	<span class="k">for</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">pointNumber</span>
+		<span class="k">if</span> <span class="nb">distances</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="o">~=</span> <span class="o">-</span><span class="mi">1</span><span class="c1">%-1 flag used to signify that landmark is not in range</span>
+			<span class="c1">%landmark in measurementRadius range</span>
+			<span class="c1">%convert the measured angle and distance to an X and Y position</span>
+			<span class="n">landmarkX</span> <span class="o">=</span> <span class="n">curRobotX</span> <span class="o">+</span> <span class="n">distancesNoisy</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span><span class="o">*</span><span class="nb">cos</span><span class="p">(</span><span class="n">anglesNoisy</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">));</span> 
+			<span class="n">landmarkY</span> <span class="o">=</span> <span class="n">curRobotY</span> <span class="o">+</span> <span class="n">distancesNoisy</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="n">anglesNoisy</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">));</span>
 
-			%variables to figure if landmark is new and if not then to 
-			%which recorded one does it associate with
-			landMarkIndex = 0;
-			isNew = false;
+			<span class="c1">%variables to figure if landmark is new and if not then to </span>
+			<span class="c1">%which recorded one does it associate with</span>
+			<span class="n">landMarkIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+			<span class="n">isNew</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
 			
-			%compute distance between measured landmark and all other estimates
-			minIndex = 1;
-			minVal = -1; 
-			for k=1:landMarkDiscoveredCount
-				mahalanobisDistance = sqrt( ([landmarkX;landmarkY] - landMarkMeans{k})'
-					*([landmarkX;landmarkY] - landMarkMeans{k}));
-				if minVal == -1
-					minVal = mahalanobisDistance;
-				elseif minVal &gt; mahalanobisDistance
-					minVal = mahalanobisDistance;
-					minIndex = k;
-				end
-			end
+			<span class="c1">%compute distance between measured landmark and all other estimates</span>
+			<span class="n">minIndex</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+			<span class="n">minVal</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> 
+			<span class="k">for</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">landMarkDiscoveredCount</span>
+				<span class="n">mahalanobisDistance</span> <span class="o">=</span> <span class="nb">sqrt</span><span class="p">(</span> <span class="p">([</span><span class="n">landmarkX</span><span class="p">;</span><span class="n">landmarkY</span><span class="p">]</span> <span class="o">-</span> <span class="n">landMarkMeans</span><span class="p">{</span><span class="n">k</span><span class="p">})</span><span class="o">'</span>
+					<span class="o">*</span><span class="p">([</span><span class="n">landmarkX</span><span class="p">;</span><span class="n">landmarkY</span><span class="p">]</span> <span class="o">-</span> <span class="n">landMarkMeans</span><span class="p">{</span><span class="n">k</span><span class="p">}));</span>
+				<span class="k">if</span> <span class="n">minVal</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span>
+					<span class="n">minVal</span> <span class="o">=</span> <span class="n">mahalanobisDistance</span><span class="p">;</span>
+				<span class="k">elseif</span> <span class="n">minVal</span> <span class="o">&gt;</span> <span class="n">mahalanobisDistance</span>
+					<span class="n">minVal</span> <span class="o">=</span> <span class="n">mahalanobisDistance</span><span class="p">;</span>
+					<span class="n">minIndex</span> <span class="o">=</span> <span class="n">k</span><span class="p">;</span>
+				<span class="k">end</span>
+			<span class="k">end</span>
 	
 			
-			if minVal == -1 || minVal &gt; minMahalanobisDistance
-				%-1 for first index
-				%minVal &gt; ... means that it is far away from all previous measurements
-				isNew = true;
-				landMarkDiscoveredCount = landMarkDiscoveredCount + 1;
-				landMarkIndex = landMarkDiscoveredCount; 
-			else
-				%measurement is associated with estimate that already exists 
-				landMarkIndex = minIndex;
-			end
+			<span class="k">if</span> <span class="n">minVal</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="n">minVal</span> <span class="o">&gt;</span> <span class="n">minMahalanobisDistance</span>
+				<span class="c1">%-1 for first index</span>
+				<span class="c1">%minVal &gt; ... means that it is far away from all previous measurements</span>
+				<span class="n">isNew</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+				<span class="n">landMarkDiscoveredCount</span> <span class="o">=</span> <span class="n">landMarkDiscoveredCount</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+				<span class="n">landMarkIndex</span> <span class="o">=</span> <span class="n">landMarkDiscoveredCount</span><span class="p">;</span> 
+			<span class="k">else</span>
+				<span class="c1">%measurement is associated with estimate that already exists </span>
+				<span class="n">landMarkIndex</span> <span class="o">=</span> <span class="n">minIndex</span><span class="p">;</span>
+			<span class="k">end</span>
 
-			if isNew ~= true
-				%run Kalman filter's update phase 
+			<span class="k">if</span> <span class="n">isNew</span> <span class="o">~=</span> <span class="nb">true</span>
+				<span class="c1">%run Kalman filter's update phase </span>
 				
-				%to define current estimate we need to compute the angle and distance keeping 
-				%in mind that the robot has moved since we computed the estimate last (we are updating
-				%the estimate before running the update phase) 
-				previous_position = landMarkMeans{landMarkIndex};
-				C_measurement = [norm([curRobotX;curRobotY] - [previous_position(1); previous_position(2)]);
-					atan2(previous_position(2) - curRobotY,previous_position(1) - curRobotX)];
-				%our update phase deals in [distance;angle] format
-				%which is converted in the previous calculation meaning
-				%that we can set jacobian to the identity matrix
-				C_jacobian = eye(2);
+				<span class="c1">%to define current estimate we need to compute the angle and distance keeping </span>
+				<span class="c1">%in mind that the robot has moved since we computed the estimate last (we are updating</span>
+				<span class="c1">%the estimate before running the update phase) </span>
+				<span class="n">previous_position</span> <span class="o">=</span> <span class="n">landMarkMeans</span><span class="p">{</span><span class="n">landMarkIndex</span><span class="p">};</span>
+				<span class="n">C_measurement</span> <span class="o">=</span> <span class="p">[</span><span class="nb">norm</span><span class="p">([</span><span class="n">curRobotX</span><span class="p">;</span><span class="n">curRobotY</span><span class="p">]</span> <span class="o">-</span> <span class="p">[</span><span class="n">previous_position</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="n">previous_position</span><span class="p">(</span><span class="mi">2</span><span class="p">)]);</span>
+					<span class="nb">atan2</span><span class="p">(</span><span class="n">previous_position</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">curRobotY</span><span class="p">,</span><span class="n">previous_position</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">curRobotX</span><span class="p">)];</span>
+				<span class="c1">%our update phase deals in [distance;angle] format</span>
+				<span class="c1">%which is converted in the previous calculation meaning</span>
+				<span class="c1">%that we can set jacobian to the identity matrix</span>
+				<span class="n">C_jacobian</span> <span class="o">=</span> <span class="nb">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 				
 
-				%run the update phase
-				[estimate_next, covariance_sqrt] = ddekf_update_phase(...
-					chol([50*distanceCovariance,0;0,angleCovariance])',...
-					chol(landMarkCovariances{landMarkIndex})',...
-					C_jacobian,C_measurement,C_measurement,...
-					[distancesNoisy(i,j);anglesNoisy(i,j)]);
+				<span class="c1">%run the update phase</span>
+				<span class="p">[</span><span class="n">estimate_next</span><span class="p">,</span> <span class="n">covariance_sqrt</span><span class="p">]</span> <span class="o">=</span> <span class="n">ddekf_update_phase</span><span class="p">(</span><span class="k">...</span>
+					<span class="nb">chol</span><span class="p">([</span><span class="mi">50</span><span class="o">*</span><span class="n">distanceCovariance</span><span class="p">,</span><span class="mi">0</span><span class="p">;</span><span class="mi">0</span><span class="p">,</span><span class="n">angleCovariance</span><span class="p">])</span><span class="o">'</span><span class="p">,</span><span class="k">...</span>
+					<span class="nb">chol</span><span class="p">(</span><span class="n">landMarkCovariances</span><span class="p">{</span><span class="n">landMarkIndex</span><span class="p">})</span><span class="o">'</span><span class="p">,</span><span class="k">...</span>
+					<span class="n">C_jacobian</span><span class="p">,</span><span class="n">C_measurement</span><span class="p">,</span><span class="n">C_measurement</span><span class="p">,</span><span class="k">...</span>
+					<span class="p">[</span><span class="n">distancesNoisy</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">);</span><span class="n">anglesNoisy</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)]);</span>
 					
-				%store computed results
-				landMarkAngleDistances{landMarkIndex} = estimate_next;
-				landMarkCovariances{landMarkIndex} = covariance_sqrt*covariance_sqrt';
-				landMarkMeans{landMarkIndex} = [curRobotX + estimate_next(1)*cos(estimate_next(2));...
-					curRobotY + estimate_next(1)*sin(estimate_next(2))];
-				landMarkMeasurements{landMarkIndex}(1:2,end+1) = [landmarkX;landmarkY];
-				landMarkEstimates{landMarkIndex}(1:2,end+1) = [landMarkMeans{landMarkIndex}];
-			else
-				%in case landmark is new, then record results and intialise estimate and covariance 
-				landMarkMeans{landMarkIndex} = [landmarkX;landmarkY];
-				landMarkAngleDistances{landMarkIndex} = [distancesNoisy(i,j);anglesNoisy(i,j)]; 
-				landMarkCovariances{landMarkIndex} = [2*distanceCovariance,0;0,angleCovariance*100];
-				landMarkIndex = landMarkDiscoveredCount;
-				landMarkMeasurements{landMarkIndex} =  [landmarkX;landmarkY];
-				landMarkEstimates{landMarkIndex} = [landMarkMeans{landMarkIndex}];	
-			end
-		end
-	end
-	%plot results
-	for jj=1:landMarkDiscoveredCount
-		for kk=1:length(landMarkMeasurements)
-			ttmp = landMarkMeasurements{kk};
-			scatter(ttmp(1,end),ttmp(2,end),'r','.')
-		end
-	end
-	%scatter(xCoords,yCoords,'b','*'); %actual location of the landmarks
-	f1 = drawCircle(curRobotX,curRobotY,measurementRadius,'g');
-	f2 = scatter(curRobotX,curRobotY,'r','filled');
-	f3 = plot([curRobotX,curRobotX],[curRobotY,200],'k--');
+				<span class="c1">%store computed results</span>
+				<span class="n">landMarkAngleDistances</span><span class="p">{</span><span class="n">landMarkIndex</span><span class="p">}</span> <span class="o">=</span> <span class="n">estimate_next</span><span class="p">;</span>
+				<span class="n">landMarkCovariances</span><span class="p">{</span><span class="n">landMarkIndex</span><span class="p">}</span> <span class="o">=</span> <span class="n">covariance_sqrt</span><span class="o">*</span><span class="n">covariance_sqrt</span><span class="o">'</span><span class="p">;</span>
+				<span class="n">landMarkMeans</span><span class="p">{</span><span class="n">landMarkIndex</span><span class="p">}</span> <span class="o">=</span> <span class="p">[</span><span class="n">curRobotX</span> <span class="o">+</span> <span class="n">estimate_next</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="nb">cos</span><span class="p">(</span><span class="n">estimate_next</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span><span class="k">...</span>
+					<span class="n">curRobotY</span> <span class="o">+</span> <span class="n">estimate_next</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="nb">sin</span><span class="p">(</span><span class="n">estimate_next</span><span class="p">(</span><span class="mi">2</span><span class="p">))];</span>
+				<span class="n">landMarkMeasurements</span><span class="p">{</span><span class="n">landMarkIndex</span><span class="p">}(</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="k">end</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="p">[</span><span class="n">landmarkX</span><span class="p">;</span><span class="n">landmarkY</span><span class="p">];</span>
+				<span class="n">landMarkEstimates</span><span class="p">{</span><span class="n">landMarkIndex</span><span class="p">}(</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="k">end</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="p">[</span><span class="n">landMarkMeans</span><span class="p">{</span><span class="n">landMarkIndex</span><span class="p">}];</span>
+			<span class="k">else</span>
+				<span class="c1">%in case landmark is new, then record results and intialise estimate and covariance </span>
+				<span class="n">landMarkMeans</span><span class="p">{</span><span class="n">landMarkIndex</span><span class="p">}</span> <span class="o">=</span> <span class="p">[</span><span class="n">landmarkX</span><span class="p">;</span><span class="n">landmarkY</span><span class="p">];</span>
+				<span class="n">landMarkAngleDistances</span><span class="p">{</span><span class="n">landMarkIndex</span><span class="p">}</span> <span class="o">=</span> <span class="p">[</span><span class="n">distancesNoisy</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">);</span><span class="n">anglesNoisy</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)];</span> 
+				<span class="n">landMarkCovariances</span><span class="p">{</span><span class="n">landMarkIndex</span><span class="p">}</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">distanceCovariance</span><span class="p">,</span><span class="mi">0</span><span class="p">;</span><span class="mi">0</span><span class="p">,</span><span class="n">angleCovariance</span><span class="o">*</span><span class="mi">100</span><span class="p">];</span>
+				<span class="n">landMarkIndex</span> <span class="o">=</span> <span class="n">landMarkDiscoveredCount</span><span class="p">;</span>
+				<span class="n">landMarkMeasurements</span><span class="p">{</span><span class="n">landMarkIndex</span><span class="p">}</span> <span class="o">=</span>  <span class="p">[</span><span class="n">landmarkX</span><span class="p">;</span><span class="n">landmarkY</span><span class="p">];</span>
+				<span class="n">landMarkEstimates</span><span class="p">{</span><span class="n">landMarkIndex</span><span class="p">}</span> <span class="o">=</span> <span class="p">[</span><span class="n">landMarkMeans</span><span class="p">{</span><span class="n">landMarkIndex</span><span class="p">}];</span>	
+			<span class="k">end</span>
+		<span class="k">end</span>
+	<span class="k">end</span>
+	<span class="c1">%plot results</span>
+	<span class="k">for</span> <span class="n">jj</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">landMarkDiscoveredCount</span>
+		<span class="k">for</span> <span class="n">kk</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="nb">length</span><span class="p">(</span><span class="n">landMarkMeasurements</span><span class="p">)</span>
+			<span class="n">ttmp</span> <span class="o">=</span> <span class="n">landMarkMeasurements</span><span class="p">{</span><span class="n">kk</span><span class="p">};</span>
+			<span class="nb">scatter</span><span class="p">(</span><span class="n">ttmp</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="k">end</span><span class="p">),</span><span class="n">ttmp</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="k">end</span><span class="p">),</span><span class="s1">'r'</span><span class="p">,</span><span class="s1">'.'</span><span class="p">)</span>
+		<span class="k">end</span>
+	<span class="k">end</span>
+	<span class="c1">%scatter(xCoords,yCoords,'b','*'); %actual location of the landmarks</span>
+	<span class="n">f1</span> <span class="o">=</span> <span class="n">drawCircle</span><span class="p">(</span><span class="n">curRobotX</span><span class="p">,</span><span class="n">curRobotY</span><span class="p">,</span><span class="n">measurementRadius</span><span class="p">,</span><span class="s1">'g'</span><span class="p">);</span>
+	<span class="n">f2</span> <span class="o">=</span> <span class="nb">scatter</span><span class="p">(</span><span class="n">curRobotX</span><span class="p">,</span><span class="n">curRobotY</span><span class="p">,</span><span class="s1">'r'</span><span class="p">,</span><span class="s1">'filled'</span><span class="p">);</span>
+	<span class="n">f3</span> <span class="o">=</span> <span class="nb">plot</span><span class="p">([</span><span class="n">curRobotX</span><span class="p">,</span><span class="n">curRobotX</span><span class="p">],[</span><span class="n">curRobotY</span><span class="p">,</span><span class="mi">200</span><span class="p">],</span><span class="s1">'k--'</span><span class="p">);</span>
 	
-	tmpPlot = [];
-	for jj=1:landMarkDiscoveredCount
-		ttmp = landMarkMeans{jj};
-		tmpPlot = [tmpPlot,scatter(ttmp(1),ttmp(2),"k")];
-	end
-	%%%REMOVE saveas line for speedup
-	saveas(h,strcat('output',num2str(i,'%04d')),'png');
-	delete(f1);
-	delete(f2);
-	delete(f3);
-	for jj=1:length(tmpPlot)
-		delete(tmpPlot(jj));
-	end
+	<span class="n">tmpPlot</span> <span class="o">=</span> <span class="p">[];</span>
+	<span class="k">for</span> <span class="n">jj</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">landMarkDiscoveredCount</span>
+		<span class="n">ttmp</span> <span class="o">=</span> <span class="n">landMarkMeans</span><span class="p">{</span><span class="n">jj</span><span class="p">};</span>
+		<span class="n">tmpPlot</span> <span class="o">=</span> <span class="p">[</span><span class="n">tmpPlot</span><span class="p">,</span><span class="nb">scatter</span><span class="p">(</span><span class="n">ttmp</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="n">ttmp</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span><span class="s2">"k"</span><span class="p">)];</span>
+	<span class="k">end</span>
+	<span class="c1">%%%REMOVE saveas line for speedup</span>
+	<span class="nb">saveas</span><span class="p">(</span><span class="n">h</span><span class="p">,</span><span class="nb">strcat</span><span class="p">(</span><span class="s1">'output'</span><span class="p">,</span><span class="nb">num2str</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="s1">'%04d'</span><span class="p">)),</span><span class="s1">'png'</span><span class="p">);</span>
+	<span class="nb">delete</span><span class="p">(</span><span class="n">f1</span><span class="p">);</span>
+	<span class="nb">delete</span><span class="p">(</span><span class="n">f2</span><span class="p">);</span>
+	<span class="nb">delete</span><span class="p">(</span><span class="n">f3</span><span class="p">);</span>
+	<span class="k">for</span> <span class="n">jj</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="nb">length</span><span class="p">(</span><span class="n">tmpPlot</span><span class="p">)</span>
+		<span class="nb">delete</span><span class="p">(</span><span class="n">tmpPlot</span><span class="p">(</span><span class="n">jj</span><span class="p">));</span>
+	<span class="k">end</span>
 	
-	pause(0.001)
-end
-</code></pre>
+	<span class="nb">pause</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span>
+<span class="k">end</span></code></pre></figure>
 
 <p>Gif below shows the robot discovering the landmarks. Black circles are the computed estimates while the red dots are the measurements of the landmarks.</p>
 

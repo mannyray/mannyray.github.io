@@ -195,16 +195,16 @@
   <article class="post-content">
     <p>I was on hackerrank the other day trying to solve <a href="https://www.hackerrank.com/challenges/beautiful-3-set">‘Beautiful 3 Set’</a>. The problem goes like this:</p>
 
-<p>You are given an integer <code class="highlighter-rouge">n</code>. A set, <code class="highlighter-rouge">S</code>, of triples <code class="highlighter-rouge">(x_i, y_i, z_i)</code> is beautiful if and only if:</p>
+<p>You are given an integer <code class="language-plaintext highlighter-rouge">n</code>. A set, <code class="language-plaintext highlighter-rouge">S</code>, of triples <code class="language-plaintext highlighter-rouge">(x_i, y_i, z_i)</code> is beautiful if and only if:</p>
 <ol>
-  <li><code class="highlighter-rouge">0 &lt;= x_i, y_i, z_i</code></li>
-  <li><code class="highlighter-rouge">x_i + y_i + z_i = n</code>, For all <code class="highlighter-rouge">i</code> such that <code class="highlighter-rouge">1 &lt;= i &lt;= |S|</code></li>
-  <li>Let X be the set of different <code class="highlighter-rouge">x_i</code>’s in S, Y be the set of different <code class="highlighter-rouge">y_i</code>’s in S, and Z be the set of different <code class="highlighter-rouge">z_i</code> in S. Then <code class="highlighter-rouge">|X| = |Y| = |Z| = |S|</code></li>
+  <li><code class="language-plaintext highlighter-rouge">0 &lt;= x_i, y_i, z_i</code></li>
+  <li><code class="language-plaintext highlighter-rouge">x_i + y_i + z_i = n</code>, For all <code class="language-plaintext highlighter-rouge">i</code> such that <code class="language-plaintext highlighter-rouge">1 &lt;= i &lt;= |S|</code></li>
+  <li>Let X be the set of different <code class="language-plaintext highlighter-rouge">x_i</code>’s in S, Y be the set of different <code class="language-plaintext highlighter-rouge">y_i</code>’s in S, and Z be the set of different <code class="language-plaintext highlighter-rouge">z_i</code> in S. Then <code class="language-plaintext highlighter-rouge">|X| = |Y| = |Z| = |S|</code></li>
 </ol>
 
-<p>The third condition means that all <code class="highlighter-rouge">x_i</code>’s are pairwise distinct. The same goes for <code class="highlighter-rouge">y_i</code> and <code class="highlighter-rouge">z_i</code>.</p>
+<p>The third condition means that all <code class="language-plaintext highlighter-rouge">x_i</code>’s are pairwise distinct. The same goes for <code class="language-plaintext highlighter-rouge">y_i</code> and <code class="language-plaintext highlighter-rouge">z_i</code>.</p>
 
-<p>Problem: Given <code class="highlighter-rouge">n</code>, find any beautiful set having maximum number of elements. Then print the cardinality of <code class="highlighter-rouge">S</code> on a new line, followed by <code class="highlighter-rouge">|S|</code> lines where each line contains 3 space-separated integers describing the respective values of <code class="highlighter-rouge">x_i</code>, <code class="highlighter-rouge">y_i</code> and <code class="highlighter-rouge">z_i</code>.</p>
+<p>Problem: Given <code class="language-plaintext highlighter-rouge">n</code>, find any beautiful set having maximum number of elements. Then print the cardinality of <code class="language-plaintext highlighter-rouge">S</code> on a new line, followed by <code class="language-plaintext highlighter-rouge">|S|</code> lines where each line contains 3 space-separated integers describing the respective values of <code class="language-plaintext highlighter-rouge">x_i</code>, <code class="language-plaintext highlighter-rouge">y_i</code> and <code class="language-plaintext highlighter-rouge">z_i</code>.</p>
 
 <p>Input Format:</p>
 
@@ -212,30 +212,31 @@
 
 <h1 id="solution">Solution</h1>
 
-<p>The solution to this problem is not obvious. Writing out the testcases for the first few <code class="highlighter-rouge">n</code> is difficult for verification and the questions of uniqueness for each <code class="highlighter-rouge">n</code> comes up. Is there a quick and easy way of coming up with the solution without having to brute force? The answer to the question is <em>yes</em>, because otherwise hackerrank will reject the slow solution. There must be a quick solution and we shall find it (not always the case in general).</p>
+<p>The solution to this problem is not obvious. Writing out the testcases for the first few <code class="language-plaintext highlighter-rouge">n</code> is difficult for verification and the questions of uniqueness for each <code class="language-plaintext highlighter-rouge">n</code> comes up. Is there a quick and easy way of coming up with the solution without having to brute force? The answer to the question is <em>yes</em>, because otherwise hackerrank will reject the slow solution. There must be a quick solution and we shall find it (not always the case in general).</p>
 
-<p>At this point I had no real intuition on the problem and decided to brute force the problem first. For the brute force approach, a basic outline of the strategy is to come up with all potential <code class="highlighter-rouge">S</code> sets and store the largest ones of them for each <code class="highlighter-rouge">n</code>. We don’t know if these <code class="highlighter-rouge">S</code> sets are unique(excluding column <code class="highlighter-rouge">-(x|y|z)</code> switching) for a given <code class="highlighter-rouge">n</code> so we will have to store them all. Now let’s get into the specifics of our strategy:</p>
+<p>At this point I had no real intuition on the problem and decided to brute force the problem first. For the brute force approach, a basic outline of the strategy is to come up with all potential <code class="language-plaintext highlighter-rouge">S</code> sets and store the largest ones of them for each <code class="language-plaintext highlighter-rouge">n</code>. We don’t know if these <code class="language-plaintext highlighter-rouge">S</code> sets are unique(excluding column <code class="language-plaintext highlighter-rouge">-(x|y|z)</code> switching) for a given <code class="language-plaintext highlighter-rouge">n</code> so we will have to store them all. Now let’s get into the specifics of our strategy:</p>
 
-<p>For each <code class="highlighter-rouge">n</code> we will store all <code class="highlighter-rouge">S</code> that satisfy the first three conditions described in the problem description. To generate a single <code class="highlighter-rouge">S</code>, we need some sort of global set to choose from. In other words, we need to generate all valid <code class="highlighter-rouge">(x_i, y_i, z_i)</code> triples as our basis. Each <code class="highlighter-rouge">(x|y|z)_i</code> is a number from <code class="highlighter-rouge">0</code> to <code class="highlighter-rouge">n</code> (inclusive) and the triplets thus can be generated using a nested for loop with indexes <code class="highlighter-rouge">i</code> and <code class="highlighter-rouge">j</code> (once you know the first two numbers then you know the last <code class="highlighter-rouge">z</code> number since <code class="highlighter-rouge">x+y+z=n</code>). This gives an upper bound of <code class="highlighter-rouge">O(n^2)</code> pairs.</p>
+<p>For each <code class="language-plaintext highlighter-rouge">n</code> we will store all <code class="language-plaintext highlighter-rouge">S</code> that satisfy the first three conditions described in the problem description. To generate a single <code class="language-plaintext highlighter-rouge">S</code>, we need some sort of global set to choose from. In other words, we need to generate all valid <code class="language-plaintext highlighter-rouge">(x_i, y_i, z_i)</code> triples as our basis. Each <code class="language-plaintext highlighter-rouge">(x|y|z)_i</code> is a number from <code class="language-plaintext highlighter-rouge">0</code> to <code class="language-plaintext highlighter-rouge">n</code> (inclusive) and the triplets thus can be generated using a nested for loop with indexes <code class="language-plaintext highlighter-rouge">i</code> and <code class="language-plaintext highlighter-rouge">j</code> (once you know the first two numbers then you know the last <code class="language-plaintext highlighter-rouge">z</code> number since <code class="language-plaintext highlighter-rouge">x+y+z=n</code>). This gives an upper bound of <code class="language-plaintext highlighter-rouge">O(n^2)</code> pairs.</p>
 
-<p>Once you have generated all the possible triplets and have filtered all the invalid ones out by the second condition, then you can start generating potential <code class="highlighter-rouge">S</code> candidates. For any given set <code class="highlighter-rouge">S</code>, each existing triplet in the basis is either in <code class="highlighter-rouge">S</code> or not ~ a binary choice. The binary choice is a good hint on some sort of recursive approach. By checking all potential <code class="highlighter-rouge">S</code> our runtime for this will be <code class="highlighter-rouge">O(2^{|triplet_basis_set_size})</code> which has an upper bound. Definitely won’t work for <code class="highlighter-rouge">n=300</code> on hackerrank.</p>
+<p>Once you have generated all the possible triplets and have filtered all the invalid ones out by the second condition, then you can start generating potential <code class="language-plaintext highlighter-rouge">S</code> candidates. For any given set <code class="language-plaintext highlighter-rouge">S</code>, each existing triplet in the basis is either in <code class="language-plaintext highlighter-rouge">S</code> or not ~ a binary choice. The binary choice is a good hint on some sort of recursive approach. By checking all potential <code class="language-plaintext highlighter-rouge">S</code> our runtime for this will be <code class="language-plaintext highlighter-rouge">O(2^{|triplet_basis_set_size})</code> which has an upper bound. Definitely won’t work for <code class="language-plaintext highlighter-rouge">n=300</code> on hackerrank.</p>
 
-<p>Thus the runtime of our brute force approach is <code class="highlighter-rouge">O(2^{n^2})</code> (it is easy to optimize the brute force algorithm… but it would still be too slow for hackerrank). That is crazy slow! This is why we are doing this brute force approach on our machine and not hackerrank. Here is the brute force code:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;iostream&gt;
+<p>Thus the runtime of our brute force approach is <code class="language-plaintext highlighter-rouge">O(2^{n^2})</code> (it is easy to optimize the brute force algorithm… but it would still be too slow for hackerrank). That is crazy slow! This is why we are doing this brute force approach on our machine and not hackerrank. Here is the brute force code:</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;iostream&gt;
 #include &lt;fstream&gt;
 #include &lt;sstream&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
-using namespace std;
+<span class="kt">int</span> <span class="n">n_limit</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span>
 
-int n_limit = 20;
-
-bool is_file_exist(const char *fileName){
-    std::ifstream infile(fileName);
-    return infile.good();
-}
+<span class="kt">bool</span> <span class="nf">is_file_exist</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">fileName</span><span class="p">){</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">ifstream</span> <span class="n">infile</span><span class="p">(</span><span class="n">fileName</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">infile</span><span class="p">.</span><span class="n">good</span><span class="p">();</span>
+<span class="p">}</span>
 
 
-/*
+<span class="cm">/*
 x,y,z array are responsible for storing the basis of triples from which we select
 The ith indeces of these arrays contain the ith triple.
 
@@ -243,124 +244,122 @@ index represents the current index we are looking at in our recursive binary met
 
 //curNum is the current number we are processing (from n_limit)
 this is useful for file writing/appending
-*/
-int generatingS(int * x,int * y,int * z,int index,int arrLength, int *x_cov, int *y_cov, int *z_cov, int max, int curNum){
+*/</span>
+<span class="kt">int</span> <span class="nf">generatingS</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span> <span class="n">y</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span> <span class="n">z</span><span class="p">,</span><span class="kt">int</span> <span class="n">index</span><span class="p">,</span><span class="kt">int</span> <span class="n">arrLength</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">x_cov</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">y_cov</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">z_cov</span><span class="p">,</span> <span class="kt">int</span> <span class="n">max</span><span class="p">,</span> <span class="kt">int</span> <span class="n">curNum</span><span class="p">){</span>
 	
-	//not enough space left to maximize set
-	//TODO: implement this feature
+	<span class="c1">//not enough space left to maximize set</span>
+	<span class="c1">//TODO: implement this feature</span>
 
-	if(index==arrLength){
-		//we reached the bottom. check the set size by counting x_cov
-		//and returning that number 
-		int size=0;
-		for(int i = 0; i &lt; curNum+1; i++){
-			if(x_cov[i]!=0){
-				size++;
-			}
-		}
-		if(max &gt; size){//current entry is not bigger
-			return max;
-		}			
-		//write it to file
+	<span class="k">if</span><span class="p">(</span><span class="n">index</span><span class="o">==</span><span class="n">arrLength</span><span class="p">){</span>
+		<span class="c1">//we reached the bottom. check the set size by counting x_cov</span>
+		<span class="c1">//and returning that number </span>
+		<span class="kt">int</span> <span class="n">size</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+		<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">curNum</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+			<span class="k">if</span><span class="p">(</span><span class="n">x_cov</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">){</span>
+				<span class="n">size</span><span class="o">++</span><span class="p">;</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+		<span class="k">if</span><span class="p">(</span><span class="n">max</span> <span class="o">&gt;</span> <span class="n">size</span><span class="p">){</span><span class="c1">//current entry is not bigger</span>
+			<span class="k">return</span> <span class="n">max</span><span class="p">;</span>
+		<span class="p">}</span>			
+		<span class="c1">//write it to file</span>
 		
-		std::ofstream outfile;
+		<span class="n">std</span><span class="o">::</span><span class="n">ofstream</span> <span class="n">outfile</span><span class="p">;</span>
 
-		stringstream ss;
-		ss&lt;&lt;curNum&lt;&lt;".txt";
+		<span class="n">stringstream</span> <span class="n">ss</span><span class="p">;</span>
+		<span class="n">ss</span><span class="o">&lt;&lt;</span><span class="n">curNum</span><span class="o">&lt;&lt;</span><span class="s">".txt"</span><span class="p">;</span>
 		
-		outfile.open(ss.str(), std::ios_base::app);
-		outfile&lt;&lt;size&lt;&lt;endl;
-		for(int i = 0; i &lt; curNum+1; i++){
-			if(x_cov[i]!=0){//output out all the pairs
-				outfile&lt;&lt;x[x_cov[i]-1]&lt;&lt;" "&lt;&lt;y[x_cov[i]-1]&lt;&lt;" "&lt;&lt;z[x_cov[i]-1]&lt;&lt;endl;
-			}
-		}outfile&lt;&lt;endl;
+		<span class="n">outfile</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="n">ss</span><span class="p">.</span><span class="n">str</span><span class="p">(),</span> <span class="n">std</span><span class="o">::</span><span class="n">ios_base</span><span class="o">::</span><span class="n">app</span><span class="p">);</span>
+		<span class="n">outfile</span><span class="o">&lt;&lt;</span><span class="n">size</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+		<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">curNum</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+			<span class="k">if</span><span class="p">(</span><span class="n">x_cov</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">){</span><span class="c1">//output out all the pairs</span>
+				<span class="n">outfile</span><span class="o">&lt;&lt;</span><span class="n">x</span><span class="p">[</span><span class="n">x_cov</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="o">&lt;&lt;</span><span class="n">y</span><span class="p">[</span><span class="n">x_cov</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="o">&lt;&lt;</span><span class="n">z</span><span class="p">[</span><span class="n">x_cov</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+			<span class="p">}</span>
+		<span class="p">}</span><span class="n">outfile</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
 
 		
-		return size;
-	}
+		<span class="k">return</span> <span class="n">size</span><span class="p">;</span>
+	<span class="p">}</span>
 	
 
-	//assume that (x[index], y[index], z[index]) is in S
-	//in order to make this assumption valid we need to check if 
-	//(x|y|z)[index] has already been tagged in (x|y|z)_cov[(x|y|z)[index]]
-	//This is an optimization that says if this triplet can't possibly be
-	//part of the solution the don't recurse further with assumption that it is
-	//part of solution
-	if(x_cov[x[index]]==0&amp;&amp;y_cov[y[index]]==0&amp;&amp;z_cov[z[index]]==0){
-		//tag so that inner layers of recursion now that the numbers in triplet
-		//are in use
-		x_cov[x[index]]=index+1;
-		y_cov[y[index]]=index+1;
-		z_cov[z[index]]=index+1;
-		max = generatingS(x,y,z,index+1,arrLength,x_cov,y_cov,z_cov,max,curNum);
+	<span class="c1">//assume that (x[index], y[index], z[index]) is in S</span>
+	<span class="c1">//in order to make this assumption valid we need to check if </span>
+	<span class="c1">//(x|y|z)[index] has already been tagged in (x|y|z)_cov[(x|y|z)[index]]</span>
+	<span class="c1">//This is an optimization that says if this triplet can't possibly be</span>
+	<span class="c1">//part of the solution the don't recurse further with assumption that it is</span>
+	<span class="c1">//part of solution</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">x_cov</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span><span class="o">==</span><span class="mi">0</span><span class="o">&amp;&amp;</span><span class="n">y_cov</span><span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span><span class="o">==</span><span class="mi">0</span><span class="o">&amp;&amp;</span><span class="n">z_cov</span><span class="p">[</span><span class="n">z</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span><span class="o">==</span><span class="mi">0</span><span class="p">){</span>
+		<span class="c1">//tag so that inner layers of recursion now that the numbers in triplet</span>
+		<span class="c1">//are in use</span>
+		<span class="n">x_cov</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span><span class="o">=</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+		<span class="n">y_cov</span><span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span><span class="o">=</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+		<span class="n">z_cov</span><span class="p">[</span><span class="n">z</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span><span class="o">=</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+		<span class="n">max</span> <span class="o">=</span> <span class="n">generatingS</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">arrLength</span><span class="p">,</span><span class="n">x_cov</span><span class="p">,</span><span class="n">y_cov</span><span class="p">,</span><span class="n">z_cov</span><span class="p">,</span><span class="n">max</span><span class="p">,</span><span class="n">curNum</span><span class="p">);</span>
 		
-		//untag the values
-		x_cov[x[index]]=0;
-		y_cov[y[index]]=0;
-		z_cov[z[index]]=0;
-	}
+		<span class="c1">//untag the values</span>
+		<span class="n">x_cov</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+		<span class="n">y_cov</span><span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+		<span class="n">z_cov</span><span class="p">[</span><span class="n">z</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+	<span class="p">}</span>
 	
-	//assume that (x[index], y[index], z[index]) is not in S
-	max = generatingS(x,y,z,index+1,arrLength,x_cov,y_cov,z_cov,max,curNum);
-	return max;
-}
+	<span class="c1">//assume that (x[index], y[index], z[index]) is not in S</span>
+	<span class="n">max</span> <span class="o">=</span> <span class="n">generatingS</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">arrLength</span><span class="p">,</span><span class="n">x_cov</span><span class="p">,</span><span class="n">y_cov</span><span class="p">,</span><span class="n">z_cov</span><span class="p">,</span><span class="n">max</span><span class="p">,</span><span class="n">curNum</span><span class="p">);</span>
+	<span class="k">return</span> <span class="n">max</span><span class="p">;</span>
+<span class="p">}</span>
 
 
-int main(){
-	for(int n = 2; n &lt;= n_limit; n++){
-		cout&lt;&lt;n&lt;&lt;endl;
-		int index = 0;
-		int upperBound = n*n;
-		int * basis_x = new int[upperBound];
-		int * basis_y = new int[upperBound];
-		int * basis_z = new int[upperBound];
-		//first generate the triplet basis
-		//(since i,j,k start at zero then condition 1 auto satisfied) 
-		for(int i = 0; i &lt;= n; i++){
-			for(int j = 0; j &lt;= n-i; j++){
-				int k = n-j-i;
-				//satifies condition 2: add to our basis
-				basis_x[index] = i;
-				basis_y[index] = j;
-				basis_z[index] = k;
-				//cout&lt;&lt;i&lt;&lt;" "&lt;&lt;j&lt;&lt;" "&lt;&lt;k&lt;&lt;endl;
-				index++;	
-			}
-		}cout&lt;&lt;index&lt;&lt;endl&lt;&lt;endl;//continue;
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="n">n_limit</span><span class="p">;</span> <span class="n">n</span><span class="o">++</span><span class="p">){</span>
+		<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">n</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+		<span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+		<span class="kt">int</span> <span class="n">upperBound</span> <span class="o">=</span> <span class="n">n</span><span class="o">*</span><span class="n">n</span><span class="p">;</span>
+		<span class="kt">int</span> <span class="o">*</span> <span class="n">basis_x</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">upperBound</span><span class="p">];</span>
+		<span class="kt">int</span> <span class="o">*</span> <span class="n">basis_y</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">upperBound</span><span class="p">];</span>
+		<span class="kt">int</span> <span class="o">*</span> <span class="n">basis_z</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">upperBound</span><span class="p">];</span>
+		<span class="c1">//first generate the triplet basis</span>
+		<span class="c1">//(since i,j,k start at zero then condition 1 auto satisfied) </span>
+		<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+			<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
+				<span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">n</span><span class="o">-</span><span class="n">j</span><span class="o">-</span><span class="n">i</span><span class="p">;</span>
+				<span class="c1">//satifies condition 2: add to our basis</span>
+				<span class="n">basis_x</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+				<span class="n">basis_y</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+				<span class="n">basis_z</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span><span class="p">;</span>
+				<span class="c1">//cout&lt;&lt;i&lt;&lt;" "&lt;&lt;j&lt;&lt;" "&lt;&lt;k&lt;&lt;endl;</span>
+				<span class="n">index</span><span class="o">++</span><span class="p">;</span>	
+			<span class="p">}</span>
+		<span class="p">}</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">index</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span><span class="c1">//continue;</span>
 		
-		//output all pairs
-		//for(int i = 0; i &lt; index; i++){
-			//cout&lt;&lt;basis_x[index]&lt;&lt;" "&lt;&lt;basis_y[index]&lt;&lt;" "&lt;&lt;basis_z[index]&lt;&lt;endl;
-		//}
-		
-		
-		//we now have our basis and we can now generate all S
-		int *x_cov = new int[n+1];
-		int *y_cov = new int[n+1];
-		int *z_cov = new int[n+1];
-		for(int i = 0; i &lt;= n; i++){
-			x_cov[i] = 0;
-			y_cov[i] = 0;
-			z_cov[i] = 0;
-		}
-		generatingS(basis_x,basis_y,basis_z,0,index,x_cov,y_cov,z_cov,0,n);
+		<span class="c1">//output all pairs</span>
+		<span class="c1">//for(int i = 0; i &lt; index; i++){</span>
+			<span class="c1">//cout&lt;&lt;basis_x[index]&lt;&lt;" "&lt;&lt;basis_y[index]&lt;&lt;" "&lt;&lt;basis_z[index]&lt;&lt;endl;</span>
+		<span class="c1">//}</span>
 		
 		
-		delete [] basis_x;
-		delete [] basis_y;
-		delete [] basis_z;
-		delete [] x_cov;
-		delete [] y_cov;
-		delete [] z_cov;
-	}
-}
+		<span class="c1">//we now have our basis and we can now generate all S</span>
+		<span class="kt">int</span> <span class="o">*</span><span class="n">x_cov</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+		<span class="kt">int</span> <span class="o">*</span><span class="n">y_cov</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+		<span class="kt">int</span> <span class="o">*</span><span class="n">z_cov</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+		<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+			<span class="n">x_cov</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+			<span class="n">y_cov</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+			<span class="n">z_cov</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="n">generatingS</span><span class="p">(</span><span class="n">basis_x</span><span class="p">,</span><span class="n">basis_y</span><span class="p">,</span><span class="n">basis_z</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">index</span><span class="p">,</span><span class="n">x_cov</span><span class="p">,</span><span class="n">y_cov</span><span class="p">,</span><span class="n">z_cov</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">);</span>
+		
+		
+		<span class="k">delete</span> <span class="p">[]</span> <span class="n">basis_x</span><span class="p">;</span>
+		<span class="k">delete</span> <span class="p">[]</span> <span class="n">basis_y</span><span class="p">;</span>
+		<span class="k">delete</span> <span class="p">[]</span> <span class="n">basis_z</span><span class="p">;</span>
+		<span class="k">delete</span> <span class="p">[]</span> <span class="n">x_cov</span><span class="p">;</span>
+		<span class="k">delete</span> <span class="p">[]</span> <span class="n">y_cov</span><span class="p">;</span>
+		<span class="k">delete</span> <span class="p">[]</span> <span class="n">z_cov</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
 
-</code></pre></div></div>
+<p>I only had the patience to run up to <code class="language-plaintext highlighter-rouge">n = 17</code>. I observed that there were many sets of max <code class="language-plaintext highlighter-rouge">|S|</code> stored for each <code class="language-plaintext highlighter-rouge">n</code>. Given the way the basis was derived and the recursive function ran, I decided to only filter for the first max <code class="language-plaintext highlighter-rouge">|S|</code> printed for each <code class="language-plaintext highlighter-rouge">n</code>. Here are the first for <code class="language-plaintext highlighter-rouge">n=2</code> to <code class="language-plaintext highlighter-rouge">n=17</code>:</p>
 
-<p>I only had the patience to run up to <code class="highlighter-rouge">n = 17</code>. I observed that there were many sets of max <code class="highlighter-rouge">|S|</code> stored for each <code class="highlighter-rouge">n</code>. Given the way the basis was derived and the recursive function ran, I decided to only filter for the first max <code class="highlighter-rouge">|S|</code> printed for each <code class="highlighter-rouge">n</code>. Here are the first for <code class="highlighter-rouge">n=2</code> to <code class="highlighter-rouge">n=17</code>:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>n=2:
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">n=2:
 2
 0 0 2
 1 1 0
@@ -515,15 +514,14 @@ n=17:
 8 2 7
 9 4 4
 10 1 6
-11 3 3
-</code></pre></div></div>
+11 3 3</code></pre></figure>
 
 <table>
   <tbody>
     <tr>
       <td>This once again does not tell us much other than the fact that there exists a combination with max</td>
       <td>S</td>
-      <td>such that the <code class="highlighter-rouge">x</code>’s can be ordered from <code class="highlighter-rouge">0</code> to some sort of limit. Is it guaranteed that for all n the <code class="highlighter-rouge">x</code>’s can be ordered? We will assume for now that the answer is yes. The pattern for the <code class="highlighter-rouge">y</code> and <code class="highlighter-rouge">z</code> are not clear either. I decided to treat <code class="highlighter-rouge">y-z</code> row values as coordinates on a <code class="highlighter-rouge">y-z</code> plane and plot them. Here is a plot for <code class="highlighter-rouge">n=9</code>:</td>
+      <td>such that the <code class="language-plaintext highlighter-rouge">x</code>’s can be ordered from <code class="language-plaintext highlighter-rouge">0</code> to some sort of limit. Is it guaranteed that for all n the <code class="language-plaintext highlighter-rouge">x</code>’s can be ordered? We will assume for now that the answer is yes. The pattern for the <code class="language-plaintext highlighter-rouge">y</code> and <code class="language-plaintext highlighter-rouge">z</code> are not clear either. I decided to treat <code class="language-plaintext highlighter-rouge">y-z</code> row values as coordinates on a <code class="language-plaintext highlighter-rouge">y-z</code> plane and plot them. Here is a plot for <code class="language-plaintext highlighter-rouge">n=9</code>:</td>
     </tr>
   </tbody>
 </table>
@@ -552,7 +550,7 @@ n=17:
       <td>2</td>
       <td>3</td>
       <td>4</td>
-      <td><code class="highlighter-rouge">5</code></td>
+      <td><code class="language-plaintext highlighter-rouge">5</code></td>
       <td>6</td>
       <td>7</td>
       <td>8</td>
@@ -563,7 +561,7 @@ n=17:
       <td>1</td>
       <td>2</td>
       <td>3</td>
-      <td><code class="highlighter-rouge">4</code></td>
+      <td><code class="language-plaintext highlighter-rouge">4</code></td>
       <td>5</td>
       <td>6</td>
       <td>7</td>
@@ -574,7 +572,7 @@ n=17:
     <tr>
       <td><strong>2</strong></td>
       <td>2</td>
-      <td><code class="highlighter-rouge">3</code></td>
+      <td><code class="language-plaintext highlighter-rouge">3</code></td>
       <td>4</td>
       <td>5</td>
       <td>6</td>
@@ -592,7 +590,7 @@ n=17:
       <td>6</td>
       <td>7</td>
       <td>8</td>
-      <td><code class="highlighter-rouge">9</code></td>
+      <td><code class="language-plaintext highlighter-rouge">9</code></td>
       <td>10</td>
       <td>11</td>
       <td>12</td>
@@ -603,7 +601,7 @@ n=17:
       <td>5</td>
       <td>6</td>
       <td>7</td>
-      <td><code class="highlighter-rouge">8</code></td>
+      <td><code class="language-plaintext highlighter-rouge">8</code></td>
       <td>9</td>
       <td>10</td>
       <td>11</td>
@@ -614,7 +612,7 @@ n=17:
       <td><strong>5</strong></td>
       <td>5</td>
       <td>6</td>
-      <td><code class="highlighter-rouge">7</code></td>
+      <td><code class="language-plaintext highlighter-rouge">7</code></td>
       <td>8</td>
       <td>9</td>
       <td>10</td>
@@ -625,7 +623,7 @@ n=17:
     </tr>
     <tr>
       <td><strong>6</strong></td>
-      <td><code class="highlighter-rouge">6</code></td>
+      <td><code class="language-plaintext highlighter-rouge">6</code></td>
       <td>7</td>
       <td>8</td>
       <td>9</td>
@@ -678,75 +676,73 @@ n=17:
   </tbody>
 </table>
 
-<p>The rows and column labels represent different potential values for <code class="highlighter-rouge">y</code> and <code class="highlighter-rouge">z</code> (first col is <code class="highlighter-rouge">y</code> values and first row is <code class="highlighter-rouge">z</code> values), the entries on <code class="highlighter-rouge">(y,z)</code> coordinates is the sum: <code class="highlighter-rouge">y+z</code>. This is done because as the <code class="highlighter-rouge">x</code> column values increase one by one then, by definition, the sum of the <code class="highlighter-rouge">y</code> and <code class="highlighter-rouge">z</code> entry must decrease by one. This can be observed visually on the graph as each highlighted number is unique. In addition, we know that all numbers in the <code class="highlighter-rouge">x</code> column are unique and therefore the values in the <code class="highlighter-rouge">y</code> and <code class="highlighter-rouge">z</code> columns must also be unique. Graphically, this translates to no row or column having more than one circled number and the equal sum present in each (anti) diagonal corresponds to a specific x value since <code class="highlighter-rouge">x+y+z=n</code>.</p>
+<p>The rows and column labels represent different potential values for <code class="language-plaintext highlighter-rouge">y</code> and <code class="language-plaintext highlighter-rouge">z</code> (first col is <code class="language-plaintext highlighter-rouge">y</code> values and first row is <code class="language-plaintext highlighter-rouge">z</code> values), the entries on <code class="language-plaintext highlighter-rouge">(y,z)</code> coordinates is the sum: <code class="language-plaintext highlighter-rouge">y+z</code>. This is done because as the <code class="language-plaintext highlighter-rouge">x</code> column values increase one by one then, by definition, the sum of the <code class="language-plaintext highlighter-rouge">y</code> and <code class="language-plaintext highlighter-rouge">z</code> entry must decrease by one. This can be observed visually on the graph as each highlighted number is unique. In addition, we know that all numbers in the <code class="language-plaintext highlighter-rouge">x</code> column are unique and therefore the values in the <code class="language-plaintext highlighter-rouge">y</code> and <code class="language-plaintext highlighter-rouge">z</code> columns must also be unique. Graphically, this translates to no row or column having more than one circled number and the equal sum present in each (anti) diagonal corresponds to a specific x value since <code class="language-plaintext highlighter-rouge">x+y+z=n</code>.</p>
 
-<p>We thus have translated our problem to a different, more visual one. Our translation is somewhat similar to the <a href="https://en.wikipedia.org/wiki/Eight_queens_puzzle">Eight(N) queens puzzle</a>: no highlighted-number/queen can appear in the same column/row/(antidiagonal) on the matrix/chessboard with no pieces below the main <code class="highlighter-rouge">y+z=n</code> diagonal. This translation gives us more insight into the restrictions on the values in the triplets and really drives the point home that this problem is only in terms of <code class="highlighter-rouge">y</code> and <code class="highlighter-rouge">z</code>.</p>
+<p>We thus have translated our problem to a different, more visual one. Our translation is somewhat similar to the <a href="https://en.wikipedia.org/wiki/Eight_queens_puzzle">Eight(N) queens puzzle</a>: no highlighted-number/queen can appear in the same column/row/(antidiagonal) on the matrix/chessboard with no pieces below the main <code class="language-plaintext highlighter-rouge">y+z=n</code> diagonal. This translation gives us more insight into the restrictions on the values in the triplets and really drives the point home that this problem is only in terms of <code class="language-plaintext highlighter-rouge">y</code> and <code class="language-plaintext highlighter-rouge">z</code>.</p>
 
-<p>If we go back and plot from <code class="highlighter-rouge">n=2</code> to <code class="highlighter-rouge">n=18</code> then one notices there is no pattern amongst the different <code class="highlighter-rouge">n</code>’s and no natural way to build up the solution. This is slightly disappointing because the printed <code class="highlighter-rouge">n=</code> results were the first from max <code class="highlighter-rouge">|S|</code> found in the brute force code. The hope is that by recording the first result, we would have had caught some sort of relation between the different <code class="highlighter-rouge">n</code>.</p>
+<p>If we go back and plot from <code class="language-plaintext highlighter-rouge">n=2</code> to <code class="language-plaintext highlighter-rouge">n=18</code> then one notices there is no pattern amongst the different <code class="language-plaintext highlighter-rouge">n</code>’s and no natural way to build up the solution. This is slightly disappointing because the printed <code class="language-plaintext highlighter-rouge">n=</code> results were the first from max <code class="language-plaintext highlighter-rouge">|S|</code> found in the brute force code. The hope is that by recording the first result, we would have had caught some sort of relation between the different <code class="language-plaintext highlighter-rouge">n</code>.</p>
 
-<p>Nonetheless, we know what the <code class="highlighter-rouge">|S|</code> size is and have a very simple visual way of coming up with new potential solutions. The simple solution for all <code class="highlighter-rouge">n</code> followed the <code class="highlighter-rouge">n=9</code> pattern (after playing around a bit with the different ‘n-chessboard’ it becomes clear). There are two diagonal like lines. Bottom one starts (bottom-left) at some number (for <code class="highlighter-rouge">n=9</code> it is <code class="highlighter-rouge">(y,z)=(6,0)</code>) and the consecutive entries in diagonal like line are located at <code class="highlighter-rouge">(y-1, z+2)</code> all the way up until <code class="highlighter-rouge">y+z=n</code>. The top diagonal like line starts with <code class="highlighter-rouge">y'=y-1</code> from previous <code class="highlighter-rouge">y</code> when <code class="highlighter-rouge">y+z=n</code>. The first(left-bottom most) <code class="highlighter-rouge">z</code> for top diagonal is <code class="highlighter-rouge">z=1</code>. Top diagonal increases in same fashion as bottom one until bounds of ‘chessboard’ are hit.</p>
+<p>Nonetheless, we know what the <code class="language-plaintext highlighter-rouge">|S|</code> size is and have a very simple visual way of coming up with new potential solutions. The simple solution for all <code class="language-plaintext highlighter-rouge">n</code> followed the <code class="language-plaintext highlighter-rouge">n=9</code> pattern (after playing around a bit with the different ‘n-chessboard’ it becomes clear). There are two diagonal like lines. Bottom one starts (bottom-left) at some number (for <code class="language-plaintext highlighter-rouge">n=9</code> it is <code class="language-plaintext highlighter-rouge">(y,z)=(6,0)</code>) and the consecutive entries in diagonal like line are located at <code class="language-plaintext highlighter-rouge">(y-1, z+2)</code> all the way up until <code class="language-plaintext highlighter-rouge">y+z=n</code>. The top diagonal like line starts with <code class="language-plaintext highlighter-rouge">y'=y-1</code> from previous <code class="language-plaintext highlighter-rouge">y</code> when <code class="language-plaintext highlighter-rouge">y+z=n</code>. The first(left-bottom most) <code class="language-plaintext highlighter-rouge">z</code> for top diagonal is <code class="language-plaintext highlighter-rouge">z=1</code>. Top diagonal increases in same fashion as bottom one until bounds of ‘chessboard’ are hit.</p>
 
-<p>Our solution now does not depend on <code class="highlighter-rouge">y</code> and <code class="highlighter-rouge">z</code> but on the left most number of the bottom row. If you plot out the ‘chessboards’ for first 10 <code class="highlighter-rouge">n</code>, then when will notice that the pattern is <code class="highlighter-rouge">mod 3</code> and thus the <code class="highlighter-rouge">O(n)</code> solution is formed:</p>
+<p>Our solution now does not depend on <code class="language-plaintext highlighter-rouge">y</code> and <code class="language-plaintext highlighter-rouge">z</code> but on the left most number of the bottom row. If you plot out the ‘chessboards’ for first 10 <code class="language-plaintext highlighter-rouge">n</code>, then when will notice that the pattern is <code class="language-plaintext highlighter-rouge">mod 3</code> and thus the <code class="language-plaintext highlighter-rouge">O(n)</code> solution is formed:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;cmath&gt;
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;cmath&gt;
 #include &lt;cstdio&gt;
 #include &lt;vector&gt;
 #include &lt;iostream&gt;
 #include &lt;algorithm&gt;
-using namespace std;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 
-int main() {
-    int n;cin&gt;&gt;n;
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="p">;</span>
     
-    int pairCount = 0;
-    vector &lt;int&gt; x_y_zPairsOrdered;
-    int y=0,z=0,x=0;
-    if(n%3==0){
-        y=(2*n)/3 ; 
-    }
-    else if(n%3==1){
-        y=(2*n - 2) /3 ;
-    }
-    else{//n%3==2
-        y=( 2*n-1 )/3;
-    }
+    <span class="kt">int</span> <span class="n">pairCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">vector</span> <span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">x_y_zPairsOrdered</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">z</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">%</span><span class="mi">3</span><span class="o">==</span><span class="mi">0</span><span class="p">){</span>
+        <span class="n">y</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span> <span class="p">;</span> 
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">%</span><span class="mi">3</span><span class="o">==</span><span class="mi">1</span><span class="p">){</span>
+        <span class="n">y</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span><span class="mi">3</span> <span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span><span class="p">{</span><span class="c1">//n%3==2</span>
+        <span class="n">y</span><span class="o">=</span><span class="p">(</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span> <span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">;</span>
+    <span class="p">}</span>
     
-    //bottom diagonal from left to right
-    do{
-        x=n-y-z;
-        x_y_zPairsOrdered.push_back(x);
-        x_y_zPairsOrdered.push_back(y);
-        x_y_zPairsOrdered.push_back(z);
-        y-=1;
-        z+=2;
-        pairCount++;
-    }while(y+z &lt;= n);
+    <span class="c1">//bottom diagonal from left to right</span>
+    <span class="k">do</span><span class="p">{</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">n</span><span class="o">-</span><span class="n">y</span><span class="o">-</span><span class="n">z</span><span class="p">;</span>
+        <span class="n">x_y_zPairsOrdered</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+        <span class="n">x_y_zPairsOrdered</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
+        <span class="n">x_y_zPairsOrdered</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">z</span><span class="p">);</span>
+        <span class="n">y</span><span class="o">-=</span><span class="mi">1</span><span class="p">;</span>
+        <span class="n">z</span><span class="o">+=</span><span class="mi">2</span><span class="p">;</span>
+        <span class="n">pairCount</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span><span class="k">while</span><span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="n">z</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">);</span>
     
-    //upper diagonal from left to right
-    z=-1;
-    for(;y &gt;= 0;y--){
-        z+=2;
-        x=n-z-y;
-        pairCount++;
-        x_y_zPairsOrdered.push_back(x);
-        x_y_zPairsOrdered.push_back(y);
-        x_y_zPairsOrdered.push_back(z);
-    }
+    <span class="c1">//upper diagonal from left to right</span>
+    <span class="n">z</span><span class="o">=-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(;</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span><span class="n">y</span><span class="o">--</span><span class="p">){</span>
+        <span class="n">z</span><span class="o">+=</span><span class="mi">2</span><span class="p">;</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">n</span><span class="o">-</span><span class="n">z</span><span class="o">-</span><span class="n">y</span><span class="p">;</span>
+        <span class="n">pairCount</span><span class="o">++</span><span class="p">;</span>
+        <span class="n">x_y_zPairsOrdered</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+        <span class="n">x_y_zPairsOrdered</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
+        <span class="n">x_y_zPairsOrdered</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">z</span><span class="p">);</span>
+    <span class="p">}</span>
     
     
-    //output:
-    cout&lt;&lt;pairCount&lt;&lt;endl;
-    for(int i = 0; i &lt; pairCount; i++){
-        cout&lt;&lt;x_y_zPairsOrdered[i*3]&lt;&lt;" ";
-        cout&lt;&lt;x_y_zPairsOrdered[i*3+1]&lt;&lt;" ";
-        cout&lt;&lt;x_y_zPairsOrdered[i*3+2]&lt;&lt;" ";
-        cout&lt;&lt;endl;
-    }
+    <span class="c1">//output:</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">pairCount</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">pairCount</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">x_y_zPairsOrdered</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mi">3</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="p">;</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">x_y_zPairsOrdered</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mi">3</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="p">;</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">x_y_zPairsOrdered</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mi">3</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="p">;</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
     
-}
-
-</code></pre></div></div>
+<span class="p">}</span></code></pre></figure>
 
 <h3 id="conclusion">Conclusion</h3>
 

@@ -18,7 +18,7 @@ Let's get our hands dirty right away and formulate a system to work with. We wil
 
 We first define the robot starting conditions as well as the landmarks:
 
-```Matlab
+{% highlight matlab %}
 clear all;
 close all;
 %set the seed - one of the few commands used here that is _unique_ to Octave
@@ -38,12 +38,12 @@ yMax=100+spreadFromCenter;
 xCoords = [80,90,110,120,80,90,110,120];
 yCoords = [80,90,110,120,90,100,120,130];
 pointNumber = length(xCoords);
-```
+{% endhighlight %}
 
 
 Let's setup the robot's movement, before worrying about the landmarks. Assume the robot is on a rail road - the y coordinate is unaffected. The robot will be moving at a constant speed with white noise affecting the motion. The following image will describe the situation:
 
-```Matlab
+{% highlight matlab %}
 h = figure;
 hold on;
 scatter(xCoords,yCoords,'*b');
@@ -55,13 +55,13 @@ ylim([0,200]);
 xlabel('x');
 ylabel('y');
 axis("equal")
-```
+{% endhighlight %}
 
 ![]({{ site.url }}/assets/SLAM/setup1.png)
 
 Now lets generate an actual instance of the robot's motion.
 
-```Matlab
+{% highlight matlab %}
 %total timesteps of robot
 timesteps = 400;
 %speed of the robot (distance covered by timestep)
@@ -78,24 +78,24 @@ movementCoords(2,1) = robotY;
 for i=1:timesteps
 	movementCoords(:,i+1) = next_func(movementCoords(:,i),i) + chol(processNoiseCovariance)'*randn(2,1); 
 end
-```
+{% endhighlight %}
 
 Now, let's plot the y-coordinate evolution:
 
 
-```Matlab
+{% highlight matlab %}
 h = figure;
 plot(1:(timesteps+1),movementCoords(2,:))
 ylabel('Y')
 xlabel('Time')
 axis("equal")
-```
+{% endhighlight %}
 
 ![]({{ site.url }}/assets/SLAM/setup2.png)
 
 We will set it so that the robot has a maximum measurement radius. Read [this](https://www.cs.utexas.edu/~kuipers/slides/L17-FastSLAM.pdf) for more info on the measurement function used. We will generate noisy measurements of the landmarks based on the position of the landmark.
 
-```Matlab
+{% highlight matlab %}
 measurementRadius = 40;
 angles = -1*ones(timesteps,pointNumber);
 distances = -1*ones(timesteps,pointNumber); 
@@ -116,24 +116,24 @@ angleCovariance = 0.004;
 distanceCovariance = 0.2;
 anglesNoisy = angles + randn(size(angles)).*sqrt(angleCovariance);
 distancesNoisy = distances + randn(size(distances)).*sqrt(distanceCovariance);
-```
+{% endhighlight %}
 
 Now that we have measurements we are ready to code up our robot exploring the environment. We will assume that the robot does not know now anything about the landmarks:
 
-```Matlab
+{% highlight matlab %}
 landMarkDiscoveredCount = 0;
-```
+{% endhighlight %}
 
 We will set the following variable to be used in identifying if a measurement is associated with a new landmark. If we already are aware that there are `n` landmarks then we can compare the current measurement's distance from the estimated location of the other `n` landmarks to decide if the new measurement is far enough to belong to a new landmark.
 
-```Matlab
+{% highlight matlab %}
 minMahalanobisDistance = 7;
-```
+{% endhighlight %}
 
 The rest of the script is given below. In it the robot moves forward and once it is at the appropriate measurement range, it 'receives' measurements from the landmark (the distance and angle with respect to the robot). The robot then decides if it is associated with a new landmark or not. If yes, then it is registered and a new estimate and associated covariance is set up for the landmark's Kalman filter. Otherwise, the Kalman filter (specifically the update phase) is used to update the estimate (that is closest to the measured landmark). 
 
 
-```Matlab
+{% highlight matlab %}
 %estimate location of discovered landmarks
 landMarkMeans = {};
 %estimate of angle and distance from robot to landmark
@@ -271,7 +271,7 @@ for i=1:timesteps
 	
 	pause(0.001)
 end
-```
+{% endhighlight %}
 
 Gif below shows the robot discovering the landmarks. Black circles are the computed estimates while the red dots are the measurements of the landmarks. 
 

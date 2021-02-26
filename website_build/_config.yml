@@ -17,6 +17,9 @@ url: "https://szonov.com"
 gems:
  - jekyll-gallery-generator
 
+plugins:
+ - jekyll-gallery-generator
+
 
 gallery:
   dir: photos               # Path to the gallery

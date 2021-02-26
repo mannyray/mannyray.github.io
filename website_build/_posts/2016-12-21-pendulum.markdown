@@ -103,7 +103,7 @@ The first row is for the column titles and the rest of the rows is for the data.
 Once you have done that, go to *Tools > Script Editor...* and enter the following code $($and then save it$)$.
 
 
-```javascript
+{% highlight javascript %}
 function checkReminder(){
   // get the spreadsheet object
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
@@ -174,8 +174,7 @@ function getMonthAndDay(d){
   var n = month[d.getMonth()]; 
   return [n,d.getDate()];
 }
-
-```
+{% endhighlight %}
 
 I have added comments throughout the code in order to help explain it. The code essentially checks the spreadsheet and checks if today's date matches a date on the sheet. If there is a match then it sends the person a happy birthday email. If the person's email is tomorrow then it sends you a warning in advance $($ in case you want to do something more than just an email $)$. $($If you have a friend who has a birthday on Feb 29 then you might have to do some extra thinking :$)$  $)$.
 

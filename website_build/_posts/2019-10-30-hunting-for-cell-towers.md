@@ -12,7 +12,7 @@ Hello! I have created an Android app that logs cell phone signal data. I used th
 I came across [this post](https://math.stackexchange.com/questions/623977/applying-a-kalman-filter-to-a-wifi-power-signal?rq=1) discussing utilizing the Kalman filter for locating an device near Wifi signal. After briefly seeing if something similair can be done where I'm living I determined it wasn't given the space and tools present. Full of hope, I wanted to check if it possible to do something similar for cell signals. This provided the perfect excuse to create my very first android application that can be used to log the cell signal strength at your location along with the GPS location. Here are the two relevant app files:
 
 `AndroidManifest.xml`
-```XML
+{% highlight xml %}
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.celltower">
@@ -37,10 +37,10 @@ I came across [this post](https://math.stackexchange.com/questions/623977/applyi
         </activity>
     </application>
 </manifest>
-```
+{% endhighlight %}
 
 `MainActivity.java`
-```Java
+{% highlight java %}
 package com.example.celltower;
 
 import android.os.AsyncTask;
@@ -272,32 +272,37 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     }
 }
-```
+{% endhighlight %}
 
 The application when run on your phone(tested on Android 6.0) immediately prompts to save a file to a directory(the default file name is to be left unmodified). After creating the file the app displays the text being appended every single second to the created file. The app has no real UI - I wanted to get to analysis ASAP and this stackoverflow assisted creation was sufficient for that objective. A sample logged line is below:
-```
+
+{% highlight plaintext %}
 1569105778657 258 LAT LON[CellInfoLte:{mRegistered=YES mTimeStampType=oem_ril mTimeStamp=10331753480921ns CellIdentityLte:{ mMcc=302 mMnc=220 mCi=XXXXXX mPci=155 mTac=4340} CellSignalStrengthLte: ss=20 rsrp=-155 rsrq=-8 rssnr=14 cqi=255 ta=0}]
-```
+{% endhighlight %}
+
 The first number is the timestamp and second number signifies that this line is the `258`th logged entry (approximately `258` seconds after starting the app). `LAT` and `LON` are place holders for the GPS location which have been anonymized (along with `mCI`) and the rest of the line is information on the cell signal. The relevant stuff are the CellSignalStrength and specifically `ss` measured in `dB`. The signal strength will be primarily used for finding the tower. Sometimes the cell phone will pick up multiple signals and so the there will be multiple `CellInfoLte` entries within the square brackets. Based on [this](https://www.cellmapper.net/CellMapper_CSV) some of the `CellIdentityLte` are identified as
-```
+
+{% highlight plaintext %}
 mMcc: Mobile Country Code
 mMnc: Mobile Network Code
 mCi:  Mobile Cell ID
 mPci: Physical Cell Identity 
-```
+{% endhighlight %}
+
 These codes are used to identify the tower. The `CellSignalStrengthLte` is broken down [here](https://usatcorp.com/faqs/understanding-lte-signal-strength-values/):
-```
+
+{% highlight plaintext %}
 ss:    Signal Strength
 rsrp:  Reference Signal Receive Power: The average power received from a single Reference signal, and Its typical range is around -44dbm (good) to -140dbm(bad).
 rsrq:  Reference Signal Recieved Quality: Indicates quality of the received signal, and its range is typically -19.5dB(bad) to -3dB (good).
 rssnr: reference signal signal-to-noise ratio
 cqi:   channel quality indicator 
 ta:    Get the timing advance value for LTE, as a value in range of 0..1282
-```
+{% endhighlight %}
 
 I used a python script (`parseCellData.py`) to analyze the text files
 
-```Python
+{% highlight python %}
 import re
 import numpy as np
 
@@ -485,7 +490,7 @@ class readCellInformation:
                     cell.setSignalStrength(ss)
                     rec.addCell(cell)
             self.coordinates.append(rec)            
-```
+{% endhighlight %}
 
 Useful posts for tracking cell phone towers based on cell signal strength:
 

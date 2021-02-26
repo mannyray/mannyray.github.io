@@ -1,0 +1,60 @@
+I"�<p>In this post I will discuss bifurcation.</p>
+
+<p>“In general, a small variation in some parameter produces small, continuous changes in the system output, so that the system is said to be structurally stable. However, for some specific parameter values, a small variation can induce a strong qualitivative change in the solution. Such a behavior is called a bifurcation, and the system is said to be structurally unstable for these parameter values.”[1]</p>
+
+<p>Consider the ordinary differential equation:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x_t  = r x - x^3
+</code></pre></div></div>
+
+<p>where <code class="language-plaintext highlighter-rouge">r</code> is the parameter of interest, subscript <code class="language-plaintext highlighter-rouge">t</code> is the time derivative of <code class="language-plaintext highlighter-rouge">x</code>. An equilibrium of the system is a point where the system remains unchanged or equivalently</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x_t = 0
+</code></pre></div></div>
+
+<p>In our case if <code class="language-plaintext highlighter-rouge">r</code> is greater than zero then there are three equilibriums:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x = 0, -root(r), + root(r)
+</code></pre></div></div>
+<p>We can plot the derivative <code class="language-plaintext highlighter-rouge">x_t</code> against <code class="language-plaintext highlighter-rouge">x</code>:</p>
+
+<p><img src="https://szonov.com/assets/bifurcations1.jpg" alt="image" /></p>
+
+<p>The first equilibrium is unstable since a slight perturbation will cause to move away from it (similar to a ball on top of a hill being slightly pushed will roll away). It is unstable because if <code class="language-plaintext highlighter-rouge">x</code> is slightly less than zero then the negative derivative (refer to previous plot) will cause <code class="language-plaintext highlighter-rouge">x</code> to decrease away from 0 and similarly if <code class="language-plaintext highlighter-rouge">x</code> is slightly greater than zero then the positive derivative will cause <code class="language-plaintext highlighter-rouge">x</code> to increase away from 0. Using similar logic the other two equilbiriums can be shown to be stable (a ball in a valley pushed will roll back).</p>
+
+<p>When <code class="language-plaintext highlighter-rouge">r</code> is less than or equal to zero there is only one equilibrium (<code class="language-plaintext highlighter-rouge">x=0</code> which is stable). Once again we plot <code class="language-plaintext highlighter-rouge">x_t</code> against <code class="language-plaintext highlighter-rouge">x</code>:</p>
+
+<p><img src="https://szonov.com/assets/bifurcations2.jpg" alt="image" /></p>
+
+<p>When varying <code class="language-plaintext highlighter-rouge">r</code> from negative to positive we move from one stable point to two stable points. <code class="language-plaintext highlighter-rouge">r=0</code> is the bifurcation point where small variation  will cause strong qualititative change in the solution.</p>
+
+<p>Now let’s consider a more interesting system - the logistic map equation:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>x_{t+1} = r x_{t} (1-x_{t})
+</code></pre></div></div>
+
+<p>where <code class="language-plaintext highlighter-rouge">r</code> is the parameter. We will restrict <code class="language-plaintext highlighter-rouge">r</code> to be in the range <code class="language-plaintext highlighter-rouge">0</code> to <code class="language-plaintext highlighter-rouge">4</code> (this provides that if <code class="language-plaintext highlighter-rouge">x_{n}</code> is between 0 and 1 then <code class="language-plaintext highlighter-rouge">x_{n+1}</code> will also be between 0 and 1 - can be checked via derivative tests). The logistic map reprents a population model where <code class="language-plaintext highlighter-rouge">x_{n}</code> between <code class="language-plaintext highlighter-rouge">0</code> and <code class="language-plaintext highlighter-rouge">1</code> represents the percentage out of a total maximum possible population. Below are some sample populations for different <code class="language-plaintext highlighter-rouge">r</code> values</p>
+
+<p><img src="https://szonov.com/assets/bifurcations3.png" alt="image" /></p>
+
+<p>For <code class="language-plaintext highlighter-rouge">r=0.5</code> the steady value is <code class="language-plaintext highlighter-rouge">0</code> meaning that the population starting at <code class="language-plaintext highlighter-rouge">x_{0} = 0.5</code> will lead to population extinction (<code class="language-plaintext highlighter-rouge">x_{n} = 0</code>). For <code class="language-plaintext highlighter-rouge">r=1.25</code> the population reaches steady state of about <code class="language-plaintext highlighter-rouge">0.2</code>. <code class="language-plaintext highlighter-rouge">r=2.75</code> and <code class="language-plaintext highlighter-rouge">r=2</code> also reach a single steady state. Now for <code class="language-plaintext highlighter-rouge">r=3.5</code> things get interesting - there are now <code class="language-plaintext highlighter-rouge">4</code> steady values about which the curve oscillates about regularly: <code class="language-plaintext highlighter-rouge">0.8269, 0.5009, 0.8750, 0.3828</code>. By changing the parameter <code class="language-plaintext highlighter-rouge">r</code> from <code class="language-plaintext highlighter-rouge">2.75</code> to <code class="language-plaintext highlighter-rouge">3.5</code> we have change the amount of steady values from <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">4</code>. This leads us to plot a bifurcation diagram. Below the diagram plots for various <code class="language-plaintext highlighter-rouge">r</code> (Growth Rate) the steady values. For <code class="language-plaintext highlighter-rouge">r</code> less than <code class="language-plaintext highlighter-rouge">3</code> there is only one steady value and at about <code class="language-plaintext highlighter-rouge">3</code> (bifurcation point) we now have two steady points and once <code class="language-plaintext highlighter-rouge">r</code> is about <code class="language-plaintext highlighter-rouge">3.5</code> there are four (as demonstrated earlier).</p>
+
+<p><img src="https://szonov.com/assets/bifurcations4.png" alt="image" /></p>
+
+<p>If we zoom in to a smaller range we see the following:</p>
+
+<p><img src="https://szonov.com/assets/bifurcations5.png" alt="image" /></p>
+
+<p>and if we zoom in even further we start noticing a fractal type pattern emerging - same structure at every scale. From the simple logistic map equation we obtain a beautiful pattern.</p>
+
+<p><img src="https://szonov.com/assets/bifurcations4_5.png" alt="image" /></p>
+
+<p>Some of the code used to generate the figures, insipiration as well as additional reading material can be found here:</p>
+
+<ol>
+  <li>Boccaletti, Stefano, et al. Synchronization: From Coupled Systems to Complex Networks. Cambridge University Press, 2018</li>
+  <li>Boeing, Geoff. “Visual analysis of nonlinear dynamical systems: chaos, fractals, self-similarity and the limits of prediction.” Systems 4.4 (2016): 37.</li>
+  <li>https://www.math.ucdavis.edu/~hunter/m207/m207.pdf</li>
+  <li>https://github.com/gboeing/pynamical</li>
+</ol>
+:ET

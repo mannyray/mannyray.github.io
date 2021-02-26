@@ -6,7 +6,8 @@ categories: programming
 ---
 
 There is a lot of easily accessible data online waiting to be explored and analyzed. Recently, I came across a [work shop](https://ioos.noaa.gov/news/the-first-u-s-ioos-biological-data-training-workshop/) for a U.S. Integrated Ocean Observing System (IOOS) Biological Data Training Workshop. Workshops are great as they usually post their code and slide shows for everyone to see and explore. One of the code examples on the posted [github](https://github.com/ioos/BioData-Training-Workshop) dealt with animal telemetry data - let's explore the data together. First load the libraries  
-```R
+
+{% highlight R %}
 library("rerddap")
 library("akima")
 library("dplyr")
@@ -14,18 +15,19 @@ library("ggplot2")
 library("mapdata")
 library("ncdf4")
 library("plot3D")
-```
+{% endhighlight %}
+
 [ERDDAP](https://oceanview.pfeg.noaa.gov/erddap/index.html) is a data server that provides a way to download various scientific data sets. There are lots of various data sets available through IOOS such as trawl surveys, ocean temperatures and others. Coding in `R` throughout this post, we will first specify the animal telemetry data (`gtoppAT`):
 
-```R
+{% highlight R %}
 atnURL <- 'http://oceanview.pfeg.noaa.gov/erddap/'
 atnInfo <- info('gtoppAT', url = atnURL)
 atnInfo
-```
+{% endhighlight %}
 
 produces
 
-```R
+{% highlight R %}
  Variables:  
      commonName: 
      isDrifter: 
@@ -46,15 +48,19 @@ produces
      toppID: 
      yearDeployed: 
          Range: 1995, 9999 
-```
+{% endhighlight %}
 
 which give's us the data 'column' names. Running the command
-```R
+
+
+{% highlight R %}
 atnData <- tabledap(atnInfo, fields = c("commonName"), url = atnURL)
 atnData
-```
+{% endhighlight %}
+
 gives us the names of all the animals that are avaiable in the data set:
-```R
+
+{% highlight R %}
 <ERDDAP tabledap> gtoppAT
    Path: [/home/stan/.cache/R/rerddap/8c470a421cf8d42a59fd20a943fc89dd.csv]
    Last updated: [2019-10-28 17:11:13]
@@ -73,9 +79,11 @@ gives us the names of all the animals that are avaiable in the data set:
  9 California Sea Lion   
 10 Common Thresher Shark 
 # … with 43 more rows
-```
+{% endhighlight %}
+
 There are `53` species tracked in the database. Let's track the one with the largest `toppID` count
-```R
+
+{% highlight R %}
 res <- tabledap(atnInfo, fields = c("toppID"), 'commonName="Atlantic Sailfish"', url = atnURL)
 maxLength <- length(res$toppID)
 maxName <- "Atlantic Sailfish"
@@ -89,17 +97,21 @@ for (name in atnData$commonName) {
    }
 }
 print(paste(maxName,"has the maximum toppID count of",maxLength))
-```
+{% endhighlight %}
+
 returns
-```R
+
+{% highlight R %}
 [1] "Northern Elephant Seal has the maximum toppID count of 387"
-```
+{% endhighlight %}
+
 Here's a picture of the North Elephant Seal from Wikipedia:
 ![image]({{ site.url }}/assets/north_elephant_seal.jpg)
 ![]()
 
 There are a total of `146,668` data entries for the Northern Elephant Seal. Let's focus on `toppID=2006008`:
-```R
+
+{% highlight R %}
 res <- tabledap(atnInfo, fields = c("time","longitude", "latitude","toppID"), 'commonName="Northern Elephant Seal"','toppID="2006008"', orderby="time",url = atnURL)
 res$longitude <- as.numeric(res$longitude)
 res$latitude <- as.numeric(res$latitude)
@@ -112,14 +124,15 @@ w <- map_data("worldHires", ylim = c(ymin,ymax), xlim = c(xmin,xmax))
 for
 alldata <- data.frame(longitude = res$longitude-360, latitude = res$latitude)
 ggplot() + geom_point(data=alldata,aes(x=longitude,y=latitude)) + geom_polygon(data = w,aes(x=long,y=lat,group=group),fill="grey80") 
-```
+{% endhighlight %}
+
 This produces the figure that shows where a specific seal visisted during the time period 2006-01-17 to 2006-05-16:
 
 ![]({{ site.url }}/assets/scatter.png)
 
 Let's animate the results 
   
-```R
+{% highlight R %}
 for (i in 1:length(res$time)){
 
 	alldata <- data.frame(longitude = res$longitude[1:i]-360, latitude = res$latitude[1:i])
@@ -130,11 +143,14 @@ for (i in 1:length(res$time)){
 	ggsave(plot,file=paste0(i,'.png',sep=""))
 	dev.off()
 }  
-```
+{% endhighlight %}
+
 in bash run
-```bash
+
+{% highlight bash %}
 convert -delay 10 -loop 0 *.png total.gif
-```
+{% endhighlight %}
+
 to produce
 
 ![]({{ site.url }}/assets/total.gif)

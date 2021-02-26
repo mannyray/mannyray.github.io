@@ -1,0 +1,303 @@
+I"�<p>Hello reader! If you’re not a fan of reading about programming puzzles then feel free to skip <a href="#skipprog">ahead</a>.</p>
+
+<p>I have spent a fair bit of my recent free time solving coding puzzles for fun. The reason for solving these puzzles is to stay sharp on algorithms, data structures and language syntax (C++ for now) as my upcoming school semester is going to be computer science course free. I also can’t forget to mention the main reason: to experience the sweet sweet feeling of ecstasy when you solve a puzzle after a few hours of thinking, coding and debugging.</p>
+
+<p>I have started with <a href="https://www.hackerrank.com/faq">hackerrank</a> as it has a vast collection of puzzles you can solve and keep track of your progress with respect to other users on the website. The puzzles are organized by the domain of expertise required to solve them with varying levels of difficulty - from very basic to insane. Hackerrank provides the user with the ability to code up their solution (usually in the language of their choice) to the puzzle and submit it for testing to get immediate feedback. If the user’s solution passes all the provided test cases then the user is considered to have solved the problem and gets points for it (let us take the time to remember that passing all the test cases does not mean that the solution is necessarily correct {you could have always missed an edge test case} ~ you need a formal mathematical proof for that).</p>
+
+<p>Oftentimes the problems have a very basic brute force solution that are very slow computation wise. However, hackerrank prevents you from submitting these types of solutions as their servers have tight time limits and large inputs for your solutions and thus they push you to do some extra thinking in order to avoid the brute approach.</p>
+
+<p>I thought for this blog post I would present my solution to the <a href="https://www.hackerrank.com/challenges/triplets">triplets</a> puzzle from hackerrank in order to share my solution, practice explaining my train of thought in written form and maybe infect the user with a desire of solving puzzles.</p>
+
+<p>I will do my best to assume minimal experience with computer science related knowledge. This will probably add even more confusion for which I apologize in advance.</p>
+
+<h3 id="puzzle-description">Puzzle description</h3>
+
+<p>The puzzle description is very short and I will just paste it from the website:</p>
+
+<p><em>There is an integer array which does not contain more than two elements of the same value. How many distinct ascending triples (d[i] &lt; d[j] &lt; d[k], i &lt; j &lt; k) are present?</em></p>
+
+<p>The puzzle description may be short but it tells us a lot of information. Let’s start with an example array <code class="language-plaintext highlighter-rouge">d</code> :</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>d = [1 1 2 2 3 4]
+</code></pre></div></div>
+
+<p>The distinct ascending triples for <code class="language-plaintext highlighter-rouge">d</code> are:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(1,2,3)
+(1,2,4) 
+(1,3,4) 
+(2,3,4)
+</code></pre></div></div>
+
+<p>so therefore there are 4 triples present.</p>
+
+<p>In our example the first triple <code class="language-plaintext highlighter-rouge">(1,2,3) = (d[0 or 1],d[2 or 3], d[4]), 0 or 1 &lt; 2 or 3 &lt; 4</code> assuming we start indexing <code class="language-plaintext highlighter-rouge">d</code> at 0. The <code class="language-plaintext highlighter-rouge">or</code> in the indexing choice tells us that there are technically more than one triple of ascending triples with different indexing that work up to being <code class="language-plaintext highlighter-rouge">(1,2,3)</code>, but we are only looking for <em>distinct</em> triples.</p>
+
+<h3 id="reaching-the-solution">Reaching the solution</h3>
+
+<h5 id="attempt-1">Attempt 1</h5>
+
+<p>For the test case discussed above one may notice that the array is already in ascending order. In fact if we knew that they array would always be in ascending order then all we would have to do is let <code class="language-plaintext highlighter-rouge">n = # of unique numbers in d</code> and output <code class="language-plaintext highlighter-rouge">n choose 3</code> (all possible combinations of choosing 3 random numbers from n numbers ~ order of selection not mattering).</p>
+
+<p>However, the array being ordered is not guaranteed and even with the same numbers in an array but different order we can get different results. Consider the numbers:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 2 3
+</code></pre></div></div>
+
+<p>If <code class="language-plaintext highlighter-rouge">d = [ 2 3 1 ]</code> we get 0 distinct triples whereas if <code class="language-plaintext highlighter-rouge">d = [ 1 2 3 ]</code> we get 1 triple.</p>
+
+<h5 id="attempt-2">Attempt 2</h5>
+
+<p>Since order matters we can get a sense that the solution as it is parsing the array number by number sequentially needs to keep track of the past data. One thing it can keep track of is the numbers that are to the left of it and smaller. Since we are processing the numbers sequentially and looking at the past then the current number being processed must be treated as a potential candidate for the third position in a triple as we have no way of looking forward.</p>
+
+<p>However, if we think carefully then we can come up with a set of test cases that would stump our current approach. Let us say that the array <code class="language-plaintext highlighter-rouge">d = [ x y 3 ]</code> where we are currently processing <code class="language-plaintext highlighter-rouge">d[2] = 3</code> element. We are now looking at the number of elements <code class="language-plaintext highlighter-rouge">d[i], i &lt; 2</code> where <code class="language-plaintext highlighter-rouge">d[i] &lt; d[2]</code> (looking at all the numbers that come before 3 such that they are smaller than itself).</p>
+
+<p>If at least one of <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">y</code> is bigger than 3 then our approach tells us that there are not enough numbers before <code class="language-plaintext highlighter-rouge">3</code> to form a triple with <code class="language-plaintext highlighter-rouge">3</code> as the last element. This is the correct answer.</p>
+
+<p>Now if both <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">y</code> are smaller than <code class="language-plaintext highlighter-rouge">3</code> then we are in trouble. There are two possibilities: <code class="language-plaintext highlighter-rouge">x &lt; y</code> or <code class="language-plaintext highlighter-rouge">x &gt;= y</code>, but there is currently no way for <code class="language-plaintext highlighter-rouge">3</code> to tell which one is true. The former should give one triple and the latter should give 0. Our current approach is left up to guessing the answer. This definitely would not scale well. It turns out we still are not handling the concern of order.</p>
+
+<h5 id="attempt-3">Attempt 3</h5>
+
+<p>To get over our previous stump we either have to be able back track in the array (which sounds like too much work) or we can process the data differently.</p>
+
+<p>One way of going through the list differently is to treat the current number being processed as the middle candidate for a triple. This will allow us to avoid the problem of figuring out the ordering of the first two numbers. We now will only care about which numbers are smaller and to the left of current number and the numbers which are to the right and bigger of the current number. The trade off here is that we will have to now be able to look ahead in the list in addition to looking back. This implies that the array will have to be processed at least once in advance for us to have this ability.</p>
+
+<p>If the current number <code class="language-plaintext highlighter-rouge">x</code> has a total <code class="language-plaintext highlighter-rouge">a</code> numbers before that are smaller than it and <code class="language-plaintext highlighter-rouge">b</code> numbers after <code class="language-plaintext highlighter-rouge">x</code> that are bigger than it then we can figure out the total count of triples with <code class="language-plaintext highlighter-rouge">x</code> as the middle number. This number must be <code class="language-plaintext highlighter-rouge">a * b</code>. For example: <code class="language-plaintext highlighter-rouge">d = [ 3 2 4 8 7 ]</code> and <code class="language-plaintext highlighter-rouge">x = 4</code> then <code class="language-plaintext highlighter-rouge">a = 2</code> and <code class="language-plaintext highlighter-rouge">b = 2</code> meaning that we get <code class="language-plaintext highlighter-rouge">a * b = 4</code>: <code class="language-plaintext highlighter-rouge">{(3,4,8),(3,4,7),(2,4,8),(2,4,7)}</code>.</p>
+
+<p>If we iterate through all the numbers in the list and sum up all of the <code class="language-plaintext highlighter-rouge">a * b</code> products then we should get the total number of distinct triples … well almost. One thing we have not considered at all so far is the <em>“does not contain more than two elements of the same value”</em> phrase from the initial problem statement. The case <code class="language-plaintext highlighter-rouge">d = [ 1 1 2 4 ]</code> would not work well for our current approach (since for <code class="language-plaintext highlighter-rouge">x = 2</code> there are two numbers smaller than it and to the left, but they are the same number ~ something our algorithm cannot currently distinguish).</p>
+
+<h5 id="attempt-4">Attempt 4</h5>
+
+<p>The two element issue we will discuss a little bit later. For now let us consider the specifics of “keeping track” of past data. We have mentioned it a number of times but we never discussed the details. How do we keep track of the numbers that are smaller and to the left of a number in an array?</p>
+
+<p>One way is to go and parse all the numbers to the left one by one and count that numbers that match our description ( a little too slow).</p>
+
+<p>A better method is to construct a modified binary search tree. <a href="https://en.wikipedia.org/wiki/Binary_search_tree">If you don’t know what a binary search tree is then please read more about it</a>. I apologize for this extra reading, but it saves me from typing up a LOT of stuff.</p>
+
+<p>There is a very important property of binary search trees that you should be aware of: <a href="http://research.cs.queensu.ca/~jstewart/applets/bst/bst-property.html">“for a node with key k , every key in the left subtree is less than k and every key in the right subtree is greater than k”</a>: Let us consider the following binary search tree:</p>
+
+<p><img src="https://szonov.com/assets/binary_tree.png" alt="image" /></p>
+
+<p>Let us assume the current number we are processing and just inserted into the tree is <code class="language-plaintext highlighter-rouge">4</code>, meaning that all the numbers to the left of <code class="language-plaintext highlighter-rouge">4</code> have already been inserted into the tree. How do we tell how many numbers are smaller than 4 (1 and 3)?</p>
+
+<p>The generalized answer to this question would be to store additional information at every node in the tree. As you insert a node into a tree and it trickles down the tree to its new correct location you can at every node store which path the node has passed. For example for the <code class="language-plaintext highlighter-rouge">8</code> node if we store how many nodes passed to the left (<code class="language-plaintext highlighter-rouge">5</code> total) then you can very quickly find out how many numbers are smaller than <code class="language-plaintext highlighter-rouge">8</code> without having to explicitly know what the numbers are ( a major time saver ). For point of example we will refer to the the number of values passed to the left (stored at every node) as <code class="language-plaintext highlighter-rouge">passed_to_left</code>.</p>
+
+<p>If we assume <code class="language-plaintext highlighter-rouge">13</code> is the current number being processed and we want to know how many numbers are less than <code class="language-plaintext highlighter-rouge">13</code> then we have to start at the root node (<code class="language-plaintext highlighter-rouge">8</code>) and proceed down to <code class="language-plaintext highlighter-rouge">13</code> and count all the left path when we go right as well as counting the nodes we go through themselves.</p>
+
+<p><img src="https://szonov.com/assets/binary_tree_passed_to_left_included.png" alt="image" /></p>
+
+<p>Therefore to calculate the numbers less than 13 we would have to follow the following logic:</p>
+
+<figure class="highlight"><pre><code class="language-plaintext" data-lang="plaintext">less_than_13 = 0  
+
+Is 8 equal to 13? No.  
+Is 8 less than 13? Yes. All numbers that are less than 8 are also less than 13 so we must include all passed_to_left of 8 to less_than_13 including 8 itself: less_than_13 = less_than_13 + 8.passed_to_left + 1  
+less_than_13 = 0+5+1 = 6  
+
+Now we shift down to 10 in our search for 13 since 13 &gt; 8 and therefore 13 must be in right subtree of 8.
+Is 10 equal to 13? No.  
+Is 10 less than 13? Yes. All numbers that are less than 10 are also less than 13 so we must include all passed_to_left of 10 to less_than_13 including 10 itself: less_than_13 = less_than_13 + 10.passed_to_left + 1  
+less_than_13 = 6+0+1 = 7  
+
+
+Now we shift down to 14 in our search for 13 since 13 &gt; 10 and therefore 13 must be in right subtree of 10.
+Is 14 equal to 13? No.  
+Is 14 greater than 13? Yes. We can't be sure that all numbers that passed to left of 14 are bigger than 13 so must go down to left subtree of 14 to check.
+
+Now we are down to 13.  
+Is 13 equal to 13? Yes. Add passed_to_left to less_than_13: less_than_13 = less_than_13 + 13.passed_to_left    
+less_than_13 = 7+0 = 7</code></pre></figure>
+
+<p>Therefore there are <code class="language-plaintext highlighter-rouge">7</code> numbers in this tree that are less than <code class="language-plaintext highlighter-rouge">13</code> (as you can visually confirm).</p>
+
+<p>Those familiar with coding and binary search trees will see that this is not too difficult to implement with some recursion.</p>
+
+<p>We recall that we also need to keep track of the numbers that are bigger than the current number and are to the right. One way I managed to do this is to first insert all the numbers into the tree while keeping track of <code class="language-plaintext highlighter-rouge">passed_to_left</code>. After this, starting with the last number and going all the way back to the first number you cancel the <code class="language-plaintext highlighter-rouge">passed_to_left</code> update for that given number but now do the opposite by storing the right path update ( to be able to tell what how many nodes are bigger than a given node). As you are doing this you can compute the appropriate <code class="language-plaintext highlighter-rouge">a * b</code> value and therefore overall triple count after going all the way from right to left. Updating the equivalent <code class="language-plaintext highlighter-rouge">passed_to_right</code> is very similar to <code class="language-plaintext highlighter-rouge">passed_to_left</code> due to the symmetry of binary search trees.</p>
+
+<p>While updating the right path and left path data I was now able to determine how many numbers are bigger to the right and how many numbers are smaller to the left giving me the correct <code class="language-plaintext highlighter-rouge">a * b</code> product in <code class="language-plaintext highlighter-rouge">log(N)</code> due to binary search properties (average time where <code class="language-plaintext highlighter-rouge">N</code> is array size). Finding smaller and bigger numbers for each number in array gave me overall average algorithm run time of <code class="language-plaintext highlighter-rouge">Nlog(N)</code>. The run time being fast enough to handle all of the hackerrank test cases correctly.</p>
+
+<p>To illustrate, one of the test cases had an array with <code class="language-plaintext highlighter-rouge">55555</code> integers as input with correct answer of <code class="language-plaintext highlighter-rouge">3368945032206</code> distinct triples. If I was to find all smaller/bigger numbers by checking all the numbers (as suggested in beginning of Attempt 4) then I would have to check <code class="language-plaintext highlighter-rouge">55554</code> numbers every single time. However, with the tree implementation it should average out to log base 2 of <code class="language-plaintext highlighter-rouge">55555</code> which is about <code class="language-plaintext highlighter-rouge">16</code>. Clearly <code class="language-plaintext highlighter-rouge">16</code> is the better option.</p>
+
+<p>When dealing with the double occurrences of numbers it is important to simply keep track if the number has occurred already or not with respect to current number being processed (do this with an additional data field in tree structure). For example if you are processing the array from left to right while updating the left path occurrences then you want to make sure you don’t double update <code class="language-plaintext highlighter-rouge">passed_to_left</code>. When you are going from right to left you want to make sure you don’t remove the <code class="language-plaintext highlighter-rouge">passed_to_left</code> occurrence if there is still an another number of same value that has not been processed. When you hit second occurrence of number going from left to right you want to make sure you don’t double update <code class="language-plaintext highlighter-rouge">passed_to_right</code>.</p>
+
+<p>If you keep all these ideas in mind then you should be able to reproduce the solution in code and get your very own:</p>
+
+<p><img src="https://szonov.com/assets/hacker_rank_pass.png" alt="image" /></p>
+
+<p>Here is my rough code for those who still have any questions (The solution is so rough that it does not even clean up memory after itself. You have been warned):</p>
+
+<p><a href="#skipcode">Skip ahead if you are not interested in the code</a></p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;iostream&gt;
+#include &lt;stack&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="nc">tree</span><span class="p">{</span>
+    <span class="n">tree</span> <span class="o">*</span><span class="n">left</span><span class="p">;</span>
+    <span class="n">tree</span> <span class="o">*</span><span class="n">right</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">value</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">passed_to_left</span><span class="p">;</span><span class="c1">//how many nodes when inserted into tree had to go to left subtree</span>
+    <span class="kt">int</span> <span class="n">passed_to_right</span><span class="p">;</span><span class="c1">//how many nodes when inserted into tree had to go to right subtree</span>
+    <span class="kt">int</span> <span class="n">beforeFrequency</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">afterFrequency</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">lastBiggest</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">tree</span> <span class="o">*</span> <span class="nf">newTree</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">){</span>
+    <span class="n">tree</span> <span class="o">*</span> <span class="n">newT</span> <span class="o">=</span> <span class="k">new</span> <span class="n">tree</span><span class="p">();</span>
+    <span class="n">newT</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="n">newT</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="n">newT</span><span class="o">-&gt;</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+    <span class="n">newT</span><span class="o">-&gt;</span><span class="n">passed_to_left</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">newT</span><span class="o">-&gt;</span><span class="n">passed_to_right</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">newT</span><span class="o">-&gt;</span><span class="n">beforeFrequency</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">newT</span><span class="o">-&gt;</span><span class="n">afterFrequency</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">newT</span><span class="o">-&gt;</span><span class="n">lastBiggest</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">newT</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//Return node in tree that contains num as the value</span>
+<span class="c1">//if node does not exist then NULL is returned</span>
+<span class="n">tree</span> <span class="o">*</span> <span class="nf">isNumThere</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="n">tree</span> <span class="o">*</span> <span class="n">t</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">t</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span><span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">==</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
+            <span class="k">return</span> <span class="n">t</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
+            <span class="k">return</span> <span class="n">isNumThere</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="k">return</span> <span class="n">isNumThere</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">tree</span> <span class="o">*</span> <span class="nf">passed_to_left_only_insert</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="n">tree</span> <span class="o">*</span> <span class="n">t</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">t</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
+        <span class="k">return</span> <span class="n">newTree</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span><span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">==</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
+            <span class="n">t</span><span class="o">-&gt;</span><span class="n">beforeFrequency</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
+            <span class="n">t</span><span class="o">-&gt;</span><span class="n">passed_to_left</span><span class="o">++</span><span class="p">;</span>
+            <span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">passed_to_left_only_insert</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">passed_to_left_only_insert</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">t</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="kt">void</span> <span class="nf">remove_left_occurences</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="n">tree</span> <span class="o">*</span><span class="n">t</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
+        <span class="n">t</span><span class="o">-&gt;</span><span class="n">passed_to_left</span><span class="o">--</span><span class="p">;</span>
+        <span class="n">remove_left_occurences</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&gt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
+        <span class="n">remove_left_occurences</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">add_right_occurences</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="n">tree</span> <span class="o">*</span><span class="n">t</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
+        <span class="n">add_right_occurences</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&gt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
+        <span class="n">t</span><span class="o">-&gt;</span><span class="n">passed_to_right</span><span class="o">++</span><span class="p">;</span>
+        <span class="n">add_right_occurences</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+    <span class="p">}</span>    
+<span class="p">}</span>
+
+<span class="kt">long</span> <span class="kt">long</span> <span class="nf">findNumbersBiggerThanNumAndAfter</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span><span class="n">tree</span> <span class="o">*</span> <span class="n">t</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">==</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
+        <span class="k">return</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">passed_to_right</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
+        <span class="k">return</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">passed_to_right</span> <span class="o">+</span> <span class="n">findNumbersBiggerThanNumAndAfter</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">afterFrequency</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span><span class="p">{</span>
+        <span class="k">return</span> <span class="n">findNumbersBiggerThanNumAndAfter</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">long</span> <span class="kt">long</span> <span class="nf">findNumbersSmallerThanNumAndBefore</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span><span class="n">tree</span> <span class="o">*</span> <span class="n">t</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">==</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
+        <span class="k">return</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">passed_to_left</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
+        <span class="k">return</span> <span class="n">findNumbersSmallerThanNumAndBefore</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span><span class="p">{</span>
+        <span class="k">return</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">passed_to_left</span> <span class="o">+</span> <span class="n">findNumbersSmallerThanNumAndBefore</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">beforeFrequency</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>   
+    <span class="kt">int</span> <span class="n">num</span><span class="p">;</span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">num</span><span class="p">;</span>
+    <span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">numHistory</span><span class="p">;</span>
+    <span class="n">tree</span> <span class="o">*</span> <span class="n">t</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    
+    <span class="k">while</span><span class="p">(</span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">num</span><span class="p">){</span>
+        <span class="n">numHistory</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
+        <span class="n">tree</span> <span class="o">*</span> <span class="n">exists</span> <span class="o">=</span> <span class="n">isNumThere</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">exists</span><span class="o">==</span><span class="nb">NULL</span><span class="p">){</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">passed_to_left_only_insert</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="n">exists</span><span class="o">-&gt;</span><span class="n">beforeFrequency</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="kt">long</span> <span class="kt">long</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">numHistory</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="n">numHistory</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+        <span class="n">numHistory</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+        <span class="n">tree</span> <span class="o">*</span> <span class="n">exists</span> <span class="o">=</span> <span class="n">isNumThere</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">exists</span><span class="o">-&gt;</span><span class="n">afterFrequency</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+            <span class="n">add_right_occurences</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">exists</span><span class="o">-&gt;</span><span class="n">afterFrequency</span><span class="o">++</span><span class="p">;</span>
+        
+        <span class="k">if</span><span class="p">(</span><span class="n">exists</span><span class="o">-&gt;</span><span class="n">beforeFrequency</span><span class="o">==</span><span class="mi">1</span><span class="p">){</span>
+            <span class="n">remove_left_occurences</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">exists</span><span class="o">-&gt;</span><span class="n">beforeFrequency</span><span class="o">--</span><span class="p">;</span>      
+        
+        <span class="kt">long</span> <span class="n">beforeAndSmaller</span> <span class="o">=</span> <span class="n">findNumbersSmallerThanNumAndBefore</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="p">);</span>
+        <span class="kt">long</span> <span class="n">afterAndBigger</span> <span class="o">=</span> <span class="n">findNumbersBiggerThanNumAndAfter</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">exists</span><span class="o">-&gt;</span><span class="n">lastBiggest</span><span class="p">;</span>
+        <span class="n">exists</span><span class="o">-&gt;</span><span class="n">lastBiggest</span> <span class="o">=</span> <span class="n">afterAndBigger</span><span class="p">;</span>        
+        <span class="n">result</span><span class="o">=</span> <span class="n">result</span> <span class="o">+</span> <span class="p">(</span><span class="n">beforeAndSmaller</span><span class="o">*</span><span class="n">afterAndBigger</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">result</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><a name="skipcode"></a></p>
+
+<p>Hopefully, you learned something new in my puzzle solution and if you did not then that is okay too.</p>
+
+<h3 id="non-code-stuff">Non code stuff</h3>
+<p><a name="skipprog"></a></p>
+
+<p>Currently in British Columbia before the school term starts. Really excited to be back in Waterloo. Here are some pictures of BC life:</p>
+
+<p><img src="https://szonov.com/assets/coast_view.jpg" alt="image" /></p>
+
+<p><img src="https://szonov.com/assets/cat_graffiti.jpg" alt="image" /></p>
+
+<p><img src="https://szonov.com/assets/ships_in_bc.jpg" alt="image" /></p>
+
+<p><img src="https://szonov.com/assets/trucks_in_bc.jpg" alt="image" /></p>
+
+<p>Just had to recently renew my domain name. Hard to believe that it has already been two years since I first purchased it. Time flies.</p>
+:ET

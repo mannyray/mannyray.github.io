@@ -111,7 +111,8 @@ If we assume `13` is the current number being processed and we want to know how 
 ![image]({{ site.url }}/assets/binary_tree_passed_to_left_included.png)
 
 Therefore to calculate the numbers less than 13 we would have to follow the following logic:  
-```
+
+{% highlight plaintext %}
 less_than_13 = 0  
 
 Is 8 equal to 13? No.  
@@ -131,7 +132,7 @@ Is 14 greater than 13? Yes. We can't be sure that all numbers that passed to lef
 Now we are down to 13.  
 Is 13 equal to 13? Yes. Add passed_to_left to less_than_13: less_than_13 = less_than_13 + 13.passed_to_left    
 less_than_13 = 7+0 = 7
-```
+{% endhighlight %}
 
 Therefore there are `7` numbers in this tree that are less than `13` (as you can visually confirm). 
 
@@ -159,7 +160,7 @@ Here is my rough code for those who still have any questions (The solution is so
 [Skip ahead if you are not interested in the code](#skipcode)
 
 
-```
+{% highlight cpp %}
 #include <iostream>
 #include <stack>
 using namespace std;
@@ -314,7 +315,7 @@ int main() {
     }
     cout<<result<<endl;
 }
-```
+{% endhighlight %}
 
 <a name="skipcode"></a>
 

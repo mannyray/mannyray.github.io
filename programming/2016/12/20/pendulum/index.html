@@ -226,7 +226,7 @@
 
 <p>Since we are talking about applied mathematics here, then we need some sort of equation to work with. So how does one turn the pendulum motion into an equation?</p>
 
-<p>One thing we can start off with is the $F = ma$ equation $($Newton’s third law$)$. The $F$ is the net force and in our case will be the force acting on the mass hanging on to the string, $m$ the mass and $a$ the acceleration of the mass. Since we are dealing with the pendulum then what we will be using to keep track of position will be the angle $(<script type="math/tex">\theta</script>)$ of the string from the pendulum’s equilibrium position. We now upgrade our image to the following:</p>
+<p>One thing we can start off with is the $F = ma$ equation $($Newton’s third law$)$. The $F$ is the net force and in our case will be the force acting on the mass hanging on to the string, $m$ the mass and $a$ the acceleration of the mass. Since we are dealing with the pendulum then what we will be using to keep track of position will be the angle $(\(\theta\))$ of the string from the pendulum’s equilibrium position. We now upgrade our image to the following:</p>
 
 <p><img src="https://szonov.com/assets/updated_pendulum.jpg" alt="image" /></p>
 
@@ -276,7 +276,7 @@
 
 <p>Once you have done that, go to <em>Tools &gt; Script Editor…</em> and enter the following code $($and then save it$)$.</p>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">checkReminder</span><span class="p">(){</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">checkReminder</span><span class="p">(){</span>
   <span class="c1">// get the spreadsheet object</span>
   <span class="kd">var</span> <span class="nx">spreadsheet</span> <span class="o">=</span> <span class="nx">SpreadsheetApp</span><span class="p">.</span><span class="nx">getActiveSpreadsheet</span><span class="p">();</span>
   <span class="c1">// set the first sheet as active</span>
@@ -345,9 +345,7 @@
   <span class="nx">month</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">December</span><span class="dl">"</span><span class="p">;</span>
   <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nx">month</span><span class="p">[</span><span class="nx">d</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()];</span> 
   <span class="k">return</span> <span class="p">[</span><span class="nx">n</span><span class="p">,</span><span class="nx">d</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()];</span>
-<span class="p">}</span>
-
-</code></pre></div></div>
+<span class="p">}</span></code></pre></figure>
 
 <p>I have added comments throughout the code in order to help explain it. The code essentially checks the spreadsheet and checks if today’s date matches a date on the sheet. If there is a match then it sends the person a happy birthday email. If the person’s email is tomorrow then it sends you a warning in advance $($ in case you want to do something more than just an email $)$. $($If you have a friend who has a birthday on Feb 29 then you might have to do some extra thinking :$)$  $)$.</p>
 

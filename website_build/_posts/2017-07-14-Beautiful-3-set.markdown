@@ -35,7 +35,8 @@ For each `n` we will store all `S` that satisfy the first three conditions descr
 Once you have generated all the possible triplets and have filtered all the invalid ones out by the second condition, then you can start generating potential `S` candidates. For any given set `S`, each existing triplet in the basis is either in `S` or not ~ a binary choice. The binary choice is a good hint on some sort of recursive approach. By checking all potential `S` our runtime for this will be `O(2^{|triplet_basis_set_size})` which has an upper bound. Definitely won't work for `n=300` on hackerrank.
 
 Thus the runtime of our brute force approach is `O(2^{n^2})` (it is easy to optimize the brute force algorithm... but it would still be too slow for hackerrank). That is crazy slow! This is why we are doing this brute force approach on our machine and not hackerrank. Here is the brute force code:
-```
+
+{% highlight cpp %}
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -170,12 +171,12 @@ int main(){
 		delete [] z_cov;
 	}
 }
+{% endhighlight %}
 
-```
 
 I only had the patience to run up to `n = 17`. I observed that there were many sets of max `|S|` stored for each `n`. Given the way the basis was derived and the recursive function ran, I decided to only filter for the first max `|S|` printed for each `n`. Here are the first for `n=2` to `n=17`:
 
-```
+{% highlight plaintext %}
 n=2:
 2
 0 0 2
@@ -332,7 +333,7 @@ n=17:
 9 4 4
 10 1 6
 11 3 3
-```
+{% endhighlight %}
 
 This once again does not tell us much other than the fact that there exists a combination with max |S| such that the `x`'s can be ordered from `0` to some sort of limit. Is it guaranteed that for all n the `x`'s can be ordered? We will assume for now that the answer is yes. The pattern for the `y` and `z` are not clear either. I decided to treat `y-z` row values as coordinates on a `y-z` plane and plot them. Here is a plot for `n=9`:
 
@@ -366,7 +367,7 @@ Nonetheless, we know what the `|S|` size is and have a very simple visual way of
 
 Our solution now does not depend on `y` and `z` but on the left most number of the bottom row. If you plot out the 'chessboards' for first 10 `n`, then when will notice that the pattern is `mod 3` and thus the `O(n)` solution is formed:
 
-```
+{% highlight cpp %}
 #include <cmath>
 #include <cstdio>
 #include <vector>
@@ -424,8 +425,8 @@ int main() {
     }
     
 }
+{% endhighlight %}
 
-```
 
 ### Conclusion
 

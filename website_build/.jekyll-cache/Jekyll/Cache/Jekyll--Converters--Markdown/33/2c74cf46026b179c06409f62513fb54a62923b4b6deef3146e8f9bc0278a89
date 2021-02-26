@@ -1,0 +1,2 @@
+I"A<p><a href="https://mc-stan.org/">Stan</a> is a language used for statistical inference. Here we will investigate estimating the unknown length of a pendulum based on measurements of velocity and angle $\theta$. Two good examples to get started with <code class="language-plaintext highlighter-rouge">Stan</code> are</p>
+:ET

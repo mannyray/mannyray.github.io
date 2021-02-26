@@ -20,8 +20,8 @@ A simple way to solve your questions is to use Google App Script and create a we
 
 2. Create a new Google App Script called `AlertMessage`
 
-3. Add the code to `code.gs`  
-	```
+3. Add the code to `code.gs`   
+	```javascript
 	function doGet(request) {
 		MailApp.sendEmail("your@gmail.com", request.parameter.subject, request.parameter.message);
 		var result = {
@@ -30,7 +30,8 @@ A simple way to solve your questions is to use Google App Script and create a we
 		return ContentService.createTextOutput(JSON.stringify(result))
 	}
 	```
-	Where `your@gmail.com` is your Google email account on which you made the Google App Script.
+
+   Where `your@gmail.com` is your Google email account on which you made the Google App Script.
 
 4. `Publish > Deploy as web app...`.
 
