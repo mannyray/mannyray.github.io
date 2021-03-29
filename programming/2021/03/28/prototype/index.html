@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-39729658-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-39729658-3');
+</script>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Prototype</title>
+  <meta name="description" content="I am very excited to show you a prototype of a project I have been working on. The project involves using an image detection cell phone application to detect...">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://szonov.com/programming/2021/03/28/prototype/">
+  <link rel="alternate" type="application/rss+xml" title="Stan Zonov" href="https://szonov.com/feed.xml" />
+</head>
+
+
+  <body>
+	
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Stan Zonov</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+	<a class="page-link" href=""></a>
+        
+		
+			<a class="page-link" href="/about/">About</a>
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			<a class="page-link" href="/projects/">Projects</a>
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			<a class="page-link" href="/photos/">Photos</a>
+		
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+ 	 
+    <h1 class="post-title">Prototype</h1>
+    <p class="post-meta">Mar 28, 2021</p>
+  </header>
+
+  <article class="post-content">
+    <p>I am very excited to show you a prototype of a project I have been working on. The project involves using an image detection cell phone application to detect “interesting events” and acting upon these events. An “interesting event” will be application specific. For example some cell phones use the <a href="https://www.youtube.com/watch?v=ZwCNG9KFdXs">front facing camera to detect their owner’s face as a way of authentication</a>. In this example the “interesting event” is the owner’s face. The action taken is unlocking the phone.</p>
+
+<p>In my application, I want the cell phone’s image detection application to detect a specific object type. Upon detection, the cell phone will request a DSLR camera to take a high resolution picture of this object. This object will be around two hundred meters away: far enough that the cell phone’s camera is insufficient to get a detailed view. Here is a diagram of my project:</p>
+
+<p><img src="https://szonov.com/assets/prototype/scheme.png" alt="img" /></p>
+
+<p>In the previous diagram, additional implementation details are exposed. The Raspberry Pi, which can be replaced with some other computer, is necessary because there is no easy and direct way to send a signal from one’s cellphone to a regular DSLR camera. New DSLR cameras often come with downloadable applications from the app store. However, these application are insufficient in providing detailed control over the DSLR for your custom application. The <a href="http://gphoto.org/">gphoto</a> applications allows one to resolve this problem.</p>
+
+<p>gphoto allows one to send commands via USB cable from a computer to your DSLR camera. A bluetooth server was implemented and then installed on the Raspberry Pi to act as the middle man between the cell phone application and the DSLR. When the cell phone application detects the far away object, it sends a Bluetooth signal to the Raspberry Pi. Then, the Raspberry Pi sends the “take picture” command to the DSLR.</p>
+
+<p>For my prototype, the far away objects will be oranges. I simulated this using a projector and a wall.</p>
+
+<p><img src="https://szonov.com/assets/prototype/IMG_6809.JPG" alt="img" /></p>
+
+<p><img src="https://szonov.com/assets/prototype/IMG_6808.JPG" alt="img" /></p>
+
+<p>A script was written to simulate the oranges moving in the background. The script outputs a gif. Here is a small bit of the output:</p>
+
+<p><img src="https://szonov.com/assets/prototype/oranges.gif" alt="img" /></p>
+
+<p>The cellphone with the detection application was placed with the oranges in view:</p>
+
+<p><img src="https://szonov.com/assets/prototype/IMG_6813.JPG" alt="img" /></p>
+
+<p>In the above image, the cellphone application detects the oranges and displays a bounding box around each detected one. The middle yellow box acts as an aiming scope. When an orange is fully within the yellow box, the cellphone application will send the bluetooth signal for the DSLR to take the picture. The DSLR is setup so the direction it points to aligns with where the yellow box ‘aim scope’ is pointing to.</p>
+
+<p>The application was built on top of a sample application provided by <a href="https://www.tensorflow.org/lite">TensorFlow</a>. My most significant upgrade for this application is adding my custom Simple Online and Realtime Tracking (SORT) algorithm described in <a href="https://arxiv.org/abs/1602.00763">this paper</a>. SORT allows the cellphone application to keep track of a trajectory of detected objects. The trajectory is used for identifying when a new orange has entered the yellow box.</p>
+
+<p><img src="https://szonov.com/assets/prototype/IMG_6810.JPG" alt="img" /></p>
+
+<p>The camera is setup on a tripod with two cables sticking out. Top left one connects the DSLR to the Raspberry Pi while the bottom right connects the camera battery to an outlet. Using an outlet connected battery over a regular battery allows for you to run the camera over long periods of time.</p>
+
+<p>A gif of the app running is below</p>
+
+<p><img src="https://szonov.com/assets/prototype/out.gif" alt="img" /></p>
+
+<p>The incoming oranges are detected by the application and are bounded with a box with specified identification tag. When an orange with an id that has not yet been in the yellow box comes into the yellow box, the cellphone application sends a signal for the DSLR to take a picture. A dimming/brightening feature was added to brighten when the take picture signal is sent.</p>
+
+<p>From the gif, a frame is extracted where the take picture signal was sent (based on brightness). At <code class="language-plaintext highlighter-rouge">2:16.440</code>, with the center of the orange numbered <code class="language-plaintext highlighter-rouge">42</code> directly above <code class="language-plaintext highlighter-rouge">:</code> of the <code class="language-plaintext highlighter-rouge">2:16</code>, the cellphone application sends the signal:</p>
+
+<p><img src="https://szonov.com/assets/prototype/video_capture.png" alt="img" /></p>
+
+<p>The DSLR lags by half a second and takes the picture when the orange numbered <code class="language-plaintext highlighter-rouge">42</code> is centered above the <code class="language-plaintext highlighter-rouge">02</code>.</p>
+
+<p><img src="https://szonov.com/assets/prototype/IMG_6378.JPG" alt="img" /></p>
+
+<p>Fine level of accuracy was not the level of focus for this prototype testing. The delay for my application is sufficient. However, limitations of the camera are important to note. For this experiment, the Canon EOS M100 was used. If lighting is poor, the DSLR will reject the “take picture” command. At times the camera will need to refocus (if on autofocus mode) which will cause a bit of lag with the “take picture” command.</p>
+
+<p>The simulation lasted a total of 2 and a half minutes with a total of 48 objects detected and matching pictures taken. Pictures took almost 500Mb of memory as a high resolution option was set for the captured images.</p>
+
+<p>To apply this to something other than oranges, a new detection model must be created. This can be thought of as a new game cartridge to a game boy advance. The gaming experience (in this application) is dictated by the cartridge (in this case detection model). In addition, instead of sending a signal to a DSLR camera you can send the signal to some other device depending on what you are trying to do.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>I am satisfied with this prototype. It is ready for further testing. Most of the learning required for this prototype was android application development and the SORT algorithm. The code for these I will share later. The learning occupied a lot of time this past half year and I am grateful to see results.</p>
+
+<p>For amateur purposes, this prototype can most easily be setup in one’s place of living as you need a secure place to leave your camera to run. This means that to take interesting pictures, you need to have an interesting view out your window. Once you have a subject area of focus and a trained image detecting model, you can apply set this prototype pretty easily. To some this prototype may seem like a fishing net in the desert - not very useful. However, if you are by the ocean then have fun!</p>
+
+<p>The initial inspiration to create this prototype came from <a href="https://www.cbc.ca/news/canada/toronto/councillor-ana-bailao-vacancy-tax-jaco-joubert-condo-tower-study-1.5357198">this article</a>. Toronto at the time had a housing problem (probably does and will). Housing is scarce and ever increasing in price. A developer wanted to determine what percentage of condo units are unoccupied and unused in a city where people are desperate for housing. He setup a camera and started monitoring condo towers from afar so he could see which ones are occupied or not. After reading the article, I would look out my window and see what information I can observe and absorb with my camera.</p>
+
+<p>The next big step for my prototype is to train a new image detecting model for what I want to observe and absorb outside my window. Will not spoil the details of what exactly here.</p>
+
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+	<div class="wrapper">
+
+	 <p style="color:grey">Welcome to my site. Take a look around and don't be shy, shoot me a message!</p>
+	</div>
+  <div class="wrapper">
+
+    <!--<h2 class="footer-heading">Stan Zonov</h2>-->
+
+    <!--<div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-2">
+        <ul class="contact-list">
+          <!--<li>Stan Zonov</li>-->
+          <!--<li>contact at zonov.ca</li>
+        </ul>
+      </div>-->
+
+      <div class="footer-col  footer-col-1">
+        <ul class="social-media-list">
+									<li>
+            <p>
+
+<span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+																	<g transform="scale(0.035)">
+                  <path fill="#828282" d="M101.3 141.6v228.9h0.3 308.4 0.8V141.6H101.3zM375.7 167.8l-119.7 91.5 -119.6-91.5H375.7zM127.6 194.1l64.1 49.1 -64.1 64.1V194.1zM127.8 344.2l84.9-84.9 43.2 33.1 43-32.9 84.7 84.7L127.8 344.2 127.8 344.2zM384.4 307.8l-64.4-64.4 64.4-49.3V307.8z"/>
+																</g>
+                </svg>
+              </span>
+
+              <span class="username">contact at zonov.ca</span>
+            </p>
+          </li>
+
+
+          
+
+          
+
+
+          
+
+
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text"></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
