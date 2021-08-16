@@ -7,7 +7,7 @@ categories: programming
 
 ## Summary
 
-Hello dear reader! In this post I will be discussing how to control a DSLR camera using an Android app, Raspberry Pi, gphoto2 and some [code](https://github.com/mannyray/bluetoothPhoto). I found this capability very useful for my endevaours and hope that you may as well for yours. I will go over motivations, how to setup, linked code and an example use case. If you are restless, at the end I have a gif of a time-lapse I was able to create with the help of this app.
+Hello dear reader! In this post I will be discussing how to control a DSLR camera using an Android app, Raspberry Pi, gphoto2 and some [code](https://github.com/mannyray/bluetoothPhoto). I found this capability very useful for my endeavours and hope that you may as well for yours. I will go over motivations, how to setup, linked code and an example use case. If you are restless, at the end I have a gif of a time-lapse I was able to create with the help of this app.
 
 Here is a view of the deployed system:
 
@@ -190,4 +190,4 @@ Here is an example of the time-lapse feature. After the pictures were taken I co
 
 Now the skeptical reader might ask: "Why do you need an Android app to send a single command to start executing a time-lapse or even a single photograph? Why not modify `server.py` and run the code straight on the Raspberry Pi?"
 
-It is true. In such cases the phone is uncessary. I could just run `gphoto2 --shell` in the terminal. However, for applications where you need more advance features, the Android phone is very versatile. In this [post](https://szonov.com/programming/2021/03/28/prototype/) I describe such an advanced application that builds on top of the logic introduced here by using the phone's camera and a Tensorflow model. This post is supposed to provide starting code and general introduction to combining the phone, camera and Raspberry Pi together. Happy hacking!
+It is true. In such cases the phone is unnecessary. I could just run `gphoto2 --shell` in the terminal. However, for applications where you need more advance features, the Android phone is very versatile. In this [post](https://szonov.com/programming/2021/03/28/prototype/) I describe such an advanced application that builds on top of the logic introduced here by using the phone's camera and a Tensorflow model. This post is supposed to provide starting code and general introduction to combining the phone, camera and Raspberry Pi together. Happy hacking!
