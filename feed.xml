@@ -5,9 +5,208 @@
     <description></description>
     <link>https://szonov.com/</link>
     <atom:link href="https://szonov.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 28 Mar 2021 19:52:49 -0500</pubDate>
-    <lastBuildDate>Sun, 28 Mar 2021 19:52:49 -0500</lastBuildDate>
+    <pubDate>Sun, 15 Aug 2021 23:16:01 -0500</pubDate>
+    <lastBuildDate>Sun, 15 Aug 2021 23:16:01 -0500</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>Controlling DSLR using Android App, Raspberry Pi and gphoto2</title>
+        <description>&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;Hello dear reader! In this post I will be discussing how to control a DSLR camera using an Android app, Raspberry Pi, gphoto2 and some &lt;a href=&quot;https://github.com/mannyray/bluetoothPhoto&quot;&gt;code&lt;/a&gt;. I found this capability very useful for my endevaours and hope that you may as well for yours. I will go over motivations, how to setup, linked code and an example use case. If you are restless, at the end I have a gif of a time-lapse I was able to create with the help of this app.&lt;/p&gt;
+
+&lt;p&gt;Here is a view of the deployed system:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/schema.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;gphoto2 is a free application that can be used to control a variety of &lt;a href=&quot;http://www.gphoto.org/proj/libgphoto2/support.php&quot;&gt;different cameras&lt;/a&gt; via commandline.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The Raspberry Pi can be replaced with another computer. Raspberry Pi is chosen as it is leightweight and cheap.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Android app is useful because it allows for wireless, remote control and a nice user interface.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;here-are-reasons-why-you-may-found-the-setup-useful&quot;&gt;Here are reasons why you may found the setup useful:&lt;/h2&gt;
+
+&lt;h3 id=&quot;cameras-come-with-limitations&quot;&gt;Cameras come with limitations&lt;/h3&gt;
+
+&lt;p&gt;In this blog I will be using the Canon M100.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/m100.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In the case of the M100, the camera has a limitation on how long you can take time-lapse photos for. In the image below, three screenshots from the M100 configuration screen show that you can set to take photos every 2 to 4 seconds and up to 900 shots. Combining the two upper limits you can only takes a time-lapse spanning an hour in time.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/camera_settings.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;What if you want to take a time-lapse of a full day? With the use of a battery cable and this setup you can overcome such limitations. The Android acts as user interface enhancement instead of using gphoto2 commandline directly on the Raspberry Pi.&lt;/p&gt;
+
+&lt;p&gt;M100 battery cable:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/wired_battery.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;the-camera-manufacturer-provided-android-app-is-not-sufficient&quot;&gt;The camera manufacturer provided Android app is not sufficient&lt;/h3&gt;
+
+&lt;p&gt;The Android app provided here can be modified to monitor for events for which regular manufacture provided Android apps for your camera will not have. Want to take picture at a specific time? Take a picture only when you detect something in the field of focus of cell phone camera? Take a picture when you say “action”? You will have to code this yourself for which the Android app introduced in this post provides a great starting point.&lt;/p&gt;
+
+&lt;p&gt;The programmatic freedom allows one to integrate your camera into a variety of applications.&lt;/p&gt;
+
+&lt;h3 id=&quot;broken-camera-screen&quot;&gt;Broken camera screen&lt;/h3&gt;
+
+&lt;p&gt;May sound like a stretch but I had this happen. Camera menu screen was busted. The app can be useful here for providing a basic screen interface.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-setup&quot;&gt;How to Setup&lt;/h2&gt;
+
+&lt;h3 id=&quot;install-gphoto2-on-raspberry-pi&quot;&gt;Install gphoto2 on Raspberry Pi&lt;/h3&gt;
+
+&lt;p&gt;You will have to install gphoto2 software. &lt;a href=&quot;https://github.com/gonzalo/gphoto2-updater&quot;&gt;This&lt;/a&gt; is a good repository on how to do this.&lt;/p&gt;
+
+&lt;h3 id=&quot;connect-the-camera-to-the-raspberry-pi&quot;&gt;Connect the Camera to the Raspberry Pi&lt;/h3&gt;
+
+&lt;p&gt;Connect the camera to the Raspberry Pi. In the case of the M100, I use the USB to mini USB B. Cable below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/wire.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The mini USB B port on the M100 is pictured below.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/port.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The result will look something like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/connection.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Turn your camera on and see if your camera has a setting to stay on without sleeping. On the M100 the setting looks like:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/never_off.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In the Raspberry Pi terminal run&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ps aux | grep gphoto
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kill&lt;/code&gt; on the non &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep&lt;/code&gt; results. Next run&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gphoto2 --shell
+&amp;gt;trigger-capture
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/initial_connection.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Sometimes taking pictures will fail. In the image above, the failure was due to camera not focusing while in auto focus mode. For the second picture, I had to make sure I had better lighting.&lt;/p&gt;
+
+&lt;p&gt;gphoto2 supports many &lt;a href=&quot;http://www.gphoto.org/proj/libgphoto2/support.php&quot;&gt;cameras&lt;/a&gt; to varying degrees. Your debug process and figuring out how to run your camera will thus vary. Be patient. By searching your error on a search engine you can usually find a thread on gphoto2’s repository or some stackoverflow post discussing a potential workaround. Here are some links that I found useful:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/gphoto/libgphoto2/issues/521&quot;&gt;maybe you are using an older version of gphoto2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/gphoto/libgphoto2/issues/30&quot;&gt;use debug mode&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/gphoto/libgphoto2/issues/197&quot;&gt;saving to sd card&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;…happy debugging!&lt;/p&gt;
+
+&lt;h3 id=&quot;connecting-raspberry-pi-to-android-phone&quot;&gt;Connecting Raspberry Pi to Android Phone&lt;/h3&gt;
+
+&lt;p&gt;Connect your phone and Raspberry Pi together. There are many instructions online on how to do this like &lt;a href=&quot;https://bluedot.readthedocs.io/en/latest/pairpiandroid.html&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;setting-up-the-bluetooth-server-on-raspberry-pi&quot;&gt;Setting up the Bluetooth server on Raspberry Pi&lt;/h3&gt;
+
+&lt;p&gt;On the Raspberry Pi you will have to run&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo python server.py
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The python script can be found &lt;a href=&quot;https://github.com/mannyray/bluetoothPhoto/tree/master/bluetooth_server&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Apply a setting to your Raspberry Pi so it does not fall asleep and stays on.&lt;/p&gt;
+
+&lt;p&gt;If you experience errors: make sure to install the required packages. For potential debugging when failing to advertise I found &lt;a href=&quot;https://stackoverflow.com/questions/37913796/bluetooth-error-no-advertisable-device&quot;&gt;this&lt;/a&gt; to be helpful.&lt;/p&gt;
+
+&lt;h3 id=&quot;build-the-android-app&quot;&gt;Build the Android app&lt;/h3&gt;
+
+&lt;p&gt;You must be able to build the Android app using Android Studio. This can get a bit involved for a first time builder. I recommend starting &lt;a href=&quot;https://developer.android.com/training/basics/firstapp&quot;&gt;here&lt;/a&gt; to get introduced to the basics.&lt;/p&gt;
+
+&lt;p&gt;The location of the app code is &lt;a href=&quot;https://github.com/mannyray/bluetoothPhoto/tree/master/bluetooth_android_app/Bluetooth&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;intermission&quot;&gt;Intermission&lt;/h3&gt;
+
+&lt;p&gt;If you followed instructions above you now have&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Bluetooth-paired the Android phone and Raspberry Pi&lt;/li&gt;
+  &lt;li&gt;Launched the Bluetooth server on the Raspberry Pi&lt;/li&gt;
+  &lt;li&gt;Connected your camera to the Raspberry Pi&lt;/li&gt;
+  &lt;li&gt;Built and installed the application on your Android.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For illustration purposes I have setup the Raspberry Pi and camera.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/test_setup.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The camera is connected to the Raspberry Pi and the battery is cable powered.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/camera_test_setup.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The test subject image here is a map of Winnipeg:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/camera_test_subject.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The Bluetooth server on the Raspberry Pi is running and waiting for a connection.&lt;/p&gt;
+
+&lt;h3 id=&quot;running-the-android-phone-app&quot;&gt;Running the Android Phone App&lt;/h3&gt;
+
+&lt;p&gt;Now let us launch the Android application which is called “Bluetooth”. The landing page will look like&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/landing_page.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here is me holding the phone:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/view_of_phone.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After pressing connect you will be redicted to&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/choose_page.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And the Raspberry Pi will accept the connection:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/bluetooth_server_waiting.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When selecting “Single picture” and pressing the camera button you will see:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/picture_taken.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The Bluetooth server will reflect these pictures taken:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/bluetooth_server_picture_taken.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The picture is also saved to the SD card of the camera.&lt;/p&gt;
+
+&lt;p&gt;The other option here is to take a time-lapse:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/time_lapse.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The “Shutdown Signal” is for when you want to disconnect and quit the Bluetooth server. The app will then redict you back to the landing page.&lt;/p&gt;
+
+&lt;h2 id=&quot;time-lapse-example&quot;&gt;Time-lapse example&lt;/h2&gt;
+
+&lt;p&gt;Here is an example of the time-lapse feature. After the pictures were taken I combined them to form a gif. Earlier, I suggested that the M100’s time-lapse feature could be extended for a whole day. I was a bit lazy to do that for this post and did something that is quicker and would take up less memory:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/sand.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now the skeptical reader might ask: “Why do you need an Android app to send a single command to start executing a time-lapse or even a single photograph? Why not modify &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;server.py&lt;/code&gt; and run the code straight on the Raspberry Pi?”&lt;/p&gt;
+
+&lt;p&gt;It is true. In such cases the phone is uncessary. I could just run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gphoto2 --shell&lt;/code&gt; in the terminal. However, for applications where you need more advance features, the Android phone is very versatile. In this &lt;a href=&quot;https://szonov.com/programming/2021/03/28/prototype/&quot;&gt;post&lt;/a&gt; I describe such an advanced application that builds on top of the logic introduced here by using the phone’s camera and a Tensorflow model. This post is supposed to provide starting code and general introduction to combining the phone, camera and Raspberry Pi together. Happy hacking!&lt;/p&gt;
+</description>
+        <pubDate>Sun, 15 Aug 2021 07:00:00 -0500</pubDate>
+        <link>https://szonov.com/programming/2021/08/15/controlling-dslr-using-android-app-raspberry-pi-and-gphoto2/</link>
+        <guid isPermaLink="true">https://szonov.com/programming/2021/08/15/controlling-dslr-using-android-app-raspberry-pi-and-gphoto2/</guid>
+        
+        
+        <category>programming</category>
+        
+      </item>
     
       <item>
         <title>Prototype</title>
@@ -1412,178 +1611,6 @@ z_init[2] 3.132       0 0.000 3.132 3.132 3.132   154 1.001
         <pubDate>Sun, 16 Dec 2018 14:00:00 -0600</pubDate>
         <link>https://szonov.com/programming/2018/12/16/bifurcation/</link>
         <guid isPermaLink="true">https://szonov.com/programming/2018/12/16/bifurcation/</guid>
-        
-        
-        <category>programming</category>
-        
-      </item>
-    
-      <item>
-        <title>Simple Scraper</title>
-        <description>&lt;p&gt;This is something that I did a while ago but kept forgetting to post. I needed to build a web scaper of sorts that would save online data at certains times of the day. Since I did not have a desktop or my own server I needed to find a location for my scripts to run on their own. For this purpose I chose Amazon Web Service (AWS). At the time AWS provided a basic free EC2 instance (Amazon Elastic Compute Cloud). In Amazon’s owns words EC2 can be used ‘to launch as many or as few virtual servers as you need, configure security and networking, and manage storage’. Essentially it is a computer that runs nonstop and you connect to set and specify tasks for it to work on. For the example in this post I scraped the &lt;a href=&quot;https://github.com/uWaterloo/api-documentation/blob/master/v2/weather/current.md&quot;&gt;weather&lt;/a&gt; in Waterloo (I scrapped other stuff as well).&lt;/p&gt;
-
-&lt;p&gt;This post will skip the details for setting up an EC2 instance. There are many good resources for that such as &lt;a href=&quot;&quot;&gt;here&lt;/a&gt;. The actual script for ‘scraping’ the data is simple:
-The script for recording the weather:&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;scrape.py&lt;/em&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#!/usr/bin/python
-&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;json&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;time&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://api.uwaterloo.ca/v2/weather/current.json&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;status_code&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#200 means everything is OK
-&lt;/span&gt;	&lt;span class=&quot;n&quot;&gt;json_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loads&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;current_temperature&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;json_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;data&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;temperature_current_c&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-	
-	&lt;span class=&quot;c1&quot;&gt;#record temperature in file with current date
-&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;environ&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'TZ'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'America/New_York'&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;current_date_file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strftime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%Y_%m_%d_%H.txt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-	&lt;span class=&quot;c1&quot;&gt;#files are stored in folder called data
-&lt;/span&gt;	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exists&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;data&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;makedirs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;data&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-				
-	&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;data/&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current_date_file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;a+&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current_temperature&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;raise&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;RuntimeError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;API request failed.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;A response is obtained from api.uwaterloo.ca which contains all sorts of weather data. Only the current temperature in celcius is saved in a file with format &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;%Y_%m_%d_%H.txt&lt;/code&gt; in directory &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt;. Let’s assume your script is running on this instance scraping data on a daily basis. What if something goes wrong? A very easy/rough (not best) solution uses my previous &lt;a href=&quot;http://szonov.com/programming/2017/07/16/Creating-a-notification/&quot;&gt;post&lt;/a&gt; describing how to send yourself an email by using curl. This leads to the following error handling, wrapper script:&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;dailyScript.sh&lt;/em&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;#assuming scrape.py is located in /home/ec2-user&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /home/ec2-user
-
-&lt;span class=&quot;c&quot;&gt;#if scrape.py crashes then we can check for error in error_file.txt&lt;/span&gt;
-/usr/bin/python scrape.py 2&amp;gt;&amp;gt;error_file.txt
-
-&lt;span class=&quot;c&quot;&gt;#if file is present and has size greater than zero&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; error_file.txt  &lt;span class=&quot;o&quot;&gt;]]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
-	&lt;span class=&quot;c&quot;&gt;#if the file is not empty then we must alert the server that something is wrong&lt;/span&gt;
-	curl &lt;span class=&quot;nt&quot;&gt;-L&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://script.google.com/macros/s/some_sort_of_id/exec?subject=SERVER_ERROR&amp;amp;message=AWS_SCRIPT_HAS_CRASHED_NEED_TO_FIX_INFO&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
-	&lt;span class=&quot;c&quot;&gt;#backup and communicate that everything is OK&lt;/span&gt;
-	curl &lt;span class=&quot;nt&quot;&gt;-L&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://script.google.com/macros/s/some_sort_of_id/exec?subject=Working&amp;amp;message=Everything_is_working&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Once an error happens for the first time then you will be emailed until you fix the error (and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rm error_file.txt&lt;/code&gt;). However, this if-else does not catch the error of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dailyScript.sh&lt;/code&gt; not running in the first place. Now, let’s add the additional feauture of backing up our scraped results. A nice of doing this (for small amounts of data) involves using a private Github repository. First you need to allow your EC2 to connect to github without entering your password. Within your EC2 instance:&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cd ~
-$ ssh-keygen -t rsa
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;(and press enter all the way through). Go to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;github.com &amp;gt; settings&lt;/code&gt; and copy the contents of your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.ssh/id_rsa.pub&lt;/code&gt; into the field labeled ‘Key’. Then on the EC2:&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git remote set-url origin git+ssh://git@github.com/username/insert_your_repo_name.git
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;insert_your_repo_name&lt;/code&gt; is a private repo you will make on github.com. Next modify &lt;em&gt;dailyScript.sh&lt;/em&gt; to push/backup the newly added &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;%Y_%m_%d_%H.txt&lt;/code&gt; file:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
-
-&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /home/ec2-user/insert_your_repo_name
-
-&lt;span class=&quot;c&quot;&gt;#if scrape.py crashes then we can check for error in error_file.txt&lt;/span&gt;
-/usr/bin/python scrape.py 2&amp;gt;error_file.txt
-
-&lt;span class=&quot;c&quot;&gt;#if file is present and has size greater than zero&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; error_file.txt  &lt;span class=&quot;o&quot;&gt;]]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
-	&lt;span class=&quot;c&quot;&gt;#if the file is not empty then we must alert the server that something is wrong&lt;/span&gt;
-	curl &lt;span class=&quot;nt&quot;&gt;-L&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://script.google.com/macros/s/some_sort_of_id/exec?subject=SERVER_ERROR&amp;amp;message=AWS_SCRIPT_HAS_CRASHED_NEED_TO_FIX_INFO&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
-	&lt;span class=&quot;c&quot;&gt;#backup and communicate that everything is OK&lt;/span&gt;
-	git add &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
-	git commit &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;backup&quot;&lt;/span&gt;
-	git push
-	curl &lt;span class=&quot;nt&quot;&gt;-L&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://script.google.com/macros/s/some_sort_of_id/exec?subject=Working&amp;amp;message=Everything_is_working&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;(where &lt;em&gt;scrape.py&lt;/em&gt; and &lt;em&gt;dailyScript.sh&lt;/em&gt; are located within &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;insert_your_repo_name&lt;/code&gt;). All that is left to do is make sure the scripts run and records the weather at set hours of the day everyday. Let’s say that you are interested in recording the weather every day at 0000,0600,1200,1800 then you would have to call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dailyScript.sh&lt;/code&gt; at those times. This can be done using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;crontab&lt;/code&gt;. In your EC2 instance you run&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ crontab -e
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;and enter&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;CRON_TZ=America/New_York
-0 0,6,12,18 * * * cd /home/ec2-user/insert_your_repo_name; ./dailyScript.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;(don’t forget to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chmod u+x dailyScript.sh&lt;/code&gt;). You have now created a scraper that runs on its own that backups the data with emails if there is something wrong.&lt;/p&gt;
-
-&lt;h2 id=&quot;bonus-content&quot;&gt;Bonus content&lt;/h2&gt;
-
-&lt;p&gt;Let’s assume the scraper has already been running for a while. And you now want to analyse the temperature results on local. We will do this using mysql:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ sudo apt-get update
-$ sudo apt-get install mysql-server
-$ mysql_secure_installation
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Create file &lt;em&gt;createTable.sql&lt;/em&gt;:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DATABASE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IF&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;EXISTS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;weather_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;USE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;weather_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;DROP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IF&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;EXISTS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temperature_waterloo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temperature_waterloo&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;YEAR&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;INT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;MONTH&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;INT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DAY&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;INT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HOUR&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;INT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TEMPERATURE&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;DOUBLE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ID&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;VARCHAR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;and run in order to create table organize the temperature data&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo mysql &amp;lt; createTable.sql
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now clone the repository and cd into the directory with all the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;%Y_%m_%d_%H.txt&lt;/code&gt; files and run the following script to fill the table:&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;loadData.sh&lt;/em&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;file &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;data/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.txt
-&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-	&lt;span class=&quot;c&quot;&gt;#echo $file&lt;/span&gt;
-		
-	&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$file&lt;/span&gt; | &lt;span class=&quot;k&quot;&gt;while &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;read &lt;/span&gt;temperature&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do
-		&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;##*/&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-		&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;%.txt&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-		&lt;span class=&quot;nv&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$id&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'_'&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $1, $2, $3, $4}'&lt;/span&gt; &lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-		&lt;span class=&quot;nv&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[0]&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-		&lt;span class=&quot;nv&quot;&gt;month&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[1]&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-		&lt;span class=&quot;nv&quot;&gt;day&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[2]&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-		&lt;span class=&quot;nv&quot;&gt;hour&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[3]&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-		&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;USE weather_data;INSERT INTO temperature_waterloo (YEAR,MONTH,DAY,HOUR,TEMPERATURE,ID) VALUES (&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$year&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;, &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$month&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;, &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$day&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;, &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$hour&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;, &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$temperature&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;,'&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$id&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;');&quot;&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;mysql 
-
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;and run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;./loadData.sh&lt;/code&gt;. Now we have the data loaded and can run some queries:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;USE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;weather_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temperature_waterloo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;----------+&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;----------+&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;      &lt;span class=&quot;mi&quot;&gt;900&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;----------+&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temperature_waterloo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ID&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;MAX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temperature_waterloo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xxx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;------+-------+-----+------+-------------+---------------+&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;YEAR&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;MONTH&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DAY&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HOUR&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TEMPERATURE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ID&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;------+-------+-----+------+-------------+---------------+&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2018&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;18&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;         &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2018&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_03_01_18&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;------+-------+-----+------+-------------+---------------+&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temperature_waterloo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ID&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;MIN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temperature_waterloo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xxx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;------+-------+-----+------+-------------+---------------+&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;YEAR&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;MONTH&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DAY&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HOUR&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TEMPERATURE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ID&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;------+-------+-----+------+-------------+---------------+&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2017&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;19&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;   &lt;span class=&quot;mi&quot;&gt;18&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;        &lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2017&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_07_19_18&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;------+-------+-----+------+-------------+---------------+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;The scraper ran from 2017/07/19 18:00 to 2018/03/01 18:00. Using similar queries we find the max temperature in this time period was 30.3 celcius and min temperature was -28.5. You can obviously do more complicated stuff with more interesting scraped data sets. This post was meant to show an ad-hoc way of scraping data that will remove the task of writing the scraper and will just let you focus on the data you are interested in.&lt;/p&gt;
-
-</description>
-        <pubDate>Thu, 06 Dec 2018 19:00:00 -0600</pubDate>
-        <link>https://szonov.com/programming/2018/12/06/simple-scraper/</link>
-        <guid isPermaLink="true">https://szonov.com/programming/2018/12/06/simple-scraper/</guid>
         
         
         <category>programming</category>
