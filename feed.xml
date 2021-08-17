@@ -5,15 +5,15 @@
     <description></description>
     <link>https://szonov.com/</link>
     <atom:link href="https://szonov.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 15 Aug 2021 23:16:01 -0500</pubDate>
-    <lastBuildDate>Sun, 15 Aug 2021 23:16:01 -0500</lastBuildDate>
+    <pubDate>Mon, 16 Aug 2021 20:58:52 -0500</pubDate>
+    <lastBuildDate>Mon, 16 Aug 2021 20:58:52 -0500</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
         <title>Controlling DSLR using Android App, Raspberry Pi and gphoto2</title>
         <description>&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
 
-&lt;p&gt;Hello dear reader! In this post I will be discussing how to control a DSLR camera using an Android app, Raspberry Pi, gphoto2 and some &lt;a href=&quot;https://github.com/mannyray/bluetoothPhoto&quot;&gt;code&lt;/a&gt;. I found this capability very useful for my endevaours and hope that you may as well for yours. I will go over motivations, how to setup, linked code and an example use case. If you are restless, at the end I have a gif of a time-lapse I was able to create with the help of this app.&lt;/p&gt;
+&lt;p&gt;Hello dear reader! In this post I will be discussing how to control a DSLR camera using an Android app, Raspberry Pi, gphoto2 and some &lt;a href=&quot;https://github.com/mannyray/bluetoothPhoto&quot;&gt;code&lt;/a&gt;. I found this capability very useful for my endeavours and hope that you may as well for yours. I will go over motivations, how to setup, linked code and an example use case. If you are restless, at the end I have a gif of a time-lapse I was able to create with the help of this app.&lt;/p&gt;
 
 &lt;p&gt;Here is a view of the deployed system:&lt;/p&gt;
 
@@ -31,7 +31,7 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;here-are-reasons-why-you-may-found-the-setup-useful&quot;&gt;Here are reasons why you may found the setup useful:&lt;/h2&gt;
+&lt;h2 id=&quot;here-are-reasons-why-you-may-find-the-setup-useful&quot;&gt;Here are reasons why you may find the setup useful:&lt;/h2&gt;
 
 &lt;h3 id=&quot;cameras-come-with-limitations&quot;&gt;Cameras come with limitations&lt;/h3&gt;
 
@@ -197,7 +197,7 @@
 
 &lt;p&gt;Now the skeptical reader might ask: “Why do you need an Android app to send a single command to start executing a time-lapse or even a single photograph? Why not modify &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;server.py&lt;/code&gt; and run the code straight on the Raspberry Pi?”&lt;/p&gt;
 
-&lt;p&gt;It is true. In such cases the phone is uncessary. I could just run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gphoto2 --shell&lt;/code&gt; in the terminal. However, for applications where you need more advance features, the Android phone is very versatile. In this &lt;a href=&quot;https://szonov.com/programming/2021/03/28/prototype/&quot;&gt;post&lt;/a&gt; I describe such an advanced application that builds on top of the logic introduced here by using the phone’s camera and a Tensorflow model. This post is supposed to provide starting code and general introduction to combining the phone, camera and Raspberry Pi together. Happy hacking!&lt;/p&gt;
+&lt;p&gt;It is true. In such cases the phone is unnecessary. I could just run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gphoto2 --shell&lt;/code&gt; in the terminal. However, for applications where you need more advance features, the Android phone is very versatile. In this &lt;a href=&quot;https://szonov.com/programming/2021/03/28/prototype/&quot;&gt;post&lt;/a&gt; I describe such an advanced application that builds on top of the logic introduced here by using the phone’s camera and a Tensorflow model. This post is supposed to provide starting code and general introduction to combining the phone, camera and Raspberry Pi together. Happy hacking!&lt;/p&gt;
 </description>
         <pubDate>Sun, 15 Aug 2021 07:00:00 -0500</pubDate>
         <link>https://szonov.com/programming/2021/08/15/controlling-dslr-using-android-app-raspberry-pi-and-gphoto2/</link>

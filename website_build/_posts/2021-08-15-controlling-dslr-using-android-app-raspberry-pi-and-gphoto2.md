@@ -20,7 +20,7 @@ Here is a view of the deployed system:
  - Android app is useful because it allows for wireless, remote control and a nice user interface.
 
 
-## Here are reasons why you may found the setup useful:
+## Here are reasons why you may find the setup useful:
 
 
 ### Cameras come with limitations
