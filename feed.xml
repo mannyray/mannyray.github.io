@@ -5,9 +5,67 @@
     <description></description>
     <link>https://szonov.com/</link>
     <atom:link href="https://szonov.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 24 Aug 2021 21:27:19 -0500</pubDate>
-    <lastBuildDate>Tue, 24 Aug 2021 21:27:19 -0500</lastBuildDate>
+    <pubDate>Mon, 30 Aug 2021 22:17:08 -0500</pubDate>
+    <lastBuildDate>Mon, 30 Aug 2021 22:17:08 -0500</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>Simple Online Realtime Tracker</title>
+        <description>&lt;p&gt;Hello dear reader! I come with another post about code related to my &lt;a href=&quot;https://szonov.com/programming/2021/03/28/prototype/&quot;&gt;prototype&lt;/a&gt; project. The &lt;a href=&quot;https://szonov.com/programming/2021/08/15/controlling-dslr-using-android-app-raspberry-pi-and-gphoto2/&quot;&gt;last post&lt;/a&gt; showcased code where an Android App was able to control a DSLR camera via Bluetooth with a Raspberry Pi’s assistance. The Android App would send a capture image signal to the DSLR upon user’s manual input on the Android App. For object detection applications we want to automate this based on some object’s position.&lt;/p&gt;
+
+&lt;p&gt;For my prototype, I would take a high resolution picture with the DSLR when the object was detected in a specific range. In the gif below, this range would be the yellow box and the objects are oranges.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/prototype/out.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When a new orange enters the range box (scope) the Android app would send a take picture signal. In the image below is when the signal is taken.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/prototype/video_capture.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And here is the picture taken by the DSLR (prototype setup so value of picture not important):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/prototype/IMG_6378.JPG&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;how-does-one-track-an-object-as-it-moves-around-the-view-of-the-androids-camera&quot;&gt;How does one track an object as it moves around the view of the Android’s camera?&lt;/h3&gt;
+
+&lt;p&gt;For this I used the Simple Online Realtime Tracker (SORT) algorithm based on&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Bewley, Alex, et al. &quot;Simple online and realtime tracking.&quot; 2016 IEEE international conference on image processing (ICIP). IEEE, 2016.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The SORT combines the Kalman Filter and Hungarian algorithm together to keep track of the bounding boxes an image detecting machine learning model would output for each frame of some video. Every frame the machine learning model tells you that &lt;em&gt;here&lt;/em&gt; is an orange and &lt;em&gt;there&lt;/em&gt; is an orange and &lt;em&gt;over there&lt;/em&gt;. However, the image detecting machine learning model will not tell you that an orange in one frame at location X is the same orange at location Y. The SORT solves this problem.&lt;/p&gt;
+
+&lt;p&gt;I have created a Python implementation and then translated it to Java since that is the language used in Android App development. Developing and testing the algorithm in Python is easier. The code can be found &lt;a href=&quot;https://github.com/mannyray/sort&quot;&gt;here&lt;/a&gt;. To get started with using the code go to&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/mannyray/sort/tree/master/python_implementation&quot;&gt;https://github.com/mannyray/sort/tree/master/python_implementation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/mannyray/sort/tree/master/java_implementation&quot;&gt;https://github.com/mannyray/sort/tree/master/java_implementation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For a detailed explanation of SORT algorithm and various ways you could tune its parameters please go to&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/mannyray/sort/tree/master/python_implementation/example&quot;&gt;https://github.com/mannyray/sort/tree/master/python_implementation/example&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The motiviation for creating this standalone SORT library was&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Not wanting to learn/use someone else’s code and discover its limitations a little to late into the implementation&lt;/li&gt;
+  &lt;li&gt;Freedom to easily customize and modify my code based on my project’s needs&lt;/li&gt;
+  &lt;li&gt;I already had experience with the &lt;a href=&quot;https://github.com/mannyray/kalmanfilter&quot;&gt;Kalman Filter&lt;/a&gt; which is half of the SORT algorithm&lt;/li&gt;
+  &lt;li&gt;Learn more about object detection type code&lt;/li&gt;
+  &lt;li&gt;Create something someone else might use&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you are a reader who is looking for a SORT algorihtm, I hope you find mine useful!&lt;/p&gt;
+</description>
+        <pubDate>Mon, 30 Aug 2021 17:00:00 -0500</pubDate>
+        <link>https://szonov.com/programming/2021/08/30/simple-online-realtime-tracking/</link>
+        <guid isPermaLink="true">https://szonov.com/programming/2021/08/30/simple-online-realtime-tracking/</guid>
+        
+        
+        <category>programming</category>
+        
+      </item>
     
       <item>
         <title>Controlling DSLR using Android App, Raspberry Pi and gphoto2</title>
@@ -1540,77 +1598,6 @@ z_init[2] 3.132       0 0.000 3.132 3.132 3.132   154 1.001
         <pubDate>Tue, 18 Jun 2019 07:00:00 -0500</pubDate>
         <link>https://szonov.com/programming/2019/06/18/mathematician/</link>
         <guid isPermaLink="true">https://szonov.com/programming/2019/06/18/mathematician/</guid>
-        
-        
-        <category>programming</category>
-        
-      </item>
-    
-      <item>
-        <title>Bifurcations</title>
-        <description>&lt;p&gt;In this post I will discuss bifurcation.&lt;/p&gt;
-
-&lt;p&gt;“In general, a small variation in some parameter produces small, continuous changes in the system output, so that the system is said to be structurally stable. However, for some specific parameter values, a small variation can induce a strong qualitivative change in the solution. Such a behavior is called a bifurcation, and the system is said to be structurally unstable for these parameter values.”[1]&lt;/p&gt;
-
-&lt;p&gt;Consider the ordinary differential equation:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;x_t  = r x - x^3
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;r&lt;/code&gt; is the parameter of interest, subscript &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;t&lt;/code&gt; is the time derivative of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt;. An equilibrium of the system is a point where the system remains unchanged or equivalently&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;x_t = 0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;In our case if &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;r&lt;/code&gt; is greater than zero then there are three equilibriums:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;x = 0, -root(r), + root(r)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;We can plot the derivative &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x_t&lt;/code&gt; against &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt;:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/bifurcations1.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The first equilibrium is unstable since a slight perturbation will cause to move away from it (similar to a ball on top of a hill being slightly pushed will roll away). It is unstable because if &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; is slightly less than zero then the negative derivative (refer to previous plot) will cause &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; to decrease away from 0 and similarly if &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; is slightly greater than zero then the positive derivative will cause &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt; to increase away from 0. Using similar logic the other two equilbiriums can be shown to be stable (a ball in a valley pushed will roll back).&lt;/p&gt;
-
-&lt;p&gt;When &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;r&lt;/code&gt; is less than or equal to zero there is only one equilibrium (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x=0&lt;/code&gt; which is stable). Once again we plot &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x_t&lt;/code&gt; against &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt;:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/bifurcations2.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;When varying &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;r&lt;/code&gt; from negative to positive we move from one stable point to two stable points. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;r=0&lt;/code&gt; is the bifurcation point where small variation  will cause strong qualititative change in the solution.&lt;/p&gt;
-
-&lt;p&gt;Now let’s consider a more interesting system - the logistic map equation:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;x_{t+1} = r x_{t} (1-x_{t})
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;r&lt;/code&gt; is the parameter. We will restrict &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;r&lt;/code&gt; to be in the range &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;4&lt;/code&gt; (this provides that if &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x_{n}&lt;/code&gt; is between 0 and 1 then &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x_{n+1}&lt;/code&gt; will also be between 0 and 1 - can be checked via derivative tests). The logistic map reprents a population model where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x_{n}&lt;/code&gt; between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; represents the percentage out of a total maximum possible population. Below are some sample populations for different &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;r&lt;/code&gt; values&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/bifurcations3.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;For &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;r=0.5&lt;/code&gt; the steady value is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; meaning that the population starting at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x_{0} = 0.5&lt;/code&gt; will lead to population extinction (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x_{n} = 0&lt;/code&gt;). For &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;r=1.25&lt;/code&gt; the population reaches steady state of about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0.2&lt;/code&gt;. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;r=2.75&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;r=2&lt;/code&gt; also reach a single steady state. Now for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;r=3.5&lt;/code&gt; things get interesting - there are now &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;4&lt;/code&gt; steady values about which the curve oscillates about regularly: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0.8269, 0.5009, 0.8750, 0.3828&lt;/code&gt;. By changing the parameter &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;r&lt;/code&gt; from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2.75&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3.5&lt;/code&gt; we have change the amount of steady values from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;4&lt;/code&gt;. This leads us to plot a bifurcation diagram. Below the diagram plots for various &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;r&lt;/code&gt; (Growth Rate) the steady values. For &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;r&lt;/code&gt; less than &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3&lt;/code&gt; there is only one steady value and at about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3&lt;/code&gt; (bifurcation point) we now have two steady points and once &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;r&lt;/code&gt; is about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3.5&lt;/code&gt; there are four (as demonstrated earlier).&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/bifurcations4.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;If we zoom in to a smaller range we see the following:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/bifurcations5.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;and if we zoom in even further we start noticing a fractal type pattern emerging - same structure at every scale. From the simple logistic map equation we obtain a beautiful pattern.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/bifurcations4_5.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Some of the code used to generate the figures, insipiration as well as additional reading material can be found here:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Boccaletti, Stefano, et al. Synchronization: From Coupled Systems to Complex Networks. Cambridge University Press, 2018&lt;/li&gt;
-  &lt;li&gt;Boeing, Geoff. “Visual analysis of nonlinear dynamical systems: chaos, fractals, self-similarity and the limits of prediction.” Systems 4.4 (2016): 37.&lt;/li&gt;
-  &lt;li&gt;https://www.math.ucdavis.edu/~hunter/m207/m207.pdf&lt;/li&gt;
-  &lt;li&gt;https://github.com/gboeing/pynamical&lt;/li&gt;
-&lt;/ol&gt;
-</description>
-        <pubDate>Sun, 16 Dec 2018 14:00:00 -0600</pubDate>
-        <link>https://szonov.com/programming/2018/12/16/bifurcation/</link>
-        <guid isPermaLink="true">https://szonov.com/programming/2018/12/16/bifurcation/</guid>
         
         
         <category>programming</category>
