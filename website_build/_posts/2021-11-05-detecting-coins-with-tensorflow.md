@@ -18,5 +18,3 @@ Here is a demonstration video of the app in action (click the image):
 
 
 The repository for the code can be found [here](https://github.com/mannyray/machineLearningStarter). The repository is meant to provide a series of scripts and instructions on how to get started with Tensorflow tflite models on the Android.
-
-I finally get to include the buzzwords "machine learning" in my blog. Woohoo!
