@@ -34,12 +34,11 @@
 			<a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
 		{% elsif page.title contains 'Photos'%}
 			<a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
-		{% elsif page.title contains 'Projects' %}
-			<a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
 		{% else %}
 			{% comment %}Do nothing{% endcomment %}
 		{% endif %}
         {% endfor %}
+          <a class="page-link" href="{{ page.url | prepend: site.baseurl }}">Blog</a>
       </div>
     </nav>
 

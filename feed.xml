@@ -5,9 +5,32 @@
     <description></description>
     <link>https://szonov.com/</link>
     <atom:link href="https://szonov.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 12 Nov 2021 17:10:40 -0600</pubDate>
-    <lastBuildDate>Fri, 12 Nov 2021 17:10:40 -0600</lastBuildDate>
+    <pubDate>Mon, 03 Jan 2022 20:55:48 -0600</pubDate>
+    <lastBuildDate>Mon, 03 Jan 2022 20:55:48 -0600</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>React Image Tagging</title>
+        <description>&lt;p&gt;Hello dear reader!&lt;/p&gt;
+
+&lt;p&gt;I created an in-browser image tagging tool using React and Python/Flask for the backend. The code is &lt;a href=&quot;https://github.com/mannyray/ImageTagger&quot;&gt;here&lt;/a&gt; along with a very detailed explanation in the README.md.&lt;/p&gt;
+
+&lt;p&gt;The tool can be used for tagging many pictures with ease and then later for searching for the images via tags. Here are some sample screenshots:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/react/manitoba.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/react/search_2.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It was great to learn React. It was unsual and the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setState&lt;/code&gt; command at times seemed like the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;goto&lt;/code&gt; command that I always thought was improper to use. It took some time to adjust. I am grateful for the learning experience.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 03 Jan 2022 11:00:00 -0600</pubDate>
+        <link>https://szonov.com/programming/2022/01/03/react-image-tagging/</link>
+        <guid isPermaLink="true">https://szonov.com/programming/2022/01/03/react-image-tagging/</guid>
+        
+        
+        <category>programming</category>
+        
+      </item>
     
       <item>
         <title>TensorFlow Lite Speed Comparison</title>
@@ -1502,28 +1525,6 @@ ta:    Get the timing advance value for LTE, as a value in range of 0..1282&lt;/
         
         
         <category>programming</category>
-        
-      </item>
-    
-      <item>
-        <title>Bike trip</title>
-        <description>&lt;p&gt;Hey everyone! I have recently completed a bike trip across Canada - from Vancouver to St John’s. The trip took two months - from June 23rd to August 23rd. I completed my thesis for my masters in late spring and thus had the time for such a journey. There were many reasons for the trip, some of which I haven’t fully formulated myself. The main reason was a desire for adventure and to challenge myself to something big. I will be eventually posting a more detailed and organized day to day account with pictures, videos and text. This will be in order to help remember things for myself in the future as well create an information source for those that are curious or are considering bike trips themselves.&lt;/p&gt;
-
-&lt;p&gt;October 18th, 2019 update: Here is the &lt;a href=&quot;https://twotired.ca&quot;&gt;website&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/bike_trip1.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/bike_trip2.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/bike_trip3.JPG&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Sat, 31 Aug 2019 07:00:00 -0500</pubDate>
-        <link>https://szonov.com/travel/2019/08/31/bike_trip/</link>
-        <guid isPermaLink="true">https://szonov.com/travel/2019/08/31/bike_trip/</guid>
-        
-        
-        <category>travel</category>
         
       </item>
     
