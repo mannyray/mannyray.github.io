@@ -5,8 +5,8 @@
     <description></description>
     <link>https://szonov.com/</link>
     <atom:link href="https://szonov.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 02 Feb 2022 21:36:24 -0600</pubDate>
-    <lastBuildDate>Wed, 02 Feb 2022 21:36:24 -0600</lastBuildDate>
+    <pubDate>Wed, 02 Feb 2022 21:44:41 -0600</pubDate>
+    <lastBuildDate>Wed, 02 Feb 2022 21:44:41 -0600</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -16,6 +16,8 @@
 &lt;p&gt;I have created a video of a project I have been working on for a while. In addition to being a dear reader you can now be a dear viewer too! I am very excited to share this with you.&lt;/p&gt;
 
 &lt;p&gt;The video is about an automatic mechanism I created for capturing pictures of trains that go across a bridge in view of my apartment.&lt;/p&gt;
+
+&lt;p&gt;Please go &lt;a href=&quot;https://www.youtube.com/watch?v=PlVF_0MooQE&quot;&gt;here&lt;/a&gt; to see the video!&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://szonov.com/photos/winnipeg/IMG_6151.JPG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
@@ -28,10 +30,6 @@
   &lt;li&gt;&lt;a href=&quot;https://szonov.com/programming/2021/11/12/tensorflow-lite-speed-comparison/&quot;&gt;TensorFlow Lite Speed Comparison&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://szonov.com/programming/2022/01/03/react-image-tagging/&quot;&gt;React Image Tagging&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;Here is the video:&lt;/p&gt;
-
-&lt;iframe width=&quot;420&quot; height=&quot;315&quot; src=&quot;http://www.youtube.com/embed/PlVF_0MooQE&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 
 </description>
         <pubDate>Wed, 02 Feb 2022 14:00:00 -0600</pubDate>
