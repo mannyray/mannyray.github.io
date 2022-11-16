@@ -221,7 +221,7 @@ The script for recording the weather:</p>
 		<span class="n">os</span><span class="p">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s">"data"</span><span class="p">)</span>
 				
 	<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"data/"</span><span class="o">+</span><span class="n">current_date_file</span><span class="p">,</span> <span class="s">"a+"</span><span class="p">)</span>
-	<span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">current_temperature</span><span class="p">)</span><span class="o">+</span><span class="s">"</span><span class="si">\</span><span class="se">n</span><span class="s">"</span><span class="p">)</span>
+	<span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">current_temperature</span><span class="p">)</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
 	<span class="n">f</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
 <span class="k">else</span><span class="p">:</span>
 	<span class="k">raise</span> <span class="nb">RuntimeError</span><span class="p">(</span><span class="s">"API request failed."</span><span class="p">)</span> </code></pre></figure>

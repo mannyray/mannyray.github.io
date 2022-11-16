@@ -223,9 +223,9 @@
 
 <p>Thus the runtime of our brute force approach is <code class="language-plaintext highlighter-rouge">O(2^{n^2})</code> (it is easy to optimize the brute force algorithm… but it would still be too slow for hackerrank). That is crazy slow! This is why we are doing this brute force approach on our machine and not hackerrank. Here is the brute force code:</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;iostream&gt;
-#include &lt;fstream&gt;
-#include &lt;sstream&gt;
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;fstream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp">
 </span>
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
@@ -246,7 +246,7 @@ index represents the current index we are looking at in our recursive binary met
 //curNum is the current number we are processing (from n_limit)
 this is useful for file writing/appending
 */</span>
-<span class="kt">int</span> <span class="nf">generatingS</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span> <span class="n">y</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span> <span class="n">z</span><span class="p">,</span><span class="kt">int</span> <span class="n">index</span><span class="p">,</span><span class="kt">int</span> <span class="n">arrLength</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">x_cov</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">y_cov</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">z_cov</span><span class="p">,</span> <span class="kt">int</span> <span class="n">max</span><span class="p">,</span> <span class="kt">int</span> <span class="n">curNum</span><span class="p">){</span>
+<span class="kt">int</span> <span class="n">generatingS</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span> <span class="n">y</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span> <span class="n">z</span><span class="p">,</span><span class="kt">int</span> <span class="n">index</span><span class="p">,</span><span class="kt">int</span> <span class="n">arrLength</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">x_cov</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">y_cov</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">z_cov</span><span class="p">,</span> <span class="kt">int</span> <span class="n">max</span><span class="p">,</span> <span class="kt">int</span> <span class="n">curNum</span><span class="p">){</span>
 	
 	<span class="c1">//not enough space left to maximize set</span>
 	<span class="c1">//TODO: implement this feature</span>
@@ -309,7 +309,7 @@ this is useful for file writing/appending
 <span class="p">}</span>
 
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
 	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="n">n_limit</span><span class="p">;</span> <span class="n">n</span><span class="o">++</span><span class="p">){</span>
 		<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">n</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
 		<span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -687,11 +687,11 @@ n=17:
 
 <p>Our solution now does not depend on <code class="language-plaintext highlighter-rouge">y</code> and <code class="language-plaintext highlighter-rouge">z</code> but on the left most number of the bottom row. If you plot out the ‘chessboards’ for first 10 <code class="language-plaintext highlighter-rouge">n</code>, then when will notice that the pattern is <code class="language-plaintext highlighter-rouge">mod 3</code> and thus the <code class="language-plaintext highlighter-rouge">O(n)</code> solution is formed:</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include &lt;cmath&gt;
-#include &lt;cstdio&gt;
-#include &lt;vector&gt;
-#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#include</span> <span class="cpf">&lt;cmath&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;cstdio&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
 

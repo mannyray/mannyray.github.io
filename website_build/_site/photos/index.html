@@ -189,61 +189,83 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <div class="post">
-
-  <header class="post-header">
-    <h1 class="post-title">Photos</h1>
-  </header>
-
-  <article class="post-content">
-    <style TYPE="text/css">
-.gallery-wrapper {
-  width: 35em;
-  text-align: center;
-  padding: 1em 0 4em 0;
+        <style TYPE="text/css">
+/* For Mobile */
+@media screen and (max-width: 540px) {
+	.gallery-image-wrapper {
+		height: 75px;
+		width: 75px;
+		display: inline-block;
+		margin: 0.5em;
+		position: relative;
+		text-align: center;
+	}
 }
-.gallery-best-image{
-  max-height: 20em;
-  max-width: 20em;
+
+/* For Tablets */
+@media screen and (min-width: 540px){
+	.gallery-image-wrapper {
+		height: 200px;
+		width: 200px;
+		display: inline-block;
+		margin: 0.5em;
+		position: relative;
+		text-align: center;	
+	}
+}
+
+.gallery-image {
+	margin: auto;
+	position: relative;
+	top: 0px;
+	bottom: 0px;
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.centered {
+	border-width:3px;
+	border-style:solid;
+	border-color:coral; 
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: coral
 }
 </style>
 
-<div class="gallery-wrapper">
-    <a href="winnipeg">
-        <img class="gallery-best-image" src="winnipeg/thumbs/IMG_5295.JPG">
-    </a>
-    <h3><a href="winnipeg">Winnipeg</a></h3>
-    46 images
-</div>
+<ul>
 
-<div class="gallery-wrapper">
-    <a href="screaming_heads">
-        <img class="gallery-best-image" src="screaming_heads/thumbs/IMG_0820.JPG">
-    </a>
-    <h3><a href="screaming_heads">Screaming Heads</a></h3>
-    13 images
-</div>
+	<div class="gallery-image-wrapper">
+		<a href="winnipeg">
+			<img id="thumbnail" class="gallery-image" alt="winnipeg"  src=winnipeg/thumbnail/IMG_9895_thumb.JPG></img>
+			<div class="centered">Winnipeg</div>
+		</a>
+	</div>
 
-<div class="gallery-wrapper">
-    <a href="russia">
-        <img class="gallery-best-image" src="russia/thumbs/IMG_20180509_151711.jpg">
-    </a>
-    <h3><a href="russia">Russia</a></h3>
-    38 images
-</div>
+	<div class="gallery-image-wrapper">
+		<a href="powell_river">
+			<img id="thumbnail" class="gallery-image" alt="powell_river"  src=powell_river/thumbnail/IMG_6453_thumb.JPG></img>
+			<div class="centered">Powell River</div>
+		</a>
+	</div>
 
-<div class="gallery-wrapper">
-    <a href="powell_river">
-        <img class="gallery-best-image" src="powell_river/thumbs/001.jpg">
-    </a>
-    <h3><a href="powell_river">Powell River</a></h3>
-    41 images
-</div>
+	<div class="gallery-image-wrapper">
+		<a href="russia">
+			<img id="thumbnail" class="gallery-image" alt="russia"  src=russia/thumbnail/IMG_20180520_142759_thumb.jpg></img>
+			<div class="centered">Russia</div>
+		</a>
+	</div>
 
+	<div class="gallery-image-wrapper">
+		<a href="screaming_heads">
+			<img id="thumbnail" class="gallery-image" alt="screaming_heads"  src=screaming_heads/thumbnail/IMG_0843_thumb.JPG></img>
+			<div class="centered">Screaming Heads</div>
+		</a>
+	</div>
 
-  </article>
-
-</div>
+</ul>
 
       </div>
     </div>
