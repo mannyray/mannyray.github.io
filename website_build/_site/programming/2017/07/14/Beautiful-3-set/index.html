@@ -246,7 +246,7 @@ index represents the current index we are looking at in our recursive binary met
 //curNum is the current number we are processing (from n_limit)
 this is useful for file writing/appending
 */</span>
-<span class="kt">int</span> <span class="n">generatingS</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span> <span class="n">y</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span> <span class="n">z</span><span class="p">,</span><span class="kt">int</span> <span class="n">index</span><span class="p">,</span><span class="kt">int</span> <span class="n">arrLength</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">x_cov</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">y_cov</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">z_cov</span><span class="p">,</span> <span class="kt">int</span> <span class="n">max</span><span class="p">,</span> <span class="kt">int</span> <span class="n">curNum</span><span class="p">){</span>
+<span class="kt">int</span> <span class="nf">generatingS</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span> <span class="n">y</span><span class="p">,</span><span class="kt">int</span> <span class="o">*</span> <span class="n">z</span><span class="p">,</span><span class="kt">int</span> <span class="n">index</span><span class="p">,</span><span class="kt">int</span> <span class="n">arrLength</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">x_cov</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">y_cov</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">z_cov</span><span class="p">,</span> <span class="kt">int</span> <span class="n">max</span><span class="p">,</span> <span class="kt">int</span> <span class="n">curNum</span><span class="p">){</span>
 	
 	<span class="c1">//not enough space left to maximize set</span>
 	<span class="c1">//TODO: implement this feature</span>
@@ -309,7 +309,7 @@ this is useful for file writing/appending
 <span class="p">}</span>
 
 
-<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="n">n_limit</span><span class="p">;</span> <span class="n">n</span><span class="o">++</span><span class="p">){</span>
 		<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">n</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
 		<span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>

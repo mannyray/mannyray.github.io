@@ -5,9 +5,87 @@
     <description></description>
     <link>https://szonov.com/</link>
     <atom:link href="https://szonov.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 15 Nov 2022 18:57:32 -0600</pubDate>
-    <lastBuildDate>Tue, 15 Nov 2022 18:57:32 -0600</lastBuildDate>
-    <generator>Jekyll v4.2.2</generator>
+    <pubDate>Mon, 25 Dec 2023 22:25:12 -0600</pubDate>
+    <lastBuildDate>Mon, 25 Dec 2023 22:25:12 -0600</lastBuildDate>
+    <generator>Jekyll v3.9.0</generator>
+    
+      <item>
+        <title>The Bionicle Man</title>
+        <description>&lt;p&gt;Hello dear reader! I am writing a new blog post as it would be amiss of me to miss adding a single post in the fading year of two thousand and twenty-three. During a small part of this busy busy year I have been preoccupied with my Garmin watch. My first watch model was a gift, and I initially thought it was a silly thing until I started using it.&lt;/p&gt;
+
+&lt;p&gt;Garmin watches allow you to track your heart rate and GPS coordinates. This allows you to understand how hard you are exerting yourself and how far you went when running, cycling, swimming, etcetera. Garmin’s data sharing ability allows you to share this information with friends in order to see what new bike routes or challenges your friends have completed. This social aspect for me was the primary benefit of the watch, represented in thoughts such as: &lt;em&gt;“…wait what?… so and so biked 40km across a frozen lake on a fat bike?”&lt;/em&gt; and &lt;em&gt;“That’s an interesting cycling route. I will try that out tomorrow.”&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;You may be thinking: &lt;em&gt;“…ah another tracking mechanism that I don’t care for”&lt;/em&gt; or &lt;em&gt;“who has got time or knowledge to view and make use of these metrics?”&lt;/em&gt;. These are valid concerns, but the watch is what you make of it. I found the watch great for helping me become more mindful of my breath control during exercise, &lt;a href=&quot;https://www.youtube.com/watch?v=-6PDBVRkCKc&quot;&gt;training in specific heart rate zones&lt;/a&gt;, and changing up my exercise routes. The watches are now so advanced that they even come with a GPS map that can assist you in some of your longer &lt;a href=&quot;https://www.youtube.com/watch?v=wESL8G1pNIU&quot;&gt;routes&lt;/a&gt; - the technology is very advanced!&lt;/p&gt;
+
+&lt;p&gt;Outside of social and exercise metrics, I wasn’t receiving too much information about my body. It wasn’t until I upgraded to the &lt;a href=&quot;https://www.garmin.com/en-CA/p/777730&quot;&gt;955 Solar Garmin watch&lt;/a&gt; that I started getting some additional metrics, such as &lt;a href=&quot;https://support.garmin.com/en-CA/?faq=WT9BmhjacO4ZpxbCc0EKn9&quot;&gt;stress level&lt;/a&gt;. At first I was very confused by this variable. How is it that I am sitting down, and this watch is claiming that I am stressed at a stress level of 80 out of 100… during a vacation where I do, and should feel calm?&lt;/p&gt;
+
+&lt;p&gt;The stress metric is based on the heart rate and &lt;a href=&quot;https://medium.com/@altini_marco/the-ultimate-guide-to-heart-rate-variability-hrv-part-1-70a0a392fff4&quot;&gt;heart rate variability (hrv)&lt;/a&gt;. &lt;a href=&quot;https://www.garmin.com/en-US/garmin-technology/health-science/stress-tracking/&quot;&gt;Garmin&lt;/a&gt; scales the metrics from 0 to 100 in order of increasing stress. Below is a sample image of Garmin watch view of my stress during a morning where I had to go for an early flight. The calm, blue, below 25 stress occured when I was sleeping on the plane.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/watch_images/stress_view.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The stress metric was not immediately available from the watch’s resting face, and I had to press one of the side buttons to see the live data. I was so preoccupied with all of this that my friend nicknamed me the “Bionicle Man”. Half man, half robot - obsessed and hunched over my watch, looking at my metrics throughout all moments of the vacation.&lt;/p&gt;
+
+&lt;p&gt;I decided to combine my old love for little programming projects with this new found curiosity in the dynamic stress metric. Fortunately, Garmin has a wonderful &lt;a href=&quot;https://developer.garmin.com/&quot;&gt;software development kit&lt;/a&gt; and &lt;a href=&quot;https://forums.garmin.com/developer/connect-iq/&quot;&gt;detailed forums&lt;/a&gt; that allows one to create their own watch faces and apps. I set out to create a stress monitoring watch!&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, when programming the watch face, &lt;a href=&quot;https://forums.garmin.com/developer/connect-iq/f/discussion/286382/stress-and-heart-rate-in-low-power-mode&quot;&gt;one cannot get access to a ‘live’ stress metric&lt;/a&gt;. Therefore, I used the next best thing for displaying live stress data, which was the live heart rate, as these two fields are correlated. I created a watch face with a graph that displayed the heart rate for the past three minutes, and that refreshed every second. I colour coded the heart rate in the graph in order to communicate to the user when their heart rate was exceeding a resting rate. Take a look at the resulting watch face:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/watch_images/cropped.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This graph allows you to look into the history of your heart rate; to see if your heart rate is accelerating or decelerating. For the gif above, I modified the code to allow for playback of live recorded data, to demonstrate how the watch face works (it’s not actually measuring the pulse of the table). For the represented data, I started in a sitting position, stood up did some jumping jacks, and at last I sat back down. My heart started at a resting rate in the 40’s/50’s and then went up to the 90’s, and then went back down to resting. The gif shows minute by minute updates. The live scroll can only last &lt;a href=&quot;https://forums.garmin.com/outdoor-recreation/outdoor-recreation/f/fenix-7-series/291191/hi-power-mode/1405564#1405564&quot;&gt;10 seconds at a time&lt;/a&gt;, when the watch is ‘active’, due to a strict battery saving restriction implemented by Garmin. During the live scroll, the graph shifts pixel by pixel, with the right most data containing the latest heart rate. If you want the latest graph data at any time, then you just have to ‘activate’ your watch using the wrist gesture (demonstrated below - as the watch is activated the screen turns on and the graph starts displaying live heart data and at the end the watch goes back to ‘sleep’ mode).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/watch_images/activate_watch.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Outside of my heart rate during jumping jacks, I observed many interesting things. Most captivating to me was my heart rate in a sitting and working context; one’s heart beats per minute can be in the 40’s or the 80’s, all while doing the exact same thing. One’s heart rate can drift away very easily from a steady rest rate to an elevated rate. Get carried away with a thought and next thing you know your heart rate went from the 40’s to the 70’s over the span of a minute. My heart rate is the calmest when I am deeply focused on a topic.&lt;/p&gt;
+
+&lt;p&gt;These observations inspired the following two questions: How do I go from one heart rate to another, and how do I become more self aware of my body? I will not go into the details of the experiments that followed these questions, as this is not a health blog, but will mention that breathing techniques were very helpful. Having this new, easy access to my heart rate and its recent history, I was able to learn a lot and continue to learn much.&lt;/p&gt;
+
+&lt;p&gt;This observation process worked in a feedback loop; as you read the data that is coming to you about your body, you modify your behaviour (like breathing) or environment, to see if you can register a different response from your body (lower heart rate for example). Yes, it is likely and most definitely true: there are many papers on this topic describing how effective it is or not for tracking stress. However, at the time I was too excited to start coding on this project and decided not to get bogged down in the academic papers, and their potentially uncertain conclusions. &lt;a href=&quot;https://www.youtube.com/watch?v=U2RpBeHJ33s&quot;&gt;Here&lt;/a&gt; is a video of another project dealing with this feedback mechanism.&lt;/p&gt;
+
+&lt;p&gt;Programming the watch face was not a linear process. There were many uncertainties and unknowns along the way. For some of these unknowns I was not sure if the project could be finished, while for some others it was just a matter of debugging. Just as my heart rate went up and down, so did my concern for the project’s feasibility. The milestones of uncertainty in order of thought were the following:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;“Is programming a custom watch face even possible?”&lt;/li&gt;
+  &lt;li&gt;“How do I get my environment setup?”&lt;/li&gt;
+  &lt;li&gt;“How do I get a basic app going?”&lt;/li&gt;
+  &lt;li&gt;“How do I print some text?”&lt;/li&gt;
+  &lt;li&gt;“How do I add military time?”&lt;/li&gt;
+  &lt;li&gt;“How do I transfer the custom watch face to my watch face?”&lt;/li&gt;
+  &lt;li&gt;“What data structure should I use to store incoming heart rate data?”&lt;/li&gt;
+  &lt;li&gt;“How do I add some tests to make sure the data structure is solid?”&lt;/li&gt;
+  &lt;li&gt;“Can I get live stress data for every second?”&lt;/li&gt;
+  &lt;li&gt;“What about heart data?”&lt;/li&gt;
+  &lt;li&gt;“How do I deal with this ‘out of memory’ error?”&lt;/li&gt;
+  &lt;li&gt;“Can I get the watch to display a live graph all the time, or only ten seconds at a time?”&lt;/li&gt;
+  &lt;li&gt;“How do I make this graph look nice?”&lt;/li&gt;
+  &lt;li&gt;“How do I add custom fonts to my watch face?”&lt;/li&gt;
+  &lt;li&gt;“Which colours are available for my watch face and how do I assign them per increasing heart rate range?”&lt;/li&gt;
+  &lt;li&gt;“How do I align everything on my watch to my taste?”&lt;/li&gt;
+  &lt;li&gt;“What range of heart rate history should I add to my watch: 10, 5 or 3 minutes?”&lt;/li&gt;
+  &lt;li&gt;“How do I want to organize and clean up the code to make a public repository to share with others?”&lt;/li&gt;
+  &lt;li&gt;“What do I want to write in a blog post about the watch face to share with my friends?”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I wrote these series of questions down for the non-technical reader (you?) to bring them along with me on this journey. They weren’t really that “serious” or cliff hanger like. For any programming project this is a common process, especially for those projects which are do-it-yourself. I am sure you encounter these thought paths in the various projects you work on. For a more “serious” project I would spend more time in the planning phase - here I was just itching to start coding right away!&lt;/p&gt;
+
+&lt;p&gt;For the technical reader, who is looking to create their own watch face, Garmin provides the ability to &lt;a href=&quot;https://medium.com/@JoshuaTheMiller/making-a-watchface-for-garmin-devices-8c3ce28cae08&quot;&gt;simulate your watch&lt;/a&gt; on the computer, so the development becomes very quick. The programming is straight forward, and Github &amp;amp; Garmin forums provide a plethora of examples to assist you in your project. The code I wrote can be found &lt;a href=&quot;https://github.com/mannyray/StressWatchFaces&quot;&gt;here&lt;/a&gt;. In regard to the code, I was most satisfied with the the &lt;a href=&quot;https://github.com/mannyray/StressWatchFace/blob/master/source/DataLinkedList.mc&quot;&gt;data structure&lt;/a&gt; used in storing the incoming heart rate. For this structure I used an array as a linked list for ease of handling fresh/stale data, with the added condition that the data entries in the array are equally spaced apart in time, and that there is logic to handle spotty/missing data. In addition, I implemented &lt;a href=&quot;https://github.com/mannyray/StressWatchFace/blob/master/source/DataLinkedListTest.mc&quot;&gt;tests for the data structure&lt;/a&gt; ,to give confidence in its usability, and therefore allow for reuse of the code in other applications with live sensor data. The &lt;a href=&quot;https://github.com/mannyray/StressWatchFace/blob/master/source/MannyrayWatchFaceView.mc#L360&quot;&gt;graph code here&lt;/a&gt; turned out very aesthetically pleasing. I was happy to conquer this, as one of my the concerns when coding up the watch was &lt;em&gt;“will it look good?”&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;There are lots of ways to customize the aesthetics of your watch face programmatically. Many other custom watch faces can be found in Garmin’s &lt;a href=&quot;https://apps.garmin.com/en-US/&quot;&gt;app store&lt;/a&gt;, which has all sorts of applications like &lt;a href=&quot;https://support.garmin.com/en-CA/?faq=mE1Jmwvzd84s9YuDqa3GB7&quot;&gt;finding your phone&lt;/a&gt;, &lt;a href=&quot;https://apps.garmin.com/en-US/apps/503a3260-3a13-43f4-96d5-081930a46078&quot;&gt;finding your car&lt;/a&gt;, &lt;a href=&quot;https://apps.garmin.com/en-US/apps/d5228d46-886e-49c0-a9bf-7eabd537a8d2&quot;&gt;displaying the latest bitcoin price&lt;/a&gt;, &lt;a href=&quot;https://apps.garmin.com/en-US/apps/00aa0c38-6eed-4822-89b0-01b4bdab2501&quot;&gt;marine autopilot&lt;/a&gt; and many a styled, refined, and exquisite watch faces to match one’s taste.&lt;/p&gt;
+
+&lt;p&gt;Perhaps some version of my watch face design was already created and lost to time amongst the thousands of other watch faces in the app store. Regardless, I viewed the exercise of creating a watch face very useful to me, as it was a foray into creating other additional Garmin apps and watch faces.&lt;/p&gt;
+
+&lt;p&gt;I am still interested in getting access to a ‘live’ stress metric for which I already have already some leading links (&lt;a href=&quot;https://github.com/vtrifonov-esfiddle/TestHrv&quot;&gt;1&lt;/a&gt;, &lt;a href=&quot;https://forums.garmin.com/developer/connect-iq/f/discussion/235708/getting-started-in-monkey-c-with-hrv&quot;&gt;2&lt;/a&gt;, &lt;a href=&quot;https://forums.garmin.com/developer/connect-iq/f/discussion/233162/hrv-rr-intervals-api&quot;&gt;3&lt;/a&gt;). Furthermore, the watch can be connected to custom mobile apps via Garmin’s &lt;a href=&quot;https://developer.garmin.com/connect-iq/core-topics/mobile-sdk-for-android/&quot;&gt;Mobile SDK&lt;/a&gt;, which opens up an entire universe of internet-of-things related based applications.&lt;/p&gt;
+
+&lt;p&gt;Before we (the reader and I) get flooded with an ocean of ideas, I will mention that am glad I was able to focus on just one idea and see it through its completion. I am grateful to Garmin for providing me with a platform to able to create something like this. It is very easy nowadays to get amazing insight about one’s own body. However, I think it is important not to over index on all this. You don’t even need a watch to measure your heart rate.&lt;/p&gt;
+
+&lt;p&gt;Remember not to hunch over and obsess; don’t become a “Bionicle Man”.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 25 Dec 2023 06:00:00 -0600</pubDate>
+        <link>https://szonov.com/programming/2023/12/25/the-bionicle-man/</link>
+        <guid isPermaLink="true">https://szonov.com/programming/2023/12/25/the-bionicle-man/</guid>
+        
+        
+        <category>programming</category>
+        
+      </item>
     
       <item>
         <title>Photo Gallery</title>
@@ -693,26 +771,6 @@ git checkout benchmark_app
         <pubDate>Sun, 28 Mar 2021 16:00:00 -0500</pubDate>
         <link>https://szonov.com/programming/2021/03/28/prototype/</link>
         <guid isPermaLink="true">https://szonov.com/programming/2021/03/28/prototype/</guid>
-        
-        
-        <category>programming</category>
-        
-      </item>
-    
-      <item>
-        <title>First project</title>
-        <description>&lt;p&gt;Apologies - I have not posted for over a year. During this time, I have been busy working on a couple of projects that are not yet ready to share.&lt;/p&gt;
-
-&lt;p&gt;Last summer, I wrote a guide on how to setup a &lt;a href=&quot;https://github.com/mannyray/AWScommentSection&quot;&gt;comment section&lt;/a&gt; hosted on AWS as part of learning more about AWS’ DynamoDB and Lambda. I enjoyed creating the comment section. I decided against adding it to this site since I do not get much traffic here.&lt;/p&gt;
-
-&lt;p&gt;Found the output of my final project for my grade 10 computer science course (eleven years ago I think). The animation is supposed to be a Star Wars like scene. I remember being especially proud of the space battle between the two groups of ships as it looked suprisingly good. What was your first project?&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/starwars.gif&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Fri, 26 Feb 2021 07:00:00 -0600</pubDate>
-        <link>https://szonov.com/programming/2021/02/26/first-project/</link>
-        <guid isPermaLink="true">https://szonov.com/programming/2021/02/26/first-project/</guid>
         
         
         <category>programming</category>
