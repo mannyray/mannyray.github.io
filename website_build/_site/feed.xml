@@ -3,10 +3,10 @@
   <channel>
     <title>Stan Zonov</title>
     <description></description>
-    <link>https://szonov.com/</link>
-    <atom:link href="https://szonov.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 27 Jun 2024 23:42:58 -0500</pubDate>
-    <lastBuildDate>Thu, 27 Jun 2024 23:42:58 -0500</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Tue, 24 Sep 2024 23:45:19 -0500</pubDate>
+    <lastBuildDate>Tue, 24 Sep 2024 23:45:19 -0500</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
     
       <item>
@@ -47,7 +47,7 @@
   &lt;li&gt;Please forgive me if I forgot to mention something&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/bike_trip.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/bike_trip.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;I will be putting all the stuff into bike bags and attaching to my bike (bike bags are sometimes referred to as panniers). My bicycle is black with leather seat and leather handle bars like a black stallion. Pretending you are riding on horse like some sort of cavalry officer from back in the day makes the miles go by way faster (like teleportation)- super fun!&lt;/p&gt;
 
@@ -85,8 +85,8 @@
 
 </description>
         <pubDate>Sat, 11 May 2024 19:00:01 -0500</pubDate>
-        <link>https://szonov.com/programming/2024/05/11/what-is-leadership/</link>
-        <guid isPermaLink="true">https://szonov.com/programming/2024/05/11/what-is-leadership/</guid>
+        <link>http://localhost:4000/programming/2024/05/11/what-is-leadership/</link>
+        <guid isPermaLink="true">http://localhost:4000/programming/2024/05/11/what-is-leadership/</guid>
         
         
         <category>programming</category>
@@ -105,7 +105,7 @@
 
 &lt;p&gt;The stress metric is based on the heart rate and &lt;a href=&quot;https://medium.com/@altini_marco/the-ultimate-guide-to-heart-rate-variability-hrv-part-1-70a0a392fff4&quot;&gt;heart rate variability (hrv)&lt;/a&gt;. &lt;a href=&quot;https://www.garmin.com/en-US/garmin-technology/health-science/stress-tracking/&quot;&gt;Garmin&lt;/a&gt; scales the metrics from 0 to 100 in order of increasing stress. Below is a sample image of Garmin watch view of my stress during a morning where I had to go for an early flight. The calm, blue, below 25 stress occured when I was sleeping on the plane.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/watch_images/stress_view.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/watch_images/stress_view.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The stress metric was not immediately available from the watch’s resting face, and I had to press one of the side buttons to see the live data. I was so preoccupied with all of this that my friend nicknamed me the “Bionicle Man”. Half man, half robot - obsessed and hunched over my watch, looking at my metrics throughout all moments of the vacation.&lt;/p&gt;
 
@@ -113,11 +113,11 @@
 
 &lt;p&gt;Unfortunately, when programming the watch face, &lt;a href=&quot;https://forums.garmin.com/developer/connect-iq/f/discussion/286382/stress-and-heart-rate-in-low-power-mode&quot;&gt;one cannot get access to a ‘live’ stress metric&lt;/a&gt;. Therefore, I used the next best thing for displaying live stress data, which was the live heart rate, as these two fields are correlated. I created a watch face with a graph that displayed the heart rate for the past three minutes, and that refreshed every second. I colour coded the heart rate in the graph in order to communicate to the user when their heart rate was exceeding a resting rate. Take a look at the resulting watch face:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/watch_images/cropped.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/watch_images/cropped.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;This graph allows you to look into the history of your heart rate; to see if your heart rate is accelerating or decelerating. For the gif above, I modified the code to allow for playback of live recorded data, to demonstrate how the watch face works (it’s not actually measuring the pulse of the table). For the represented data, I started in a sitting position, stood up did some jumping jacks, and at last I sat back down. My heart started at a resting rate in the 40’s/50’s and then went up to the 90’s, and then went back down to resting. The gif shows minute by minute updates. The live scroll can only last &lt;a href=&quot;https://forums.garmin.com/outdoor-recreation/outdoor-recreation/f/fenix-7-series/291191/hi-power-mode/1405564#1405564&quot;&gt;10 seconds at a time&lt;/a&gt;, when the watch is ‘active’, due to a strict battery saving restriction implemented by Garmin. During the live scroll, the graph shifts pixel by pixel, with the right most data containing the latest heart rate. If you want the latest graph data at any time, then you just have to ‘activate’ your watch using the wrist gesture (demonstrated below - as the watch is activated the screen turns on and the graph starts displaying live heart data and at the end the watch goes back to ‘sleep’ mode).&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/watch_images/activate_watch.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/watch_images/activate_watch.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Outside of my heart rate during jumping jacks, I observed many interesting things. Most captivating to me was my heart rate in a sitting and working context; one’s heart beats per minute can be in the 40’s or the 80’s, all while doing the exact same thing. One’s heart rate can drift away very easily from a steady rest rate to an elevated rate. Get carried away with a thought and next thing you know your heart rate went from the 40’s to the 70’s over the span of a minute. My heart rate is the calmest when I am deeply focused on a topic.&lt;/p&gt;
 
@@ -163,8 +163,8 @@
 &lt;p&gt;Remember not to hunch over and obsess; don’t become a “Bionicle Man”.&lt;/p&gt;
 </description>
         <pubDate>Mon, 25 Dec 2023 06:00:00 -0600</pubDate>
-        <link>https://szonov.com/programming/2023/12/25/the-bionicle-man/</link>
-        <guid isPermaLink="true">https://szonov.com/programming/2023/12/25/the-bionicle-man/</guid>
+        <link>http://localhost:4000/programming/2023/12/25/the-bionicle-man/</link>
+        <guid isPermaLink="true">http://localhost:4000/programming/2023/12/25/the-bionicle-man/</guid>
         
         
         <category>programming</category>
@@ -184,8 +184,8 @@
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;&lt;img src=&quot;https://szonov.com/assets/photo_gallery_old_home.png&quot; alt=&quot;&quot; /&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;&lt;img src=&quot;https://szonov.com/assets/photo_gallery_new_home.png&quot; alt=&quot;&quot; /&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;img src=&quot;http://localhost:4000/assets/photo_gallery_old_home.png&quot; alt=&quot;&quot; /&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;img src=&quot;http://localhost:4000/assets/photo_gallery_new_home.png&quot; alt=&quot;&quot; /&gt;&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
@@ -201,8 +201,8 @@
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;&lt;img src=&quot;https://szonov.com/assets/photo_gallery_old_gallery_page.png&quot; alt=&quot;&quot; /&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;&lt;img src=&quot;https://szonov.com/assets/photo_gallery_new_gallery_page.png&quot; alt=&quot;&quot; /&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;img src=&quot;http://localhost:4000/assets/photo_gallery_old_gallery_page.png&quot; alt=&quot;&quot; /&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;img src=&quot;http://localhost:4000/assets/photo_gallery_new_gallery_page.png&quot; alt=&quot;&quot; /&gt;&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
@@ -224,8 +224,8 @@
 &lt;p&gt;I have a few other projects in mind for my website. One’s website is a fun and good way to motivate yourself to explore and to showcase your explorations. It is a little bit like who has the coolest lawn decorations and maybe considered a little self centered (I confess). I hope to not ‘smell my own farts’ too much here. My goal is to create tools and new processes and see if it helps others. The more the better.&lt;/p&gt;
 </description>
         <pubDate>Mon, 14 Nov 2022 18:00:00 -0600</pubDate>
-        <link>https://szonov.com/programming/2022/11/14/photo-gallery/</link>
-        <guid isPermaLink="true">https://szonov.com/programming/2022/11/14/photo-gallery/</guid>
+        <link>http://localhost:4000/programming/2022/11/14/photo-gallery/</link>
+        <guid isPermaLink="true">http://localhost:4000/programming/2022/11/14/photo-gallery/</guid>
         
         
         <category>programming</category>
@@ -238,11 +238,11 @@
 
 &lt;p&gt;I am starting to get the hang of making videos and will likely make more. I like the creativity involved and the opportunity to film non programming/technical stuff. Maybe next time I will make a video of me playing something on the piano. Stay tuned!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/hot_peppers.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/hot_peppers.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 12 Jul 2022 19:00:00 -0500</pubDate>
-        <link>https://szonov.com/planting/2022/07/12/hot-peppers/</link>
-        <guid isPermaLink="true">https://szonov.com/planting/2022/07/12/hot-peppers/</guid>
+        <link>http://localhost:4000/planting/2022/07/12/hot-peppers/</link>
+        <guid isPermaLink="true">http://localhost:4000/planting/2022/07/12/hot-peppers/</guid>
         
         
         <category>planting</category>
@@ -259,7 +259,7 @@
 
 &lt;p&gt;Please go &lt;a href=&quot;https://www.youtube.com/watch?v=PlVF_0MooQE&quot;&gt;here&lt;/a&gt; to see the video!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/photos/winnipeg/IMG_6151.JPG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/photos/winnipeg/IMG_6151.JPG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;In the video I reference code that I have written as part of the project. The code is all discussed in my previous few blog posts:&lt;/p&gt;
 &lt;ul&gt;
@@ -273,8 +273,8 @@
 
 </description>
         <pubDate>Wed, 02 Feb 2022 14:00:00 -0600</pubDate>
-        <link>https://szonov.com/programming/2022/02/02/train-pictures/</link>
-        <guid isPermaLink="true">https://szonov.com/programming/2022/02/02/train-pictures/</guid>
+        <link>http://localhost:4000/programming/2022/02/02/train-pictures/</link>
+        <guid isPermaLink="true">http://localhost:4000/programming/2022/02/02/train-pictures/</guid>
         
         
         <category>programming</category>
@@ -289,15 +289,15 @@
 
 &lt;p&gt;The tool can be used for tagging many pictures with ease and then later for searching for the images via tags. Here are some sample screenshots:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/react/manitoba.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/react/manitoba.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/react/search_2.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/react/search_2.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;It was great to learn React. It was unsual and the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setState&lt;/code&gt; command at times seemed like the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;goto&lt;/code&gt; command that I always thought was improper to use. It took some time to adjust. I am grateful for the learning experience.&lt;/p&gt;
 </description>
         <pubDate>Mon, 03 Jan 2022 11:00:00 -0600</pubDate>
-        <link>https://szonov.com/programming/2022/01/03/react-image-tagging/</link>
-        <guid isPermaLink="true">https://szonov.com/programming/2022/01/03/react-image-tagging/</guid>
+        <link>http://localhost:4000/programming/2022/01/03/react-image-tagging/</link>
+        <guid isPermaLink="true">http://localhost:4000/programming/2022/01/03/react-image-tagging/</guid>
         
         
         <category>programming</category>
@@ -310,7 +310,7 @@
 
 &lt;p&gt;In this blog post we will investigate the speed of TensorFlow Lite models on various Android phones. TensorFlow Lite models are efficient and portable TensorFlow models that are used in machine learning applications on mobile devices like Android phones. In our case we will investigate the models from previous &lt;a href=&quot;https://szonov.com/programming/2021/11/05/detecting-coins-with-tensorflow/&quot;&gt;blog post&lt;/a&gt; where the models generated can detect coins (see screenshot of app in action below).&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/detecting_coins/result.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/detecting_coins/result.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;We will test two TensorFlow Lite models&lt;/p&gt;
 &lt;ul&gt;
@@ -373,11 +373,11 @@ git checkout benchmark_app
 
 &lt;p&gt;You can filter for the exact processing times by filter specific &lt;a href=&quot;https://github.com/mannyray/tfliteCustomApp/blob/benchmark_app/app/src/main/java/org/tensorflow/lite/benchmark/detection/DetectorActivity.java#L225&quot;&gt;log line&lt;/a&gt; in Android Studio:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/tensorflow_lite_comparison/log.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/tensorflow_lite_comparison/log.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The phone will be connected via USB cable to computer in order to collect logs. The phone will be detecting same objects for duration of your experiment runtime. Once finishing running your app you can copy the logs to a file for later processing.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/tensorflow_lite_comparison/coins.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/tensorflow_lite_comparison/coins.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
 
@@ -385,17 +385,17 @@ git checkout benchmark_app
 
 &lt;p&gt;We introduce a new parameter, thread count, that can be specified in the app during runtime. We experiment with varying thread count to determine the best performance possible for a given cell phone as the performance varies with thread count. In the figure below we run the app on the phone for thirty seconds. The first 10 seconds are cut off as that is when the application is loading or one is modifying the thread count via UI and so the performance is not stable.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/tensorflow_lite_comparison/Figure_1.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/tensorflow_lite_comparison/Figure_1.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;From the figure we can observe that the performance varies significantly when varying thread count. In the case of Motorola One Action running the TensorFlow 2 model, we have the red line, representing four thread count, is the best performing configuration with average processing time of 75ms. When we decrease OR increase thread count from four we increase the processing time. For low and high thread count (1 or 6) we observe the variance in processing time has increased compared to the optimal thread count of four.&lt;/p&gt;
 
 &lt;p&gt;The previous image was specifically for Motorola One Action. What happens if we fix a TensorFlow Model and see how the various Android models perform? In the image below we plot the average one minute performance of each of the four cell phones on the TensorFlow 1 trained model while we vary the thread count.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/tensorflow_lite_comparison/Figure_2.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/tensorflow_lite_comparison/Figure_2.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The old Samsung J2 prime is so slow that we cannot really see how well the others are performing. We can tell that the other phones are much better with the Pixels being the best and near each other performance wise. Let us see what happens when we normalize each of the curves in the figure above based on its maximum value (we normalize each curve by dividing each value by the largest value present in the curve which reduces the values to range of zero to one):&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/tensorflow_lite_comparison/Figure_3.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/tensorflow_lite_comparison/Figure_3.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The maximum values are either with one thread count or six as that is where the cell phone is the most slowest. For all the cell phones we can tell that the optimal performance is somewhere in between one and six threads. For Motorola One Action and Pixel 4 we observe that the optimal time is twice as good as the worst processing time (0.5 ratio). We observe that some phones are optimal at three threads while others at four (Pixel 4 vs Motorola One Action).&lt;/p&gt;
 
@@ -443,7 +443,7 @@ git checkout benchmark_app
 
 &lt;p&gt;Let us assume your application is for tracking an object as it moves across a screen as it was in my &lt;a href=&quot;https://szonov.com/programming/2021/03/28/prototype/&quot;&gt;application&lt;/a&gt;. For the purpose of tracking I implemented a &lt;a href=&quot;https://github.com/mannyray/sort/&quot;&gt;Simple Online Realtime Tracking&lt;/a&gt; algorithm which is built on top of a Kalman Filter. In tracking applications, we need to make sure we have an accurate estimate of where our object is located. Our estimate of where the object is located depends on how frequently we obtain our measurements (among other things). For TensorFlow Lite models, the measurements are the bounding boxes around detected objects. In the video below observe the difference in lag of the bounding box as the thread count is increased and thus processing time.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=xOvVSYoBjm8&quot; title=&quot;Tensorflow tflite app lag example&quot;&gt;&lt;img src=&quot;https://szonov.com/assets/tensorflow_lite_comparison/coin_video.png&quot; alt=&quot;IMAGE ALT TEXT&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=xOvVSYoBjm8&quot; title=&quot;Tensorflow tflite app lag example&quot;&gt;&lt;img src=&quot;http://localhost:4000/assets/tensorflow_lite_comparison/coin_video.png&quot; alt=&quot;IMAGE ALT TEXT&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;An extreme example of tracking lag is if you are tracking an ant on the ground but you can only check once a minute. Last time you saw the ant, he was heading north. In a minute you expect him to be slightly north of where you last saw him. What if the ant turned west half way through the one minute? Now you have to search the ground for the ant. If you were checking once every 10 seconds you wouldn’t have to spend as much time looking for him even if he changed direction. Frequency of measurements is relevant to your ability to track. If we double the processing time from one phone model to the next (or from one TensorFlow model to the next) then this can have significant impact on you as your measurements are less frequent.&lt;/p&gt;
 
@@ -456,17 +456,17 @@ git checkout benchmark_app
 &lt;table&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;img src=&quot;https://szonov.com/assets/tensorflow_lite_comparison/target-160.png&quot; alt=&quot;img&quot; /&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;img src=&quot;https://szonov.com/assets/tensorflow_lite_comparison/target-175.png&quot; alt=&quot;img&quot; /&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;img src=&quot;https://szonov.com/assets/tensorflow_lite_comparison/target-188.png&quot; alt=&quot;img&quot; /&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;img src=&quot;https://szonov.com/assets/tensorflow_lite_comparison/target-200.png&quot; alt=&quot;img&quot; /&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;http://localhost:4000/assets/tensorflow_lite_comparison/target-160.png&quot; alt=&quot;img&quot; /&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;http://localhost:4000/assets/tensorflow_lite_comparison/target-175.png&quot; alt=&quot;img&quot; /&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;http://localhost:4000/assets/tensorflow_lite_comparison/target-188.png&quot; alt=&quot;img&quot; /&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;http://localhost:4000/assets/tensorflow_lite_comparison/target-200.png&quot; alt=&quot;img&quot; /&gt;&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
 &lt;p&gt;In the image below I plot the IOU as I increase the time difference between arriving measurements in a simulation I ran &lt;a href=&quot;https://github.com/mannyray/sort/tree/master/python_implementation/example&quot;&gt;here&lt;/a&gt; (see example 13). The increase in time between arriving measurements could represent increased processing time for TensorFlow model. Too much lag can significantly reduce IOU (see black line and red line). The stills from gif can help get an idea of significance of lower IOU.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/tensorflow_lite_comparison/lag_analysis.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/tensorflow_lite_comparison/lag_analysis.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;You can always tune the Kalman filter or Simple Online Realtime Tracking algorithm to account for slower processing time but it can be annoying especially if you are not familiar with the algorithm. The faster the TensorFlow model the less you need to rely on your Kalman filter. For examples on tuning please see my work &lt;a href=&quot;https://github.com/mannyray/sort/tree/master/python_implementation/example&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
@@ -474,15 +474,15 @@ git checkout benchmark_app
 
 &lt;p&gt;So far we have investigated processing time over a small period of time of thirty seconds. For tracking applications (or others) you may want to run your app for much longer. Let us see what happens when we increase runtime to fifteen minutes.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/tensorflow_lite_comparison/Figure_4.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/tensorflow_lite_comparison/Figure_4.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;In this case we are running the Pixel 4 with TensorFlow 2 model. The blue line is us running with a cooling fan while the orange is just the phone on its own. Images of the fan are below. It attaches to the phone directly.&lt;/p&gt;
 
 &lt;table&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;&lt;img src=&quot;https://szonov.com/assets/tensorflow_lite_comparison/cooler_1.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;img src=&quot;https://szonov.com/assets/tensorflow_lite_comparison/cooler_2.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;http://localhost:4000/assets/tensorflow_lite_comparison/cooler_1.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;http://localhost:4000/assets/tensorflow_lite_comparison/cooler_2.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
@@ -500,8 +500,8 @@ git checkout benchmark_app
 &lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/prototype/out.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Fri, 12 Nov 2021 11:00:00 -0600</pubDate>
-        <link>https://szonov.com/programming/2021/11/12/tensorflow-lite-speed-comparison/</link>
-        <guid isPermaLink="true">https://szonov.com/programming/2021/11/12/tensorflow-lite-speed-comparison/</guid>
+        <link>http://localhost:4000/programming/2021/11/12/tensorflow-lite-speed-comparison/</link>
+        <guid isPermaLink="true">http://localhost:4000/programming/2021/11/12/tensorflow-lite-speed-comparison/</guid>
         
         
         <category>programming</category>
@@ -512,9 +512,9 @@ git checkout benchmark_app
         <title>Detecting Coins with Tensorflow</title>
         <description>&lt;p&gt;Hello dear reader! I am very excited to share with you an Android app that can detect coins.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/detecting_coins/canada_coins.JPG&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/detecting_coins/canada_coins.JPG&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/detecting_coins/result.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/detecting_coins/result.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Here is a demonstration video of the app in action (click the image):&lt;/p&gt;
 
@@ -523,8 +523,8 @@ git checkout benchmark_app
 &lt;p&gt;The repository for the code can be found &lt;a href=&quot;https://github.com/mannyray/machineLearningStarter&quot;&gt;here&lt;/a&gt;. The repository is meant to provide a series of scripts and instructions on how to get started with Tensorflow tflite models on the Android.&lt;/p&gt;
 </description>
         <pubDate>Fri, 05 Nov 2021 17:00:00 -0500</pubDate>
-        <link>https://szonov.com/programming/2021/11/05/detecting-coins-with-tensorflow/</link>
-        <guid isPermaLink="true">https://szonov.com/programming/2021/11/05/detecting-coins-with-tensorflow/</guid>
+        <link>http://localhost:4000/programming/2021/11/05/detecting-coins-with-tensorflow/</link>
+        <guid isPermaLink="true">http://localhost:4000/programming/2021/11/05/detecting-coins-with-tensorflow/</guid>
         
         
         <category>programming</category>
@@ -537,15 +537,15 @@ git checkout benchmark_app
 
 &lt;p&gt;For my prototype, I would take a high resolution picture with the DSLR when the object was detected in a specific range. In the gif below, this range would be the yellow box and the objects are oranges.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/prototype/out.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/prototype/out.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;When a new orange enters the range box (scope) the Android app would send a take picture signal. In the image below is when the signal is taken.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/prototype/video_capture.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/prototype/video_capture.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;And here is the picture taken by the DSLR (prototype setup so value of picture not important):&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/prototype/IMG_6378.JPG&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/prototype/IMG_6378.JPG&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;how-does-one-track-an-object-as-it-moves-around-the-view-of-the-androids-camera&quot;&gt;How does one track an object as it moves around the view of the Android’s camera?&lt;/h3&gt;
 
@@ -581,8 +581,8 @@ git checkout benchmark_app
 &lt;p&gt;If you are a reader who is looking for a SORT algorihtm, I hope you find mine useful!&lt;/p&gt;
 </description>
         <pubDate>Mon, 30 Aug 2021 17:00:00 -0500</pubDate>
-        <link>https://szonov.com/programming/2021/08/30/simple-online-realtime-tracking/</link>
-        <guid isPermaLink="true">https://szonov.com/programming/2021/08/30/simple-online-realtime-tracking/</guid>
+        <link>http://localhost:4000/programming/2021/08/30/simple-online-realtime-tracking/</link>
+        <guid isPermaLink="true">http://localhost:4000/programming/2021/08/30/simple-online-realtime-tracking/</guid>
         
         
         <category>programming</category>
@@ -597,7 +597,7 @@ git checkout benchmark_app
 
 &lt;p&gt;Here is a view of the deployed system:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/schema.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dlsr_control/schema.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
@@ -617,17 +617,17 @@ git checkout benchmark_app
 
 &lt;p&gt;In this blog I will be using the Canon M100.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/m100.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dlsr_control/m100.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;In the case of the M100, the camera has a limitation on how long you can take time-lapse photos for. In the image below, three screenshots from the M100 configuration screen show that you can set to take photos every 2 to 4 seconds and up to 900 shots. Combining the two upper limits you can only takes a time-lapse spanning an hour in time.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/camera_settings.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dlsr_control/camera_settings.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;What if you want to take a time-lapse of a full day? With the use of a battery cable and this setup you can overcome such limitations. The Android acts as user interface enhancement instead of using gphoto2 commandline directly on the Raspberry Pi.&lt;/p&gt;
 
 &lt;p&gt;M100 battery cable:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/wired_battery.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dlsr_control/wired_battery.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;the-camera-manufacturer-provided-android-app-is-not-sufficient&quot;&gt;The camera manufacturer provided Android app is not sufficient&lt;/h3&gt;
 
@@ -649,19 +649,19 @@ git checkout benchmark_app
 
 &lt;p&gt;Connect the camera to the Raspberry Pi. In the case of the M100, I use the USB to mini USB B. Cable below:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/wire.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dlsr_control/wire.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The mini USB B port on the M100 is pictured below.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/port.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dlsr_control/port.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The result will look something like this:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/connection.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dlsr_control/connection.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Turn your camera on and see if your camera has a setting to stay on without sleeping. On the M100 the setting looks like:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/never_off.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dlsr_control/never_off.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;In the Raspberry Pi terminal run&lt;/p&gt;
 
@@ -674,7 +674,7 @@ git checkout benchmark_app
 &amp;gt;trigger-capture
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/initial_connection.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dlsr_control/initial_connection.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Sometimes taking pictures will fail. In the image above, the failure was due to camera not focusing while in auto focus mode. For the second picture, I had to make sure I had better lighting.&lt;/p&gt;
 
@@ -723,15 +723,15 @@ git checkout benchmark_app
 
 &lt;p&gt;For illustration purposes I have setup the Raspberry Pi and camera.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/test_setup.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dlsr_control/test_setup.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The camera is connected to the Raspberry Pi and the battery is cable powered.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/camera_test_setup.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dlsr_control/camera_test_setup.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The test subject image here is a map of Winnipeg:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/camera_test_subject.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dlsr_control/camera_test_subject.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The Bluetooth server on the Raspberry Pi is running and waiting for a connection.&lt;/p&gt;
 
@@ -739,33 +739,33 @@ git checkout benchmark_app
 
 &lt;p&gt;Now let us launch the Android application which is called “Bluetooth”. The landing page will look like&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/landing_page.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dlsr_control/landing_page.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Here is me holding the phone:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/view_of_phone.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dlsr_control/view_of_phone.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;After pressing connect you will be redicted to&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/choose_page.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dlsr_control/choose_page.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;And the Raspberry Pi will accept the connection:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/bluetooth_server_waiting.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dlsr_control/bluetooth_server_waiting.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;When selecting “Single picture” and pressing the camera button you will see:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/picture_taken.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dlsr_control/picture_taken.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The Bluetooth server will reflect these pictures taken:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/bluetooth_server_picture_taken.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dlsr_control/bluetooth_server_picture_taken.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The picture is also saved to the SD card of the camera.&lt;/p&gt;
 
 &lt;p&gt;The other option here is to take a time-lapse:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/time_lapse.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dlsr_control/time_lapse.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The “Shutdown Signal” is for when you want to disconnect and quit the Bluetooth server. The app will then redict you back to the landing page.&lt;/p&gt;
 
@@ -773,15 +773,15 @@ git checkout benchmark_app
 
 &lt;p&gt;Here is an example of the time-lapse feature. After the pictures were taken I combined them to form a gif. Earlier, I suggested that the M100’s time-lapse feature could be extended for a whole day. I was a bit lazy to do that for this post and did something that is quicker and would take up less memory:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/sand.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/dlsr_control/sand.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Now the skeptical reader might ask: “Why do you need an Android app to send a single command to start executing a time-lapse or even a single photograph? Why not modify &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;server.py&lt;/code&gt; and run the code straight on the Raspberry Pi?”&lt;/p&gt;
 
 &lt;p&gt;It is true. In such cases the phone is unnecessary. I could just run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gphoto2 --shell&lt;/code&gt; in the terminal. However, for applications where you need more advance features, the Android phone is very versatile. In this &lt;a href=&quot;https://szonov.com/programming/2021/03/28/prototype/&quot;&gt;post&lt;/a&gt; I describe such an advanced application that builds on top of the logic introduced here by using the phone’s camera and a Tensorflow model. This post is supposed to provide starting code and general introduction to combining the phone, camera and Raspberry Pi together. Happy hacking!&lt;/p&gt;
 </description>
         <pubDate>Sun, 15 Aug 2021 07:00:00 -0500</pubDate>
-        <link>https://szonov.com/programming/2021/08/15/controlling-dslr-using-android-app-raspberry-pi-and-gphoto2/</link>
-        <guid isPermaLink="true">https://szonov.com/programming/2021/08/15/controlling-dslr-using-android-app-raspberry-pi-and-gphoto2/</guid>
+        <link>http://localhost:4000/programming/2021/08/15/controlling-dslr-using-android-app-raspberry-pi-and-gphoto2/</link>
+        <guid isPermaLink="true">http://localhost:4000/programming/2021/08/15/controlling-dslr-using-android-app-raspberry-pi-and-gphoto2/</guid>
         
         
         <category>programming</category>

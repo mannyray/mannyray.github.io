@@ -4,13 +4,15 @@ title: About
 permalink: /about/
 ---
 
-Hello! I am a University of Waterloo graduate of [Honours Computer Science, Joint Applied Mathematics]({{site.url}}/courses/) and [Masters of Mathematics](https://uwspace.uwaterloo.ca/handle/10012/14740). After finishing my studies, I biked across [Canada](https://twotired.ca). Four years later, I am in [Winnipeg]({{ site.url }}/photos/winnipeg/) working as a software development engineer.
+Hello!
 
-Life in Winnipeg is divided into two seasons: winter and summer. During the summer I enjoy long distance cycling and gardening while during the winter I enjoy skating and cross country skiing. Year round I enjoy working on various little programming projects which I share with you here on this website. I hope that my posts will inspire you to try something new.
+My name is Stan. I enjoy [cycling](https://twotired.ca/), [adventures]({{ site.url }}/programming/2024/05/11/what-is-leadership/), and [photography]({{ site.url }}/photos/)! I have a background in [software development](https://www.linkedin.com/in/stanzonov/), [computer science]({{ site.url }}/courses/), and [applied mathematics](https://uwspace.uwaterloo.ca/handle/10012/14740).
 
-Reach me at `hello at szonov dot com`.
+I have created this website to share stuff that I am working on and find interesting. I hope that my posts will inspire the readers to try something new.
 
+ Reach out to `hello at szonov dot com` if you have interesting thoughts, or ideas!
 
-![image]({{ site.url }}/assets/IMG_6309.JPG)
+![image]({{ site.url }}/assets/moped.png)
 
-Last updated 2023/12/25
+Last updated 2024/09/23
+
