@@ -1,48 +1,26 @@
 <style TYPE="text/css">
-/* For Mobile */
-@media screen and (max-width: 540px) {
-	.gallery-image-wrapper {
-		height: 75px;
-		width: 75px;
-		display: inline-block;
-		margin: 0em;
-		position: relative;
-	}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0%;
 }
 
-/* For Tablets */
-@media screen and (min-width: 540px){
-	.gallery-image-wrapper {
-		height: 200px;
-		width: 200px;
-		display: inline-block;
-		margin: 0em;
-		position: relative;
-	}
+.square {
+    aspect-ratio: 1/ 1;
+    display: flex;
+    align-items: center;
+    padding: 0%;
+    background-color: #FFFFFF;
+    color: #FFFFFF;
 }
 
-.gallery-image {
-	margin: auto;
-	position: absolute;
-	top: 0px;
-	bottom: 0px;
-	max-height: 100%;
-	max-width: 100%;
+.square img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
 }
-</style>
-
-
-<!--https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal_img-->
-<style>
-body {font-family: Arial, Helvetica, sans-serif;}
-
-#myImg {
-	border-radius: 5px;
-	cursor: pointer;
-	transition: 0.3s;
-}
-
-#myImg:hover {opacity: 0.7;}
 
 /* The Modal (background) */
 .modal {
@@ -126,52 +104,52 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 <p align="center">{{page.site_summary}}</p>
 
-<ul>
-
 {% for image_block in page.image_blocks %}
 	<p>{{page.date_block[forloop.index]}}</p>
-	{% for image_pair in image_block %}
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail{{image_pair['image']}}" class="gallery-image" alt="../{{image_pair['image']}}" src={{image_pair['thumbnail']}}></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
+    <div class="grid">
+        {% for image_pair in image_block %}
+                <div class="square">
+                    <img id="thumbnail{{image_pair['image']}}" alt="../{{image_pair['image']}}" src={{image_pair['thumbnail']}}></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
 
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
 
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail{{image_pair['image']}}");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "{{image_pair['image']}}";
-			captionText.innerHTML = "{{image_pair['caption']}}<br>See full <a href={{image_pair['image']}}>here</a>.";
-		}
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail{{image_pair['image']}}");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "{{image_pair['image']}}";
+                captionText.innerHTML = "{{image_pair['caption']}}<br>See full <a href={{image_pair['image']}}>here</a>.";
+            }
 
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
 
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
 
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	{% endfor %}
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        {% endfor %}
+    </div>
+
 {% endfor %}
-</ul>

@@ -190,6 +190,10 @@
 			<a class="page-link" href="/photos/">Photos</a>
 		
         
+		
+			
+		
+        
 	<a class="page-link" href="/">Blog</a>
       </div>
     </nav>
@@ -202,110 +206,164 @@
     <div class="page-content">
       <div class="wrapper">
         <style TYPE="text/css">
-/* For Mobile */
-@media screen and (max-width: 540px) {
-	.gallery-image-wrapper {
-		height: 75px;
-		width: 75px;
-		display: inline-block;
-		margin: 0.5em;
-		position: relative;
-		text-align: center;
-	}
-}
 
-/* For Tablets */
-@media screen and (min-width: 540px){
-	.gallery-image-wrapper {
-		height: 200px;
-		width: 200px;
-		display: inline-block;
-		margin: 0.5em;
-		position: relative;
-		text-align: center;	
-	}
-}
-
-.gallery-image {
-	margin: auto;
-	position: relative;
-	top: 0px;
-	bottom: 0px;
-	max-height: 100%;
-	max-width: 100%;
+.square {
+    float:left;
+    position: relative;
+    width: 48%;
+    margin:1%;
+    padding-bottom : 48%; /* = width for a 1:1 aspect ratio */
+    background-color:#1E1E1E;
+    overflow:hidden;
 }
 
 .centered {
 	border-width:3px;
 	border-style:solid;
-	border-color:coral; 
+	border-color:coral;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	background-color: coral
 }
+    
+.bg{
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size:cover; /* you change this to "contain" if you don't want the images to be cropped */
+    color:#fff;
+}
+    
+.content {
+    position:absolute;
+    height:90%; /* = 100% - 2*5% padding */
+    width:90%; /* = 100% - 2*5% padding */
+    padding: 5%;
+    
+}
+
+.table{
+    display:table;
+    width:100%;
+    height:100%;
+}
+
+.table-cell{
+    display:table-cell;
+    vertical-align:middle;
+}
+
+.centered {
+    border-width:3px;
+    border-style:solid;
+    border-color:coral;
+    position: absolute;
+    text-align:center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: coral
+}
+
 </style>
 
-<ul>
+    <div class="square bg" style="background-image: url('winnipeg/thumbnail/IMG_9895_thumb.JPG')">
+        <a href="winnipeg">
+            <div class="content">
+                <div class="table">
+                    <div class="table-cell">
+                        <p class="centered">Winnipeg</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
 
-	<div class="gallery-image-wrapper">
-		<a href="winnipeg">
-			<img id="thumbnail" class="gallery-image" alt="winnipeg"  src=winnipeg/thumbnail/IMG_9895_thumb.JPG></img>
-			<div class="centered">Winnipeg</div>
-		</a>
-	</div>
+    <div class="square bg" style="background-image: url('powell_river/thumbnail/IMG_6453_thumb.JPG')">
+        <a href="powell_river">
+            <div class="content">
+                <div class="table">
+                    <div class="table-cell">
+                        <p class="centered">Powell River</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
 
-	<div class="gallery-image-wrapper">
-		<a href="powell_river">
-			<img id="thumbnail" class="gallery-image" alt="powell_river"  src=powell_river/thumbnail/IMG_6453_thumb.JPG></img>
-			<div class="centered">Powell River</div>
-		</a>
-	</div>
+    <div class="square bg" style="background-image: url('russia/thumbnail/IMG_20180520_142759_thumb.jpg')">
+        <a href="russia">
+            <div class="content">
+                <div class="table">
+                    <div class="table-cell">
+                        <p class="centered">Russia</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
 
-	<div class="gallery-image-wrapper">
-		<a href="russia">
-			<img id="thumbnail" class="gallery-image" alt="russia"  src=russia/thumbnail/IMG_20180520_142759_thumb.jpg></img>
-			<div class="centered">Russia</div>
-		</a>
-	</div>
+    <div class="square bg" style="background-image: url('screaming_heads/thumbnail/IMG_0843_thumb.JPG')">
+        <a href="screaming_heads">
+            <div class="content">
+                <div class="table">
+                    <div class="table-cell">
+                        <p class="centered">Screaming Heads</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
 
-	<div class="gallery-image-wrapper">
-		<a href="screaming_heads">
-			<img id="thumbnail" class="gallery-image" alt="screaming_heads"  src=screaming_heads/thumbnail/IMG_0843_thumb.JPG></img>
-			<div class="centered">Screaming Heads</div>
-		</a>
-	</div>
+    <div class="square bg" style="background-image: url('greece/thumbnail/1D082C8B-8EEF-4016-8FB1-E439001CB521_1_105_c_thumb.JPG')">
+        <a href="greece">
+            <div class="content">
+                <div class="table">
+                    <div class="table-cell">
+                        <p class="centered">Greece</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
 
-	<div class="gallery-image-wrapper">
-		<a href="greece">
-			<img id="thumbnail" class="gallery-image" alt="greece"  src=greece/thumbnail/1D082C8B-8EEF-4016-8FB1-E439001CB521_1_105_c_thumb.JPG></img>
-			<div class="centered">Greece</div>
-		</a>
-	</div>
+    <div class="square bg" style="background-image: url('america/thumbnail/E2275E90-52E5-4652-8737-3D6640F995F3_1_105_c_thumb.JPG')">
+        <a href="america">
+            <div class="content">
+                <div class="table">
+                    <div class="table-cell">
+                        <p class="centered">America</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
 
-	<div class="gallery-image-wrapper">
-		<a href="america">
-			<img id="thumbnail" class="gallery-image" alt="america"  src=america/thumbnail/E2275E90-52E5-4652-8737-3D6640F995F3_1_105_c_thumb.JPG></img>
-			<div class="centered">America</div>
-		</a>
-	</div>
+    <div class="square bg" style="background-image: url('israel/thumbnail/094A6103_thumb.JPG')">
+        <a href="israel">
+            <div class="content">
+                <div class="table">
+                    <div class="table-cell">
+                        <p class="centered">Israel</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
 
-	<div class="gallery-image-wrapper">
-		<a href="israel">
-			<img id="thumbnail" class="gallery-image" alt="israel"  src=israel/thumbnail/094A6103_thumb.JPG></img>
-			<div class="centered">Israel</div>
-		</a>
-	</div>
+    <div class="square bg" style="background-image: url('italy/thumbnail/PXL_20230726_072600257_thumb.jpg')">
+        <a href="italy">
+            <div class="content">
+                <div class="table">
+                    <div class="table-cell">
+                        <p class="centered">Italy</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
 
-	<div class="gallery-image-wrapper">
-		<a href="italy">
-			<img id="thumbnail" class="gallery-image" alt="italy"  src=italy/thumbnail/PXL_20230726_072600257_thumb.jpg></img>
-			<div class="centered">Italy</div>
-		</a>
-	</div>
-
-</ul>
 
       </div>
     </div>

@@ -190,6 +190,10 @@
 			<a class="page-link" href="/photos/">Photos</a>
 		
         
+		
+			
+		
+        
 	<a class="page-link" href="/">Blog</a>
       </div>
     </nav>
@@ -202,50 +206,28 @@
     <div class="page-content">
       <div class="wrapper">
         <style TYPE="text/css">
-/* For Mobile */
-@media screen and (max-width: 540px) {
-	.gallery-image-wrapper {
-		height: 75px;
-		width: 75px;
-		display: inline-block;
-		margin: 0em;
-		position: relative;
-	}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0%;
 }
 
-/* For Tablets */
-@media screen and (min-width: 540px){
-	.gallery-image-wrapper {
-		height: 200px;
-		width: 200px;
-		display: inline-block;
-		margin: 0em;
-		position: relative;
-	}
+.square {
+    aspect-ratio: 1/ 1;
+    display: flex;
+    align-items: center;
+    padding: 0%;
+    background-color: #FFFFFF;
+    color: #FFFFFF;
 }
 
-.gallery-image {
-	margin: auto;
-	position: absolute;
-	top: 0px;
-	bottom: 0px;
-	max-height: 100%;
-	max-width: 100%;
+.square img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
 }
-</style>
-
-
-<!--https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal_img-->
-<style>
-body {font-family: Arial, Helvetica, sans-serif;}
-
-#myImg {
-	border-radius: 5px;
-	cursor: pointer;
-	transition: 0.3s;
-}
-
-#myImg:hover {opacity: 0.7;}
 
 /* The Modal (background) */
 .modal {
@@ -329,1525 +311,1525 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 <p align="center"></p>
 
-<ul>
-
 
 	<p>2024-8</p>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail2B53271B-6A4C-4082-899A-5B6969D11BF6_1_105_c.JPG" class="gallery-image" alt="../2B53271B-6A4C-4082-899A-5B6969D11BF6_1_105_c.JPG" src=thumbnail/2B53271B-6A4C-4082-899A-5B6969D11BF6_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail2B53271B-6A4C-4082-899A-5B6969D11BF6_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "2B53271B-6A4C-4082-899A-5B6969D11BF6_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=2B53271B-6A4C-4082-899A-5B6969D11BF6_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail2E4CF650-1434-4BF2-A4E0-27BFF39E6B87_1_105_c.JPG" class="gallery-image" alt="../2E4CF650-1434-4BF2-A4E0-27BFF39E6B87_1_105_c.JPG" src=thumbnail/2E4CF650-1434-4BF2-A4E0-27BFF39E6B87_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail2E4CF650-1434-4BF2-A4E0-27BFF39E6B87_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "2E4CF650-1434-4BF2-A4E0-27BFF39E6B87_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=2E4CF650-1434-4BF2-A4E0-27BFF39E6B87_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail3FEBDE0B-0BDE-456F-9063-3899F5A0EB62_1_105_c.JPG" class="gallery-image" alt="../3FEBDE0B-0BDE-456F-9063-3899F5A0EB62_1_105_c.JPG" src=thumbnail/3FEBDE0B-0BDE-456F-9063-3899F5A0EB62_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail3FEBDE0B-0BDE-456F-9063-3899F5A0EB62_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "3FEBDE0B-0BDE-456F-9063-3899F5A0EB62_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=3FEBDE0B-0BDE-456F-9063-3899F5A0EB62_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail4B1EA5D6-4881-4ECC-937B-F5EC8F4CED06_1_105_c.JPG" class="gallery-image" alt="../4B1EA5D6-4881-4ECC-937B-F5EC8F4CED06_1_105_c.JPG" src=thumbnail/4B1EA5D6-4881-4ECC-937B-F5EC8F4CED06_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail4B1EA5D6-4881-4ECC-937B-F5EC8F4CED06_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "4B1EA5D6-4881-4ECC-937B-F5EC8F4CED06_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=4B1EA5D6-4881-4ECC-937B-F5EC8F4CED06_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail4B67295F-0EFE-45B9-9F83-69043786D20D_1_105_c.JPG" class="gallery-image" alt="../4B67295F-0EFE-45B9-9F83-69043786D20D_1_105_c.JPG" src=thumbnail/4B67295F-0EFE-45B9-9F83-69043786D20D_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail4B67295F-0EFE-45B9-9F83-69043786D20D_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "4B67295F-0EFE-45B9-9F83-69043786D20D_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=4B67295F-0EFE-45B9-9F83-69043786D20D_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail04F85B69-A190-4391-A7A9-3746FD493AFD_1_105_c.JPG" class="gallery-image" alt="../04F85B69-A190-4391-A7A9-3746FD493AFD_1_105_c.JPG" src=thumbnail/04F85B69-A190-4391-A7A9-3746FD493AFD_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail04F85B69-A190-4391-A7A9-3746FD493AFD_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "04F85B69-A190-4391-A7A9-3746FD493AFD_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=04F85B69-A190-4391-A7A9-3746FD493AFD_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail7DD3C2B7-3DC9-478A-AE97-858F2D99305D_1_105_c.JPG" class="gallery-image" alt="../7DD3C2B7-3DC9-478A-AE97-858F2D99305D_1_105_c.JPG" src=thumbnail/7DD3C2B7-3DC9-478A-AE97-858F2D99305D_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail7DD3C2B7-3DC9-478A-AE97-858F2D99305D_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "7DD3C2B7-3DC9-478A-AE97-858F2D99305D_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=7DD3C2B7-3DC9-478A-AE97-858F2D99305D_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail8B7C80DC-3752-4C6D-8A33-D13E57FD6307_1_105_c.JPG" class="gallery-image" alt="../8B7C80DC-3752-4C6D-8A33-D13E57FD6307_1_105_c.JPG" src=thumbnail/8B7C80DC-3752-4C6D-8A33-D13E57FD6307_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail8B7C80DC-3752-4C6D-8A33-D13E57FD6307_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "8B7C80DC-3752-4C6D-8A33-D13E57FD6307_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=8B7C80DC-3752-4C6D-8A33-D13E57FD6307_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail9B44E5C5-A4D2-4D6E-A991-9A488ABF08C4_1_105_c.JPG" class="gallery-image" alt="../9B44E5C5-A4D2-4D6E-A991-9A488ABF08C4_1_105_c.JPG" src=thumbnail/9B44E5C5-A4D2-4D6E-A991-9A488ABF08C4_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail9B44E5C5-A4D2-4D6E-A991-9A488ABF08C4_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "9B44E5C5-A4D2-4D6E-A991-9A488ABF08C4_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=9B44E5C5-A4D2-4D6E-A991-9A488ABF08C4_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail9CDCADBF-54E2-4917-B24A-2F52311558C6_1_105_c.JPG" class="gallery-image" alt="../9CDCADBF-54E2-4917-B24A-2F52311558C6_1_105_c.JPG" src=thumbnail/9CDCADBF-54E2-4917-B24A-2F52311558C6_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail9CDCADBF-54E2-4917-B24A-2F52311558C6_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "9CDCADBF-54E2-4917-B24A-2F52311558C6_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=9CDCADBF-54E2-4917-B24A-2F52311558C6_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail011EECE6-82AE-452C-8797-467303D201B3_1_105_c.JPG" class="gallery-image" alt="../011EECE6-82AE-452C-8797-467303D201B3_1_105_c.JPG" src=thumbnail/011EECE6-82AE-452C-8797-467303D201B3_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail011EECE6-82AE-452C-8797-467303D201B3_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "011EECE6-82AE-452C-8797-467303D201B3_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=011EECE6-82AE-452C-8797-467303D201B3_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail46A472CF-9B47-4B75-A446-60D5EE1C3406_1_105_c.JPG" class="gallery-image" alt="../46A472CF-9B47-4B75-A446-60D5EE1C3406_1_105_c.JPG" src=thumbnail/46A472CF-9B47-4B75-A446-60D5EE1C3406_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail46A472CF-9B47-4B75-A446-60D5EE1C3406_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "46A472CF-9B47-4B75-A446-60D5EE1C3406_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=46A472CF-9B47-4B75-A446-60D5EE1C3406_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail94D17B14-CF96-4473-9CF4-E44AB0086365_1_105_c.JPG" class="gallery-image" alt="../94D17B14-CF96-4473-9CF4-E44AB0086365_1_105_c.JPG" src=thumbnail/94D17B14-CF96-4473-9CF4-E44AB0086365_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail94D17B14-CF96-4473-9CF4-E44AB0086365_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "94D17B14-CF96-4473-9CF4-E44AB0086365_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=94D17B14-CF96-4473-9CF4-E44AB0086365_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail97CBB01D-3F7B-4D63-81E0-C4C7560B77ED_1_105_c.JPG" class="gallery-image" alt="../97CBB01D-3F7B-4D63-81E0-C4C7560B77ED_1_105_c.JPG" src=thumbnail/97CBB01D-3F7B-4D63-81E0-C4C7560B77ED_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail97CBB01D-3F7B-4D63-81E0-C4C7560B77ED_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "97CBB01D-3F7B-4D63-81E0-C4C7560B77ED_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=97CBB01D-3F7B-4D63-81E0-C4C7560B77ED_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail307BE64A-0603-4B7E-997E-D4705999623E_1_105_c.JPG" class="gallery-image" alt="../307BE64A-0603-4B7E-997E-D4705999623E_1_105_c.JPG" src=thumbnail/307BE64A-0603-4B7E-997E-D4705999623E_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail307BE64A-0603-4B7E-997E-D4705999623E_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "307BE64A-0603-4B7E-997E-D4705999623E_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=307BE64A-0603-4B7E-997E-D4705999623E_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail565E559E-B221-42DE-B390-0CC97C826F6C_1_105_c.JPG" class="gallery-image" alt="../565E559E-B221-42DE-B390-0CC97C826F6C_1_105_c.JPG" src=thumbnail/565E559E-B221-42DE-B390-0CC97C826F6C_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail565E559E-B221-42DE-B390-0CC97C826F6C_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "565E559E-B221-42DE-B390-0CC97C826F6C_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=565E559E-B221-42DE-B390-0CC97C826F6C_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail852DB5C9-69BF-43DD-BE2D-80B0FA8DB840_1_105_c.JPG" class="gallery-image" alt="../852DB5C9-69BF-43DD-BE2D-80B0FA8DB840_1_105_c.JPG" src=thumbnail/852DB5C9-69BF-43DD-BE2D-80B0FA8DB840_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail852DB5C9-69BF-43DD-BE2D-80B0FA8DB840_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "852DB5C9-69BF-43DD-BE2D-80B0FA8DB840_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=852DB5C9-69BF-43DD-BE2D-80B0FA8DB840_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail859F5912-7718-4DF8-AEF4-A267E99E8DF2_1_105_c.JPG" class="gallery-image" alt="../859F5912-7718-4DF8-AEF4-A267E99E8DF2_1_105_c.JPG" src=thumbnail/859F5912-7718-4DF8-AEF4-A267E99E8DF2_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail859F5912-7718-4DF8-AEF4-A267E99E8DF2_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "859F5912-7718-4DF8-AEF4-A267E99E8DF2_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=859F5912-7718-4DF8-AEF4-A267E99E8DF2_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail874E0878-471F-45D7-9DBF-74006EBF675D_1_105_c.JPG" class="gallery-image" alt="../874E0878-471F-45D7-9DBF-74006EBF675D_1_105_c.JPG" src=thumbnail/874E0878-471F-45D7-9DBF-74006EBF675D_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail874E0878-471F-45D7-9DBF-74006EBF675D_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "874E0878-471F-45D7-9DBF-74006EBF675D_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=874E0878-471F-45D7-9DBF-74006EBF675D_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail7902E66D-178F-46A9-94DC-AFD887020083_1_105_c.JPG" class="gallery-image" alt="../7902E66D-178F-46A9-94DC-AFD887020083_1_105_c.JPG" src=thumbnail/7902E66D-178F-46A9-94DC-AFD887020083_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail7902E66D-178F-46A9-94DC-AFD887020083_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "7902E66D-178F-46A9-94DC-AFD887020083_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=7902E66D-178F-46A9-94DC-AFD887020083_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail40828C1A-4DD6-4DEF-8DE1-D89DB6647555_1_105_c.JPG" class="gallery-image" alt="../40828C1A-4DD6-4DEF-8DE1-D89DB6647555_1_105_c.JPG" src=thumbnail/40828C1A-4DD6-4DEF-8DE1-D89DB6647555_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail40828C1A-4DD6-4DEF-8DE1-D89DB6647555_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "40828C1A-4DD6-4DEF-8DE1-D89DB6647555_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=40828C1A-4DD6-4DEF-8DE1-D89DB6647555_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail89561FB0-18C3-437A-B69B-81C886D3A0C6_1_105_c.JPG" class="gallery-image" alt="../89561FB0-18C3-437A-B69B-81C886D3A0C6_1_105_c.JPG" src=thumbnail/89561FB0-18C3-437A-B69B-81C886D3A0C6_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail89561FB0-18C3-437A-B69B-81C886D3A0C6_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "89561FB0-18C3-437A-B69B-81C886D3A0C6_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=89561FB0-18C3-437A-B69B-81C886D3A0C6_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnail953282B2-050B-4E0A-B9FF-9AE30523AA95_1_105_c.JPG" class="gallery-image" alt="../953282B2-050B-4E0A-B9FF-9AE30523AA95_1_105_c.JPG" src=thumbnail/953282B2-050B-4E0A-B9FF-9AE30523AA95_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnail953282B2-050B-4E0A-B9FF-9AE30523AA95_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "953282B2-050B-4E0A-B9FF-9AE30523AA95_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=953282B2-050B-4E0A-B9FF-9AE30523AA95_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnailA27CC1C6-F8E6-411F-B4B5-773D127C678C_1_105_c.JPG" class="gallery-image" alt="../A27CC1C6-F8E6-411F-B4B5-773D127C678C_1_105_c.JPG" src=thumbnail/A27CC1C6-F8E6-411F-B4B5-773D127C678C_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnailA27CC1C6-F8E6-411F-B4B5-773D127C678C_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "A27CC1C6-F8E6-411F-B4B5-773D127C678C_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=A27CC1C6-F8E6-411F-B4B5-773D127C678C_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnailB4CA911A-9589-4CB1-A932-D2B9BF295BFC_1_105_c.JPG" class="gallery-image" alt="../B4CA911A-9589-4CB1-A932-D2B9BF295BFC_1_105_c.JPG" src=thumbnail/B4CA911A-9589-4CB1-A932-D2B9BF295BFC_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnailB4CA911A-9589-4CB1-A932-D2B9BF295BFC_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "B4CA911A-9589-4CB1-A932-D2B9BF295BFC_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=B4CA911A-9589-4CB1-A932-D2B9BF295BFC_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnailB9C00A18-1322-4E6D-A4CD-79DC42A52CA1_1_105_c.JPG" class="gallery-image" alt="../B9C00A18-1322-4E6D-A4CD-79DC42A52CA1_1_105_c.JPG" src=thumbnail/B9C00A18-1322-4E6D-A4CD-79DC42A52CA1_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnailB9C00A18-1322-4E6D-A4CD-79DC42A52CA1_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "B9C00A18-1322-4E6D-A4CD-79DC42A52CA1_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=B9C00A18-1322-4E6D-A4CD-79DC42A52CA1_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnailB15B01D8-B79D-4F7C-B427-75C9CACD94DC_1_105_c.JPG" class="gallery-image" alt="../B15B01D8-B79D-4F7C-B427-75C9CACD94DC_1_105_c.JPG" src=thumbnail/B15B01D8-B79D-4F7C-B427-75C9CACD94DC_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnailB15B01D8-B79D-4F7C-B427-75C9CACD94DC_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "B15B01D8-B79D-4F7C-B427-75C9CACD94DC_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=B15B01D8-B79D-4F7C-B427-75C9CACD94DC_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnailB732B171-A7B3-44B6-8682-262C94369E01_1_105_c.JPG" class="gallery-image" alt="../B732B171-A7B3-44B6-8682-262C94369E01_1_105_c.JPG" src=thumbnail/B732B171-A7B3-44B6-8682-262C94369E01_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnailB732B171-A7B3-44B6-8682-262C94369E01_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "B732B171-A7B3-44B6-8682-262C94369E01_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=B732B171-A7B3-44B6-8682-262C94369E01_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnailBC29C02A-8C9A-4E25-8E4C-F69AEDC7849D_1_105_c.JPG" class="gallery-image" alt="../BC29C02A-8C9A-4E25-8E4C-F69AEDC7849D_1_105_c.JPG" src=thumbnail/BC29C02A-8C9A-4E25-8E4C-F69AEDC7849D_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnailBC29C02A-8C9A-4E25-8E4C-F69AEDC7849D_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "BC29C02A-8C9A-4E25-8E4C-F69AEDC7849D_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=BC29C02A-8C9A-4E25-8E4C-F69AEDC7849D_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnailC58B05E2-CDC5-4977-AAEB-567485354EDE_1_105_c.JPG" class="gallery-image" alt="../C58B05E2-CDC5-4977-AAEB-567485354EDE_1_105_c.JPG" src=thumbnail/C58B05E2-CDC5-4977-AAEB-567485354EDE_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnailC58B05E2-CDC5-4977-AAEB-567485354EDE_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "C58B05E2-CDC5-4977-AAEB-567485354EDE_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=C58B05E2-CDC5-4977-AAEB-567485354EDE_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnailCE4343EB-1FC8-4A83-8E74-2593EAADD1F2_1_105_c.JPG" class="gallery-image" alt="../CE4343EB-1FC8-4A83-8E74-2593EAADD1F2_1_105_c.JPG" src=thumbnail/CE4343EB-1FC8-4A83-8E74-2593EAADD1F2_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnailCE4343EB-1FC8-4A83-8E74-2593EAADD1F2_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "CE4343EB-1FC8-4A83-8E74-2593EAADD1F2_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=CE4343EB-1FC8-4A83-8E74-2593EAADD1F2_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnailD4464EA3-7CDA-4F50-BB52-8973F96748A4_1_105_c.JPG" class="gallery-image" alt="../D4464EA3-7CDA-4F50-BB52-8973F96748A4_1_105_c.JPG" src=thumbnail/D4464EA3-7CDA-4F50-BB52-8973F96748A4_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnailD4464EA3-7CDA-4F50-BB52-8973F96748A4_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "D4464EA3-7CDA-4F50-BB52-8973F96748A4_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=D4464EA3-7CDA-4F50-BB52-8973F96748A4_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnailE2275E90-52E5-4652-8737-3D6640F995F3_1_105_c.JPG" class="gallery-image" alt="../E2275E90-52E5-4652-8737-3D6640F995F3_1_105_c.JPG" src=thumbnail/E2275E90-52E5-4652-8737-3D6640F995F3_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnailE2275E90-52E5-4652-8737-3D6640F995F3_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "E2275E90-52E5-4652-8737-3D6640F995F3_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=E2275E90-52E5-4652-8737-3D6640F995F3_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnailEDA676EB-A986-4FA9-94FC-09ADC3D79625_1_105_c.JPG" class="gallery-image" alt="../EDA676EB-A986-4FA9-94FC-09ADC3D79625_1_105_c.JPG" src=thumbnail/EDA676EB-A986-4FA9-94FC-09ADC3D79625_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnailEDA676EB-A986-4FA9-94FC-09ADC3D79625_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "EDA676EB-A986-4FA9-94FC-09ADC3D79625_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=EDA676EB-A986-4FA9-94FC-09ADC3D79625_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnailF77CD1E5-8749-4C63-85A7-110AE428ACF3_1_105_c.JPG" class="gallery-image" alt="../F77CD1E5-8749-4C63-85A7-110AE428ACF3_1_105_c.JPG" src=thumbnail/F77CD1E5-8749-4C63-85A7-110AE428ACF3_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnailF77CD1E5-8749-4C63-85A7-110AE428ACF3_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "F77CD1E5-8749-4C63-85A7-110AE428ACF3_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=F77CD1E5-8749-4C63-85A7-110AE428ACF3_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-		<div class="gallery-image-wrapper">
-			<img id="thumbnailFBB919A1-E2F9-45DE-9FFB-2D45F52C04B8_1_105_c.JPG" class="gallery-image" alt="../FBB919A1-E2F9-45DE-9FFB-2D45F52C04B8_1_105_c.JPG" src=thumbnail/FBB919A1-E2F9-45DE-9FFB-2D45F52C04B8_1_105_c_thumb.JPG></img>
-			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
-				<img class="modal-content" id="img01">
-				<div id="caption"></div>
-			</div>
-		</div>
-
-		<script>
-		// Get the modal
-		var modal = document.getElementById("myModal");
-
-		// Get the image and insert it inside the modal - use its "alt" text as a caption
-		var img = document.getElementById("thumbnailFBB919A1-E2F9-45DE-9FFB-2D45F52C04B8_1_105_c.JPG");
-		var modalImg = document.getElementById("img01");
-		var captionText = document.getElementById("caption");
-		img.onclick = function(){
-			modal.style.display = "block";
-			modalImg.src = "FBB919A1-E2F9-45DE-9FFB-2D45F52C04B8_1_105_c.JPG";
-			captionText.innerHTML = "<br>See full <a href=FBB919A1-E2F9-45DE-9FFB-2D45F52C04B8_1_105_c.JPG>here</a>.";
-		}
-
-		modalImg.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		modal.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() { 
-			modal.style.display = "none";
-			modalImg.src = "none";
-		}
-		</script>
-	
-
-</ul>
+    <div class="grid">
+        
+                <div class="square">
+                    <img id="thumbnailFBB919A1-E2F9-45DE-9FFB-2D45F52C04B8_1_105_c.JPG" alt="../FBB919A1-E2F9-45DE-9FFB-2D45F52C04B8_1_105_c.JPG" src=thumbnail/FBB919A1-E2F9-45DE-9FFB-2D45F52C04B8_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnailFBB919A1-E2F9-45DE-9FFB-2D45F52C04B8_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "FBB919A1-E2F9-45DE-9FFB-2D45F52C04B8_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=FBB919A1-E2F9-45DE-9FFB-2D45F52C04B8_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail2E4CF650-1434-4BF2-A4E0-27BFF39E6B87_1_105_c.JPG" alt="../2E4CF650-1434-4BF2-A4E0-27BFF39E6B87_1_105_c.JPG" src=thumbnail/2E4CF650-1434-4BF2-A4E0-27BFF39E6B87_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail2E4CF650-1434-4BF2-A4E0-27BFF39E6B87_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "2E4CF650-1434-4BF2-A4E0-27BFF39E6B87_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=2E4CF650-1434-4BF2-A4E0-27BFF39E6B87_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail3FEBDE0B-0BDE-456F-9063-3899F5A0EB62_1_105_c.JPG" alt="../3FEBDE0B-0BDE-456F-9063-3899F5A0EB62_1_105_c.JPG" src=thumbnail/3FEBDE0B-0BDE-456F-9063-3899F5A0EB62_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail3FEBDE0B-0BDE-456F-9063-3899F5A0EB62_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "3FEBDE0B-0BDE-456F-9063-3899F5A0EB62_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=3FEBDE0B-0BDE-456F-9063-3899F5A0EB62_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail4B1EA5D6-4881-4ECC-937B-F5EC8F4CED06_1_105_c.JPG" alt="../4B1EA5D6-4881-4ECC-937B-F5EC8F4CED06_1_105_c.JPG" src=thumbnail/4B1EA5D6-4881-4ECC-937B-F5EC8F4CED06_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail4B1EA5D6-4881-4ECC-937B-F5EC8F4CED06_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "4B1EA5D6-4881-4ECC-937B-F5EC8F4CED06_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=4B1EA5D6-4881-4ECC-937B-F5EC8F4CED06_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail4B67295F-0EFE-45B9-9F83-69043786D20D_1_105_c.JPG" alt="../4B67295F-0EFE-45B9-9F83-69043786D20D_1_105_c.JPG" src=thumbnail/4B67295F-0EFE-45B9-9F83-69043786D20D_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail4B67295F-0EFE-45B9-9F83-69043786D20D_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "4B67295F-0EFE-45B9-9F83-69043786D20D_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=4B67295F-0EFE-45B9-9F83-69043786D20D_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail04F85B69-A190-4391-A7A9-3746FD493AFD_1_105_c.JPG" alt="../04F85B69-A190-4391-A7A9-3746FD493AFD_1_105_c.JPG" src=thumbnail/04F85B69-A190-4391-A7A9-3746FD493AFD_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail04F85B69-A190-4391-A7A9-3746FD493AFD_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "04F85B69-A190-4391-A7A9-3746FD493AFD_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=04F85B69-A190-4391-A7A9-3746FD493AFD_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail7DD3C2B7-3DC9-478A-AE97-858F2D99305D_1_105_c.JPG" alt="../7DD3C2B7-3DC9-478A-AE97-858F2D99305D_1_105_c.JPG" src=thumbnail/7DD3C2B7-3DC9-478A-AE97-858F2D99305D_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail7DD3C2B7-3DC9-478A-AE97-858F2D99305D_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "7DD3C2B7-3DC9-478A-AE97-858F2D99305D_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=7DD3C2B7-3DC9-478A-AE97-858F2D99305D_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail8B7C80DC-3752-4C6D-8A33-D13E57FD6307_1_105_c.JPG" alt="../8B7C80DC-3752-4C6D-8A33-D13E57FD6307_1_105_c.JPG" src=thumbnail/8B7C80DC-3752-4C6D-8A33-D13E57FD6307_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail8B7C80DC-3752-4C6D-8A33-D13E57FD6307_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "8B7C80DC-3752-4C6D-8A33-D13E57FD6307_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=8B7C80DC-3752-4C6D-8A33-D13E57FD6307_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail9B44E5C5-A4D2-4D6E-A991-9A488ABF08C4_1_105_c.JPG" alt="../9B44E5C5-A4D2-4D6E-A991-9A488ABF08C4_1_105_c.JPG" src=thumbnail/9B44E5C5-A4D2-4D6E-A991-9A488ABF08C4_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail9B44E5C5-A4D2-4D6E-A991-9A488ABF08C4_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "9B44E5C5-A4D2-4D6E-A991-9A488ABF08C4_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=9B44E5C5-A4D2-4D6E-A991-9A488ABF08C4_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail9CDCADBF-54E2-4917-B24A-2F52311558C6_1_105_c.JPG" alt="../9CDCADBF-54E2-4917-B24A-2F52311558C6_1_105_c.JPG" src=thumbnail/9CDCADBF-54E2-4917-B24A-2F52311558C6_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail9CDCADBF-54E2-4917-B24A-2F52311558C6_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "9CDCADBF-54E2-4917-B24A-2F52311558C6_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=9CDCADBF-54E2-4917-B24A-2F52311558C6_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail011EECE6-82AE-452C-8797-467303D201B3_1_105_c.JPG" alt="../011EECE6-82AE-452C-8797-467303D201B3_1_105_c.JPG" src=thumbnail/011EECE6-82AE-452C-8797-467303D201B3_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail011EECE6-82AE-452C-8797-467303D201B3_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "011EECE6-82AE-452C-8797-467303D201B3_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=011EECE6-82AE-452C-8797-467303D201B3_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail46A472CF-9B47-4B75-A446-60D5EE1C3406_1_105_c.JPG" alt="../46A472CF-9B47-4B75-A446-60D5EE1C3406_1_105_c.JPG" src=thumbnail/46A472CF-9B47-4B75-A446-60D5EE1C3406_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail46A472CF-9B47-4B75-A446-60D5EE1C3406_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "46A472CF-9B47-4B75-A446-60D5EE1C3406_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=46A472CF-9B47-4B75-A446-60D5EE1C3406_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail94D17B14-CF96-4473-9CF4-E44AB0086365_1_105_c.JPG" alt="../94D17B14-CF96-4473-9CF4-E44AB0086365_1_105_c.JPG" src=thumbnail/94D17B14-CF96-4473-9CF4-E44AB0086365_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail94D17B14-CF96-4473-9CF4-E44AB0086365_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "94D17B14-CF96-4473-9CF4-E44AB0086365_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=94D17B14-CF96-4473-9CF4-E44AB0086365_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail97CBB01D-3F7B-4D63-81E0-C4C7560B77ED_1_105_c.JPG" alt="../97CBB01D-3F7B-4D63-81E0-C4C7560B77ED_1_105_c.JPG" src=thumbnail/97CBB01D-3F7B-4D63-81E0-C4C7560B77ED_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail97CBB01D-3F7B-4D63-81E0-C4C7560B77ED_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "97CBB01D-3F7B-4D63-81E0-C4C7560B77ED_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=97CBB01D-3F7B-4D63-81E0-C4C7560B77ED_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail307BE64A-0603-4B7E-997E-D4705999623E_1_105_c.JPG" alt="../307BE64A-0603-4B7E-997E-D4705999623E_1_105_c.JPG" src=thumbnail/307BE64A-0603-4B7E-997E-D4705999623E_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail307BE64A-0603-4B7E-997E-D4705999623E_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "307BE64A-0603-4B7E-997E-D4705999623E_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=307BE64A-0603-4B7E-997E-D4705999623E_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail565E559E-B221-42DE-B390-0CC97C826F6C_1_105_c.JPG" alt="../565E559E-B221-42DE-B390-0CC97C826F6C_1_105_c.JPG" src=thumbnail/565E559E-B221-42DE-B390-0CC97C826F6C_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail565E559E-B221-42DE-B390-0CC97C826F6C_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "565E559E-B221-42DE-B390-0CC97C826F6C_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=565E559E-B221-42DE-B390-0CC97C826F6C_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail852DB5C9-69BF-43DD-BE2D-80B0FA8DB840_1_105_c.JPG" alt="../852DB5C9-69BF-43DD-BE2D-80B0FA8DB840_1_105_c.JPG" src=thumbnail/852DB5C9-69BF-43DD-BE2D-80B0FA8DB840_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail852DB5C9-69BF-43DD-BE2D-80B0FA8DB840_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "852DB5C9-69BF-43DD-BE2D-80B0FA8DB840_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=852DB5C9-69BF-43DD-BE2D-80B0FA8DB840_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail859F5912-7718-4DF8-AEF4-A267E99E8DF2_1_105_c.JPG" alt="../859F5912-7718-4DF8-AEF4-A267E99E8DF2_1_105_c.JPG" src=thumbnail/859F5912-7718-4DF8-AEF4-A267E99E8DF2_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail859F5912-7718-4DF8-AEF4-A267E99E8DF2_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "859F5912-7718-4DF8-AEF4-A267E99E8DF2_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=859F5912-7718-4DF8-AEF4-A267E99E8DF2_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail874E0878-471F-45D7-9DBF-74006EBF675D_1_105_c.JPG" alt="../874E0878-471F-45D7-9DBF-74006EBF675D_1_105_c.JPG" src=thumbnail/874E0878-471F-45D7-9DBF-74006EBF675D_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail874E0878-471F-45D7-9DBF-74006EBF675D_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "874E0878-471F-45D7-9DBF-74006EBF675D_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=874E0878-471F-45D7-9DBF-74006EBF675D_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail7902E66D-178F-46A9-94DC-AFD887020083_1_105_c.JPG" alt="../7902E66D-178F-46A9-94DC-AFD887020083_1_105_c.JPG" src=thumbnail/7902E66D-178F-46A9-94DC-AFD887020083_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail7902E66D-178F-46A9-94DC-AFD887020083_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "7902E66D-178F-46A9-94DC-AFD887020083_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=7902E66D-178F-46A9-94DC-AFD887020083_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail40828C1A-4DD6-4DEF-8DE1-D89DB6647555_1_105_c.JPG" alt="../40828C1A-4DD6-4DEF-8DE1-D89DB6647555_1_105_c.JPG" src=thumbnail/40828C1A-4DD6-4DEF-8DE1-D89DB6647555_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail40828C1A-4DD6-4DEF-8DE1-D89DB6647555_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "40828C1A-4DD6-4DEF-8DE1-D89DB6647555_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=40828C1A-4DD6-4DEF-8DE1-D89DB6647555_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail89561FB0-18C3-437A-B69B-81C886D3A0C6_1_105_c.JPG" alt="../89561FB0-18C3-437A-B69B-81C886D3A0C6_1_105_c.JPG" src=thumbnail/89561FB0-18C3-437A-B69B-81C886D3A0C6_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail89561FB0-18C3-437A-B69B-81C886D3A0C6_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "89561FB0-18C3-437A-B69B-81C886D3A0C6_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=89561FB0-18C3-437A-B69B-81C886D3A0C6_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail953282B2-050B-4E0A-B9FF-9AE30523AA95_1_105_c.JPG" alt="../953282B2-050B-4E0A-B9FF-9AE30523AA95_1_105_c.JPG" src=thumbnail/953282B2-050B-4E0A-B9FF-9AE30523AA95_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail953282B2-050B-4E0A-B9FF-9AE30523AA95_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "953282B2-050B-4E0A-B9FF-9AE30523AA95_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=953282B2-050B-4E0A-B9FF-9AE30523AA95_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnailA27CC1C6-F8E6-411F-B4B5-773D127C678C_1_105_c.JPG" alt="../A27CC1C6-F8E6-411F-B4B5-773D127C678C_1_105_c.JPG" src=thumbnail/A27CC1C6-F8E6-411F-B4B5-773D127C678C_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnailA27CC1C6-F8E6-411F-B4B5-773D127C678C_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "A27CC1C6-F8E6-411F-B4B5-773D127C678C_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=A27CC1C6-F8E6-411F-B4B5-773D127C678C_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnailB4CA911A-9589-4CB1-A932-D2B9BF295BFC_1_105_c.JPG" alt="../B4CA911A-9589-4CB1-A932-D2B9BF295BFC_1_105_c.JPG" src=thumbnail/B4CA911A-9589-4CB1-A932-D2B9BF295BFC_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnailB4CA911A-9589-4CB1-A932-D2B9BF295BFC_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "B4CA911A-9589-4CB1-A932-D2B9BF295BFC_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=B4CA911A-9589-4CB1-A932-D2B9BF295BFC_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnailB9C00A18-1322-4E6D-A4CD-79DC42A52CA1_1_105_c.JPG" alt="../B9C00A18-1322-4E6D-A4CD-79DC42A52CA1_1_105_c.JPG" src=thumbnail/B9C00A18-1322-4E6D-A4CD-79DC42A52CA1_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnailB9C00A18-1322-4E6D-A4CD-79DC42A52CA1_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "B9C00A18-1322-4E6D-A4CD-79DC42A52CA1_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=B9C00A18-1322-4E6D-A4CD-79DC42A52CA1_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnailB15B01D8-B79D-4F7C-B427-75C9CACD94DC_1_105_c.JPG" alt="../B15B01D8-B79D-4F7C-B427-75C9CACD94DC_1_105_c.JPG" src=thumbnail/B15B01D8-B79D-4F7C-B427-75C9CACD94DC_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnailB15B01D8-B79D-4F7C-B427-75C9CACD94DC_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "B15B01D8-B79D-4F7C-B427-75C9CACD94DC_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=B15B01D8-B79D-4F7C-B427-75C9CACD94DC_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnailB732B171-A7B3-44B6-8682-262C94369E01_1_105_c.JPG" alt="../B732B171-A7B3-44B6-8682-262C94369E01_1_105_c.JPG" src=thumbnail/B732B171-A7B3-44B6-8682-262C94369E01_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnailB732B171-A7B3-44B6-8682-262C94369E01_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "B732B171-A7B3-44B6-8682-262C94369E01_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=B732B171-A7B3-44B6-8682-262C94369E01_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnailBC29C02A-8C9A-4E25-8E4C-F69AEDC7849D_1_105_c.JPG" alt="../BC29C02A-8C9A-4E25-8E4C-F69AEDC7849D_1_105_c.JPG" src=thumbnail/BC29C02A-8C9A-4E25-8E4C-F69AEDC7849D_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnailBC29C02A-8C9A-4E25-8E4C-F69AEDC7849D_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "BC29C02A-8C9A-4E25-8E4C-F69AEDC7849D_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=BC29C02A-8C9A-4E25-8E4C-F69AEDC7849D_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnailC58B05E2-CDC5-4977-AAEB-567485354EDE_1_105_c.JPG" alt="../C58B05E2-CDC5-4977-AAEB-567485354EDE_1_105_c.JPG" src=thumbnail/C58B05E2-CDC5-4977-AAEB-567485354EDE_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnailC58B05E2-CDC5-4977-AAEB-567485354EDE_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "C58B05E2-CDC5-4977-AAEB-567485354EDE_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=C58B05E2-CDC5-4977-AAEB-567485354EDE_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnailCE4343EB-1FC8-4A83-8E74-2593EAADD1F2_1_105_c.JPG" alt="../CE4343EB-1FC8-4A83-8E74-2593EAADD1F2_1_105_c.JPG" src=thumbnail/CE4343EB-1FC8-4A83-8E74-2593EAADD1F2_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnailCE4343EB-1FC8-4A83-8E74-2593EAADD1F2_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "CE4343EB-1FC8-4A83-8E74-2593EAADD1F2_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=CE4343EB-1FC8-4A83-8E74-2593EAADD1F2_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnailD4464EA3-7CDA-4F50-BB52-8973F96748A4_1_105_c.JPG" alt="../D4464EA3-7CDA-4F50-BB52-8973F96748A4_1_105_c.JPG" src=thumbnail/D4464EA3-7CDA-4F50-BB52-8973F96748A4_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnailD4464EA3-7CDA-4F50-BB52-8973F96748A4_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "D4464EA3-7CDA-4F50-BB52-8973F96748A4_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=D4464EA3-7CDA-4F50-BB52-8973F96748A4_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnailE2275E90-52E5-4652-8737-3D6640F995F3_1_105_c.JPG" alt="../E2275E90-52E5-4652-8737-3D6640F995F3_1_105_c.JPG" src=thumbnail/E2275E90-52E5-4652-8737-3D6640F995F3_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnailE2275E90-52E5-4652-8737-3D6640F995F3_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "E2275E90-52E5-4652-8737-3D6640F995F3_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=E2275E90-52E5-4652-8737-3D6640F995F3_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnailEDA676EB-A986-4FA9-94FC-09ADC3D79625_1_105_c.JPG" alt="../EDA676EB-A986-4FA9-94FC-09ADC3D79625_1_105_c.JPG" src=thumbnail/EDA676EB-A986-4FA9-94FC-09ADC3D79625_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnailEDA676EB-A986-4FA9-94FC-09ADC3D79625_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "EDA676EB-A986-4FA9-94FC-09ADC3D79625_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=EDA676EB-A986-4FA9-94FC-09ADC3D79625_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnailF77CD1E5-8749-4C63-85A7-110AE428ACF3_1_105_c.JPG" alt="../F77CD1E5-8749-4C63-85A7-110AE428ACF3_1_105_c.JPG" src=thumbnail/F77CD1E5-8749-4C63-85A7-110AE428ACF3_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnailF77CD1E5-8749-4C63-85A7-110AE428ACF3_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "F77CD1E5-8749-4C63-85A7-110AE428ACF3_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=F77CD1E5-8749-4C63-85A7-110AE428ACF3_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+                <div class="square">
+                    <img id="thumbnail2B53271B-6A4C-4082-899A-5B6969D11BF6_1_105_c.JPG" alt="../2B53271B-6A4C-4082-899A-5B6969D11BF6_1_105_c.JPG" src=thumbnail/2B53271B-6A4C-4082-899A-5B6969D11BF6_1_105_c_thumb.JPG></img>
+                    <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                    </div>
+                </div>
+
+            <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the image and insert it inside the modal - use its "alt" text as a caption
+            var img = document.getElementById("thumbnail2B53271B-6A4C-4082-899A-5B6969D11BF6_1_105_c.JPG");
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = "2B53271B-6A4C-4082-899A-5B6969D11BF6_1_105_c.JPG";
+                captionText.innerHTML = "<br>See full <a href=2B53271B-6A4C-4082-899A-5B6969D11BF6_1_105_c.JPG>here</a>.";
+            }
+
+            modalImg.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            modal.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+                modalImg.src = "none";
+            }
+            </script>
+        
+    </div>
+
+
 
       </div>
     </div>
