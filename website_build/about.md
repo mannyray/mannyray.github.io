@@ -15,4 +15,3 @@ I have created this website to share stuff that I am working on and find interes
 ![image]({{ site.url }}/assets/moped.png)
 
 Last updated 2024/09/23
-

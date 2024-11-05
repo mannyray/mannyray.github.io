@@ -9,9 +9,9 @@ Hello dear reader!
 
 I have created a video of a project I have been working on for a while. In addition to being a dear reader you can now be a dear viewer too! I am very excited to share this with you.
 
-The video is about an automatic mechanism I created for capturing pictures of trains that go across a bridge in view of my apartment.
+The video is about an automatic mechanism I created for capturing pictures of trains that go across a bridge in view of my apartment. Please take a look:
 
-Please go [here](https://www.youtube.com/watch?v=PlVF_0MooQE) to see the video!
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PlVF_0MooQE?si=NQgzYZ8iBfVBtsIx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ![]({{ site.url }}/photos/winnipeg/IMG_6151.JPG)
 
