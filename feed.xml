@@ -5,9 +5,9 @@
     <description></description>
     <link>https://szonov.com/</link>
     <atom:link href="https://szonov.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 16 Oct 2024 15:57:00 -0500</pubDate>
-    <lastBuildDate>Wed, 16 Oct 2024 15:57:00 -0500</lastBuildDate>
-    <generator>Jekyll v4.2.2</generator>
+    <pubDate>Sat, 12 Apr 2025 15:44:37 -0500</pubDate>
+    <lastBuildDate>Sat, 12 Apr 2025 15:44:37 -0500</lastBuildDate>
+    <generator>Jekyll v4.3.2</generator>
     
       <item>
         <title>What is leadership?</title>
@@ -20,6 +20,8 @@
 &lt;p&gt;For this mission like with most of my missions, I don’t need too much stuff. The material weighs you down: you must be light, agile, and efficient - ready to go the distance in order to dominate: I believe this is the true mark of any professional. Even professional homeless people know this; the ones that carry less are usually more successful in their missions (shopping cart carrying ones always look miserable!).&lt;/p&gt;
 
 &lt;p&gt;To start packing for a ride you do need to think of some basics like how many days you want before major pitstops  - this is set by the amount of clean underwear you have - then you need to find a laundry place and a day to rest those muscles. All other items just come into place. In the image below (feel free to open it in a new tab for a closer zoom!), you will see what I am bringing for my bike ride:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/bike_trip.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Prayer book and icons! God makes me a super professional.&lt;/li&gt;
@@ -46,8 +48,6 @@
   &lt;li&gt;A smile!&lt;/li&gt;
   &lt;li&gt;Please forgive me if I forgot to mention something&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/bike_trip.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;I will be putting all the stuff into bike bags and attaching to my bike (bike bags are sometimes referred to as panniers). My bicycle is black with leather seat and leather handle bars like a black stallion. Pretending you are riding on horse like some sort of cavalry officer from back in the day makes the miles go by way faster (like teleportation)- super fun!&lt;/p&gt;
 
@@ -95,11 +95,17 @@
     
       <item>
         <title>The Bionicle Man</title>
-        <description>&lt;p&gt;Hello dear reader! I am writing a new blog post as it would be amiss of me to miss adding a single post in the fading year of two thousand and twenty-three. During a small part of this busy busy year I have been preoccupied with my Garmin watch. My first watch model was a gift, and I initially thought it was a silly thing until I started using it.&lt;/p&gt;
+        <description>&lt;!--toc_start--&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;Hello dear reader! I am writing a new blog post as it would be amiss of me to miss adding a single post in the fading year of two thousand and twenty-three. During a small part of this busy busy year I have been preoccupied with my Garmin watch. My first watch model was a gift, and I initially thought it was a silly thing until I started using it.&lt;/p&gt;
 
 &lt;p&gt;Garmin watches allow you to track your heart rate and GPS coordinates. This allows you to understand how hard you are exerting yourself and how far you went when running, cycling, swimming, etcetera. Garmin’s data sharing ability allows you to share this information with friends in order to see what new bike routes or challenges your friends have completed. This social aspect for me was the primary benefit of the watch, represented in thoughts such as: &lt;em&gt;“…wait what?… so and so biked 40km across a frozen lake on a fat bike?”&lt;/em&gt; and &lt;em&gt;“That’s an interesting cycling route. I will try that out tomorrow.”&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;You may be thinking: &lt;em&gt;“…ah another tracking mechanism that I don’t care for”&lt;/em&gt; or &lt;em&gt;“who has got time or knowledge to view and make use of these metrics?”&lt;/em&gt;. These are valid concerns, but the watch is what you make of it. I found the watch great for helping me become more mindful of my breath control during exercise, &lt;a href=&quot;https://www.youtube.com/watch?v=-6PDBVRkCKc&quot;&gt;training in specific heart rate zones&lt;/a&gt;, and changing up my exercise routes. The watches are now so advanced that they even come with a GPS map that can assist you in some of your longer &lt;a href=&quot;https://www.youtube.com/watch?v=wESL8G1pNIU&quot;&gt;routes&lt;/a&gt; - the technology is very advanced!&lt;/p&gt;
+
+&lt;h2 id=&quot;heart-rate-variability&quot;&gt;Heart Rate Variability&lt;/h2&gt;
 
 &lt;p&gt;Outside of social and exercise metrics, I wasn’t receiving too much information about my body. It wasn’t until I upgraded to the &lt;a href=&quot;https://www.garmin.com/en-CA/p/777730&quot;&gt;955 Solar Garmin watch&lt;/a&gt; that I started getting some additional metrics, such as &lt;a href=&quot;https://support.garmin.com/en-CA/?faq=WT9BmhjacO4ZpxbCc0EKn9&quot;&gt;stress level&lt;/a&gt;. At first I was very confused by this variable. How is it that I am sitting down, and this watch is claiming that I am stressed at a stress level of 80 out of 100… during a vacation where I do, and should feel calm?&lt;/p&gt;
 
@@ -108,6 +114,8 @@
 &lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/watch_images/stress_view.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The stress metric was not immediately available from the watch’s resting face, and I had to press one of the side buttons to see the live data. I was so preoccupied with all of this that my friend nicknamed me the “Bionicle Man”. Half man, half robot - obsessed and hunched over my watch, looking at my metrics throughout all moments of the vacation.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-watch-app&quot;&gt;The Watch App&lt;/h2&gt;
 
 &lt;p&gt;I decided to combine my old love for little programming projects with this new found curiosity in the dynamic stress metric. Fortunately, Garmin has a wonderful &lt;a href=&quot;https://developer.garmin.com/&quot;&gt;software development kit&lt;/a&gt; and &lt;a href=&quot;https://forums.garmin.com/developer/connect-iq/&quot;&gt;detailed forums&lt;/a&gt; that allows one to create their own watch faces and apps. I set out to create a stress monitoring watch!&lt;/p&gt;
 
@@ -124,6 +132,8 @@
 &lt;p&gt;These observations inspired the following two questions: How do I go from one heart rate to another, and how do I become more self aware of my body? I will not go into the details of the experiments that followed these questions, as this is not a health blog, but will mention that breathing techniques were very helpful. Having this new, easy access to my heart rate and its recent history, I was able to learn a lot and continue to learn much.&lt;/p&gt;
 
 &lt;p&gt;This observation process worked in a feedback loop; as you read the data that is coming to you about your body, you modify your behaviour (like breathing) or environment, to see if you can register a different response from your body (lower heart rate for example). Yes, it is likely and most definitely true: there are many papers on this topic describing how effective it is or not for tracking stress. However, at the time I was too excited to start coding on this project and decided not to get bogged down in the academic papers, and their potentially uncertain conclusions. &lt;a href=&quot;https://www.youtube.com/watch?v=U2RpBeHJ33s&quot;&gt;Here&lt;/a&gt; is a video of another project dealing with this feedback mechanism.&lt;/p&gt;
+
+&lt;h2 id=&quot;coding-it-up&quot;&gt;Coding It Up&lt;/h2&gt;
 
 &lt;p&gt;Programming the watch face was not a linear process. There were many uncertainties and unknowns along the way. For some of these unknowns I was not sure if the project could be finished, while for some others it was just a matter of debugging. Just as my heart rate went up and down, so did my concern for the project’s feasibility. The milestones of uncertainty in order of thought were the following:&lt;/p&gt;
 &lt;ul&gt;
@@ -150,9 +160,11 @@
 
 &lt;p&gt;I wrote these series of questions down for the non-technical reader (you?) to bring them along with me on this journey. They weren’t really that “serious” or cliff hanger like. For any programming project this is a common process, especially for those projects which are do-it-yourself. I am sure you encounter these thought paths in the various projects you work on. For a more “serious” project I would spend more time in the planning phase - here I was just itching to start coding right away!&lt;/p&gt;
 
-&lt;p&gt;For the technical reader, who is looking to create their own watch face, Garmin provides the ability to &lt;a href=&quot;https://medium.com/@JoshuaTheMiller/making-a-watchface-for-garmin-devices-8c3ce28cae08&quot;&gt;simulate your watch&lt;/a&gt; on the computer, so the development becomes very quick. The programming is straight forward, and Github &amp;amp; Garmin forums provide a plethora of examples to assist you in your project. The code I wrote can be found &lt;a href=&quot;https://github.com/mannyray/StressWatchFaces&quot;&gt;here&lt;/a&gt;. In regard to the code, I was most satisfied with the the &lt;a href=&quot;https://github.com/mannyray/StressWatchFace/blob/master/source/DataLinkedList.mc&quot;&gt;data structure&lt;/a&gt; used in storing the incoming heart rate. For this structure I used an array as a linked list for ease of handling fresh/stale data, with the added condition that the data entries in the array are equally spaced apart in time, and that there is logic to handle spotty/missing data. In addition, I implemented &lt;a href=&quot;https://github.com/mannyray/StressWatchFace/blob/master/source/DataLinkedListTest.mc&quot;&gt;tests for the data structure&lt;/a&gt; ,to give confidence in its usability, and therefore allow for reuse of the code in other applications with live sensor data. The &lt;a href=&quot;https://github.com/mannyray/StressWatchFace/blob/master/source/MannyrayWatchFaceView.mc#L360&quot;&gt;graph code here&lt;/a&gt; turned out very aesthetically pleasing. I was happy to conquer this, as one of my the concerns when coding up the watch was &lt;em&gt;“will it look good?”&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;For the technical reader, who is looking to create their own watch face, Garmin provides the ability to &lt;a href=&quot;https://medium.com/@JoshuaTheMiller/making-a-watchface-for-garmin-devices-8c3ce28cae08&quot;&gt;simulate your watch&lt;/a&gt; on the computer, so the development becomes very quick. The programming is straight forward, and Github &amp;amp; Garmin forums provide a plethora of examples to assist you in your project. The code I wrote can be found &lt;a href=&quot;https://github.com/mannyray/StressWatchFace&quot;&gt;here&lt;/a&gt;, hosted on github for everyone to use and modify! In regard to the code, I was most satisfied with the the &lt;a href=&quot;https://github.com/mannyray/StressWatchFace/blob/master/source/DataLinkedList.mc&quot;&gt;data structure&lt;/a&gt; used in storing the incoming heart rate. For this structure I used an array as a linked list for ease of handling fresh/stale data, with the added condition that the data entries in the array are equally spaced apart in time, and that there is logic to handle spotty/missing data. In addition, I implemented &lt;a href=&quot;https://github.com/mannyray/StressWatchFace/blob/master/source/DataLinkedListTest.mc&quot;&gt;tests for the data structure&lt;/a&gt; ,to give confidence in its usability, and therefore allow for reuse of the code in other applications with live sensor data. The &lt;a href=&quot;https://github.com/mannyray/StressWatchFace/blob/master/source/MannyrayWatchFaceView.mc#L360&quot;&gt;graph code here&lt;/a&gt; turned out very aesthetically pleasing. I was happy to conquer this, as one of my the concerns when coding up the watch was &lt;em&gt;“will it look good?”&lt;/em&gt;.&lt;/p&gt;
 
 &lt;p&gt;There are lots of ways to customize the aesthetics of your watch face programmatically. Many other custom watch faces can be found in Garmin’s &lt;a href=&quot;https://apps.garmin.com/en-US/&quot;&gt;app store&lt;/a&gt;, which has all sorts of applications like &lt;a href=&quot;https://support.garmin.com/en-CA/?faq=mE1Jmwvzd84s9YuDqa3GB7&quot;&gt;finding your phone&lt;/a&gt;, &lt;a href=&quot;https://apps.garmin.com/en-US/apps/503a3260-3a13-43f4-96d5-081930a46078&quot;&gt;finding your car&lt;/a&gt;, &lt;a href=&quot;https://apps.garmin.com/en-US/apps/d5228d46-886e-49c0-a9bf-7eabd537a8d2&quot;&gt;displaying the latest bitcoin price&lt;/a&gt;, &lt;a href=&quot;https://apps.garmin.com/en-US/apps/00aa0c38-6eed-4822-89b0-01b4bdab2501&quot;&gt;marine autopilot&lt;/a&gt; and many a styled, refined, and exquisite watch faces to match one’s taste.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;Perhaps some version of my watch face design was already created and lost to time amongst the thousands of other watch faces in the app store. Regardless, I viewed the exercise of creating a watch face very useful to me, as it was a foray into creating other additional Garmin apps and watch faces.&lt;/p&gt;
 
@@ -161,6 +173,8 @@
 &lt;p&gt;Before we (the reader and I) get flooded with an ocean of ideas, I will mention that am glad I was able to focus on just one idea and see it through its completion. I am grateful to Garmin for providing me with a platform to able to create something like this. It is very easy nowadays to get amazing insight about one’s own body. However, I think it is important not to over index on all this. You don’t even need a watch to measure your heart rate.&lt;/p&gt;
 
 &lt;p&gt;Remember not to hunch over and obsess; don’t become a “Bionicle Man”.&lt;/p&gt;
+
+&lt;!--toc_end--&gt;
 </description>
         <pubDate>Mon, 25 Dec 2023 06:00:00 -0600</pubDate>
         <link>https://szonov.com/programming/2023/12/25/the-bionicle-man/</link>
@@ -234,7 +248,11 @@
     
       <item>
         <title>Hot Peppers</title>
-        <description>&lt;p&gt;I have created another video. Please go &lt;a href=&quot;https://www.youtube.com/watch?v=atcKhoJ6vCc&quot;&gt;here&lt;/a&gt; to see the video! This time it is about my experimentation with growing hot pepper plants indoors during the winter. These plants provided me with inspiration, joy and a taste of spring. I am very grateful for the experience and look forward to growing more stuff this upcoming winter. Summer is so short here that I am already preparing.&lt;/p&gt;
+        <description>&lt;p&gt;Hello dear reader! I have created another video. This time it is about my experimentation with growing hot pepper plants indoors during the winter. These plants provided me with inspiration, joy and a taste of spring. I am very grateful for the experience and look forward to growing more stuff this upcoming winter. Summer is so short here that I am already preparing. Check it out:&lt;/p&gt;
+
+&lt;center&gt;
+&lt;iframe width=&quot;100%&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/atcKhoJ6vCc?si=NQgzYZ8iBfVBtsIx&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/center&gt;
 
 &lt;p&gt;I am starting to get the hang of making videos and will likely make more. I like the creativity involved and the opportunity to film non programming/technical stuff. Maybe next time I will make a video of me playing something on the piano. Stay tuned!&lt;/p&gt;
 
@@ -255,9 +273,11 @@
 
 &lt;p&gt;I have created a video of a project I have been working on for a while. In addition to being a dear reader you can now be a dear viewer too! I am very excited to share this with you.&lt;/p&gt;
 
-&lt;p&gt;The video is about an automatic mechanism I created for capturing pictures of trains that go across a bridge in view of my apartment.&lt;/p&gt;
+&lt;p&gt;The video is about an automatic mechanism I created for capturing pictures of trains that go across a bridge in view of my apartment. Please take a look:&lt;/p&gt;
 
-&lt;p&gt;Please go &lt;a href=&quot;https://www.youtube.com/watch?v=PlVF_0MooQE&quot;&gt;here&lt;/a&gt; to see the video!&lt;/p&gt;
+&lt;center&gt;
+&lt;iframe width=&quot;100%&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/PlVF_0MooQE?si=fbvq8xrBVjfSTkyR&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/center&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://szonov.com/photos/winnipeg/IMG_6151.JPG&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
@@ -591,13 +611,21 @@ git checkout benchmark_app
     
       <item>
         <title>Controlling DSLR using Android App, Raspberry Pi and gphoto2</title>
-        <description>&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;Updated this blog post in March 2025 to make it more readable and include additional examples! Site best viewed on desktop.&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;p&gt;Hello dear reader! In this post I will be discussing how to control a DSLR camera using an Android app, Raspberry Pi, gphoto2 and some &lt;a href=&quot;https://github.com/mannyray/bluetoothPhoto&quot;&gt;code&lt;/a&gt;. I found this capability very useful for my endeavours and hope that you may as well for yours. I will go over motivations, how to setup, linked code and an example use case. If you are restless, at the end I have a gif of a time-lapse I was able to create with the help of this app.&lt;/p&gt;
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
-&lt;p&gt;Here is a view of the deployed system:&lt;/p&gt;
+&lt;p&gt;Hello dear reader! In this post I will be discussing how to control a DSLR camera using an Android app, Raspberry Pi, gphoto2 and some &lt;a href=&quot;https://github.com/mannyray/bluetoothPhoto&quot;&gt;code&lt;/a&gt;. I found this capability very useful for my endeavours and hope that you may as well for yours. I will go over motivations, how to setup, linked code and an example use case.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/schema.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Here is a view of the deployed system below (with the Android phone, in my hand, taking the picture):&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img src=&quot;https://szonov.com/assets/dlsr_control/schema.png&quot; width=&quot;60%&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;Quick notes:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
@@ -607,13 +635,20 @@ git checkout benchmark_app
     &lt;p&gt;The Raspberry Pi can be replaced with another computer. Raspberry Pi is chosen as it is leightweight and cheap.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Android app is useful because it allows for wireless, remote control and a nice user interface.&lt;/p&gt;
+    &lt;p&gt;Android app is useful because it allows for wireless, remote control and a nice user interface. It communicates with the Raspberry Pi. However, the Android app is not strictly necessary as you can just use the Raspberry Pi to communicate with the camera via gphoto2 directly. If using the Android app, then the Raspberry Pi acts as a middleman between the phone and camera.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;Here is a video of my personal project where I used the code and concepts discussed in this blog post to use AI to capture pictures of train graffiti:&lt;/p&gt;
+
+&lt;center&gt;
+&lt;iframe width=&quot;100%&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/PlVF_0MooQE?si=NQgzYZ8iBfVBtsIx&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
 &lt;h2 id=&quot;here-are-reasons-why-you-may-find-the-setup-useful&quot;&gt;Here are reasons why you may find the setup useful:&lt;/h2&gt;
 
-&lt;h3 id=&quot;cameras-come-with-limitations&quot;&gt;Cameras come with limitations&lt;/h3&gt;
+&lt;!--toc_start--&gt;
+&lt;h2 id=&quot;cameras-come-with-limitations&quot;&gt;Cameras come with limitations&lt;/h2&gt;
 
 &lt;p&gt;In this blog I will be using the Canon M100.&lt;/p&gt;
 
@@ -623,29 +658,34 @@ git checkout benchmark_app
 
 &lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/camera_settings.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;What if you want to take a time-lapse of a full day? With the use of a battery cable and this setup you can overcome such limitations. The Android acts as user interface enhancement instead of using gphoto2 commandline directly on the Raspberry Pi.&lt;/p&gt;
+&lt;p&gt;What if you want to take a time-lapse of a full day? With the use of a battery cable and this setup you can overcome such limitations as you are no longer limited by your battery running out. The Android acts as user interface enhancement instead of using gphoto2 commandline directly on the Raspberry Pi.&lt;/p&gt;
 
 &lt;p&gt;M100 battery cable:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/wired_battery.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;the-camera-manufacturer-provided-android-app-is-not-sufficient&quot;&gt;The camera manufacturer provided Android app is not sufficient&lt;/h3&gt;
+&lt;h2 id=&quot;the-camera-manufacturer-provided-android-app-is-not-sufficient&quot;&gt;The camera manufacturer provided Android app is not sufficient&lt;/h2&gt;
 
-&lt;p&gt;The Android app provided here can be modified to monitor for events for which regular manufacture provided Android apps for your camera will not have. Want to take picture at a specific time? Take a picture only when you detect something in the field of focus of cell phone camera? Take a picture when you say “action”? You will have to code this yourself for which the Android app introduced in this post provides a great starting point.&lt;/p&gt;
+&lt;p&gt;The Android app provided here can be modified to monitor for events for which regular manufacture provided Android (in this case Canon) apps for your camera will not have. Want to take picture at a specific time? Take a picture only when you detect something in the field of focus of cell phone camera? Take a picture when you say “action”? You will have to code this yourself for which the Android app introduced in this post provides a great starting point.&lt;/p&gt;
 
 &lt;p&gt;The programmatic freedom allows one to integrate your camera into a variety of applications.&lt;/p&gt;
 
-&lt;h3 id=&quot;broken-camera-screen&quot;&gt;Broken camera screen&lt;/h3&gt;
+&lt;h2 id=&quot;broken-camera-screen&quot;&gt;Broken camera screen&lt;/h2&gt;
 
 &lt;p&gt;May sound like a stretch but I had this happen. Camera menu screen was busted. The app can be useful here for providing a basic screen interface.&lt;/p&gt;
 
-&lt;h2 id=&quot;how-to-setup&quot;&gt;How to Setup&lt;/h2&gt;
+&lt;!--toc_end--&gt;
 
-&lt;h3 id=&quot;install-gphoto2-on-raspberry-pi&quot;&gt;Install gphoto2 on Raspberry Pi&lt;/h3&gt;
+&lt;h2 id=&quot;how-to-setup-the-system&quot;&gt;How to Setup the system&lt;/h2&gt;
+
+&lt;p&gt;With some of the motivations out of the way, we now discuss how to set it all up:&lt;/p&gt;
+
+&lt;!--toc_start--&gt;
+&lt;h2 id=&quot;install-gphoto2-on-raspberry-pi&quot;&gt;Install gphoto2 on Raspberry Pi&lt;/h2&gt;
 
 &lt;p&gt;You will have to install gphoto2 software. &lt;a href=&quot;https://github.com/gonzalo/gphoto2-updater&quot;&gt;This&lt;/a&gt; is a good repository on how to do this.&lt;/p&gt;
 
-&lt;h3 id=&quot;connect-the-camera-to-the-raspberry-pi&quot;&gt;Connect the Camera to the Raspberry Pi&lt;/h3&gt;
+&lt;h2 id=&quot;connect-the-camera-to-the-raspberry-pi&quot;&gt;Connect the Camera to the Raspberry Pi&lt;/h2&gt;
 
 &lt;p&gt;Connect the camera to the Raspberry Pi. In the case of the M100, I use the USB to mini USB B. Cable below:&lt;/p&gt;
 
@@ -688,30 +728,33 @@ git checkout benchmark_app
 
 &lt;p&gt;…happy debugging!&lt;/p&gt;
 
-&lt;h3 id=&quot;connecting-raspberry-pi-to-android-phone&quot;&gt;Connecting Raspberry Pi to Android Phone&lt;/h3&gt;
+&lt;h2 id=&quot;connecting-raspberry-pi-to-android-phone&quot;&gt;Connecting Raspberry Pi to Android Phone&lt;/h2&gt;
 
 &lt;p&gt;Connect your phone and Raspberry Pi together. There are many instructions online on how to do this like &lt;a href=&quot;https://bluedot.readthedocs.io/en/latest/pairpiandroid.html&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h3 id=&quot;setting-up-the-bluetooth-server-on-raspberry-pi&quot;&gt;Setting up the Bluetooth server on Raspberry Pi&lt;/h3&gt;
+&lt;h2 id=&quot;setting-up-the-bluetooth-server-on-raspberry-pi&quot;&gt;Setting up the Bluetooth server on Raspberry Pi&lt;/h2&gt;
 
 &lt;p&gt;On the Raspberry Pi you will have to run&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo python server.py
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;The python script can be found &lt;a href=&quot;https://github.com/mannyray/bluetoothPhoto/tree/master/bluetooth_server&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The python script can be found in github code &lt;a href=&quot;https://github.com/mannyray/bluetoothPhoto/tree/master/bluetooth_server&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Apply a setting to your Raspberry Pi so it does not fall asleep and stays on.&lt;/p&gt;
 
 &lt;p&gt;If you experience errors: make sure to install the required packages. For potential debugging when failing to advertise I found &lt;a href=&quot;https://stackoverflow.com/questions/37913796/bluetooth-error-no-advertisable-device&quot;&gt;this&lt;/a&gt; to be helpful.&lt;/p&gt;
 
-&lt;h3 id=&quot;build-the-android-app&quot;&gt;Build the Android app&lt;/h3&gt;
+&lt;h2 id=&quot;build-the-android-app&quot;&gt;Build the Android app&lt;/h2&gt;
 
 &lt;p&gt;You must be able to build the Android app using Android Studio. This can get a bit involved for a first time builder. I recommend starting &lt;a href=&quot;https://developer.android.com/training/basics/firstapp&quot;&gt;here&lt;/a&gt; to get introduced to the basics.&lt;/p&gt;
 
-&lt;p&gt;The location of the app code is &lt;a href=&quot;https://github.com/mannyray/bluetoothPhoto/tree/master/bluetooth_android_app/Bluetooth&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The location of the app code is in github code &lt;a href=&quot;https://github.com/mannyray/bluetoothPhoto/tree/master/bluetooth_android_app/Bluetooth&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h3 id=&quot;intermission&quot;&gt;Intermission&lt;/h3&gt;
+&lt;p&gt;Install the app on your phone and open it up!
+&lt;!--toc_end--&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;intermission&quot;&gt;Intermission&lt;/h2&gt;
 
 &lt;p&gt;If you followed instructions above you now have&lt;/p&gt;
 &lt;ul&gt;
@@ -720,6 +763,12 @@ git checkout benchmark_app
   &lt;li&gt;Connected your camera to the Raspberry Pi&lt;/li&gt;
   &lt;li&gt;Built and installed the application on your Android.&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h2 id=&quot;final-setup-result&quot;&gt;Final setup result:&lt;/h2&gt;
+
+&lt;!--toc_start--&gt;
+
+&lt;h2 id=&quot;physical-view&quot;&gt;Physical view&lt;/h2&gt;
 
 &lt;p&gt;For illustration purposes I have setup the Raspberry Pi and camera.&lt;/p&gt;
 
@@ -735,11 +784,13 @@ git checkout benchmark_app
 
 &lt;p&gt;The Bluetooth server on the Raspberry Pi is running and waiting for a connection.&lt;/p&gt;
 
-&lt;h3 id=&quot;running-the-android-phone-app&quot;&gt;Running the Android Phone App&lt;/h3&gt;
+&lt;h2 id=&quot;running-the-android-phone-app&quot;&gt;Running the Android Phone App&lt;/h2&gt;
 
 &lt;p&gt;Now let us launch the Android application which is called “Bluetooth”. The landing page will look like&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/landing_page.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;center&gt;
+&lt;img src=&quot;https://szonov.com/assets/dlsr_control/landing_page.png&quot; width=&quot;60%&quot; /&gt;
+&lt;/center&gt;
 
 &lt;p&gt;Here is me holding the phone:&lt;/p&gt;
 
@@ -747,15 +798,21 @@ git checkout benchmark_app
 
 &lt;p&gt;After pressing connect you will be redicted to&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/choose_page.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;center&gt;
+&lt;img src=&quot;https://szonov.com/assets/dlsr_control/choose_page.png&quot; width=&quot;60%&quot; /&gt;
+&lt;/center&gt;
 
 &lt;p&gt;And the Raspberry Pi will accept the connection:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/bluetooth_server_waiting.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
+&lt;h2 id=&quot;server-reaction&quot;&gt;Server reaction&lt;/h2&gt;
+
 &lt;p&gt;When selecting “Single picture” and pressing the camera button you will see:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/picture_taken.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;center&gt;
+&lt;img src=&quot;https://szonov.com/assets/dlsr_control/picture_taken.png&quot; width=&quot;60%&quot; /&gt;
+&lt;/center&gt;
 
 &lt;p&gt;The Bluetooth server will reflect these pictures taken:&lt;/p&gt;
 
@@ -765,9 +822,13 @@ git checkout benchmark_app
 
 &lt;p&gt;The other option here is to take a time-lapse:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/time_lapse.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;center&gt;
+&lt;img src=&quot;https://szonov.com/assets/dlsr_control/time_lapse.png&quot; width=&quot;60%&quot; /&gt;
+&lt;/center&gt;
 
 &lt;p&gt;The “Shutdown Signal” is for when you want to disconnect and quit the Bluetooth server. The app will then redict you back to the landing page.&lt;/p&gt;
+
+&lt;!--toc_end--&gt;
 
 &lt;h2 id=&quot;time-lapse-example&quot;&gt;Time-lapse example&lt;/h2&gt;
 

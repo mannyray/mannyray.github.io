@@ -2,17 +2,7 @@
 <html>
 
   <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-39729658-3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-39729658-3');
-</script>
-
-
+  
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -210,11 +200,172 @@
   </header>
 
   <article class="post-content">
-    <p>I am very excited to show you a prototype of a project I have been working on. The project involves using an image detection cell phone application to detect “interesting events” and acting upon these events. An “interesting event” will be application specific. For example some cell phones use the <a href="https://www.youtube.com/watch?v=ZwCNG9KFdXs">front facing camera to detect their owner’s face as a way of authentication</a>. In this example the “interesting event” is the owner’s face. The action taken is unlocking the phone.</p>
+    <body>
+<p style="height:0px;width:0px"></p>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+    .toc_and_content_table{
+        border: none;
+    }
+    .toc {
+        width: 25%;
+        vertical-align:top;
+        border: none;
+        padding:0px;
+        border: none;
+    }
+    .content {
+        padding: 10px;
+        border: none;
+    }
+    .scrollable{
+        height: auto;        /* Allow it to grow based on content */
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+    .sticky-top {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        background: #fff; /* Background for the sticky menu */
+    }
+    #menu {
+        list-style-type: none; /* Remove bullets */
+        padding: 0; /* Remove padding */
+        margin: 0; /* Remove margin */
+    }
+    #menu li {
+        margin: 5px 0; /* Space between bars */
+        position: relative
+    }
+    #menu a {
+        display: block; /* Make the link a block element */
+        padding: 2px; /* Space inside the bars */
+        background: #f0f0f0; /* Light gray background for bars */
+        text-decoration: none; /* Remove underline */
+        color: #333; /* Text color */
+        border-radius: 4px; /* Rounded corners */
+        transition: background 0.3s; /* Smooth background transition */
+    }
+    #menu a:hover {
+        background: #e0e0e0; /* Darker gray on hover */
+    }
+    .active {
+        font-weight: bold;
+        color: blue; /* Change the color for highlighting */
+    }
+    .active::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        border-radius: 4px;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: #007bff; /* Active background color */
+        transform: scaleX(0); /* Start with no width */
+        transform-origin: left; /* Scale from the left */
+        animation: load 0.5s forwards; /* Loading animation */
+        background: rgba(0, 123, 255, 0.5); /* Semi-transparent active background color */
+    }
+    @keyframes load {
+        0% {
+            transform: scaleX(0); /* Start with no width */
+        }
+        70% {
+            transform:  scaleX(1); /* Scale to full width */
+        }
+        85% {
+            transform: scaleX(0.95); /* Bounce effect */
+        }
+        100% {
+            transform: scaleX(1); /* Return to full width */
+        }
+    }
+    .section {
+        border: 0;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+    
+    .desktop-only {
+        display: none;
+    }
+    /* Show mobile paragraph on mobile devices */
+    .mobile-only {
+        display: block;
+    }
+    /* Media query for non-mobile devices */
+    @media (min-width: 768px) {
+        .desktop-only {
+            display: block;
+        }
+        .mobile-only {
+            display: none;
+        }
+    }
+    
+    /* mobile version*/
+    .popup-button {
+        font-size: 24px;
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%); /* Center vertically */
+        padding: 10px 20px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        cursor: pointer;
+        opacity: 0; /* Start invisible */
+        visibility: hidden; /* Initially hidden */
+        transition: opacity 0.5s ease, visibility 0.5s ease; /* Fade effect */
+    }
+    .popup-button.show {
+        opacity: 1; /* Fully visible */
+        visibility: visible; /* Make it visible */
+    }
+    .target-section {
+        background-color: #f0f0f0;
+    }
+    .sidebar {
+        position: fixed;
+        right: 0; /* Align sidebar directly to the right edge */
+        width: 200px; /* Set the width of the sidebar */
+        max-height: 80vh; /* Limit height for scrolling */
+        background: #fff; /* Background for the sidebar */
+        padding: 10px; /* Padding inside the sidebar */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        z-index: 1000; /* Ensure it appears above other elements */
+        transform: translate(0, -50%) scale(0); /* Start hidden and minimized */
+        transform-origin: right center; /* Scale from the right */
+        transition: transform 0.3s ease, visibility 0.5s ease; /* Smooth transition */
+        visibility: hidden; /* Initially hidden */
+        border: 1px solid #ccc; /* Add a border */
+        border-radius: 8px; /* Slightly rounded corners */
+    }
+    .sidebar.show {
+        transform: translate(0, -50%) scale(1); /* Show the sidebar */
+        visibility: visible; /* Make it visible */
+    }
+    .sidebar h3 {
+        margin: 0; /* Remove default margin */
+        padding: 0; /* Remove default padding */
+        height: 40px; /* Set height for better alignment */
+    }
+    .mobile-scrollable{
+        height: auto;        /* Allow it to grow based on content */
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+</style>
+<p>I am very excited to show you a prototype of a project I have been working on. The project involves using an image detection cell phone application to detect “interesting events” and acting upon these events. An “interesting event” will be application specific. For example some cell phones use the <a href="https://www.youtube.com/watch?v=ZwCNG9KFdXs">front facing camera to detect their owner’s face as a way of authentication</a>. In this example the “interesting event” is the owner’s face. The action taken is unlocking the phone.</p>
 
 <p>In my application, I want the cell phone’s image detection application to detect a specific object type. Upon detection, the cell phone will request a DSLR camera to take a high resolution picture of this object. This object will be around two hundred meters away: far enough that the cell phone’s camera is insufficient to get a detailed view. Here is a diagram of my project:</p>
 
-<p><img src="https://szonov.com/assets/prototype/scheme.png" alt="img" /></p>
+<p><img src="https://szonov.com/assets/prototype/scheme.png" alt="img"></p>
 
 <p>In the previous diagram, additional implementation details are exposed. The Raspberry Pi, which can be replaced with some other computer, is necessary because there is no easy and direct way to send a signal from one’s cellphone to a regular DSLR camera. New DSLR cameras often come with downloadable applications from the app store. However, these application are insufficient in providing detailed control over the DSLR for your custom application. The <a href="http://gphoto.org/">gphoto</a> applications allows one to resolve this problem.</p>
 
@@ -222,39 +373,39 @@
 
 <p>For my prototype, the far away objects will be oranges. I simulated this using a projector and a wall.</p>
 
-<p><img src="https://szonov.com/assets/prototype/IMG_6809.JPG" alt="img" /></p>
+<p><img src="https://szonov.com/assets/prototype/IMG_6809.JPG" alt="img"></p>
 
-<p><img src="https://szonov.com/assets/prototype/IMG_6808.JPG" alt="img" /></p>
+<p><img src="https://szonov.com/assets/prototype/IMG_6808.JPG" alt="img"></p>
 
 <p>A script was written to simulate the oranges moving in the background. The script outputs a gif. Here is a small bit of the output:</p>
 
-<p><img src="https://szonov.com/assets/prototype/oranges.gif" alt="img" /></p>
+<p><img src="https://szonov.com/assets/prototype/oranges.gif" alt="img"></p>
 
 <p>The cellphone with the detection application was placed with the oranges in view:</p>
 
-<p><img src="https://szonov.com/assets/prototype/IMG_6813.JPG" alt="img" /></p>
+<p><img src="https://szonov.com/assets/prototype/IMG_6813.JPG" alt="img"></p>
 
 <p>In the above image, the cellphone application detects the oranges and displays a bounding box around each detected one. The middle yellow box acts as an aiming scope. When an orange is fully within the yellow box, the cellphone application will send the bluetooth signal for the DSLR to take the picture. The DSLR is setup so the direction it points to aligns with where the yellow box ‘aim scope’ is pointing to.</p>
 
 <p>The application was built on top of a sample application provided by <a href="https://www.tensorflow.org/lite">TensorFlow</a>. My most significant upgrade for this application is adding my custom Simple Online and Realtime Tracking (SORT) algorithm described in <a href="https://arxiv.org/abs/1602.00763">this paper</a>. SORT allows the cellphone application to keep track of a trajectory of detected objects. The trajectory is used for identifying when a new orange has entered the yellow box.</p>
 
-<p><img src="https://szonov.com/assets/prototype/IMG_6810.JPG" alt="img" /></p>
+<p><img src="https://szonov.com/assets/prototype/IMG_6810.JPG" alt="img"></p>
 
 <p>The camera is setup on a tripod with two cables sticking out. Top left one connects the DSLR to the Raspberry Pi while the bottom right connects the camera battery to an outlet. Using an outlet connected battery over a regular battery allows for you to run the camera over long periods of time.</p>
 
 <p>A gif of the app running is below</p>
 
-<p><img src="https://szonov.com/assets/prototype/out.gif" alt="img" /></p>
+<p><img src="https://szonov.com/assets/prototype/out.gif" alt="img"></p>
 
 <p>The incoming oranges are detected by the application and are bounded with a box with specified identification tag. When an orange with an id that has not yet been in the yellow box comes into the yellow box, the cellphone application sends a signal for the DSLR to take a picture. A dimming/brightening feature was added to brighten when the take picture signal is sent.</p>
 
 <p>From the gif, a frame is extracted where the take picture signal was sent (based on brightness). At <code class="language-plaintext highlighter-rouge">2:16.440</code>, with the center of the orange numbered <code class="language-plaintext highlighter-rouge">42</code> directly above <code class="language-plaintext highlighter-rouge">:</code> of the <code class="language-plaintext highlighter-rouge">2:16</code>, the cellphone application sends the signal:</p>
 
-<p><img src="https://szonov.com/assets/prototype/video_capture.png" alt="img" /></p>
+<p><img src="https://szonov.com/assets/prototype/video_capture.png" alt="img"></p>
 
 <p>The DSLR lags by half a second and takes the picture when the orange numbered <code class="language-plaintext highlighter-rouge">42</code> is centered above the <code class="language-plaintext highlighter-rouge">02</code>.</p>
 
-<p><img src="https://szonov.com/assets/prototype/IMG_6378.JPG" alt="img" /></p>
+<p><img src="https://szonov.com/assets/prototype/IMG_6378.JPG" alt="img"></p>
 
 <p>Fine level of accuracy was not the level of focus for this prototype testing. The delay for my application is sufficient. However, limitations of the camera are important to note. For this experiment, the Canon EOS M100 was used. If lighting is poor, the DSLR will reject the “take picture” command. At times the camera will need to refocus (if on autofocus mode) which will cause a bit of lag with the “take picture” command.</p>
 
@@ -271,6 +422,188 @@
 <p>The initial inspiration to create this prototype came from <a href="https://www.cbc.ca/news/canada/toronto/councillor-ana-bailao-vacancy-tax-jaco-joubert-condo-tower-study-1.5357198">this article</a>. Toronto at the time had a housing problem (probably does and will). Housing is scarce and ever increasing in price. A developer wanted to determine what percentage of condo units are unoccupied and unused in a city where people are desperate for housing. He setup a camera and started monitoring condo towers from afar so he could see which ones are occupied or not. After reading the article, I would look out my window and see what information I can observe and absorb with my camera.</p>
 
 <p>The next big step for my prototype is to train a new image detecting model for what I want to observe and absorb outside my window. Will not spoil the details of what exactly here.</p>
+<script>
+    function isMobileOnlyView() {
+        return window.matchMedia("(max-width: 767px)").matches;
+    }
+
+    if (isMobileOnlyView()) {
+        
+        let popupButtons = [];
+        let targetSections = [];
+        let sidebars = [];
+        let closebuttons = [];
+        let sections_in_target_section = [];
+        let links_in_sidebar = [];
+        let i = 1;
+        let popupButton;
+        while ((popupButton = document.getElementById(`popup-button-${i}`)) !== null) {
+            popupButtons.push(popupButton);
+            const targetSection = document.getElementById(`target-section-${i}`)
+            targetSections.push(targetSection);
+            const sidebar = document.getElementById(`sidebar-${i}`);
+            sidebars.push(sidebar);
+            closebuttons.push(document.getElementById(`close-buttons-${i}`));
+
+            const mobileSections = targetSection.querySelectorAll('[id^="mobile-section"]');
+            // Convert NodeList to an array and push it to sections_in_target_section
+            sections_in_target_section.push(Array.from(mobileSections));
+
+            const links = sidebar.querySelectorAll('a');
+            links_in_sidebar.push(Array.from(links));
+            i++;
+        }
+        
+        let popupButtonCount = i - 1;
+        
+        window.addEventListener('scroll', function() {
+            for (let i = 1; i <= popupButtonCount; i++) {
+                const popupButton = popupButtons[i-1];
+                const targetSection = targetSections[i-1]
+                const sectionPosition = targetSection.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+                
+                // Check if the target section is halfway through the viewport
+                if (sectionPosition.top < viewportHeight / 2 && sectionPosition.bottom > viewportHeight / 2) {
+                    popupButton.classList.add('show'); // Show the button
+                } else {
+                    popupButton.classList.remove('show'); // Hide the button
+                }
+                
+                const sidebar = sidebars[i-1];
+                // Hide sidebar on scroll (only on mobile)
+                if (sidebar.classList.contains('show') && window.innerWidth <= 768) {
+                    sidebar.classList.remove('show'); // Hide the sidebar
+                }
+                
+                // Highlight active link based on scroll position
+                let currentSectionId = '';
+                sections_in_target_section[i-1].forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    const sectionBottom = section.getBoundingClientRect().bottom;
+
+                    // Check if the section is in view and at the top of the viewport
+                    if (sectionTop <= viewportHeight / 2 && sectionBottom > viewportHeight / 2) {
+                        currentSectionId = section.id;
+                    }
+                });
+                
+                 links_in_sidebar[i-1].forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSectionId}`) {
+                        link.classList.add('active'); // Highlight active link
+                    }
+                });
+            }
+        });
+        
+        for (let i = 1; i <= popupButtonCount; i++) {
+            // Function to toggle sidebar visibility
+            let popupButton = popupButtons[i-1];
+            popupButton.addEventListener('click', function() {
+                const sidebar = sidebars[i-1];
+                sidebar.classList.toggle('show'); // Toggle sidebar visibility
+                if (sidebar.classList.contains('show')) {
+                    // Calculate the sidebar height and set its position
+                    const sidebarHeight = sidebar.scrollHeight; // Use scrollHeight for accurate height
+                    const windowHeight = window.innerHeight; // Get the window height
+                    const topPosition = (windowHeight / 2); // - (sidebarHeight / 2); // Calculate top position
+                    sidebar.style.top = `${topPosition}px`; // Set the top position
+                    
+                    links_in_sidebar[i-1].forEach(link => {
+                       if (link.classList.contains('active')) {
+
+                           function delay(time) {
+                             return new Promise(resolve => setTimeout(resolve, time));
+                           }
+                           function scroll_adjust(){
+                               // add the delay so that the sidebar can be loaded from zero size
+                               // before getting all the various coordinates used in calculation
+                               const scrollableElement = link.closest(".mobile-scrollable");
+                               const scollableRect = scrollableElement.getBoundingClientRect();
+                               const linkRect = link.getBoundingClientRect();
+                               
+                               if( ( linkRect.y + 100 ) > ( scollableRect.y + scollableRect.height ) || linkRect.y < scollableRect.y){
+                                   const scrollTop = linkRect.top - scollableRect.top + scrollableElement.scrollTop - (scollableRect.height / 2) + (link.offsetHeight / 2);
+                                   scrollableElement.scrollTo({ top: scrollTop, behavior: 'smooth' });
+                               }
+                           }
+                           
+                           delay(1000).then(() =>scroll_adjust() );
+                       }
+                    })
+                }
+                
+                // Close sidebar when close button is clicked
+                closebuttons[i-1].addEventListener('click', function() {
+                    sidebar.classList.remove('show'); // Hide the sidebar
+                });
+                
+                // Close sidebar when clicking outside of it
+                document.addEventListener('click', function(event) {
+                    if (sidebar.classList.contains('show') && !sidebar.contains(event.target) && !popupButton.contains(event.target)) {
+                        sidebar.classList.remove('show'); // Hide the sidebar
+                    }
+                });
+                
+            });
+        }
+    } else {
+        // for desktop
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            const links = document.querySelectorAll('#menu a');
+            
+            let currentSection = ''
+            let current = ''
+            
+            // highlight the active link based on where the location of scroll
+            output_string = window.scrollY + ""
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const sectionBottom = section.getBoundingClientRect().bottom;
+                
+                output_string = output_string + "(" +sectionTop + ", " + sectionBottom + ")"
+                if (sectionTop > 50 ) {
+                    if(currentSection == ''){
+                        currentSection = section
+                    }
+                    else if(currentSection.getBoundingClientRect().top > 0 && sectionTop < currentSection.getBoundingClientRect().top ){
+                        currentSection = section
+                    }
+                    current = currentSection.getAttribute('id');
+                }
+                else if (sectionBottom > 50  ){
+                    if(currentSection == ''){
+                        currentSection = section
+                    }
+                    else if( sectionBottom < currentSection.getBoundingClientRect().bottom ){
+                        currentSection = section
+                    }
+                    current = currentSection.getAttribute('id');
+                }
+            });
+            
+            links.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                    // For cases when scrollable toc is bigger than screen view
+                    // and active link is outside of view
+                    const scrollableElement = link.closest(".scrollable");
+                    const scollableRect = scrollableElement.getBoundingClientRect();
+                    const linkRect = link.getBoundingClientRect();
+                    
+                    if( ( linkRect.y + 100 ) > ( scollableRect.y + scollableRect.height ) || linkRect.y < scollableRect.y){
+                        const scrollTop = linkRect.top - scollableRect.top + scrollableElement.scrollTop - (scollableRect.height / 2) + (link.offsetHeight / 2);
+                        scrollableElement.scrollTo({ top: scrollTop, behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    }
+</script>
+</body>
 
   </article>
 
@@ -287,13 +620,13 @@
 	</div>
   <div class="wrapper">
 
-    <h2 class="footer-heading">Stan Zonov</h2>
+    <!--<h2 class="footer-heading">Stan Zonov</h2>-->
 
     <div class="footer-col-wrapper">
       <div class="footer-col  footer-col-2">
         <ul class="contact-list">
           <!--<li>Stan Zonov</li>-->
-          <li>hello at szonov.com</li>
+          <!--<li>hello at szonov.com</li>-->
         </ul>
       </div>
 

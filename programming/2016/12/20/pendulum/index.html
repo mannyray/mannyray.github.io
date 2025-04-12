@@ -2,17 +2,7 @@
 <html>
 
   <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-39729658-3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-39729658-3');
-</script>
-
-
+  
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -229,7 +219,168 @@
   </header>
 
   <article class="post-content">
-    <p>There will be two topics to this post. The first one will be about pendulums and the second one will be about automation. The topics aren’t related, but I put them together anyways. I hope you enjoy reading about them!</p>
+    <body>
+<p style="height:0px;width:0px"></p>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+    .toc_and_content_table{
+        border: none;
+    }
+    .toc {
+        width: 25%;
+        vertical-align:top;
+        border: none;
+        padding:0px;
+        border: none;
+    }
+    .content {
+        padding: 10px;
+        border: none;
+    }
+    .scrollable{
+        height: auto;        /* Allow it to grow based on content */
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+    .sticky-top {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        background: #fff; /* Background for the sticky menu */
+    }
+    #menu {
+        list-style-type: none; /* Remove bullets */
+        padding: 0; /* Remove padding */
+        margin: 0; /* Remove margin */
+    }
+    #menu li {
+        margin: 5px 0; /* Space between bars */
+        position: relative
+    }
+    #menu a {
+        display: block; /* Make the link a block element */
+        padding: 2px; /* Space inside the bars */
+        background: #f0f0f0; /* Light gray background for bars */
+        text-decoration: none; /* Remove underline */
+        color: #333; /* Text color */
+        border-radius: 4px; /* Rounded corners */
+        transition: background 0.3s; /* Smooth background transition */
+    }
+    #menu a:hover {
+        background: #e0e0e0; /* Darker gray on hover */
+    }
+    .active {
+        font-weight: bold;
+        color: blue; /* Change the color for highlighting */
+    }
+    .active::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        border-radius: 4px;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: #007bff; /* Active background color */
+        transform: scaleX(0); /* Start with no width */
+        transform-origin: left; /* Scale from the left */
+        animation: load 0.5s forwards; /* Loading animation */
+        background: rgba(0, 123, 255, 0.5); /* Semi-transparent active background color */
+    }
+    @keyframes load {
+        0% {
+            transform: scaleX(0); /* Start with no width */
+        }
+        70% {
+            transform:  scaleX(1); /* Scale to full width */
+        }
+        85% {
+            transform: scaleX(0.95); /* Bounce effect */
+        }
+        100% {
+            transform: scaleX(1); /* Return to full width */
+        }
+    }
+    .section {
+        border: 0;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+    
+    .desktop-only {
+        display: none;
+    }
+    /* Show mobile paragraph on mobile devices */
+    .mobile-only {
+        display: block;
+    }
+    /* Media query for non-mobile devices */
+    @media (min-width: 768px) {
+        .desktop-only {
+            display: block;
+        }
+        .mobile-only {
+            display: none;
+        }
+    }
+    
+    /* mobile version*/
+    .popup-button {
+        font-size: 24px;
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%); /* Center vertically */
+        padding: 10px 20px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        cursor: pointer;
+        opacity: 0; /* Start invisible */
+        visibility: hidden; /* Initially hidden */
+        transition: opacity 0.5s ease, visibility 0.5s ease; /* Fade effect */
+    }
+    .popup-button.show {
+        opacity: 1; /* Fully visible */
+        visibility: visible; /* Make it visible */
+    }
+    .target-section {
+        background-color: #f0f0f0;
+    }
+    .sidebar {
+        position: fixed;
+        right: 0; /* Align sidebar directly to the right edge */
+        width: 200px; /* Set the width of the sidebar */
+        max-height: 80vh; /* Limit height for scrolling */
+        background: #fff; /* Background for the sidebar */
+        padding: 10px; /* Padding inside the sidebar */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        z-index: 1000; /* Ensure it appears above other elements */
+        transform: translate(0, -50%) scale(0); /* Start hidden and minimized */
+        transform-origin: right center; /* Scale from the right */
+        transition: transform 0.3s ease, visibility 0.5s ease; /* Smooth transition */
+        visibility: hidden; /* Initially hidden */
+        border: 1px solid #ccc; /* Add a border */
+        border-radius: 8px; /* Slightly rounded corners */
+    }
+    .sidebar.show {
+        transform: translate(0, -50%) scale(1); /* Show the sidebar */
+        visibility: visible; /* Make it visible */
+    }
+    .sidebar h3 {
+        margin: 0; /* Remove default margin */
+        padding: 0; /* Remove default padding */
+        height: 40px; /* Set height for better alignment */
+    }
+    .mobile-scrollable{
+        height: auto;        /* Allow it to grow based on content */
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+</style>
+<p>There will be two topics to this post. The first one will be about pendulums and the second one will be about automation. The topics aren’t related, but I put them together anyways. I hope you enjoy reading about them!</p>
 
 <h2 id="pendulums">Pendulums</h2>
 
@@ -239,17 +390,17 @@
 
 <p>When we think about a simple pendulum, we think of a string attached to a pivot on one end and a heavy mass attached on the other $($assuming string has no mass$)$. Something like this:</p>
 
-<p><img src="https://szonov.com/assets/pendulum.jpg" alt="image" /></p>
+<p><img src="https://szonov.com/assets/pendulum.jpg" alt="image"></p>
 
 <p>Since we are talking about applied mathematics here, then we need some sort of equation to work with. So how does one turn the pendulum motion into an equation?</p>
 
 <p>One thing we can start off with is the $F = ma$ equation $($Newton’s third law$)$. The $F$ is the net force and in our case will be the force acting on the mass hanging on to the string, $m$ the mass and $a$ the acceleration of the mass. Since we are dealing with the pendulum then what we will be using to keep track of position will be the angle $(\(\theta\))$ of the string from the pendulum’s equilibrium position. We now upgrade our image to the following:</p>
 
-<p><img src="https://szonov.com/assets/updated_pendulum.jpg" alt="image" /></p>
+<p><img src="https://szonov.com/assets/updated_pendulum.jpg" alt="image"></p>
 
 <p>To understand the net force on the mass, we need to consider all the forces acting on the mass. These forces will be gravity and tension of the string. By understanding the forces acting upon the mass we can then understand the motion induced by the forces:</p>
 
-<p><img src="https://szonov.com/assets/forces_pendulum.jpg" alt="image" /></p>
+<p><img src="https://szonov.com/assets/forces_pendulum.jpg" alt="image"></p>
 
 <p>The black force is caused by tension of the string and the blue force is caused by gravity. The gravity force can be broken down to the two red forces with the help of geometry. Since the mass on the string is not flying off the string then it must be the case that $F_g cos(\theta) = F_T$ and they cancel each other out. Therefore, the net force is $F = - mg sin(\theta)$.</p>
 
@@ -269,7 +420,7 @@
 
 <p>If we decide to solve the original equation with the $sin$ we might as well work on approximation techniques in order to save some time. One well known method is called the Euler method. In the Euler method we have an expression for the derivative of the form $y’ = f(t,y(t))$ and a starting point $y_0$ where $y(t_0) = y_0$. If we recall, $y’$ is the slope of the tangent of the curve $y$. Using the slope and the starting point $y_0$, we can approximate for the next value of the function, $y_1$ at $t = t_0+\delta t$ as  $y(t_0 + \delta t) = y_1 = y_0 + f(t_0,y_0)\delta t$. Here is a great image from Wikipedia to help visualize the explanation:</p>
 
-<p><img src="https://szonov.com/assets/euler_method.png" alt="image" /></p>
+<p><img src="https://szonov.com/assets/euler_method.png" alt="image"></p>
 
 <p>The Euler method can be extended to our differential equation as well. I employed the Euler method, the $sin$ approximation  as well as a different method called the RK4 ~ Runge-Kutta to the pendulum problem in order to help visualize the approximation techniques right over <a href="https://szonov.com/pendulum/simple_pendulum/index.html">here</a>. The RK4 is the most accurate, closely followed by the Euler and then finally the small $\theta$ approximation. You can play around with the initial conditions to see the differences in approximation. For the most part, the approximations match each other fairly well, but for some initial values they really differ $($ I recommend setting angle ~ 236, dtheta - 15, damping - 0, length - 150, gravity - 9.8 and selecting all the  approximation techniques$)$. The application also has the damping setting that you can play around with. I won’t say much about it as you can discover for yourself what it does.</p>
 
@@ -287,67 +438,67 @@
 
 <p>I will assume the reader has a Google account and is remotely familiar with Google Drive. You will need to create a new Google Sheet. In the Google sheet, fill it up in the following manner $($with the birthdays of people you know$)$:</p>
 
-<p><img src="https://szonov.com/assets/birthdays_sheet.png" alt="image" /></p>
+<p><img src="https://szonov.com/assets/birthdays_sheet.png" alt="image"></p>
 
 <p>The first row is for the column titles and the rest of the rows is for the data. The data in the rows does not have to be organized in any particular order.</p>
 
 <p>Once you have done that, go to <em>Tools &gt; Script Editor…</em> and enter the following code $($and then save it$)$.</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">checkReminder</span><span class="p">(){</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nf">checkReminder</span><span class="p">(){</span>
   <span class="c1">// get the spreadsheet object</span>
-  <span class="kd">var</span> <span class="nx">spreadsheet</span> <span class="o">=</span> <span class="nx">SpreadsheetApp</span><span class="p">.</span><span class="nx">getActiveSpreadsheet</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">spreadsheet</span> <span class="o">=</span> <span class="nx">SpreadsheetApp</span><span class="p">.</span><span class="nf">getActiveSpreadsheet</span><span class="p">();</span>
   <span class="c1">// set the first sheet as active</span>
-  <span class="nx">SpreadsheetApp</span><span class="p">.</span><span class="nx">setActiveSheet</span><span class="p">(</span><span class="nx">spreadsheet</span><span class="p">.</span><span class="nx">getSheets</span><span class="p">()[</span><span class="mi">0</span><span class="p">]);</span>
+  <span class="nx">SpreadsheetApp</span><span class="p">.</span><span class="nf">setActiveSheet</span><span class="p">(</span><span class="nx">spreadsheet</span><span class="p">.</span><span class="nf">getSheets</span><span class="p">()[</span><span class="mi">0</span><span class="p">]);</span>
   <span class="c1">// fetch this sheet</span>
-  <span class="kd">var</span> <span class="nx">sheet</span> <span class="o">=</span> <span class="nx">spreadsheet</span><span class="p">.</span><span class="nx">getActiveSheet</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">sheet</span> <span class="o">=</span> <span class="nx">spreadsheet</span><span class="p">.</span><span class="nf">getActiveSheet</span><span class="p">();</span>
    
   <span class="c1">// figure out what the last row is</span>
-  <span class="kd">var</span> <span class="nx">lastRow</span> <span class="o">=</span> <span class="nx">sheet</span><span class="p">.</span><span class="nx">getLastRow</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">lastRow</span> <span class="o">=</span> <span class="nx">sheet</span><span class="p">.</span><span class="nf">getLastRow</span><span class="p">();</span>
  
   <span class="c1">// the rows are indexed starting at 1, and the first row</span>
   <span class="c1">// is the headers, so start with row 2</span>
   <span class="kd">var</span> <span class="nx">startRow</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
   
   <span class="c1">//get today's month and date</span>
-  <span class="kd">var</span> <span class="nx">dateData</span> <span class="o">=</span> <span class="nx">getMonthAndDay</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">());</span>
+  <span class="kd">var</span> <span class="nx">dateData</span> <span class="o">=</span> <span class="nf">getMonthAndDay</span><span class="p">(</span><span class="k">new</span> <span class="nc">Date</span><span class="p">());</span>
   <span class="kd">var</span> <span class="nx">month</span> <span class="o">=</span> <span class="nx">dateData</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
   <span class="kd">var</span> <span class="nx">day</span> <span class="o">=</span> <span class="nx">dateData</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
   
   <span class="c1">//get tomorrows month and date</span>
-  <span class="kd">var</span> <span class="nx">today</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
-  <span class="kd">var</span> <span class="nx">tomorrow</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
-  <span class="nx">tomorrow</span><span class="p">.</span><span class="nx">setDate</span><span class="p">(</span><span class="nx">today</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">today</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Date</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">tomorrow</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Date</span><span class="p">();</span>
+  <span class="nx">tomorrow</span><span class="p">.</span><span class="nf">setDate</span><span class="p">(</span><span class="nx">today</span><span class="p">.</span><span class="nf">getDate</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
   
-  <span class="kd">var</span> <span class="nx">tomorrowDateData</span> <span class="o">=</span> <span class="nx">getMonthAndDay</span><span class="p">(</span><span class="nx">tomorrow</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">tomorrowDateData</span> <span class="o">=</span> <span class="nf">getMonthAndDay</span><span class="p">(</span><span class="nx">tomorrow</span><span class="p">);</span>
   <span class="kd">var</span> <span class="nx">tomorrowMonth</span> <span class="o">=</span> <span class="nx">tomorrowDateData</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
   <span class="kd">var</span> <span class="nx">tomorrowDay</span> <span class="o">=</span> <span class="nx">tomorrowDateData</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
       
   
   <span class="c1">//get the data in the spreadsheet to loop over</span>
-  <span class="kd">var</span> <span class="nx">range</span> <span class="o">=</span> <span class="nx">sheet</span><span class="p">.</span><span class="nx">getRange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="nx">lastRow</span><span class="o">-</span><span class="nx">startRow</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span> <span class="p">);</span>
-  <span class="kd">var</span> <span class="nx">numRows</span> <span class="o">=</span> <span class="nx">range</span><span class="p">.</span><span class="nx">getNumRows</span><span class="p">();</span>
-  <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">range</span><span class="p">.</span><span class="nx">getValues</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">range</span> <span class="o">=</span> <span class="nx">sheet</span><span class="p">.</span><span class="nf">getRange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="nx">lastRow</span><span class="o">-</span><span class="nx">startRow</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span> <span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">numRows</span> <span class="o">=</span> <span class="nx">range</span><span class="p">.</span><span class="nf">getNumRows</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">range</span><span class="p">.</span><span class="nf">getValues</span><span class="p">();</span>
   
   <span class="c1">//for all the rows with data</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">numRows</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for </span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">numRows</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">//get the month and date</span>
     <span class="kd">var</span> <span class="nx">m</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span><span class="c1">//columns start indexing at zero unlike rows</span>
     <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">1</span><span class="p">];</span>
     <span class="c1">//if today's month and date matches the rows month and date ---&gt; then it means it is the person's birthday</span>
     <span class="k">if</span><span class="p">(</span><span class="nx">m</span><span class="o">==</span><span class="nx">month</span><span class="o">&amp;&amp;</span><span class="nx">d</span><span class="o">==</span><span class="nx">day</span><span class="p">){</span><span class="c1">//it is the person's birthday</span>
       <span class="c1">//Then shoot the person an email!</span>
-      <span class="nx">MailApp</span><span class="p">.</span><span class="nx">sendEmail</span><span class="p">(</span><span class="dl">"</span><span class="s2">your email in quotation marks</span><span class="dl">"</span><span class="p">,</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">4</span><span class="p">],</span> <span class="dl">"</span><span class="s2">Happy Birthday EMAIL TITLE</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">MAKE YOUR OWN BDAY BODY MESSAGE</span><span class="dl">"</span><span class="p">);</span>
+      <span class="nx">MailApp</span><span class="p">.</span><span class="nf">sendEmail</span><span class="p">(</span><span class="dl">"</span><span class="s2">your email in quotation marks</span><span class="dl">"</span><span class="p">,</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">4</span><span class="p">],</span> <span class="dl">"</span><span class="s2">Happy Birthday EMAIL TITLE</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">MAKE YOUR OWN BDAY BODY MESSAGE</span><span class="dl">"</span><span class="p">);</span>
     <span class="p">}</span><span class="c1">//if tomorrow is the row's date and month, then it means it is the person's birthday tomorrow ---&gt; shoot yourself a warning message</span>
     <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">m</span><span class="o">==</span><span class="nx">tomorrowMonth</span><span class="o">&amp;&amp;</span><span class="nx">d</span><span class="o">==</span><span class="nx">tomorrowDay</span><span class="p">){</span>
-      <span class="nx">MailApp</span><span class="p">.</span><span class="nx">sendEmail</span><span class="p">(</span><span class="dl">"</span><span class="s2">your email in quotation marks</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Birthday automation warning.</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Birthday of </span><span class="dl">"</span><span class="o">+</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="dl">"</span><span class="s2"> is tomorrow.</span><span class="dl">"</span><span class="p">);</span>
+      <span class="nx">MailApp</span><span class="p">.</span><span class="nf">sendEmail</span><span class="p">(</span><span class="dl">"</span><span class="s2">your email in quotation marks</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Birthday automation warning.</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Birthday of </span><span class="dl">"</span><span class="o">+</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="dl">"</span><span class="s2"> is tomorrow.</span><span class="dl">"</span><span class="p">);</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">};</span>
 
 
 <span class="c1">//for a given Date object return the Month and date</span>
-<span class="kd">function</span> <span class="nx">getMonthAndDay</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span>
-  <span class="kd">var</span> <span class="nx">month</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">();</span>
+<span class="kd">function</span> <span class="nf">getMonthAndDay</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">month</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Array</span><span class="p">();</span>
   <span class="nx">month</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">January</span><span class="dl">"</span><span class="p">;</span>
   <span class="nx">month</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">February</span><span class="dl">"</span><span class="p">;</span>
   <span class="nx">month</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">March</span><span class="dl">"</span><span class="p">;</span>
@@ -360,14 +511,196 @@
   <span class="nx">month</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">October</span><span class="dl">"</span><span class="p">;</span>
   <span class="nx">month</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">November</span><span class="dl">"</span><span class="p">;</span>
   <span class="nx">month</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">December</span><span class="dl">"</span><span class="p">;</span>
-  <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nx">month</span><span class="p">[</span><span class="nx">d</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()];</span> 
-  <span class="k">return</span> <span class="p">[</span><span class="nx">n</span><span class="p">,</span><span class="nx">d</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()];</span>
+  <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nx">month</span><span class="p">[</span><span class="nx">d</span><span class="p">.</span><span class="nf">getMonth</span><span class="p">()];</span> 
+  <span class="k">return</span> <span class="p">[</span><span class="nx">n</span><span class="p">,</span><span class="nx">d</span><span class="p">.</span><span class="nf">getDate</span><span class="p">()];</span>
 <span class="p">}</span></code></pre></figure>
 
 <p>I have added comments throughout the code in order to help explain it. The code essentially checks the spreadsheet and checks if today’s date matches a date on the sheet. If there is a match then it sends the person a happy birthday email. If the person’s email is tomorrow then it sends you a warning in advance $($ in case you want to do something more than just an email $)$. $($If you have a friend who has a birthday on Feb 29 then you might have to do some extra thinking :$)$  $)$.</p>
 
 <p>Since we want to automate this process and have it run everyday then we still have some work to do. You need to go to <em>Resources &gt; All your triggers</em>, Add a new trigger and set it to Time-driven, Day timer between 7-8am and press save. Then go to <em>Publish &gt; Deploy as Web App…</em> and give the app the permissions it needs. There you go! You have created your very own birthday bot.</p>
 
+<script>
+    function isMobileOnlyView() {
+        return window.matchMedia("(max-width: 767px)").matches;
+    }
+
+    if (isMobileOnlyView()) {
+        
+        let popupButtons = [];
+        let targetSections = [];
+        let sidebars = [];
+        let closebuttons = [];
+        let sections_in_target_section = [];
+        let links_in_sidebar = [];
+        let i = 1;
+        let popupButton;
+        while ((popupButton = document.getElementById(`popup-button-${i}`)) !== null) {
+            popupButtons.push(popupButton);
+            const targetSection = document.getElementById(`target-section-${i}`)
+            targetSections.push(targetSection);
+            const sidebar = document.getElementById(`sidebar-${i}`);
+            sidebars.push(sidebar);
+            closebuttons.push(document.getElementById(`close-buttons-${i}`));
+
+            const mobileSections = targetSection.querySelectorAll('[id^="mobile-section"]');
+            // Convert NodeList to an array and push it to sections_in_target_section
+            sections_in_target_section.push(Array.from(mobileSections));
+
+            const links = sidebar.querySelectorAll('a');
+            links_in_sidebar.push(Array.from(links));
+            i++;
+        }
+        
+        let popupButtonCount = i - 1;
+        
+        window.addEventListener('scroll', function() {
+            for (let i = 1; i <= popupButtonCount; i++) {
+                const popupButton = popupButtons[i-1];
+                const targetSection = targetSections[i-1]
+                const sectionPosition = targetSection.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+                
+                // Check if the target section is halfway through the viewport
+                if (sectionPosition.top < viewportHeight / 2 && sectionPosition.bottom > viewportHeight / 2) {
+                    popupButton.classList.add('show'); // Show the button
+                } else {
+                    popupButton.classList.remove('show'); // Hide the button
+                }
+                
+                const sidebar = sidebars[i-1];
+                // Hide sidebar on scroll (only on mobile)
+                if (sidebar.classList.contains('show') && window.innerWidth <= 768) {
+                    sidebar.classList.remove('show'); // Hide the sidebar
+                }
+                
+                // Highlight active link based on scroll position
+                let currentSectionId = '';
+                sections_in_target_section[i-1].forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    const sectionBottom = section.getBoundingClientRect().bottom;
+
+                    // Check if the section is in view and at the top of the viewport
+                    if (sectionTop <= viewportHeight / 2 && sectionBottom > viewportHeight / 2) {
+                        currentSectionId = section.id;
+                    }
+                });
+                
+                 links_in_sidebar[i-1].forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSectionId}`) {
+                        link.classList.add('active'); // Highlight active link
+                    }
+                });
+            }
+        });
+        
+        for (let i = 1; i <= popupButtonCount; i++) {
+            // Function to toggle sidebar visibility
+            let popupButton = popupButtons[i-1];
+            popupButton.addEventListener('click', function() {
+                const sidebar = sidebars[i-1];
+                sidebar.classList.toggle('show'); // Toggle sidebar visibility
+                if (sidebar.classList.contains('show')) {
+                    // Calculate the sidebar height and set its position
+                    const sidebarHeight = sidebar.scrollHeight; // Use scrollHeight for accurate height
+                    const windowHeight = window.innerHeight; // Get the window height
+                    const topPosition = (windowHeight / 2); // - (sidebarHeight / 2); // Calculate top position
+                    sidebar.style.top = `${topPosition}px`; // Set the top position
+                    
+                    links_in_sidebar[i-1].forEach(link => {
+                       if (link.classList.contains('active')) {
+
+                           function delay(time) {
+                             return new Promise(resolve => setTimeout(resolve, time));
+                           }
+                           function scroll_adjust(){
+                               // add the delay so that the sidebar can be loaded from zero size
+                               // before getting all the various coordinates used in calculation
+                               const scrollableElement = link.closest(".mobile-scrollable");
+                               const scollableRect = scrollableElement.getBoundingClientRect();
+                               const linkRect = link.getBoundingClientRect();
+                               
+                               if( ( linkRect.y + 100 ) > ( scollableRect.y + scollableRect.height ) || linkRect.y < scollableRect.y){
+                                   const scrollTop = linkRect.top - scollableRect.top + scrollableElement.scrollTop - (scollableRect.height / 2) + (link.offsetHeight / 2);
+                                   scrollableElement.scrollTo({ top: scrollTop, behavior: 'smooth' });
+                               }
+                           }
+                           
+                           delay(1000).then(() =>scroll_adjust() );
+                       }
+                    })
+                }
+                
+                // Close sidebar when close button is clicked
+                closebuttons[i-1].addEventListener('click', function() {
+                    sidebar.classList.remove('show'); // Hide the sidebar
+                });
+                
+                // Close sidebar when clicking outside of it
+                document.addEventListener('click', function(event) {
+                    if (sidebar.classList.contains('show') && !sidebar.contains(event.target) && !popupButton.contains(event.target)) {
+                        sidebar.classList.remove('show'); // Hide the sidebar
+                    }
+                });
+                
+            });
+        }
+    } else {
+        // for desktop
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            const links = document.querySelectorAll('#menu a');
+            
+            let currentSection = ''
+            let current = ''
+            
+            // highlight the active link based on where the location of scroll
+            output_string = window.scrollY + ""
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const sectionBottom = section.getBoundingClientRect().bottom;
+                
+                output_string = output_string + "(" +sectionTop + ", " + sectionBottom + ")"
+                if (sectionTop > 50 ) {
+                    if(currentSection == ''){
+                        currentSection = section
+                    }
+                    else if(currentSection.getBoundingClientRect().top > 0 && sectionTop < currentSection.getBoundingClientRect().top ){
+                        currentSection = section
+                    }
+                    current = currentSection.getAttribute('id');
+                }
+                else if (sectionBottom > 50  ){
+                    if(currentSection == ''){
+                        currentSection = section
+                    }
+                    else if( sectionBottom < currentSection.getBoundingClientRect().bottom ){
+                        currentSection = section
+                    }
+                    current = currentSection.getAttribute('id');
+                }
+            });
+            
+            links.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                    // For cases when scrollable toc is bigger than screen view
+                    // and active link is outside of view
+                    const scrollableElement = link.closest(".scrollable");
+                    const scollableRect = scrollableElement.getBoundingClientRect();
+                    const linkRect = link.getBoundingClientRect();
+                    
+                    if( ( linkRect.y + 100 ) > ( scollableRect.y + scollableRect.height ) || linkRect.y < scollableRect.y){
+                        const scrollTop = linkRect.top - scollableRect.top + scrollableElement.scrollTop - (scollableRect.height / 2) + (link.offsetHeight / 2);
+                        scrollableElement.scrollTo({ top: scrollTop, behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    }
+</script>
+</body>
 
   </article>
 
@@ -384,13 +717,13 @@
 	</div>
   <div class="wrapper">
 
-    <h2 class="footer-heading">Stan Zonov</h2>
+    <!--<h2 class="footer-heading">Stan Zonov</h2>-->
 
     <div class="footer-col-wrapper">
       <div class="footer-col  footer-col-2">
         <ul class="contact-list">
           <!--<li>Stan Zonov</li>-->
-          <li>hello at szonov.com</li>
+          <!--<li>hello at szonov.com</li>-->
         </ul>
       </div>
 

@@ -2,17 +2,7 @@
 <html>
 
   <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-39729658-3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-39729658-3');
-</script>
-
-
+  
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -210,39 +200,208 @@
   </header>
 
   <article class="post-content">
-    <p>Hello dear reader!</p>
+    <body>
+<p style="height:0px;width:0px"></p>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+    .toc_and_content_table{
+        border: none;
+    }
+    .toc {
+        width: 25%;
+        vertical-align:top;
+        border: none;
+        padding:0px;
+        border: none;
+    }
+    .content {
+        padding: 10px;
+        border: none;
+    }
+    .scrollable{
+        height: auto;        /* Allow it to grow based on content */
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+    .sticky-top {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        background: #fff; /* Background for the sticky menu */
+    }
+    #menu {
+        list-style-type: none; /* Remove bullets */
+        padding: 0; /* Remove padding */
+        margin: 0; /* Remove margin */
+    }
+    #menu li {
+        margin: 5px 0; /* Space between bars */
+        position: relative
+    }
+    #menu a {
+        display: block; /* Make the link a block element */
+        padding: 2px; /* Space inside the bars */
+        background: #f0f0f0; /* Light gray background for bars */
+        text-decoration: none; /* Remove underline */
+        color: #333; /* Text color */
+        border-radius: 4px; /* Rounded corners */
+        transition: background 0.3s; /* Smooth background transition */
+    }
+    #menu a:hover {
+        background: #e0e0e0; /* Darker gray on hover */
+    }
+    .active {
+        font-weight: bold;
+        color: blue; /* Change the color for highlighting */
+    }
+    .active::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        border-radius: 4px;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: #007bff; /* Active background color */
+        transform: scaleX(0); /* Start with no width */
+        transform-origin: left; /* Scale from the left */
+        animation: load 0.5s forwards; /* Loading animation */
+        background: rgba(0, 123, 255, 0.5); /* Semi-transparent active background color */
+    }
+    @keyframes load {
+        0% {
+            transform: scaleX(0); /* Start with no width */
+        }
+        70% {
+            transform:  scaleX(1); /* Scale to full width */
+        }
+        85% {
+            transform: scaleX(0.95); /* Bounce effect */
+        }
+        100% {
+            transform: scaleX(1); /* Return to full width */
+        }
+    }
+    .section {
+        border: 0;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+    
+    .desktop-only {
+        display: none;
+    }
+    /* Show mobile paragraph on mobile devices */
+    .mobile-only {
+        display: block;
+    }
+    /* Media query for non-mobile devices */
+    @media (min-width: 768px) {
+        .desktop-only {
+            display: block;
+        }
+        .mobile-only {
+            display: none;
+        }
+    }
+    
+    /* mobile version*/
+    .popup-button {
+        font-size: 24px;
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%); /* Center vertically */
+        padding: 10px 20px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        cursor: pointer;
+        opacity: 0; /* Start invisible */
+        visibility: hidden; /* Initially hidden */
+        transition: opacity 0.5s ease, visibility 0.5s ease; /* Fade effect */
+    }
+    .popup-button.show {
+        opacity: 1; /* Fully visible */
+        visibility: visible; /* Make it visible */
+    }
+    .target-section {
+        background-color: #f0f0f0;
+    }
+    .sidebar {
+        position: fixed;
+        right: 0; /* Align sidebar directly to the right edge */
+        width: 200px; /* Set the width of the sidebar */
+        max-height: 80vh; /* Limit height for scrolling */
+        background: #fff; /* Background for the sidebar */
+        padding: 10px; /* Padding inside the sidebar */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        z-index: 1000; /* Ensure it appears above other elements */
+        transform: translate(0, -50%) scale(0); /* Start hidden and minimized */
+        transform-origin: right center; /* Scale from the right */
+        transition: transform 0.3s ease, visibility 0.5s ease; /* Smooth transition */
+        visibility: hidden; /* Initially hidden */
+        border: 1px solid #ccc; /* Add a border */
+        border-radius: 8px; /* Slightly rounded corners */
+    }
+    .sidebar.show {
+        transform: translate(0, -50%) scale(1); /* Show the sidebar */
+        visibility: visible; /* Make it visible */
+    }
+    .sidebar h3 {
+        margin: 0; /* Remove default margin */
+        padding: 0; /* Remove default padding */
+        height: 40px; /* Set height for better alignment */
+    }
+    .mobile-scrollable{
+        height: auto;        /* Allow it to grow based on content */
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+</style>
+<p>Hello dear reader!</p>
 
 <p>In this blog post we will investigate the speed of TensorFlow Lite models on various Android phones. TensorFlow Lite models are efficient and portable TensorFlow models that are used in machine learning applications on mobile devices like Android phones. In our case we will investigate the models from previous <a href="https://szonov.com/programming/2021/11/05/detecting-coins-with-tensorflow/">blog post</a> where the models generated can detect coins (see screenshot of app in action below).</p>
 
-<p><img src="https://szonov.com/assets/detecting_coins/result.png" alt="img" /></p>
+<p><img src="https://szonov.com/assets/detecting_coins/result.png" alt="img"></p>
 
 <p>We will test two TensorFlow Lite models</p>
 <ul>
-  <li><a href="https://tfhub.dev/tensorflow/ssd_mobilenet_v2/fpnlite_320x320/1"><code class="language-plaintext highlighter-rouge">ssd_mobilenet_v2_fpnlite_320x320_coco17_tpu-8.tar.gz</code></a> pretrained Tensorflow 2 model which was trained further and converted to Tflite format in <a href="https://github.com/mannyray/machineLearningStarter/blob/master/run_tensorflow/result_2.tflite"><code class="language-plaintext highlighter-rouge">result_2.tflite</code></a></li>
-  <li><a href="https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1_detection_zoo.md#mobile-models"><code class="language-plaintext highlighter-rouge">ssd_mobilenet_v3_large_coco_2020_01_14.tar.gz</code></a> pretrained Tensorflow 1 model which was trained further and converted to Tflite format in <a href="https://github.com/mannyray/machineLearningStarter/blob/master/run_tensorflow/result.tflite"><code class="language-plaintext highlighter-rouge">result.tflite</code></a></li>
+  <li>
+<a href="https://tfhub.dev/tensorflow/ssd_mobilenet_v2/fpnlite_320x320/1"><code class="language-plaintext highlighter-rouge">ssd_mobilenet_v2_fpnlite_320x320_coco17_tpu-8.tar.gz</code></a> pretrained Tensorflow 2 model which was trained further and converted to Tflite format in <a href="https://github.com/mannyray/machineLearningStarter/blob/master/run_tensorflow/result_2.tflite"><code class="language-plaintext highlighter-rouge">result_2.tflite</code></a>
+</li>
+  <li>
+<a href="https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf1_detection_zoo.md#mobile-models"><code class="language-plaintext highlighter-rouge">ssd_mobilenet_v3_large_coco_2020_01_14.tar.gz</code></a> pretrained Tensorflow 1 model which was trained further and converted to Tflite format in <a href="https://github.com/mannyray/machineLearningStarter/blob/master/run_tensorflow/result.tflite"><code class="language-plaintext highlighter-rouge">result.tflite</code></a>
+</li>
 </ul>
 
 <p>The TensorFlow Lite models are tested on four different Android phones</p>
 <ul>
-  <li><a href="https://www.gsmarena.com/samsung_galaxy_j2_prime-8424.php">Samsung Galaxy J2 Prime</a>
+  <li>
+<a href="https://www.gsmarena.com/samsung_galaxy_j2_prime-8424.php">Samsung Galaxy J2 Prime</a>
     <ul>
       <li>1.5 GB Ram</li>
       <li>2016 November Release</li>
     </ul>
   </li>
-  <li><a href="https://www.gsmarena.com/motorola_one_action-9739.php">Motorola One Action</a>
+  <li>
+<a href="https://www.gsmarena.com/motorola_one_action-9739.php">Motorola One Action</a>
     <ul>
       <li>4 GB Ram</li>
       <li>2019 October Release</li>
     </ul>
   </li>
-  <li><a href="https://www.gsmarena.com/google_pixel_4-9896.php">Google Pixel 4</a>
+  <li>
+<a href="https://www.gsmarena.com/google_pixel_4-9896.php">Google Pixel 4</a>
     <ul>
       <li>6 GB Ram</li>
       <li>2019 October Release</li>
     </ul>
   </li>
-  <li><a href="https://www.gsmarena.com/google_pixel_6-11037.php">Google Pixel 6</a>
+  <li>
+<a href="https://www.gsmarena.com/google_pixel_6-11037.php">Google Pixel 6</a>
     <ul>
       <li>8 GB Ram</li>
       <li>2021 October Release</li>
@@ -277,11 +436,11 @@ git checkout benchmark_app
 
 <p>You can filter for the exact processing times by filter specific <a href="https://github.com/mannyray/tfliteCustomApp/blob/benchmark_app/app/src/main/java/org/tensorflow/lite/benchmark/detection/DetectorActivity.java#L225">log line</a> in Android Studio:</p>
 
-<p><img src="https://szonov.com/assets/tensorflow_lite_comparison/log.png" alt="img" /></p>
+<p><img src="https://szonov.com/assets/tensorflow_lite_comparison/log.png" alt="img"></p>
 
 <p>The phone will be connected via USB cable to computer in order to collect logs. The phone will be detecting same objects for duration of your experiment runtime. Once finishing running your app you can copy the logs to a file for later processing.</p>
 
-<p><img src="https://szonov.com/assets/tensorflow_lite_comparison/coins.jpg" alt="img" /></p>
+<p><img src="https://szonov.com/assets/tensorflow_lite_comparison/coins.jpg" alt="img"></p>
 
 <h2 id="results">Results</h2>
 
@@ -289,17 +448,17 @@ git checkout benchmark_app
 
 <p>We introduce a new parameter, thread count, that can be specified in the app during runtime. We experiment with varying thread count to determine the best performance possible for a given cell phone as the performance varies with thread count. In the figure below we run the app on the phone for thirty seconds. The first 10 seconds are cut off as that is when the application is loading or one is modifying the thread count via UI and so the performance is not stable.</p>
 
-<p><img src="https://szonov.com/assets/tensorflow_lite_comparison/Figure_1.png" alt="img" /></p>
+<p><img src="https://szonov.com/assets/tensorflow_lite_comparison/Figure_1.png" alt="img"></p>
 
 <p>From the figure we can observe that the performance varies significantly when varying thread count. In the case of Motorola One Action running the TensorFlow 2 model, we have the red line, representing four thread count, is the best performing configuration with average processing time of 75ms. When we decrease OR increase thread count from four we increase the processing time. For low and high thread count (1 or 6) we observe the variance in processing time has increased compared to the optimal thread count of four.</p>
 
 <p>The previous image was specifically for Motorola One Action. What happens if we fix a TensorFlow Model and see how the various Android models perform? In the image below we plot the average one minute performance of each of the four cell phones on the TensorFlow 1 trained model while we vary the thread count.</p>
 
-<p><img src="https://szonov.com/assets/tensorflow_lite_comparison/Figure_2.png" alt="img" /></p>
+<p><img src="https://szonov.com/assets/tensorflow_lite_comparison/Figure_2.png" alt="img"></p>
 
 <p>The old Samsung J2 prime is so slow that we cannot really see how well the others are performing. We can tell that the other phones are much better with the Pixels being the best and near each other performance wise. Let us see what happens when we normalize each of the curves in the figure above based on its maximum value (we normalize each curve by dividing each value by the largest value present in the curve which reduces the values to range of zero to one):</p>
 
-<p><img src="https://szonov.com/assets/tensorflow_lite_comparison/Figure_3.png" alt="img" /></p>
+<p><img src="https://szonov.com/assets/tensorflow_lite_comparison/Figure_3.png" alt="img"></p>
 
 <p>The maximum values are either with one thread count or six as that is where the cell phone is the most slowest. For all the cell phones we can tell that the optimal performance is somewhere in between one and six threads. For Motorola One Action and Pixel 4 we observe that the optimal time is twice as good as the worst processing time (0.5 ratio). We observe that some phones are optimal at three threads while others at four (Pixel 4 vs Motorola One Action).</p>
 
@@ -347,46 +506,46 @@ git checkout benchmark_app
 
 <p>Let us assume your application is for tracking an object as it moves across a screen as it was in my <a href="https://szonov.com/programming/2021/03/28/prototype/">application</a>. For the purpose of tracking I implemented a <a href="https://github.com/mannyray/sort/">Simple Online Realtime Tracking</a> algorithm which is built on top of a Kalman Filter. In tracking applications, we need to make sure we have an accurate estimate of where our object is located. Our estimate of where the object is located depends on how frequently we obtain our measurements (among other things). For TensorFlow Lite models, the measurements are the bounding boxes around detected objects. In the video below observe the difference in lag of the bounding box as the thread count is increased and thus processing time.</p>
 
-<p><a href="https://www.youtube.com/watch?v=xOvVSYoBjm8" title="Tensorflow tflite app lag example"><img src="https://szonov.com/assets/tensorflow_lite_comparison/coin_video.png" alt="IMAGE ALT TEXT" /></a></p>
+<p><a href="https://www.youtube.com/watch?v=xOvVSYoBjm8" title="Tensorflow tflite app lag example"><img src="https://szonov.com/assets/tensorflow_lite_comparison/coin_video.png" alt="IMAGE ALT TEXT"></a></p>
 
 <p>An extreme example of tracking lag is if you are tracking an ant on the ground but you can only check once a minute. Last time you saw the ant, he was heading north. In a minute you expect him to be slightly north of where you last saw him. What if the ant turned west half way through the one minute? Now you have to search the ground for the ant. If you were checking once every 10 seconds you wouldn’t have to spend as much time looking for him even if he changed direction. Frequency of measurements is relevant to your ability to track. If we double the processing time from one phone model to the next (or from one TensorFlow model to the next) then this can have significant impact on you as your measurements are less frequent.</p>
 
 <p>In tracking, a cost function of accuracy is the Intersection Over Union measure. In the gif below consider the red is the true position of an object and blue box where you think it is. As the blue box more closely matches the location of the red, the IOU increases to a maximum of one. IOU is zero when there is no intersection.</p>
 
-<p><img src="https://github.com/mannyray/sort/raw/master/python_implementation/example/assets/iou_example.gif" alt="" /></p>
+<p><img src="https://github.com/mannyray/sort/raw/master/python_implementation/example/assets/iou_example.gif" alt=""></p>
 
 <p>Some stills from the gif above:</p>
 
 <table>
   <tbody>
     <tr>
-      <td><img src="https://szonov.com/assets/tensorflow_lite_comparison/target-160.png" alt="img" /></td>
-      <td><img src="https://szonov.com/assets/tensorflow_lite_comparison/target-175.png" alt="img" /></td>
-      <td><img src="https://szonov.com/assets/tensorflow_lite_comparison/target-188.png" alt="img" /></td>
-      <td><img src="https://szonov.com/assets/tensorflow_lite_comparison/target-200.png" alt="img" /></td>
+      <td><img src="https://szonov.com/assets/tensorflow_lite_comparison/target-160.png" alt="img"></td>
+      <td><img src="https://szonov.com/assets/tensorflow_lite_comparison/target-175.png" alt="img"></td>
+      <td><img src="https://szonov.com/assets/tensorflow_lite_comparison/target-188.png" alt="img"></td>
+      <td><img src="https://szonov.com/assets/tensorflow_lite_comparison/target-200.png" alt="img"></td>
     </tr>
   </tbody>
 </table>
 
 <p>In the image below I plot the IOU as I increase the time difference between arriving measurements in a simulation I ran <a href="https://github.com/mannyray/sort/tree/master/python_implementation/example">here</a> (see example 13). The increase in time between arriving measurements could represent increased processing time for TensorFlow model. Too much lag can significantly reduce IOU (see black line and red line). The stills from gif can help get an idea of significance of lower IOU.</p>
 
-<p><img src="https://szonov.com/assets/tensorflow_lite_comparison/lag_analysis.png" alt="img" /></p>
+<p><img src="https://szonov.com/assets/tensorflow_lite_comparison/lag_analysis.png" alt="img"></p>
 
 <p>You can always tune the Kalman filter or Simple Online Realtime Tracking algorithm to account for slower processing time but it can be annoying especially if you are not familiar with the algorithm. The faster the TensorFlow model the less you need to rely on your Kalman filter. For examples on tuning please see my work <a href="https://github.com/mannyray/sort/tree/master/python_implementation/example">here</a>.</p>
 
-<hr />
+<hr>
 
 <p>So far we have investigated processing time over a small period of time of thirty seconds. For tracking applications (or others) you may want to run your app for much longer. Let us see what happens when we increase runtime to fifteen minutes.</p>
 
-<p><img src="https://szonov.com/assets/tensorflow_lite_comparison/Figure_4.png" alt="img" /></p>
+<p><img src="https://szonov.com/assets/tensorflow_lite_comparison/Figure_4.png" alt="img"></p>
 
 <p>In this case we are running the Pixel 4 with TensorFlow 2 model. The blue line is us running with a cooling fan while the orange is just the phone on its own. Images of the fan are below. It attaches to the phone directly.</p>
 
 <table>
   <tbody>
     <tr>
-      <td><img src="https://szonov.com/assets/tensorflow_lite_comparison/cooler_1.jpg" alt="img" /></td>
-      <td><img src="https://szonov.com/assets/tensorflow_lite_comparison/cooler_2.jpg" alt="img" /></td>
+      <td><img src="https://szonov.com/assets/tensorflow_lite_comparison/cooler_1.jpg" alt="img"></td>
+      <td><img src="https://szonov.com/assets/tensorflow_lite_comparison/cooler_2.jpg" alt="img"></td>
     </tr>
   </tbody>
 </table>
@@ -401,7 +560,189 @@ git checkout benchmark_app
 
 <p>The applications of TensorFlow Lite models seem endless to me. I am very grateful that TensorFlow has provided the technology for developing these models and has provided sample code for which I can easily get started in creating these applications like in the case of the benchmark app. A recent application in which I used some of the information presented here can be found in a previous post about a <a href="https://szonov.com/programming/2021/03/28/prototype/">prototype</a>. The gif of the prototype, that tracks oranges, is below. I hope the reader finds the information presented here useful for their experiments too.</p>
 
-<p><img src="https://szonov.com/assets/prototype/out.gif" alt="" /></p>
+<p><img src="https://szonov.com/assets/prototype/out.gif" alt=""></p>
+<script>
+    function isMobileOnlyView() {
+        return window.matchMedia("(max-width: 767px)").matches;
+    }
+
+    if (isMobileOnlyView()) {
+        
+        let popupButtons = [];
+        let targetSections = [];
+        let sidebars = [];
+        let closebuttons = [];
+        let sections_in_target_section = [];
+        let links_in_sidebar = [];
+        let i = 1;
+        let popupButton;
+        while ((popupButton = document.getElementById(`popup-button-${i}`)) !== null) {
+            popupButtons.push(popupButton);
+            const targetSection = document.getElementById(`target-section-${i}`)
+            targetSections.push(targetSection);
+            const sidebar = document.getElementById(`sidebar-${i}`);
+            sidebars.push(sidebar);
+            closebuttons.push(document.getElementById(`close-buttons-${i}`));
+
+            const mobileSections = targetSection.querySelectorAll('[id^="mobile-section"]');
+            // Convert NodeList to an array and push it to sections_in_target_section
+            sections_in_target_section.push(Array.from(mobileSections));
+
+            const links = sidebar.querySelectorAll('a');
+            links_in_sidebar.push(Array.from(links));
+            i++;
+        }
+        
+        let popupButtonCount = i - 1;
+        
+        window.addEventListener('scroll', function() {
+            for (let i = 1; i <= popupButtonCount; i++) {
+                const popupButton = popupButtons[i-1];
+                const targetSection = targetSections[i-1]
+                const sectionPosition = targetSection.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+                
+                // Check if the target section is halfway through the viewport
+                if (sectionPosition.top < viewportHeight / 2 && sectionPosition.bottom > viewportHeight / 2) {
+                    popupButton.classList.add('show'); // Show the button
+                } else {
+                    popupButton.classList.remove('show'); // Hide the button
+                }
+                
+                const sidebar = sidebars[i-1];
+                // Hide sidebar on scroll (only on mobile)
+                if (sidebar.classList.contains('show') && window.innerWidth <= 768) {
+                    sidebar.classList.remove('show'); // Hide the sidebar
+                }
+                
+                // Highlight active link based on scroll position
+                let currentSectionId = '';
+                sections_in_target_section[i-1].forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    const sectionBottom = section.getBoundingClientRect().bottom;
+
+                    // Check if the section is in view and at the top of the viewport
+                    if (sectionTop <= viewportHeight / 2 && sectionBottom > viewportHeight / 2) {
+                        currentSectionId = section.id;
+                    }
+                });
+                
+                 links_in_sidebar[i-1].forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSectionId}`) {
+                        link.classList.add('active'); // Highlight active link
+                    }
+                });
+            }
+        });
+        
+        for (let i = 1; i <= popupButtonCount; i++) {
+            // Function to toggle sidebar visibility
+            let popupButton = popupButtons[i-1];
+            popupButton.addEventListener('click', function() {
+                const sidebar = sidebars[i-1];
+                sidebar.classList.toggle('show'); // Toggle sidebar visibility
+                if (sidebar.classList.contains('show')) {
+                    // Calculate the sidebar height and set its position
+                    const sidebarHeight = sidebar.scrollHeight; // Use scrollHeight for accurate height
+                    const windowHeight = window.innerHeight; // Get the window height
+                    const topPosition = (windowHeight / 2); // - (sidebarHeight / 2); // Calculate top position
+                    sidebar.style.top = `${topPosition}px`; // Set the top position
+                    
+                    links_in_sidebar[i-1].forEach(link => {
+                       if (link.classList.contains('active')) {
+
+                           function delay(time) {
+                             return new Promise(resolve => setTimeout(resolve, time));
+                           }
+                           function scroll_adjust(){
+                               // add the delay so that the sidebar can be loaded from zero size
+                               // before getting all the various coordinates used in calculation
+                               const scrollableElement = link.closest(".mobile-scrollable");
+                               const scollableRect = scrollableElement.getBoundingClientRect();
+                               const linkRect = link.getBoundingClientRect();
+                               
+                               if( ( linkRect.y + 100 ) > ( scollableRect.y + scollableRect.height ) || linkRect.y < scollableRect.y){
+                                   const scrollTop = linkRect.top - scollableRect.top + scrollableElement.scrollTop - (scollableRect.height / 2) + (link.offsetHeight / 2);
+                                   scrollableElement.scrollTo({ top: scrollTop, behavior: 'smooth' });
+                               }
+                           }
+                           
+                           delay(1000).then(() =>scroll_adjust() );
+                       }
+                    })
+                }
+                
+                // Close sidebar when close button is clicked
+                closebuttons[i-1].addEventListener('click', function() {
+                    sidebar.classList.remove('show'); // Hide the sidebar
+                });
+                
+                // Close sidebar when clicking outside of it
+                document.addEventListener('click', function(event) {
+                    if (sidebar.classList.contains('show') && !sidebar.contains(event.target) && !popupButton.contains(event.target)) {
+                        sidebar.classList.remove('show'); // Hide the sidebar
+                    }
+                });
+                
+            });
+        }
+    } else {
+        // for desktop
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            const links = document.querySelectorAll('#menu a');
+            
+            let currentSection = ''
+            let current = ''
+            
+            // highlight the active link based on where the location of scroll
+            output_string = window.scrollY + ""
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const sectionBottom = section.getBoundingClientRect().bottom;
+                
+                output_string = output_string + "(" +sectionTop + ", " + sectionBottom + ")"
+                if (sectionTop > 50 ) {
+                    if(currentSection == ''){
+                        currentSection = section
+                    }
+                    else if(currentSection.getBoundingClientRect().top > 0 && sectionTop < currentSection.getBoundingClientRect().top ){
+                        currentSection = section
+                    }
+                    current = currentSection.getAttribute('id');
+                }
+                else if (sectionBottom > 50  ){
+                    if(currentSection == ''){
+                        currentSection = section
+                    }
+                    else if( sectionBottom < currentSection.getBoundingClientRect().bottom ){
+                        currentSection = section
+                    }
+                    current = currentSection.getAttribute('id');
+                }
+            });
+            
+            links.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                    // For cases when scrollable toc is bigger than screen view
+                    // and active link is outside of view
+                    const scrollableElement = link.closest(".scrollable");
+                    const scollableRect = scrollableElement.getBoundingClientRect();
+                    const linkRect = link.getBoundingClientRect();
+                    
+                    if( ( linkRect.y + 100 ) > ( scollableRect.y + scollableRect.height ) || linkRect.y < scollableRect.y){
+                        const scrollTop = linkRect.top - scollableRect.top + scrollableElement.scrollTop - (scollableRect.height / 2) + (link.offsetHeight / 2);
+                        scrollableElement.scrollTo({ top: scrollTop, behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    }
+</script>
+</body>
 
   </article>
 
@@ -418,13 +759,13 @@ git checkout benchmark_app
 	</div>
   <div class="wrapper">
 
-    <h2 class="footer-heading">Stan Zonov</h2>
+    <!--<h2 class="footer-heading">Stan Zonov</h2>-->
 
     <div class="footer-col-wrapper">
       <div class="footer-col  footer-col-2">
         <ul class="contact-list">
           <!--<li>Stan Zonov</li>-->
-          <li>hello at szonov.com</li>
+          <!--<li>hello at szonov.com</li>-->
         </ul>
       </div>
 

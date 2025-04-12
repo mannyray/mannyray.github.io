@@ -1,2 +1,0 @@
-mannyray.github.io
-==================

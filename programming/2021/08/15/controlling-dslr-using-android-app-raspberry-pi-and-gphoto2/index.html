@@ -2,23 +2,13 @@
 <html>
 
   <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-39729658-3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-39729658-3');
-</script>
-
-
+  
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Controlling DSLR using Android App, Raspberry Pi and gphoto2</title>
-  <meta name="description" content="Summary">
+  <meta name="description" content="  Updated this blog post in March 2025 to make it more readable and include additional examples! Site best viewed on desktop.">
 
   <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="https://szonov.com/programming/2021/08/15/controlling-dslr-using-android-app-raspberry-pi-and-gphoto2/">
@@ -210,13 +200,182 @@
   </header>
 
   <article class="post-content">
-    <h2 id="summary">Summary</h2>
+    <body>
+<p style="height:0px;width:0px"></p>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<p>Hello dear reader! In this post I will be discussing how to control a DSLR camera using an Android app, Raspberry Pi, gphoto2 and some <a href="https://github.com/mannyray/bluetoothPhoto">code</a>. I found this capability very useful for my endeavours and hope that you may as well for yours. I will go over motivations, how to setup, linked code and an example use case. If you are restless, at the end I have a gif of a time-lapse I was able to create with the help of this app.</p>
+<style>
+    .toc_and_content_table{
+        border: none;
+    }
+    .toc {
+        width: 25%;
+        vertical-align:top;
+        border: none;
+        padding:0px;
+        border: none;
+    }
+    .content {
+        padding: 10px;
+        border: none;
+    }
+    .scrollable{
+        height: auto;        /* Allow it to grow based on content */
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+    .sticky-top {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        background: #fff; /* Background for the sticky menu */
+    }
+    #menu {
+        list-style-type: none; /* Remove bullets */
+        padding: 0; /* Remove padding */
+        margin: 0; /* Remove margin */
+    }
+    #menu li {
+        margin: 5px 0; /* Space between bars */
+        position: relative
+    }
+    #menu a {
+        display: block; /* Make the link a block element */
+        padding: 2px; /* Space inside the bars */
+        background: #f0f0f0; /* Light gray background for bars */
+        text-decoration: none; /* Remove underline */
+        color: #333; /* Text color */
+        border-radius: 4px; /* Rounded corners */
+        transition: background 0.3s; /* Smooth background transition */
+    }
+    #menu a:hover {
+        background: #e0e0e0; /* Darker gray on hover */
+    }
+    .active {
+        font-weight: bold;
+        color: blue; /* Change the color for highlighting */
+    }
+    .active::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        border-radius: 4px;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: #007bff; /* Active background color */
+        transform: scaleX(0); /* Start with no width */
+        transform-origin: left; /* Scale from the left */
+        animation: load 0.5s forwards; /* Loading animation */
+        background: rgba(0, 123, 255, 0.5); /* Semi-transparent active background color */
+    }
+    @keyframes load {
+        0% {
+            transform: scaleX(0); /* Start with no width */
+        }
+        70% {
+            transform:  scaleX(1); /* Scale to full width */
+        }
+        85% {
+            transform: scaleX(0.95); /* Bounce effect */
+        }
+        100% {
+            transform: scaleX(1); /* Return to full width */
+        }
+    }
+    .section {
+        border: 0;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+    
+    .desktop-only {
+        display: none;
+    }
+    /* Show mobile paragraph on mobile devices */
+    .mobile-only {
+        display: block;
+    }
+    /* Media query for non-mobile devices */
+    @media (min-width: 768px) {
+        .desktop-only {
+            display: block;
+        }
+        .mobile-only {
+            display: none;
+        }
+    }
+    
+    /* mobile version*/
+    .popup-button {
+        font-size: 24px;
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%); /* Center vertically */
+        padding: 10px 20px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        cursor: pointer;
+        opacity: 0; /* Start invisible */
+        visibility: hidden; /* Initially hidden */
+        transition: opacity 0.5s ease, visibility 0.5s ease; /* Fade effect */
+    }
+    .popup-button.show {
+        opacity: 1; /* Fully visible */
+        visibility: visible; /* Make it visible */
+    }
+    .target-section {
+        background-color: #f0f0f0;
+    }
+    .sidebar {
+        position: fixed;
+        right: 0; /* Align sidebar directly to the right edge */
+        width: 200px; /* Set the width of the sidebar */
+        max-height: 80vh; /* Limit height for scrolling */
+        background: #fff; /* Background for the sidebar */
+        padding: 10px; /* Padding inside the sidebar */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        z-index: 1000; /* Ensure it appears above other elements */
+        transform: translate(0, -50%) scale(0); /* Start hidden and minimized */
+        transform-origin: right center; /* Scale from the right */
+        transition: transform 0.3s ease, visibility 0.5s ease; /* Smooth transition */
+        visibility: hidden; /* Initially hidden */
+        border: 1px solid #ccc; /* Add a border */
+        border-radius: 8px; /* Slightly rounded corners */
+    }
+    .sidebar.show {
+        transform: translate(0, -50%) scale(1); /* Show the sidebar */
+        visibility: visible; /* Make it visible */
+    }
+    .sidebar h3 {
+        margin: 0; /* Remove default margin */
+        padding: 0; /* Remove default padding */
+        height: 40px; /* Set height for better alignment */
+    }
+    .mobile-scrollable{
+        height: auto;        /* Allow it to grow based on content */
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+</style>
+<blockquote>
+  <p>Updated this blog post in March 2025 to make it more readable and include additional examples! Site best viewed on desktop.</p>
+</blockquote>
 
-<p>Here is a view of the deployed system:</p>
+<h2 id="introduction">Introduction</h2>
 
-<p><img src="https://szonov.com/assets/dlsr_control/schema.png" alt="" /></p>
+<p>Hello dear reader! In this post I will be discussing how to control a DSLR camera using an Android app, Raspberry Pi, gphoto2 and some <a href="https://github.com/mannyray/bluetoothPhoto">code</a>. I found this capability very useful for my endeavours and hope that you may as well for yours. I will go over motivations, how to setup, linked code and an example use case.</p>
+
+<p>Here is a view of the deployed system below (with the Android phone, in my hand, taking the picture):</p>
+
+<center>
+<img src="https://szonov.com/assets/dlsr_control/schema.png" width="60%">
+</center>
+
+<p>Quick notes:</p>
 
 <ul>
   <li>
@@ -226,61 +385,183 @@
     <p>The Raspberry Pi can be replaced with another computer. Raspberry Pi is chosen as it is leightweight and cheap.</p>
   </li>
   <li>
-    <p>Android app is useful because it allows for wireless, remote control and a nice user interface.</p>
+    <p>Android app is useful because it allows for wireless, remote control and a nice user interface. It communicates with the Raspberry Pi. However, the Android app is not strictly necessary as you can just use the Raspberry Pi to communicate with the camera via gphoto2 directly. If using the Android app, then the Raspberry Pi acts as a middleman between the phone and camera.</p>
   </li>
 </ul>
 
+<p>Here is a video of my personal project where I used the code and concepts discussed in this blog post to use AI to capture pictures of train graffiti:</p>
+
+<center>
+<iframe width="100%" height="315" src="https://www.youtube.com/embed/PlVF_0MooQE?si=NQgzYZ8iBfVBtsIx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
+</center>
+
 <h2 id="here-are-reasons-why-you-may-find-the-setup-useful">Here are reasons why you may find the setup useful:</h2>
 
-<h3 id="cameras-come-with-limitations">Cameras come with limitations</h3>
+                    <div class="desktop-only">
+                    <table class="toc_and_content_table">
+                    <tr>
+                    <td class="toc">
+                    <div class="sticky-top">
+                    <h3>
+<i class="fa fa-list-ol"></i> Contents</h3>
+                    <div class="scrollable">
+                    <ul id="menu">
+                    <li><a href="#section-cameras-come-with-limitations-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Cameras come with limitations</a></li>
+  <li><a href="#section-the-camera-manufacturer-provided-android-app-is-not-sufficient-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">The camera manufacturer provided Android app is not sufficient</a></li>
+  <li><a href="#section-broken-camera-screen-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Broken camera screen</a></li>
+                    </ul>
+                    </div>
+                    </div>
+                    </td>
+                    <td class="content">
+                    <!--toc_start-->
+<div id="section-cameras-come-with-limitations-1" class="section"><div>
+<hr>
+<h2 id="cameras-come-with-limitations-1">Cameras come with limitations</h2>
 
 <p>In this blog I will be using the Canon M100.</p>
 
-<p><img src="https://szonov.com/assets/dlsr_control/m100.jpg" alt="" /></p>
+<p><img src="https://szonov.com/assets/dlsr_control/m100.jpg" alt=""></p>
 
 <p>In the case of the M100, the camera has a limitation on how long you can take time-lapse photos for. In the image below, three screenshots from the M100 configuration screen show that you can set to take photos every 2 to 4 seconds and up to 900 shots. Combining the two upper limits you can only takes a time-lapse spanning an hour in time.</p>
 
-<p><img src="https://szonov.com/assets/dlsr_control/camera_settings.jpg" alt="" /></p>
+<p><img src="https://szonov.com/assets/dlsr_control/camera_settings.jpg" alt=""></p>
 
-<p>What if you want to take a time-lapse of a full day? With the use of a battery cable and this setup you can overcome such limitations. The Android acts as user interface enhancement instead of using gphoto2 commandline directly on the Raspberry Pi.</p>
+<p>What if you want to take a time-lapse of a full day? With the use of a battery cable and this setup you can overcome such limitations as you are no longer limited by your battery running out. The Android acts as user interface enhancement instead of using gphoto2 commandline directly on the Raspberry Pi.</p>
 
 <p>M100 battery cable:</p>
 
-<p><img src="https://szonov.com/assets/dlsr_control/wired_battery.jpg" alt="" /></p>
+<p><img src="https://szonov.com/assets/dlsr_control/wired_battery.jpg" alt=""></p>
 
-<h3 id="the-camera-manufacturer-provided-android-app-is-not-sufficient">The camera manufacturer provided Android app is not sufficient</h3>
+</div></div>
+<div id="section-the-camera-manufacturer-provided-android-app-is-not-sufficient-1" class="section"><div>
+<hr>
+<h2 id="the-camera-manufacturer-provided-android-app-is-not-sufficient-1">The camera manufacturer provided Android app is not sufficient</h2>
 
-<p>The Android app provided here can be modified to monitor for events for which regular manufacture provided Android apps for your camera will not have. Want to take picture at a specific time? Take a picture only when you detect something in the field of focus of cell phone camera? Take a picture when you say “action”? You will have to code this yourself for which the Android app introduced in this post provides a great starting point.</p>
+<p>The Android app provided here can be modified to monitor for events for which regular manufacture provided Android (in this case Canon) apps for your camera will not have. Want to take picture at a specific time? Take a picture only when you detect something in the field of focus of cell phone camera? Take a picture when you say “action”? You will have to code this yourself for which the Android app introduced in this post provides a great starting point.</p>
 
 <p>The programmatic freedom allows one to integrate your camera into a variety of applications.</p>
 
-<h3 id="broken-camera-screen">Broken camera screen</h3>
+</div></div>
+<div id="section-broken-camera-screen-1" class="section"><div>
+<hr>
+<h2 id="broken-camera-screen-1">Broken camera screen</h2>
 
 <p>May sound like a stretch but I had this happen. Camera menu screen was busted. The app can be useful here for providing a basic screen interface.</p>
 
-<h2 id="how-to-setup">How to Setup</h2>
+</div></div>
 
-<h3 id="install-gphoto2-on-raspberry-pi">Install gphoto2 on Raspberry Pi</h3>
+                    </td>
+                    </tr>
+                    </table>
+                    </div>
+                    <div class="mobile-only">
+                    <div class="target-section" id="target-section-1">
+                    <!--toc_start-->
+<div id="section-cameras-come-with-limitations-1" class="section"><div id="mobile-section-cameras-come-with-limitations-1" class="section">
+<hr>
+<h2 id="cameras-come-with-limitations-1">Cameras come with limitations</h2>
+
+<p>In this blog I will be using the Canon M100.</p>
+
+<p><img src="https://szonov.com/assets/dlsr_control/m100.jpg" alt=""></p>
+
+<p>In the case of the M100, the camera has a limitation on how long you can take time-lapse photos for. In the image below, three screenshots from the M100 configuration screen show that you can set to take photos every 2 to 4 seconds and up to 900 shots. Combining the two upper limits you can only takes a time-lapse spanning an hour in time.</p>
+
+<p><img src="https://szonov.com/assets/dlsr_control/camera_settings.jpg" alt=""></p>
+
+<p>What if you want to take a time-lapse of a full day? With the use of a battery cable and this setup you can overcome such limitations as you are no longer limited by your battery running out. The Android acts as user interface enhancement instead of using gphoto2 commandline directly on the Raspberry Pi.</p>
+
+<p>M100 battery cable:</p>
+
+<p><img src="https://szonov.com/assets/dlsr_control/wired_battery.jpg" alt=""></p>
+
+</div></div>
+<div id="section-the-camera-manufacturer-provided-android-app-is-not-sufficient-1" class="section"><div id="mobile-section-the-camera-manufacturer-provided-android-app-is-not-sufficient-1" class="section">
+<hr>
+<h2 id="the-camera-manufacturer-provided-android-app-is-not-sufficient-1">The camera manufacturer provided Android app is not sufficient</h2>
+
+<p>The Android app provided here can be modified to monitor for events for which regular manufacture provided Android (in this case Canon) apps for your camera will not have. Want to take picture at a specific time? Take a picture only when you detect something in the field of focus of cell phone camera? Take a picture when you say “action”? You will have to code this yourself for which the Android app introduced in this post provides a great starting point.</p>
+
+<p>The programmatic freedom allows one to integrate your camera into a variety of applications.</p>
+
+</div></div>
+<div id="section-broken-camera-screen-1" class="section"><div id="mobile-section-broken-camera-screen-1" class="section">
+<hr>
+<h2 id="broken-camera-screen-1">Broken camera screen</h2>
+
+<p>May sound like a stretch but I had this happen. Camera menu screen was busted. The app can be useful here for providing a basic screen interface.</p>
+
+</div></div>
+
+                    </div>
+                    <div id="sidebar-1" class="sidebar">
+                    <h3 style="display: flex; align-items: center; justify-content: space-between;">
+                    <span><i class="fa fa-list-ol"></i> Contents</span>
+                    <span class="close-button" id="close-buttons-1" style="font-size: 24px;">×</span>
+                    </h3>
+                    <div class="mobile-scrollable">
+                    <ul id="menu">
+                    <li><a href="#mobile-section-cameras-come-with-limitations-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Cameras come with limitations</a></li>
+  <li><a href="#mobile-section-the-camera-manufacturer-provided-android-app-is-not-sufficient-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">The camera manufacturer provided Android app is not sufficient</a></li>
+  <li><a href="#mobile-section-broken-camera-screen-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Broken camera screen</a></li>
+                    </ul>
+                    </div>
+                    </div>
+                    <button class="popup-button" id="popup-button-1"><i class="fa fa-list-ol"></i></button>
+                    </div>
+<!--toc_end-->
+
+<h2 id="how-to-setup-the-system">How to Setup the system</h2>
+
+<p>With some of the motivations out of the way, we now discuss how to set it all up:</p>
+
+                    <div class="desktop-only">
+                    <table class="toc_and_content_table">
+                    <tr>
+                    <td class="toc">
+                    <div class="sticky-top">
+                    <h3>
+<i class="fa fa-list-ol"></i> Contents</h3>
+                    <div class="scrollable">
+                    <ul id="menu">
+                    <li><a href="#section-install-gphoto2-on-raspberry-pi-3" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Install gphoto2 on Raspberry Pi</a></li>
+  <li><a href="#section-connect-the-camera-to-the-raspberry-pi-3" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Connect the Camera to the Raspberry Pi</a></li>
+  <li><a href="#section-connecting-raspberry-pi-to-android-phone-3" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Connecting Raspberry Pi to Android Phone</a></li>
+  <li><a href="#section-setting-up-the-bluetooth-server-on-raspberry-pi-3" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Setting up the Bluetooth server on Raspberry Pi</a></li>
+  <li><a href="#section-build-the-android-app-3" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Build the Android app</a></li>
+                    </ul>
+                    </div>
+                    </div>
+                    </td>
+                    <td class="content">
+                    <!--toc_start-->
+<div id="section-install-gphoto2-on-raspberry-pi-3" class="section"><div>
+<hr>
+<h2 id="install-gphoto2-on-raspberry-pi-3">Install gphoto2 on Raspberry Pi</h2>
 
 <p>You will have to install gphoto2 software. <a href="https://github.com/gonzalo/gphoto2-updater">This</a> is a good repository on how to do this.</p>
 
-<h3 id="connect-the-camera-to-the-raspberry-pi">Connect the Camera to the Raspberry Pi</h3>
+</div></div>
+<div id="section-connect-the-camera-to-the-raspberry-pi-3" class="section"><div>
+<hr>
+<h2 id="connect-the-camera-to-the-raspberry-pi-3">Connect the Camera to the Raspberry Pi</h2>
 
 <p>Connect the camera to the Raspberry Pi. In the case of the M100, I use the USB to mini USB B. Cable below:</p>
 
-<p><img src="https://szonov.com/assets/dlsr_control/wire.jpg" alt="" /></p>
+<p><img src="https://szonov.com/assets/dlsr_control/wire.jpg" alt=""></p>
 
 <p>The mini USB B port on the M100 is pictured below.</p>
 
-<p><img src="https://szonov.com/assets/dlsr_control/port.jpg" alt="" /></p>
+<p><img src="https://szonov.com/assets/dlsr_control/port.jpg" alt=""></p>
 
 <p>The result will look something like this:</p>
 
-<p><img src="https://szonov.com/assets/dlsr_control/connection.jpg" alt="" /></p>
+<p><img src="https://szonov.com/assets/dlsr_control/connection.jpg" alt=""></p>
 
 <p>Turn your camera on and see if your camera has a setting to stay on without sleeping. On the M100 the setting looks like:</p>
 
-<p><img src="https://szonov.com/assets/dlsr_control/never_off.jpg" alt="" /></p>
+<p><img src="https://szonov.com/assets/dlsr_control/never_off.jpg" alt=""></p>
 
 <p>In the Raspberry Pi terminal run</p>
 
@@ -293,7 +574,7 @@
 &gt;trigger-capture
 </code></pre></div></div>
 
-<p><img src="https://szonov.com/assets/dlsr_control/initial_connection.png" alt="" /></p>
+<p><img src="https://szonov.com/assets/dlsr_control/initial_connection.png" alt=""></p>
 
 <p>Sometimes taking pictures will fail. In the image above, the failure was due to camera not focusing while in auto focus mode. For the second picture, I had to make sure I had better lighting.</p>
 
@@ -307,30 +588,158 @@
 
 <p>…happy debugging!</p>
 
-<h3 id="connecting-raspberry-pi-to-android-phone">Connecting Raspberry Pi to Android Phone</h3>
+</div></div>
+<div id="section-connecting-raspberry-pi-to-android-phone-3" class="section"><div>
+<hr>
+<h2 id="connecting-raspberry-pi-to-android-phone-3">Connecting Raspberry Pi to Android Phone</h2>
 
 <p>Connect your phone and Raspberry Pi together. There are many instructions online on how to do this like <a href="https://bluedot.readthedocs.io/en/latest/pairpiandroid.html">here</a>.</p>
 
-<h3 id="setting-up-the-bluetooth-server-on-raspberry-pi">Setting up the Bluetooth server on Raspberry Pi</h3>
+</div></div>
+<div id="section-setting-up-the-bluetooth-server-on-raspberry-pi-3" class="section"><div>
+<hr>
+<h2 id="setting-up-the-bluetooth-server-on-raspberry-pi-3">Setting up the Bluetooth server on Raspberry Pi</h2>
 
 <p>On the Raspberry Pi you will have to run</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo python server.py
 </code></pre></div></div>
 
-<p>The python script can be found <a href="https://github.com/mannyray/bluetoothPhoto/tree/master/bluetooth_server">here</a>.</p>
+<p>The python script can be found in github code <a href="https://github.com/mannyray/bluetoothPhoto/tree/master/bluetooth_server">here</a>.</p>
 
 <p>Apply a setting to your Raspberry Pi so it does not fall asleep and stays on.</p>
 
 <p>If you experience errors: make sure to install the required packages. For potential debugging when failing to advertise I found <a href="https://stackoverflow.com/questions/37913796/bluetooth-error-no-advertisable-device">this</a> to be helpful.</p>
 
-<h3 id="build-the-android-app">Build the Android app</h3>
+</div></div>
+<div id="section-build-the-android-app-3" class="section"><div>
+<hr>
+<h2 id="build-the-android-app-3">Build the Android app</h2>
 
 <p>You must be able to build the Android app using Android Studio. This can get a bit involved for a first time builder. I recommend starting <a href="https://developer.android.com/training/basics/firstapp">here</a> to get introduced to the basics.</p>
 
-<p>The location of the app code is <a href="https://github.com/mannyray/bluetoothPhoto/tree/master/bluetooth_android_app/Bluetooth">here</a>.</p>
+<p>The location of the app code is in github code <a href="https://github.com/mannyray/bluetoothPhoto/tree/master/bluetooth_android_app/Bluetooth">here</a>.</p>
 
-<h3 id="intermission">Intermission</h3>
+<p>Install the app on your phone and open it up!
+</p>
+</div></div>
+
+                    </td>
+                    </tr>
+                    </table>
+                    </div>
+                    <div class="mobile-only">
+                    <div class="target-section" id="target-section-2">
+                    <!--toc_start-->
+<div id="section-install-gphoto2-on-raspberry-pi-3" class="section"><div id="mobile-section-install-gphoto2-on-raspberry-pi-3" class="section">
+<hr>
+<h2 id="install-gphoto2-on-raspberry-pi-3">Install gphoto2 on Raspberry Pi</h2>
+
+<p>You will have to install gphoto2 software. <a href="https://github.com/gonzalo/gphoto2-updater">This</a> is a good repository on how to do this.</p>
+
+</div></div>
+<div id="section-connect-the-camera-to-the-raspberry-pi-3" class="section"><div id="mobile-section-connect-the-camera-to-the-raspberry-pi-3" class="section">
+<hr>
+<h2 id="connect-the-camera-to-the-raspberry-pi-3">Connect the Camera to the Raspberry Pi</h2>
+
+<p>Connect the camera to the Raspberry Pi. In the case of the M100, I use the USB to mini USB B. Cable below:</p>
+
+<p><img src="https://szonov.com/assets/dlsr_control/wire.jpg" alt=""></p>
+
+<p>The mini USB B port on the M100 is pictured below.</p>
+
+<p><img src="https://szonov.com/assets/dlsr_control/port.jpg" alt=""></p>
+
+<p>The result will look something like this:</p>
+
+<p><img src="https://szonov.com/assets/dlsr_control/connection.jpg" alt=""></p>
+
+<p>Turn your camera on and see if your camera has a setting to stay on without sleeping. On the M100 the setting looks like:</p>
+
+<p><img src="https://szonov.com/assets/dlsr_control/never_off.jpg" alt=""></p>
+
+<p>In the Raspberry Pi terminal run</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps aux | grep gphoto
+</code></pre></div></div>
+
+<p>and run <code class="language-plaintext highlighter-rouge">kill</code> on the non <code class="language-plaintext highlighter-rouge">grep</code> results. Next run</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gphoto2 --shell
+&gt;trigger-capture
+</code></pre></div></div>
+
+<p><img src="https://szonov.com/assets/dlsr_control/initial_connection.png" alt=""></p>
+
+<p>Sometimes taking pictures will fail. In the image above, the failure was due to camera not focusing while in auto focus mode. For the second picture, I had to make sure I had better lighting.</p>
+
+<p>gphoto2 supports many <a href="http://www.gphoto.org/proj/libgphoto2/support.php">cameras</a> to varying degrees. Your debug process and figuring out how to run your camera will thus vary. Be patient. By searching your error on a search engine you can usually find a thread on gphoto2’s repository or some stackoverflow post discussing a potential workaround. Here are some links that I found useful:</p>
+
+<ul>
+  <li><a href="https://github.com/gphoto/libgphoto2/issues/521">maybe you are using an older version of gphoto2</a></li>
+  <li><a href="https://github.com/gphoto/libgphoto2/issues/30">use debug mode</a></li>
+  <li><a href="https://github.com/gphoto/libgphoto2/issues/197">saving to sd card</a></li>
+</ul>
+
+<p>…happy debugging!</p>
+
+</div></div>
+<div id="section-connecting-raspberry-pi-to-android-phone-3" class="section"><div id="mobile-section-connecting-raspberry-pi-to-android-phone-3" class="section">
+<hr>
+<h2 id="connecting-raspberry-pi-to-android-phone-3">Connecting Raspberry Pi to Android Phone</h2>
+
+<p>Connect your phone and Raspberry Pi together. There are many instructions online on how to do this like <a href="https://bluedot.readthedocs.io/en/latest/pairpiandroid.html">here</a>.</p>
+
+</div></div>
+<div id="section-setting-up-the-bluetooth-server-on-raspberry-pi-3" class="section"><div id="mobile-section-setting-up-the-bluetooth-server-on-raspberry-pi-3" class="section">
+<hr>
+<h2 id="setting-up-the-bluetooth-server-on-raspberry-pi-3">Setting up the Bluetooth server on Raspberry Pi</h2>
+
+<p>On the Raspberry Pi you will have to run</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo python server.py
+</code></pre></div></div>
+
+<p>The python script can be found in github code <a href="https://github.com/mannyray/bluetoothPhoto/tree/master/bluetooth_server">here</a>.</p>
+
+<p>Apply a setting to your Raspberry Pi so it does not fall asleep and stays on.</p>
+
+<p>If you experience errors: make sure to install the required packages. For potential debugging when failing to advertise I found <a href="https://stackoverflow.com/questions/37913796/bluetooth-error-no-advertisable-device">this</a> to be helpful.</p>
+
+</div></div>
+<div id="section-build-the-android-app-3" class="section"><div id="mobile-section-build-the-android-app-3" class="section">
+<hr>
+<h2 id="build-the-android-app-3">Build the Android app</h2>
+
+<p>You must be able to build the Android app using Android Studio. This can get a bit involved for a first time builder. I recommend starting <a href="https://developer.android.com/training/basics/firstapp">here</a> to get introduced to the basics.</p>
+
+<p>The location of the app code is in github code <a href="https://github.com/mannyray/bluetoothPhoto/tree/master/bluetooth_android_app/Bluetooth">here</a>.</p>
+
+<p>Install the app on your phone and open it up!
+</p>
+</div></div>
+
+                    </div>
+                    <div id="sidebar-2" class="sidebar">
+                    <h3 style="display: flex; align-items: center; justify-content: space-between;">
+                    <span><i class="fa fa-list-ol"></i> Contents</span>
+                    <span class="close-button" id="close-buttons-2" style="font-size: 24px;">×</span>
+                    </h3>
+                    <div class="mobile-scrollable">
+                    <ul id="menu">
+                    <li><a href="#mobile-section-install-gphoto2-on-raspberry-pi-3" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Install gphoto2 on Raspberry Pi</a></li>
+  <li><a href="#mobile-section-connect-the-camera-to-the-raspberry-pi-3" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Connect the Camera to the Raspberry Pi</a></li>
+  <li><a href="#mobile-section-connecting-raspberry-pi-to-android-phone-3" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Connecting Raspberry Pi to Android Phone</a></li>
+  <li><a href="#mobile-section-setting-up-the-bluetooth-server-on-raspberry-pi-3" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Setting up the Bluetooth server on Raspberry Pi</a></li>
+  <li><a href="#mobile-section-build-the-android-app-3" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Build the Android app</a></li>
+                    </ul>
+                    </div>
+                    </div>
+                    <button class="popup-button" id="popup-button-2"><i class="fa fa-list-ol"></i></button>
+                    </div>
+<!--toc_end-->
+
+<h2 id="intermission">Intermission</h2>
 
 <p>If you followed instructions above you now have</p>
 <ul>
@@ -340,63 +749,384 @@
   <li>Built and installed the application on your Android.</li>
 </ul>
 
+<h2 id="final-setup-result">Final setup result:</h2>
+
+                    <div class="desktop-only">
+                    <table class="toc_and_content_table">
+                    <tr>
+                    <td class="toc">
+                    <div class="sticky-top">
+                    <h3>
+<i class="fa fa-list-ol"></i> Contents</h3>
+                    <div class="scrollable">
+                    <ul id="menu">
+                    <li><a href="#section-physical-view-5" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Physical view</a></li>
+  <li><a href="#section-running-the-android-phone-app-5" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Running the Android Phone App</a></li>
+  <li><a href="#section-server-reaction-5" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Server reaction</a></li>
+                    </ul>
+                    </div>
+                    </div>
+                    </td>
+                    <td class="content">
+                    <!--toc_start-->
+
+<div id="section-physical-view-5" class="section"><div>
+<hr>
+<h2 id="physical-view-5">Physical view</h2>
+
 <p>For illustration purposes I have setup the Raspberry Pi and camera.</p>
 
-<p><img src="https://szonov.com/assets/dlsr_control/test_setup.jpg" alt="" /></p>
+<p><img src="https://szonov.com/assets/dlsr_control/test_setup.jpg" alt=""></p>
 
 <p>The camera is connected to the Raspberry Pi and the battery is cable powered.</p>
 
-<p><img src="https://szonov.com/assets/dlsr_control/camera_test_setup.jpg" alt="" /></p>
+<p><img src="https://szonov.com/assets/dlsr_control/camera_test_setup.jpg" alt=""></p>
 
 <p>The test subject image here is a map of Winnipeg:</p>
 
-<p><img src="https://szonov.com/assets/dlsr_control/camera_test_subject.jpg" alt="" /></p>
+<p><img src="https://szonov.com/assets/dlsr_control/camera_test_subject.jpg" alt=""></p>
 
 <p>The Bluetooth server on the Raspberry Pi is running and waiting for a connection.</p>
 
-<h3 id="running-the-android-phone-app">Running the Android Phone App</h3>
+</div></div>
+<div id="section-running-the-android-phone-app-5" class="section"><div>
+<hr>
+<h2 id="running-the-android-phone-app-5">Running the Android Phone App</h2>
 
 <p>Now let us launch the Android application which is called “Bluetooth”. The landing page will look like</p>
 
-<p><img src="https://szonov.com/assets/dlsr_control/landing_page.png" alt="" /></p>
+<center>
+<img src="https://szonov.com/assets/dlsr_control/landing_page.png" width="60%">
+</center>
 
 <p>Here is me holding the phone:</p>
 
-<p><img src="https://szonov.com/assets/dlsr_control/view_of_phone.jpg" alt="" /></p>
+<p><img src="https://szonov.com/assets/dlsr_control/view_of_phone.jpg" alt=""></p>
 
 <p>After pressing connect you will be redicted to</p>
 
-<p><img src="https://szonov.com/assets/dlsr_control/choose_page.png" alt="" /></p>
+<center>
+<img src="https://szonov.com/assets/dlsr_control/choose_page.png" width="60%">
+</center>
 
 <p>And the Raspberry Pi will accept the connection:</p>
 
-<p><img src="https://szonov.com/assets/dlsr_control/bluetooth_server_waiting.png" alt="" /></p>
+<p><img src="https://szonov.com/assets/dlsr_control/bluetooth_server_waiting.png" alt=""></p>
+
+</div></div>
+<div id="section-server-reaction-5" class="section"><div>
+<hr>
+<h2 id="server-reaction-5">Server reaction</h2>
 
 <p>When selecting “Single picture” and pressing the camera button you will see:</p>
 
-<p><img src="https://szonov.com/assets/dlsr_control/picture_taken.png" alt="" /></p>
+<center>
+<img src="https://szonov.com/assets/dlsr_control/picture_taken.png" width="60%">
+</center>
 
 <p>The Bluetooth server will reflect these pictures taken:</p>
 
-<p><img src="https://szonov.com/assets/dlsr_control/bluetooth_server_picture_taken.png" alt="" /></p>
+<p><img src="https://szonov.com/assets/dlsr_control/bluetooth_server_picture_taken.png" alt=""></p>
 
 <p>The picture is also saved to the SD card of the camera.</p>
 
 <p>The other option here is to take a time-lapse:</p>
 
-<p><img src="https://szonov.com/assets/dlsr_control/time_lapse.png" alt="" /></p>
+<center>
+<img src="https://szonov.com/assets/dlsr_control/time_lapse.png" width="60%">
+</center>
 
 <p>The “Shutdown Signal” is for when you want to disconnect and quit the Bluetooth server. The app will then redict you back to the landing page.</p>
+
+</div></div>
+
+                    </td>
+                    </tr>
+                    </table>
+                    </div>
+                    <div class="mobile-only">
+                    <div class="target-section" id="target-section-3">
+                    <!--toc_start-->
+
+<div id="section-physical-view-5" class="section"><div id="mobile-section-physical-view-5" class="section">
+<hr>
+<h2 id="physical-view-5">Physical view</h2>
+
+<p>For illustration purposes I have setup the Raspberry Pi and camera.</p>
+
+<p><img src="https://szonov.com/assets/dlsr_control/test_setup.jpg" alt=""></p>
+
+<p>The camera is connected to the Raspberry Pi and the battery is cable powered.</p>
+
+<p><img src="https://szonov.com/assets/dlsr_control/camera_test_setup.jpg" alt=""></p>
+
+<p>The test subject image here is a map of Winnipeg:</p>
+
+<p><img src="https://szonov.com/assets/dlsr_control/camera_test_subject.jpg" alt=""></p>
+
+<p>The Bluetooth server on the Raspberry Pi is running and waiting for a connection.</p>
+
+</div></div>
+<div id="section-running-the-android-phone-app-5" class="section"><div id="mobile-section-running-the-android-phone-app-5" class="section">
+<hr>
+<h2 id="running-the-android-phone-app-5">Running the Android Phone App</h2>
+
+<p>Now let us launch the Android application which is called “Bluetooth”. The landing page will look like</p>
+
+<center>
+<img src="https://szonov.com/assets/dlsr_control/landing_page.png" width="60%">
+</center>
+
+<p>Here is me holding the phone:</p>
+
+<p><img src="https://szonov.com/assets/dlsr_control/view_of_phone.jpg" alt=""></p>
+
+<p>After pressing connect you will be redicted to</p>
+
+<center>
+<img src="https://szonov.com/assets/dlsr_control/choose_page.png" width="60%">
+</center>
+
+<p>And the Raspberry Pi will accept the connection:</p>
+
+<p><img src="https://szonov.com/assets/dlsr_control/bluetooth_server_waiting.png" alt=""></p>
+
+</div></div>
+<div id="section-server-reaction-5" class="section"><div id="mobile-section-server-reaction-5" class="section">
+<hr>
+<h2 id="server-reaction-5">Server reaction</h2>
+
+<p>When selecting “Single picture” and pressing the camera button you will see:</p>
+
+<center>
+<img src="https://szonov.com/assets/dlsr_control/picture_taken.png" width="60%">
+</center>
+
+<p>The Bluetooth server will reflect these pictures taken:</p>
+
+<p><img src="https://szonov.com/assets/dlsr_control/bluetooth_server_picture_taken.png" alt=""></p>
+
+<p>The picture is also saved to the SD card of the camera.</p>
+
+<p>The other option here is to take a time-lapse:</p>
+
+<center>
+<img src="https://szonov.com/assets/dlsr_control/time_lapse.png" width="60%">
+</center>
+
+<p>The “Shutdown Signal” is for when you want to disconnect and quit the Bluetooth server. The app will then redict you back to the landing page.</p>
+
+</div></div>
+
+                    </div>
+                    <div id="sidebar-3" class="sidebar">
+                    <h3 style="display: flex; align-items: center; justify-content: space-between;">
+                    <span><i class="fa fa-list-ol"></i> Contents</span>
+                    <span class="close-button" id="close-buttons-3" style="font-size: 24px;">×</span>
+                    </h3>
+                    <div class="mobile-scrollable">
+                    <ul id="menu">
+                    <li><a href="#mobile-section-physical-view-5" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Physical view</a></li>
+  <li><a href="#mobile-section-running-the-android-phone-app-5" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Running the Android Phone App</a></li>
+  <li><a href="#mobile-section-server-reaction-5" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Server reaction</a></li>
+                    </ul>
+                    </div>
+                    </div>
+                    <button class="popup-button" id="popup-button-3"><i class="fa fa-list-ol"></i></button>
+                    </div>
+<!--toc_end-->
 
 <h2 id="time-lapse-example">Time-lapse example</h2>
 
 <p>Here is an example of the time-lapse feature. After the pictures were taken I combined them to form a gif. Earlier, I suggested that the M100’s time-lapse feature could be extended for a whole day. I was a bit lazy to do that for this post and did something that is quicker and would take up less memory:</p>
 
-<p><img src="https://szonov.com/assets/dlsr_control/sand.gif" alt="" /></p>
+<p><img src="https://szonov.com/assets/dlsr_control/sand.gif" alt=""></p>
 
 <p>Now the skeptical reader might ask: “Why do you need an Android app to send a single command to start executing a time-lapse or even a single photograph? Why not modify <code class="language-plaintext highlighter-rouge">server.py</code> and run the code straight on the Raspberry Pi?”</p>
 
 <p>It is true. In such cases the phone is unnecessary. I could just run <code class="language-plaintext highlighter-rouge">gphoto2 --shell</code> in the terminal. However, for applications where you need more advance features, the Android phone is very versatile. In this <a href="https://szonov.com/programming/2021/03/28/prototype/">post</a> I describe such an advanced application that builds on top of the logic introduced here by using the phone’s camera and a Tensorflow model. This post is supposed to provide starting code and general introduction to combining the phone, camera and Raspberry Pi together. Happy hacking!</p>
+<script>
+    function isMobileOnlyView() {
+        return window.matchMedia("(max-width: 767px)").matches;
+    }
+
+    if (isMobileOnlyView()) {
+        
+        let popupButtons = [];
+        let targetSections = [];
+        let sidebars = [];
+        let closebuttons = [];
+        let sections_in_target_section = [];
+        let links_in_sidebar = [];
+        let i = 1;
+        let popupButton;
+        while ((popupButton = document.getElementById(`popup-button-${i}`)) !== null) {
+            popupButtons.push(popupButton);
+            const targetSection = document.getElementById(`target-section-${i}`)
+            targetSections.push(targetSection);
+            const sidebar = document.getElementById(`sidebar-${i}`);
+            sidebars.push(sidebar);
+            closebuttons.push(document.getElementById(`close-buttons-${i}`));
+
+            const mobileSections = targetSection.querySelectorAll('[id^="mobile-section"]');
+            // Convert NodeList to an array and push it to sections_in_target_section
+            sections_in_target_section.push(Array.from(mobileSections));
+
+            const links = sidebar.querySelectorAll('a');
+            links_in_sidebar.push(Array.from(links));
+            i++;
+        }
+        
+        let popupButtonCount = i - 1;
+        
+        window.addEventListener('scroll', function() {
+            for (let i = 1; i <= popupButtonCount; i++) {
+                const popupButton = popupButtons[i-1];
+                const targetSection = targetSections[i-1]
+                const sectionPosition = targetSection.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+                
+                // Check if the target section is halfway through the viewport
+                if (sectionPosition.top < viewportHeight / 2 && sectionPosition.bottom > viewportHeight / 2) {
+                    popupButton.classList.add('show'); // Show the button
+                } else {
+                    popupButton.classList.remove('show'); // Hide the button
+                }
+                
+                const sidebar = sidebars[i-1];
+                // Hide sidebar on scroll (only on mobile)
+                if (sidebar.classList.contains('show') && window.innerWidth <= 768) {
+                    sidebar.classList.remove('show'); // Hide the sidebar
+                }
+                
+                // Highlight active link based on scroll position
+                let currentSectionId = '';
+                sections_in_target_section[i-1].forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    const sectionBottom = section.getBoundingClientRect().bottom;
+
+                    // Check if the section is in view and at the top of the viewport
+                    if (sectionTop <= viewportHeight / 2 && sectionBottom > viewportHeight / 2) {
+                        currentSectionId = section.id;
+                    }
+                });
+                
+                 links_in_sidebar[i-1].forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSectionId}`) {
+                        link.classList.add('active'); // Highlight active link
+                    }
+                });
+            }
+        });
+        
+        for (let i = 1; i <= popupButtonCount; i++) {
+            // Function to toggle sidebar visibility
+            let popupButton = popupButtons[i-1];
+            popupButton.addEventListener('click', function() {
+                const sidebar = sidebars[i-1];
+                sidebar.classList.toggle('show'); // Toggle sidebar visibility
+                if (sidebar.classList.contains('show')) {
+                    // Calculate the sidebar height and set its position
+                    const sidebarHeight = sidebar.scrollHeight; // Use scrollHeight for accurate height
+                    const windowHeight = window.innerHeight; // Get the window height
+                    const topPosition = (windowHeight / 2); // - (sidebarHeight / 2); // Calculate top position
+                    sidebar.style.top = `${topPosition}px`; // Set the top position
+                    
+                    links_in_sidebar[i-1].forEach(link => {
+                       if (link.classList.contains('active')) {
+
+                           function delay(time) {
+                             return new Promise(resolve => setTimeout(resolve, time));
+                           }
+                           function scroll_adjust(){
+                               // add the delay so that the sidebar can be loaded from zero size
+                               // before getting all the various coordinates used in calculation
+                               const scrollableElement = link.closest(".mobile-scrollable");
+                               const scollableRect = scrollableElement.getBoundingClientRect();
+                               const linkRect = link.getBoundingClientRect();
+                               
+                               if( ( linkRect.y + 100 ) > ( scollableRect.y + scollableRect.height ) || linkRect.y < scollableRect.y){
+                                   const scrollTop = linkRect.top - scollableRect.top + scrollableElement.scrollTop - (scollableRect.height / 2) + (link.offsetHeight / 2);
+                                   scrollableElement.scrollTo({ top: scrollTop, behavior: 'smooth' });
+                               }
+                           }
+                           
+                           delay(1000).then(() =>scroll_adjust() );
+                       }
+                    })
+                }
+                
+                // Close sidebar when close button is clicked
+                closebuttons[i-1].addEventListener('click', function() {
+                    sidebar.classList.remove('show'); // Hide the sidebar
+                });
+                
+                // Close sidebar when clicking outside of it
+                document.addEventListener('click', function(event) {
+                    if (sidebar.classList.contains('show') && !sidebar.contains(event.target) && !popupButton.contains(event.target)) {
+                        sidebar.classList.remove('show'); // Hide the sidebar
+                    }
+                });
+                
+            });
+        }
+    } else {
+        // for desktop
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            const links = document.querySelectorAll('#menu a');
+            
+            let currentSection = ''
+            let current = ''
+            
+            // highlight the active link based on where the location of scroll
+            output_string = window.scrollY + ""
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const sectionBottom = section.getBoundingClientRect().bottom;
+                
+                output_string = output_string + "(" +sectionTop + ", " + sectionBottom + ")"
+                if (sectionTop > 50 ) {
+                    if(currentSection == ''){
+                        currentSection = section
+                    }
+                    else if(currentSection.getBoundingClientRect().top > 0 && sectionTop < currentSection.getBoundingClientRect().top ){
+                        currentSection = section
+                    }
+                    current = currentSection.getAttribute('id');
+                }
+                else if (sectionBottom > 50  ){
+                    if(currentSection == ''){
+                        currentSection = section
+                    }
+                    else if( sectionBottom < currentSection.getBoundingClientRect().bottom ){
+                        currentSection = section
+                    }
+                    current = currentSection.getAttribute('id');
+                }
+            });
+            
+            links.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                    // For cases when scrollable toc is bigger than screen view
+                    // and active link is outside of view
+                    const scrollableElement = link.closest(".scrollable");
+                    const scollableRect = scrollableElement.getBoundingClientRect();
+                    const linkRect = link.getBoundingClientRect();
+                    
+                    if( ( linkRect.y + 100 ) > ( scollableRect.y + scollableRect.height ) || linkRect.y < scollableRect.y){
+                        const scrollTop = linkRect.top - scollableRect.top + scrollableElement.scrollTop - (scollableRect.height / 2) + (link.offsetHeight / 2);
+                        scrollableElement.scrollTo({ top: scrollTop, behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    }
+</script>
+</body>
 
   </article>
 
@@ -413,13 +1143,13 @@
 	</div>
   <div class="wrapper">
 
-    <h2 class="footer-heading">Stan Zonov</h2>
+    <!--<h2 class="footer-heading">Stan Zonov</h2>-->
 
     <div class="footer-col-wrapper">
       <div class="footer-col  footer-col-2">
         <ul class="contact-list">
           <!--<li>Stan Zonov</li>-->
-          <li>hello at szonov.com</li>
+          <!--<li>hello at szonov.com</li>-->
         </ul>
       </div>
 
