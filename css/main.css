@@ -250,4 +250,6 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
 
 .highlight .il { color: #099; }
 
+figcaption { text-align: center; font-style: italic; color: grey; }
+
 /*# sourceMappingURL=main.css.map */
