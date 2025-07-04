@@ -219,7 +219,9 @@
   </header>
 
   <article class="post-content">
-    <body>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<body>
 <p style="height:0px;width:0px"></p>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -444,61 +446,61 @@
 
 <p>Once you have done that, go to <em>Tools &gt; Script Editor…</em> and enter the following code $($and then save it$)$.</p>
 
-<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nf">checkReminder</span><span class="p">(){</span>
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">checkReminder</span><span class="p">(){</span>
   <span class="c1">// get the spreadsheet object</span>
-  <span class="kd">var</span> <span class="nx">spreadsheet</span> <span class="o">=</span> <span class="nx">SpreadsheetApp</span><span class="p">.</span><span class="nf">getActiveSpreadsheet</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">spreadsheet</span> <span class="o">=</span> <span class="nx">SpreadsheetApp</span><span class="p">.</span><span class="nx">getActiveSpreadsheet</span><span class="p">();</span>
   <span class="c1">// set the first sheet as active</span>
-  <span class="nx">SpreadsheetApp</span><span class="p">.</span><span class="nf">setActiveSheet</span><span class="p">(</span><span class="nx">spreadsheet</span><span class="p">.</span><span class="nf">getSheets</span><span class="p">()[</span><span class="mi">0</span><span class="p">]);</span>
+  <span class="nx">SpreadsheetApp</span><span class="p">.</span><span class="nx">setActiveSheet</span><span class="p">(</span><span class="nx">spreadsheet</span><span class="p">.</span><span class="nx">getSheets</span><span class="p">()[</span><span class="mi">0</span><span class="p">]);</span>
   <span class="c1">// fetch this sheet</span>
-  <span class="kd">var</span> <span class="nx">sheet</span> <span class="o">=</span> <span class="nx">spreadsheet</span><span class="p">.</span><span class="nf">getActiveSheet</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">sheet</span> <span class="o">=</span> <span class="nx">spreadsheet</span><span class="p">.</span><span class="nx">getActiveSheet</span><span class="p">();</span>
    
   <span class="c1">// figure out what the last row is</span>
-  <span class="kd">var</span> <span class="nx">lastRow</span> <span class="o">=</span> <span class="nx">sheet</span><span class="p">.</span><span class="nf">getLastRow</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">lastRow</span> <span class="o">=</span> <span class="nx">sheet</span><span class="p">.</span><span class="nx">getLastRow</span><span class="p">();</span>
  
   <span class="c1">// the rows are indexed starting at 1, and the first row</span>
   <span class="c1">// is the headers, so start with row 2</span>
   <span class="kd">var</span> <span class="nx">startRow</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
   
   <span class="c1">//get today's month and date</span>
-  <span class="kd">var</span> <span class="nx">dateData</span> <span class="o">=</span> <span class="nf">getMonthAndDay</span><span class="p">(</span><span class="k">new</span> <span class="nc">Date</span><span class="p">());</span>
+  <span class="kd">var</span> <span class="nx">dateData</span> <span class="o">=</span> <span class="nx">getMonthAndDay</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">());</span>
   <span class="kd">var</span> <span class="nx">month</span> <span class="o">=</span> <span class="nx">dateData</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
   <span class="kd">var</span> <span class="nx">day</span> <span class="o">=</span> <span class="nx">dateData</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
   
   <span class="c1">//get tomorrows month and date</span>
-  <span class="kd">var</span> <span class="nx">today</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Date</span><span class="p">();</span>
-  <span class="kd">var</span> <span class="nx">tomorrow</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Date</span><span class="p">();</span>
-  <span class="nx">tomorrow</span><span class="p">.</span><span class="nf">setDate</span><span class="p">(</span><span class="nx">today</span><span class="p">.</span><span class="nf">getDate</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">today</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">tomorrow</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+  <span class="nx">tomorrow</span><span class="p">.</span><span class="nx">setDate</span><span class="p">(</span><span class="nx">today</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
   
-  <span class="kd">var</span> <span class="nx">tomorrowDateData</span> <span class="o">=</span> <span class="nf">getMonthAndDay</span><span class="p">(</span><span class="nx">tomorrow</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">tomorrowDateData</span> <span class="o">=</span> <span class="nx">getMonthAndDay</span><span class="p">(</span><span class="nx">tomorrow</span><span class="p">);</span>
   <span class="kd">var</span> <span class="nx">tomorrowMonth</span> <span class="o">=</span> <span class="nx">tomorrowDateData</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
   <span class="kd">var</span> <span class="nx">tomorrowDay</span> <span class="o">=</span> <span class="nx">tomorrowDateData</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
       
   
   <span class="c1">//get the data in the spreadsheet to loop over</span>
-  <span class="kd">var</span> <span class="nx">range</span> <span class="o">=</span> <span class="nx">sheet</span><span class="p">.</span><span class="nf">getRange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="nx">lastRow</span><span class="o">-</span><span class="nx">startRow</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span> <span class="p">);</span>
-  <span class="kd">var</span> <span class="nx">numRows</span> <span class="o">=</span> <span class="nx">range</span><span class="p">.</span><span class="nf">getNumRows</span><span class="p">();</span>
-  <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">range</span><span class="p">.</span><span class="nf">getValues</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">range</span> <span class="o">=</span> <span class="nx">sheet</span><span class="p">.</span><span class="nx">getRange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="nx">lastRow</span><span class="o">-</span><span class="nx">startRow</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span> <span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">numRows</span> <span class="o">=</span> <span class="nx">range</span><span class="p">.</span><span class="nx">getNumRows</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">range</span><span class="p">.</span><span class="nx">getValues</span><span class="p">();</span>
   
   <span class="c1">//for all the rows with data</span>
-  <span class="k">for </span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">numRows</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">numRows</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">//get the month and date</span>
     <span class="kd">var</span> <span class="nx">m</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span><span class="c1">//columns start indexing at zero unlike rows</span>
     <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">1</span><span class="p">];</span>
     <span class="c1">//if today's month and date matches the rows month and date ---&gt; then it means it is the person's birthday</span>
     <span class="k">if</span><span class="p">(</span><span class="nx">m</span><span class="o">==</span><span class="nx">month</span><span class="o">&amp;&amp;</span><span class="nx">d</span><span class="o">==</span><span class="nx">day</span><span class="p">){</span><span class="c1">//it is the person's birthday</span>
       <span class="c1">//Then shoot the person an email!</span>
-      <span class="nx">MailApp</span><span class="p">.</span><span class="nf">sendEmail</span><span class="p">(</span><span class="dl">"</span><span class="s2">your email in quotation marks</span><span class="dl">"</span><span class="p">,</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">4</span><span class="p">],</span> <span class="dl">"</span><span class="s2">Happy Birthday EMAIL TITLE</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">MAKE YOUR OWN BDAY BODY MESSAGE</span><span class="dl">"</span><span class="p">);</span>
+      <span class="nx">MailApp</span><span class="p">.</span><span class="nx">sendEmail</span><span class="p">(</span><span class="dl">"</span><span class="s2">your email in quotation marks</span><span class="dl">"</span><span class="p">,</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">4</span><span class="p">],</span> <span class="dl">"</span><span class="s2">Happy Birthday EMAIL TITLE</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">MAKE YOUR OWN BDAY BODY MESSAGE</span><span class="dl">"</span><span class="p">);</span>
     <span class="p">}</span><span class="c1">//if tomorrow is the row's date and month, then it means it is the person's birthday tomorrow ---&gt; shoot yourself a warning message</span>
     <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">m</span><span class="o">==</span><span class="nx">tomorrowMonth</span><span class="o">&amp;&amp;</span><span class="nx">d</span><span class="o">==</span><span class="nx">tomorrowDay</span><span class="p">){</span>
-      <span class="nx">MailApp</span><span class="p">.</span><span class="nf">sendEmail</span><span class="p">(</span><span class="dl">"</span><span class="s2">your email in quotation marks</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Birthday automation warning.</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Birthday of </span><span class="dl">"</span><span class="o">+</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="dl">"</span><span class="s2"> is tomorrow.</span><span class="dl">"</span><span class="p">);</span>
+      <span class="nx">MailApp</span><span class="p">.</span><span class="nx">sendEmail</span><span class="p">(</span><span class="dl">"</span><span class="s2">your email in quotation marks</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Birthday automation warning.</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">Birthday of </span><span class="dl">"</span><span class="o">+</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="dl">"</span><span class="s2"> is tomorrow.</span><span class="dl">"</span><span class="p">);</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">};</span>
 
 
 <span class="c1">//for a given Date object return the Month and date</span>
-<span class="kd">function</span> <span class="nf">getMonthAndDay</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span>
-  <span class="kd">var</span> <span class="nx">month</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Array</span><span class="p">();</span>
+<span class="kd">function</span> <span class="nx">getMonthAndDay</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">month</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">();</span>
   <span class="nx">month</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">January</span><span class="dl">"</span><span class="p">;</span>
   <span class="nx">month</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">February</span><span class="dl">"</span><span class="p">;</span>
   <span class="nx">month</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">March</span><span class="dl">"</span><span class="p">;</span>
@@ -511,8 +513,8 @@
   <span class="nx">month</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">October</span><span class="dl">"</span><span class="p">;</span>
   <span class="nx">month</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">November</span><span class="dl">"</span><span class="p">;</span>
   <span class="nx">month</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">December</span><span class="dl">"</span><span class="p">;</span>
-  <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nx">month</span><span class="p">[</span><span class="nx">d</span><span class="p">.</span><span class="nf">getMonth</span><span class="p">()];</span> 
-  <span class="k">return</span> <span class="p">[</span><span class="nx">n</span><span class="p">,</span><span class="nx">d</span><span class="p">.</span><span class="nf">getDate</span><span class="p">()];</span>
+  <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nx">month</span><span class="p">[</span><span class="nx">d</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()];</span> 
+  <span class="k">return</span> <span class="p">[</span><span class="nx">n</span><span class="p">,</span><span class="nx">d</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()];</span>
 <span class="p">}</span></code></pre></figure>
 
 <p>I have added comments throughout the code in order to help explain it. The code essentially checks the spreadsheet and checks if today’s date matches a date on the sheet. If there is a match then it sends the person a happy birthday email. If the person’s email is tomorrow then it sends you a warning in advance $($ in case you want to do something more than just an email $)$. $($If you have a friend who has a birthday on Feb 29 then you might have to do some extra thinking :$)$  $)$.</p>
@@ -701,6 +703,7 @@
     }
 </script>
 </body>
+</html>
 
   </article>
 

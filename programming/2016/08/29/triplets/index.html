@@ -200,7 +200,9 @@
   </header>
 
   <article class="post-content">
-    <body>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<body>
 <p style="height:0px;width:0px"></p>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -505,7 +507,7 @@ less_than_13 = 7+0 = 7</code></pre></figure>
     <span class="kt">int</span> <span class="n">lastBiggest</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="n">tree</span> <span class="o">*</span> <span class="nf">newTree</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">){</span>
+<span class="n">tree</span> <span class="o">*</span> <span class="n">newTree</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">){</span>
     <span class="n">tree</span> <span class="o">*</span> <span class="n">newT</span> <span class="o">=</span> <span class="k">new</span> <span class="n">tree</span><span class="p">();</span>
     <span class="n">newT</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
     <span class="n">newT</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
@@ -520,7 +522,7 @@ less_than_13 = 7+0 = 7</code></pre></figure>
 
 <span class="c1">//Return node in tree that contains num as the value</span>
 <span class="c1">//if node does not exist then NULL is returned</span>
-<span class="n">tree</span> <span class="o">*</span> <span class="nf">isNumThere</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="n">tree</span> <span class="o">*</span> <span class="n">t</span><span class="p">){</span>
+<span class="n">tree</span> <span class="o">*</span> <span class="n">isNumThere</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="n">tree</span> <span class="o">*</span> <span class="n">t</span><span class="p">){</span>
     <span class="k">if</span><span class="p">(</span><span class="n">t</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
         <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
     <span class="p">}</span>
@@ -528,7 +530,7 @@ less_than_13 = 7+0 = 7</code></pre></figure>
         <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">==</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
             <span class="k">return</span> <span class="n">t</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
             <span class="k">return</span> <span class="n">isNumThere</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
         <span class="p">}</span>
         <span class="k">else</span><span class="p">{</span>
@@ -538,7 +540,7 @@ less_than_13 = 7+0 = 7</code></pre></figure>
     <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="n">tree</span> <span class="o">*</span> <span class="nf">passed_to_left_only_insert</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="n">tree</span> <span class="o">*</span> <span class="n">t</span><span class="p">){</span>
+<span class="n">tree</span> <span class="o">*</span> <span class="n">passed_to_left_only_insert</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="n">tree</span> <span class="o">*</span> <span class="n">t</span><span class="p">){</span>
     <span class="k">if</span><span class="p">(</span><span class="n">t</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
         <span class="k">return</span> <span class="n">newTree</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
     <span class="p">}</span>
@@ -546,7 +548,7 @@ less_than_13 = 7+0 = 7</code></pre></figure>
         <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">==</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
             <span class="n">t</span><span class="o">-&gt;</span><span class="n">beforeFrequency</span><span class="o">++</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
             <span class="n">t</span><span class="o">-&gt;</span><span class="n">passed_to_left</span><span class="o">++</span><span class="p">;</span>
             <span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">passed_to_left_only_insert</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
         <span class="p">}</span>
@@ -559,31 +561,31 @@ less_than_13 = 7+0 = 7</code></pre></figure>
 <span class="p">}</span>
 
 
-<span class="kt">void</span> <span class="nf">remove_left_occurences</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="n">tree</span> <span class="o">*</span><span class="n">t</span><span class="p">){</span>
+<span class="kt">void</span> <span class="n">remove_left_occurences</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="n">tree</span> <span class="o">*</span><span class="n">t</span><span class="p">){</span>
     <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
         <span class="n">t</span><span class="o">-&gt;</span><span class="n">passed_to_left</span><span class="o">--</span><span class="p">;</span>
         <span class="n">remove_left_occurences</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
     <span class="p">}</span>
-    <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&gt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
+    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&gt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
         <span class="n">remove_left_occurences</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="nf">add_right_occurences</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="n">tree</span> <span class="o">*</span><span class="n">t</span><span class="p">){</span>
+<span class="kt">void</span> <span class="n">add_right_occurences</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span> <span class="n">tree</span> <span class="o">*</span><span class="n">t</span><span class="p">){</span>
     <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
         <span class="n">add_right_occurences</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
     <span class="p">}</span>
-    <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&gt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
+    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&gt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
         <span class="n">t</span><span class="o">-&gt;</span><span class="n">passed_to_right</span><span class="o">++</span><span class="p">;</span>
         <span class="n">add_right_occurences</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
     <span class="p">}</span>    
 <span class="p">}</span>
 
-<span class="kt">long</span> <span class="kt">long</span> <span class="nf">findNumbersBiggerThanNumAndAfter</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span><span class="n">tree</span> <span class="o">*</span> <span class="n">t</span><span class="p">){</span>
+<span class="kt">long</span> <span class="kt">long</span> <span class="n">findNumbersBiggerThanNumAndAfter</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span><span class="n">tree</span> <span class="o">*</span> <span class="n">t</span><span class="p">){</span>
     <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">==</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
         <span class="k">return</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">passed_to_right</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
+    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
         <span class="k">return</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">passed_to_right</span> <span class="o">+</span> <span class="n">findNumbersBiggerThanNumAndAfter</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">afterFrequency</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="k">else</span><span class="p">{</span>
@@ -592,11 +594,11 @@ less_than_13 = 7+0 = 7</code></pre></figure>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kt">long</span> <span class="kt">long</span> <span class="nf">findNumbersSmallerThanNumAndBefore</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span><span class="n">tree</span> <span class="o">*</span> <span class="n">t</span><span class="p">){</span>
+<span class="kt">long</span> <span class="kt">long</span> <span class="n">findNumbersSmallerThanNumAndBefore</span><span class="p">(</span><span class="kt">int</span> <span class="n">num</span><span class="p">,</span><span class="n">tree</span> <span class="o">*</span> <span class="n">t</span><span class="p">){</span>
     <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">==</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
         <span class="k">return</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">passed_to_left</span><span class="p">;</span>
     <span class="p">}</span>
-    <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
+    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">){</span>
         <span class="k">return</span> <span class="n">findNumbersSmallerThanNumAndBefore</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="k">else</span><span class="p">{</span>
@@ -606,7 +608,7 @@ less_than_13 = 7+0 = 7</code></pre></figure>
 <span class="p">}</span>
 
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>   
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>   
     <span class="kt">int</span> <span class="n">num</span><span class="p">;</span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">num</span><span class="p">;</span>
     <span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">numHistory</span><span class="p">;</span>
     <span class="n">tree</span> <span class="o">*</span> <span class="n">t</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
@@ -845,6 +847,7 @@ less_than_13 = 7+0 = 7</code></pre></figure>
     }
 </script>
 </body>
+</html>
 
   </article>
 

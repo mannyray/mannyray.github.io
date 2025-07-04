@@ -198,15 +198,106 @@
   </header>
 
   <article class="post-content">
-    <p>Hello!</p>
+    <style>
+    image-container {
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    /* Wrapper preserves aspect ratio */
+    .placeholder-wrapper {
+        position: relative;
+        /* padding-bottom set dynamically by JS */
+        overflow: hidden;
+
+    }
+
+    .placeholder {
+      position: absolute;
+      text-align: center;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Spinner styles */
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #ccc;
+      border-top-color: #666;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .buffer-image {
+        display: none;
+        height: auto;
+        position: relative; /* no absolute */
+    }
+</style>
+<p>Hello!</p>
 
 <p>My name is Stan. I enjoy <a href="https://twotired.ca/">cycling</a>, <a href="https://szonov.com/programming/2024/05/11/what-is-leadership/">adventures</a>, and <a href="https://szonov.com/photos/">photography</a>! I have a background in <a href="https://www.linkedin.com/in/stanzonov/">software development</a>, <a href="https://szonov.com/courses/">computer science</a>, and <a href="https://uwspace.uwaterloo.ca/handle/10012/14740">applied mathematics</a>.</p>
 
 <p>I have created this website to share stuff that I am working on and find interesting. I hope that my posts will inspire the readers to try something new.</p>
 
-<p><img src="https://szonov.com/assets/moped.png" alt="image" /></p>
+<p><div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="768 / 1022" data-custom-width-percentage="100" style="width: 100%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/moped.png" alt="image" class="buffer-image" width="100%">
+</div></div></p>
 
 <p>Last updated 2025/03/29</p>
+<script>
+    const wrappers = document.querySelectorAll('.placeholder-wrapper');
+    console.log(wrappers);
+    wrappers.forEach(wrapper => {
+        // Parse aspect ratio expression in data-aspect-ratio attribute
+        const ratioExpr = wrapper.dataset.aspectRatio;
+        let aspectRatio = NaN;
+        try {
+            // Evaluate the aspect ratio (e.g. "1645 / 1077")
+            aspectRatio = Function('"use strict";return (' + ratioExpr + ')')();
+        } catch {
+            aspectRatio = NaN;
+        }
+        
+        let widthPercentage = 100;
+        if (wrapper && wrapper.dataset && wrapper.dataset.customWidthPercentage !== undefined) {
+            widthPercentage = wrapper.dataset.customWidthPercentage;
+        }
+        console.log(widthPercentage);
+        console.log("GGGG")
+        
+
+        if (!isNaN(aspectRatio)) {
+            wrapper.style.paddingBottom = `${aspectRatio * widthPercentage}%`;
+        } else {
+            // fallback to 1:1 if invalid
+            wrapper.style.paddingBottom = `100%`;
+        }
+
+        const img = wrapper.querySelector('.buffer-image');
+        const placeholder = wrapper.querySelector('.placeholder');
+
+        img.onload = function () {
+            placeholder.style.display = 'none';
+            img.style.display = 'block';
+            wrapper.style.paddingBottom = '0';  // Remove padding-bottom, avoid whitespace
+        };
+    });
+</script>
 
   </article>
 

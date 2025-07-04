@@ -250,6 +250,18 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
 
 .highlight .il { color: #099; }
 
-figcaption { text-align: center; font-style: italic; color: grey; }
+.figcaption-default { text-align: center; font-style: italic; color: grey; /* unvisited link */ /* visited link */ /* mouse over link */ /* selected link */ }
+
+.figcaption-default a { text-decoration: underline; }
+
+.figcaption-default a:link { color: black; }
+
+.figcaption-default a:visited { color: black; }
+
+.figcaption-default a:hover { color: black; }
+
+.figcaption-default a:active { color: black; }
+
+blockquote { background-color: #f8f8f8; padding: 10px; font-size: 16px; margin: 20px; }
 
 /*# sourceMappingURL=main.css.map */

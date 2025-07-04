@@ -200,7 +200,9 @@
   </header>
 
   <article class="post-content">
-    <body>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<body>
 <p style="height:0px;width:0px"></p>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -378,12 +380,12 @@
   </li>
   <li>Add the code to <code class="language-plaintext highlighter-rouge">code.gs</code>
     <div class="language-javascript highlighter-rouge">
-<div class="highlight"><pre class="highlight"><code> <span class="kd">function</span> <span class="nf">doGet</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
-     <span class="nx">MailApp</span><span class="p">.</span><span class="nf">sendEmail</span><span class="p">(</span><span class="dl">"</span><span class="s2">your@gmail.com</span><span class="dl">"</span><span class="p">,</span> <span class="nx">request</span><span class="p">.</span><span class="nx">parameter</span><span class="p">.</span><span class="nx">subject</span><span class="p">,</span> <span class="nx">request</span><span class="p">.</span><span class="nx">parameter</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+<div class="highlight"><pre class="highlight"><code> <span class="kd">function</span> <span class="nx">doGet</span><span class="p">(</span><span class="nx">request</span><span class="p">)</span> <span class="p">{</span>
+     <span class="nx">MailApp</span><span class="p">.</span><span class="nx">sendEmail</span><span class="p">(</span><span class="dl">"</span><span class="s2">your@gmail.com</span><span class="dl">"</span><span class="p">,</span> <span class="nx">request</span><span class="p">.</span><span class="nx">parameter</span><span class="p">.</span><span class="nx">subject</span><span class="p">,</span> <span class="nx">request</span><span class="p">.</span><span class="nx">parameter</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
      <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">{</span>
          <span class="na">sent</span><span class="p">:</span> <span class="mi">0</span> <span class="o">==</span> <span class="mi">0</span>
      <span class="p">};</span>
-     <span class="k">return</span> <span class="nx">ContentService</span><span class="p">.</span><span class="nf">createTextOutput</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nf">stringify</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
+     <span class="k">return</span> <span class="nx">ContentService</span><span class="p">.</span><span class="nx">createTextOutput</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">result</span><span class="p">))</span>
  <span class="p">}</span>
 </code></pre></div>    </div>
 
@@ -593,6 +595,7 @@
     }
 </script>
 </body>
+</html>
 
   </article>
 

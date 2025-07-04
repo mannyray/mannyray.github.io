@@ -200,7 +200,9 @@
   </header>
 
   <article class="post-content">
-    <body>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<body>
 <p style="height:0px;width:0px"></p>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -648,193 +650,193 @@ ta:    Get the timing advance value for LTE, as a value in range of 0..1282</cod
 
 <p>I used a python script (<code class="language-plaintext highlighter-rouge">parseCellData.py</code>) to analyze the text files</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="n">re</span>
-<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
 
 
 <span class="k">class</span> <span class="nc">Recording</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">latitude</span><span class="o">=</span><span class="mi">0</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">longitude</span><span class="o">=</span><span class="mi">0</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">time</span><span class="o">=</span><span class="mi">0</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">cells</span><span class="o">=</span><span class="p">[]</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">ss</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">latitude</span><span class="o">=</span><span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">longitude</span><span class="o">=</span><span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">time</span><span class="o">=</span><span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">cells</span><span class="o">=</span><span class="p">[]</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">ss</span><span class="o">=</span><span class="mi">0</span>
 
-    <span class="k">def</span> <span class="nf">setLatitude</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="n">lat</span><span class="p">):</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">latitude</span><span class="o">=</span><span class="n">lat</span>
-    <span class="k">def</span> <span class="nf">getLatitude</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">latitude</span>
+    <span class="k">def</span> <span class="nf">setLatitude</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">lat</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">latitude</span><span class="o">=</span><span class="n">lat</span>
+    <span class="k">def</span> <span class="nf">getLatitude</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">latitude</span>
 
-    <span class="k">def</span> <span class="nf">setLongitude</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="n">lon</span><span class="p">):</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">longitude</span><span class="o">=</span><span class="n">lon</span>
-    <span class="k">def</span> <span class="nf">getLongitude</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">longitude</span>
+    <span class="k">def</span> <span class="nf">setLongitude</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">lon</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">longitude</span><span class="o">=</span><span class="n">lon</span>
+    <span class="k">def</span> <span class="nf">getLongitude</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">longitude</span>
 
-    <span class="k">def</span> <span class="nf">setCoordinateTime</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="n">time</span><span class="p">):</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">time</span><span class="o">=</span><span class="n">time</span>
-    <span class="k">def</span> <span class="nf">addCell</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="n">cell</span><span class="p">):</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">getCells</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">cells</span>
+    <span class="k">def</span> <span class="nf">setCoordinateTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">time</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">time</span><span class="o">=</span><span class="n">time</span>
+    <span class="k">def</span> <span class="nf">addCell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">cell</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">cells</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">getCells</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">cells</span>
 
 
 <span class="k">class</span> <span class="nc">cellData</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">ID</span><span class="o">=</span><span class="sh">""</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">time</span><span class="o">=</span><span class="mi">0</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">ss</span><span class="o">=</span><span class="mi">0</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">sp</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">ID</span><span class="o">=</span><span class="s">""</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">time</span><span class="o">=</span><span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">ss</span><span class="o">=</span><span class="mi">0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">sp</span><span class="o">=</span><span class="mi">0</span>
 
-    <span class="k">def</span> <span class="nf">setTime</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="n">time</span><span class="p">):</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">time</span><span class="o">=</span><span class="n">time</span>
+    <span class="k">def</span> <span class="nf">setTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">time</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">time</span><span class="o">=</span><span class="n">time</span>
     
-    <span class="k">def</span> <span class="nf">setID</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="n">ID</span><span class="p">):</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">ID</span><span class="o">=</span><span class="n">ID</span>
-    <span class="k">def</span> <span class="nf">getID</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">ID</span>
+    <span class="k">def</span> <span class="nf">setID</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">ID</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">ID</span><span class="o">=</span><span class="n">ID</span>
+    <span class="k">def</span> <span class="nf">getID</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">ID</span>
     
-    <span class="k">def</span> <span class="nf">setSignalStrength</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="n">ss</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setSignalStrength</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">ss</span><span class="p">):</span>
         <span class="c1">#https://stackoverflow.com/questions/7201871/getgsmsignalstrength-return-values-that-are-out-of-range
-</span>        <span class="nf">if</span><span class="p">(</span><span class="n">ss</span><span class="o">==</span><span class="mi">99</span><span class="p">):</span>
-            <span class="n">self</span><span class="p">.</span><span class="n">ss</span><span class="o">=</span><span class="mi">0</span><span class="c1">#null
+</span>        <span class="k">if</span><span class="p">(</span><span class="n">ss</span><span class="o">==</span><span class="mi">99</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">ss</span><span class="o">=</span><span class="mi">0</span><span class="c1">#null
 </span>        <span class="k">else</span><span class="p">:</span>
-            <span class="n">self</span><span class="p">.</span><span class="n">ss</span><span class="o">=-</span><span class="mi">113</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">ss</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">ss</span><span class="o">=-</span><span class="mi">113</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">ss</span>
 
-    <span class="k">def</span> <span class="nf">getSignalStrength</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">ss</span>
+    <span class="k">def</span> <span class="nf">getSignalStrength</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">ss</span>
     
-    <span class="k">def</span> <span class="nf">getSignalPower</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">sp</span>
+    <span class="k">def</span> <span class="nf">getSignalPower</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">sp</span>
 
-    <span class="k">def</span> <span class="nf">setSignalPower</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="n">sp</span><span class="p">):</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">sp</span><span class="o">=</span><span class="n">sp</span>
+    <span class="k">def</span> <span class="nf">setSignalPower</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">sp</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">sp</span><span class="o">=</span><span class="n">sp</span>
 
 
 
 <span class="k">class</span> <span class="nc">analyze</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="n">coordinates</span><span class="p">):</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">coordinates</span><span class="o">=</span><span class="n">coordinates</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">coordinates</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">coordinates</span><span class="o">=</span><span class="n">coordinates</span>
 
-    <span class="k">def</span> <span class="nf">getLats</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">getLats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">lats</span><span class="o">=</span><span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">coordinates</span><span class="p">:</span>
-            <span class="n">lats</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="nf">getLatitude</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">coordinates</span><span class="p">:</span>
+            <span class="n">lats</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">getLatitude</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">lats</span>
 
-    <span class="k">def</span> <span class="nf">getLons</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">getLons</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">lons</span><span class="o">=</span><span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">coordinates</span><span class="p">:</span>
-            <span class="n">lons</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="nf">getLongitude</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">coordinates</span><span class="p">:</span>
+            <span class="n">lons</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">getLongitude</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">lons</span>
-    <span class="k">def</span> <span class="nf">getUniqueTowers</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
-        <span class="n">tower</span><span class="o">=</span><span class="nf">dict</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">coordinates</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">cellTower</span> <span class="ow">in</span> <span class="n">coord</span><span class="p">.</span><span class="nf">getCells</span><span class="p">():</span>
-                <span class="k">if</span> <span class="n">cellTower</span><span class="p">.</span><span class="nf">getID</span><span class="p">()</span> <span class="ow">in</span> <span class="n">tower</span><span class="p">:</span>
-                    <span class="n">tower</span><span class="p">[</span><span class="n">cellTower</span><span class="p">.</span><span class="nf">getID</span><span class="p">()]</span> <span class="o">=</span> <span class="n">tower</span><span class="p">[</span><span class="n">cellTower</span><span class="p">.</span><span class="nf">getID</span><span class="p">()]</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">def</span> <span class="nf">getUniqueTowers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">tower</span><span class="o">=</span><span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">coordinates</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">cellTower</span> <span class="ow">in</span> <span class="n">coord</span><span class="p">.</span><span class="n">getCells</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">cellTower</span><span class="p">.</span><span class="n">getID</span><span class="p">()</span> <span class="ow">in</span> <span class="n">tower</span><span class="p">:</span>
+                    <span class="n">tower</span><span class="p">[</span><span class="n">cellTower</span><span class="p">.</span><span class="n">getID</span><span class="p">()]</span> <span class="o">=</span> <span class="n">tower</span><span class="p">[</span><span class="n">cellTower</span><span class="p">.</span><span class="n">getID</span><span class="p">()]</span> <span class="o">+</span> <span class="mi">1</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">tower</span><span class="p">[</span><span class="n">cellTower</span><span class="p">.</span><span class="nf">getID</span><span class="p">()]</span> <span class="o">=</span> <span class="mi">1</span>
+                    <span class="n">tower</span><span class="p">[</span><span class="n">cellTower</span><span class="p">.</span><span class="n">getID</span><span class="p">()]</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">tower</span>
-    <span class="k">def</span> <span class="nf">getTowerCoords</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="n">towerID</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">getTowerCoords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">towerID</span><span class="p">):</span>
         <span class="n">lats</span><span class="o">=</span><span class="p">[]</span>
         <span class="n">lons</span><span class="o">=</span><span class="p">[]</span>
-        <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">coordinates</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">cellTower</span> <span class="ow">in</span> <span class="n">coord</span><span class="p">.</span><span class="nf">getCells</span><span class="p">():</span>
-                <span class="k">if</span> <span class="n">cellTower</span><span class="p">.</span><span class="nf">getID</span><span class="p">()</span> <span class="o">==</span> <span class="n">towerID</span><span class="p">:</span>
-                    <span class="n">lats</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">coord</span><span class="p">.</span><span class="nf">getLatitude</span><span class="p">())</span>
-                    <span class="n">lons</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">coord</span><span class="p">.</span><span class="nf">getLongitude</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">coordinates</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">cellTower</span> <span class="ow">in</span> <span class="n">coord</span><span class="p">.</span><span class="n">getCells</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">cellTower</span><span class="p">.</span><span class="n">getID</span><span class="p">()</span> <span class="o">==</span> <span class="n">towerID</span><span class="p">:</span>
+                    <span class="n">lats</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">coord</span><span class="p">.</span><span class="n">getLatitude</span><span class="p">())</span>
+                    <span class="n">lons</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">coord</span><span class="p">.</span><span class="n">getLongitude</span><span class="p">())</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">lats</span><span class="p">,</span><span class="n">lons</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">getAllTowerCoords</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
-        <span class="n">towers</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="nf">getUniqueTowers</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">getAllTowerCoords</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">towers</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">getUniqueTowers</span><span class="p">()</span>
         <span class="n">towerList</span><span class="o">=</span><span class="p">[]</span>
         <span class="n">coords</span><span class="o">=</span><span class="p">[]</span>
         <span class="k">for</span> <span class="n">tower</span> <span class="ow">in</span> <span class="n">towers</span><span class="p">:</span>
-            <span class="n">towerList</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">tower</span><span class="p">)</span>
-            <span class="n">coord</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="nf">getTowerCoords</span><span class="p">(</span><span class="n">tower</span><span class="p">)</span>
-            <span class="n">coords</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span>
+            <span class="n">towerList</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">tower</span><span class="p">)</span>
+            <span class="n">coord</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">getTowerCoords</span><span class="p">(</span><span class="n">tower</span><span class="p">)</span>
+            <span class="n">coords</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">towerList</span><span class="p">,</span> <span class="n">coords</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">getSignalStrengths</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="n">tower</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">getSignalStrengths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tower</span><span class="p">):</span>
         <span class="n">signalStrengths</span><span class="o">=</span><span class="p">[]</span>
-        <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">coordinates</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">cellTower</span> <span class="ow">in</span> <span class="n">coord</span><span class="p">.</span><span class="nf">getCells</span><span class="p">():</span>
-                <span class="k">if</span> <span class="n">cellTower</span><span class="p">.</span><span class="nf">getID</span><span class="p">()</span> <span class="o">==</span> <span class="n">tower</span><span class="p">:</span>
-                    <span class="n">signalStrengths</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">cellTower</span><span class="p">.</span><span class="nf">getSignalStrength</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">coordinates</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">cellTower</span> <span class="ow">in</span> <span class="n">coord</span><span class="p">.</span><span class="n">getCells</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">cellTower</span><span class="p">.</span><span class="n">getID</span><span class="p">()</span> <span class="o">==</span> <span class="n">tower</span><span class="p">:</span>
+                    <span class="n">signalStrengths</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">cellTower</span><span class="p">.</span><span class="n">getSignalStrength</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">signalStrengths</span>
 
-    <span class="k">def</span> <span class="nf">getSignalPowers</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="n">tower</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">getSignalPowers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tower</span><span class="p">):</span>
         <span class="n">signalPowers</span><span class="o">=</span><span class="p">[]</span>
-        <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">coordinates</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">cellTower</span> <span class="ow">in</span> <span class="n">coord</span><span class="p">.</span><span class="nf">getCells</span><span class="p">():</span>
-                <span class="k">if</span> <span class="n">cellTower</span><span class="p">.</span><span class="nf">getID</span><span class="p">()</span> <span class="o">==</span> <span class="n">tower</span><span class="p">:</span>
-                    <span class="n">signalPowers</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">cellTower</span><span class="p">.</span><span class="nf">getSignalPower</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">coordinates</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">cellTower</span> <span class="ow">in</span> <span class="n">coord</span><span class="p">.</span><span class="n">getCells</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">cellTower</span><span class="p">.</span><span class="n">getID</span><span class="p">()</span> <span class="o">==</span> <span class="n">tower</span><span class="p">:</span>
+                    <span class="n">signalPowers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">cellTower</span><span class="p">.</span><span class="n">getSignalPower</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">signalPowers</span>
 
 
-    <span class="k">def</span> <span class="nf">sortByIncreasingFrequency</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="n">towerCoords</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">sortByIncreasingFrequency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">towerCoords</span><span class="p">):</span>
         <span class="n">arr</span><span class="o">=</span><span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">towerCoords</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-            <span class="n">arr</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-        <span class="n">index</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="nf">argsort</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+            <span class="n">arr</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">index</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
         <span class="n">copy</span><span class="o">=</span><span class="p">[]</span>
         <span class="n">copyID</span><span class="o">=</span><span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nf">len</span><span class="p">(</span><span class="n">index</span><span class="p">)):</span>
-            <span class="n">copy</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">towerCoords</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
-            <span class="n">copyID</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">towerCoords</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="p">)):</span>
+            <span class="n">copy</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">towerCoords</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+            <span class="n">copyID</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">towerCoords</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">index</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">copyID</span><span class="p">,</span><span class="n">copy</span><span class="p">]</span>
 
 <span class="k">class</span> <span class="nc">readCellInformation</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
-        <span class="n">self</span><span class="p">.</span><span class="n">coordinates</span><span class="o">=</span><span class="p">[]</span>
-    <span class="k">def</span> <span class="nf">getCoordinates</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">coordinates</span>
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="n">fileName</span><span class="p">):</span>
-        <span class="n">f</span><span class="o">=</span><span class="nf">open</span><span class="p">(</span><span class="n">fileName</span><span class="p">)</span>
-        <span class="n">lines</span><span class="o">=</span><span class="n">f</span><span class="p">.</span><span class="nf">readlines</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">coordinates</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">def</span> <span class="nf">getCoordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">coordinates</span>
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">fileName</span><span class="p">):</span>
+        <span class="n">f</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="n">fileName</span><span class="p">)</span>
+        <span class="n">lines</span><span class="o">=</span><span class="n">f</span><span class="p">.</span><span class="n">readlines</span><span class="p">()</span>
 
         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s">[</span><span class="sh">'</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
-            <span class="n">coordinate_data</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s"> </span><span class="sh">'</span><span class="p">)</span>
-            <span class="n">rec</span> <span class="o">=</span> <span class="nc">Recording</span><span class="p">()</span>
-            <span class="n">rec</span><span class="p">.</span><span class="nf">setLatitude</span><span class="p">(</span><span class="nf">float</span><span class="p">(</span><span class="n">coordinate_data</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
-            <span class="n">rec</span><span class="p">.</span><span class="nf">setLongitude</span><span class="p">(</span><span class="nf">float</span><span class="p">(</span><span class="n">coordinate_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
-            <span class="n">rec</span><span class="p">.</span><span class="nf">setCoordinateTime</span><span class="p">(</span><span class="nf">float</span><span class="p">(</span><span class="n">coordinate_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-            <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nf">replace</span><span class="p">(</span><span class="sh">"</span><span class="s">CellInfoLte</span><span class="sh">"</span><span class="p">,</span><span class="sh">"</span><span class="s">CELL</span><span class="sh">"</span><span class="p">)</span>
-            <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nf">replace</span><span class="p">(</span><span class="sh">"</span><span class="s">CellInfoWcdma</span><span class="sh">"</span><span class="p">,</span><span class="sh">"</span><span class="s">CELL</span><span class="sh">"</span><span class="p">)</span>
-            <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nf">replace</span><span class="p">(</span><span class="sh">"</span><span class="s">CellInfoGsm</span><span class="sh">"</span><span class="p">,</span><span class="sh">"</span><span class="s">CELL</span><span class="sh">"</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s">CELL:</span><span class="sh">'</span><span class="p">):</span>
-                <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">'['</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+            <span class="n">coordinate_data</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">split</span><span class="p">(</span><span class="s">' '</span><span class="p">)</span>
+            <span class="n">rec</span> <span class="o">=</span> <span class="n">Recording</span><span class="p">()</span>
+            <span class="n">rec</span><span class="p">.</span><span class="n">setLatitude</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">coordinate_data</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
+            <span class="n">rec</span><span class="p">.</span><span class="n">setLongitude</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">coordinate_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+            <span class="n">rec</span><span class="p">.</span><span class="n">setCoordinateTime</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">coordinate_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+            <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">replace</span><span class="p">(</span><span class="s">"CellInfoLte"</span><span class="p">,</span><span class="s">"CELL"</span><span class="p">)</span>
+            <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">replace</span><span class="p">(</span><span class="s">"CellInfoWcdma"</span><span class="p">,</span><span class="s">"CELL"</span><span class="p">)</span>
+            <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">replace</span><span class="p">(</span><span class="s">"CellInfoGsm"</span><span class="p">,</span><span class="s">"CELL"</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">split</span><span class="p">(</span><span class="s">'CELL:'</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
  
-                    <span class="n">time</span><span class="o">=</span><span class="nf">int</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="sh">'</span><span class="s">mTimeStamp=(.*)ns</span><span class="sh">'</span><span class="p">,</span><span class="n">y</span><span class="p">).</span><span class="nf">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-                    <span class="n">mcc</span><span class="o">=</span><span class="nf">int</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="sh">'</span><span class="s">mMcc=(.*) mMnc</span><span class="sh">'</span><span class="p">,</span><span class="n">y</span><span class="p">).</span><span class="nf">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-                    <span class="n">mnc</span><span class="o">=</span><span class="nf">int</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="sh">'</span><span class="s">mMnc=(.*) (mCi|mLac)=</span><span class="sh">'</span><span class="p">,</span><span class="n">y</span><span class="p">).</span><span class="nf">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-                    <span class="n">mci</span><span class="o">=</span><span class="sh">""</span>
-                    <span class="n">mpci</span><span class="o">=</span><span class="sh">""</span>
+                    <span class="n">time</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="s">'mTimeStamp=(.*)ns'</span><span class="p">,</span><span class="n">y</span><span class="p">).</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+                    <span class="n">mcc</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="s">'mMcc=(.*) mMnc'</span><span class="p">,</span><span class="n">y</span><span class="p">).</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+                    <span class="n">mnc</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="s">'mMnc=(.*) (mCi|mLac)='</span><span class="p">,</span><span class="n">y</span><span class="p">).</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+                    <span class="n">mci</span><span class="o">=</span><span class="s">""</span>
+                    <span class="n">mpci</span><span class="o">=</span><span class="s">""</span>
                     <span class="c1">#mtac=int(re.search('mTac=(.*)} Cell',y).group(1))
-</span>                    <span class="n">tmp</span><span class="o">=</span><span class="sh">""</span>
-                    <span class="n">tmp</span><span class="o">=</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="sh">'</span><span class="s">ss=(.*) rsrp=</span><span class="sh">'</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
-                    <span class="n">cell</span> <span class="o">=</span> <span class="nf">cellData</span><span class="p">()</span>
+</span>                    <span class="n">tmp</span><span class="o">=</span><span class="s">""</span>
+                    <span class="n">tmp</span><span class="o">=</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="s">'ss=(.*) rsrp='</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
+                    <span class="n">cell</span> <span class="o">=</span> <span class="n">cellData</span><span class="p">()</span>
                     <span class="k">try</span><span class="p">:</span><span class="c1">#LTE
-</span>                        <span class="n">mci</span><span class="o">=</span><span class="nf">int</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="sh">'</span><span class="s">mCi=(.*) mPci=</span><span class="sh">'</span><span class="p">,</span><span class="n">y</span><span class="p">).</span><span class="nf">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-                        <span class="n">tmp</span><span class="o">=</span><span class="nf">int</span><span class="p">(</span><span class="n">tmp</span><span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-                        <span class="n">rsrp</span><span class="o">=</span><span class="nf">int</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="sh">'</span><span class="s">rsrp=(.*) rsrq=</span><span class="sh">'</span><span class="p">,</span><span class="n">y</span><span class="p">).</span><span class="nf">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-                        <span class="n">cell</span><span class="p">.</span><span class="nf">setSignalPower</span><span class="p">(</span><span class="n">rsrp</span><span class="p">)</span>
+</span>                        <span class="n">mci</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="s">'mCi=(.*) mPci='</span><span class="p">,</span><span class="n">y</span><span class="p">).</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+                        <span class="n">tmp</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">tmp</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+                        <span class="n">rsrp</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="s">'rsrp=(.*) rsrq='</span><span class="p">,</span><span class="n">y</span><span class="p">).</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+                        <span class="n">cell</span><span class="p">.</span><span class="n">setSignalPower</span><span class="p">(</span><span class="n">rsrp</span><span class="p">)</span>
                     <span class="k">except</span><span class="p">:</span><span class="c1">#WCDMA
-</span>                        <span class="n">tmp</span><span class="o">=</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="sh">'</span><span class="s"> ss=(.*) ber=</span><span class="sh">'</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
+</span>                        <span class="n">tmp</span><span class="o">=</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="s">' ss=(.*) ber='</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
                         <span class="k">try</span><span class="p">:</span>
-                            <span class="n">mci</span><span class="o">=</span><span class="nf">int</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="sh">'</span><span class="s">mCid=(.*) mPsc=</span><span class="sh">'</span><span class="p">,</span><span class="n">y</span><span class="p">).</span><span class="nf">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+                            <span class="n">mci</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="s">'mCid=(.*) mPsc='</span><span class="p">,</span><span class="n">y</span><span class="p">).</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
                         <span class="k">except</span><span class="p">:</span>
-                            <span class="n">mci</span><span class="o">=</span><span class="nf">int</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="sh">'</span><span class="s">mCid=(.*)} CellSignalStrengthGsm</span><span class="sh">'</span><span class="p">,</span><span class="n">y</span><span class="p">).</span><span class="nf">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-                        <span class="n">tmp</span><span class="o">=</span><span class="nf">int</span><span class="p">(</span><span class="n">tmp</span><span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+                            <span class="n">mci</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="s">'mCid=(.*)} CellSignalStrengthGsm'</span><span class="p">,</span><span class="n">y</span><span class="p">).</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+                        <span class="n">tmp</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">tmp</span><span class="p">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
                     <span class="n">ss</span><span class="o">=</span><span class="n">tmp</span> 
-                    <span class="n">ID</span><span class="o">=</span><span class="nf">str</span><span class="p">(</span><span class="n">mpci</span><span class="p">)</span><span class="o">+</span><span class="sh">""</span><span class="o">+</span><span class="nf">str</span><span class="p">(</span><span class="n">mci</span><span class="p">)</span>
+                    <span class="n">ID</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">mpci</span><span class="p">)</span><span class="o">+</span><span class="s">""</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">mci</span><span class="p">)</span>
                     
-                    <span class="n">cell</span><span class="p">.</span><span class="nf">setTime</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
-                    <span class="n">cell</span><span class="p">.</span><span class="nf">setID</span><span class="p">(</span><span class="n">ID</span><span class="p">)</span>
-                    <span class="n">cell</span><span class="p">.</span><span class="nf">setSignalStrength</span><span class="p">(</span><span class="n">ss</span><span class="p">)</span>
-                    <span class="n">rec</span><span class="p">.</span><span class="nf">addCell</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
-            <span class="n">self</span><span class="p">.</span><span class="n">coordinates</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>            </code></pre></figure>
+                    <span class="n">cell</span><span class="p">.</span><span class="n">setTime</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+                    <span class="n">cell</span><span class="p">.</span><span class="n">setID</span><span class="p">(</span><span class="n">ID</span><span class="p">)</span>
+                    <span class="n">cell</span><span class="p">.</span><span class="n">setSignalStrength</span><span class="p">(</span><span class="n">ss</span><span class="p">)</span>
+                    <span class="n">rec</span><span class="p">.</span><span class="n">addCell</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">coordinates</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>            </code></pre></figure>
 
 <p>Useful posts for tracking cell phone towers based on cell signal strength:</p>
 
@@ -1049,6 +1051,7 @@ ta:    Get the timing advance value for LTE, as a value in range of 0..1282</cod
     }
 </script>
 </body>
+</html>
 
   </article>
 

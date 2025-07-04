@@ -201,6 +201,56 @@
 
   <article class="post-content">
     <body>
+<style>
+    image-container {
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    /* Wrapper preserves aspect ratio */
+    .placeholder-wrapper {
+        position: relative;
+        /* padding-bottom set dynamically by JS */
+        overflow: hidden;
+
+    }
+
+    .placeholder {
+      position: absolute;
+      text-align: center;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Spinner styles */
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #ccc;
+      border-top-color: #666;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .buffer-image {
+        display: none;
+        height: auto;
+        position: relative; /* no absolute */
+    }
+</style>
+
 <p style="height:0px;width:0px"></p>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -401,8 +451,11 @@
 
 <p>The stress metric is based on the heart rate and <a href="https://medium.com/@altini_marco/the-ultimate-guide-to-heart-rate-variability-hrv-part-1-70a0a392fff4">heart rate variability (hrv)</a>. <a href="https://www.garmin.com/en-US/garmin-technology/health-science/stress-tracking/">Garmin</a> scales the metrics from 0 to 100 in order of increasing stress. Below is a sample image of Garmin watch view of my stress during a morning where I had to go for an early flight.</p>
 
-<figure class="figcaption">
-<p><img src="https://szonov.com/assets/watch_images/stress_view.jpg" alt=""></p>
+<figure class="figcaption-default">
+<p><div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="2453 / 2452" data-custom-width-percentage="100" style="width: 100%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/watch_images/stress_view.jpg" alt="" class="buffer-image" width="100%">
+</div></div></p>
   <figcaption>A Garmin’s watch’s stress view during a busy early morning. The metric is scaled from 0 to 100 in order of increasing stress. The calm, blue, below 25, stress occured when I was sleeping.</figcaption>
 </figure>
 
@@ -417,15 +470,21 @@
 
 <p>Unfortunately, when programming the watch face, <a href="https://forums.garmin.com/developer/connect-iq/f/discussion/286382/stress-and-heart-rate-in-low-power-mode">one cannot get access to a ‘live’ stress metric</a>. Therefore, I used the next best thing for displaying live stress data, which was the live heart rate, as these two fields are correlated. I created a watch face with a graph that displayed the heart rate for the past three minutes, and that refreshed every second. I colour coded the heart rate in the graph in order to communicate to the user when their heart rate was exceeding a resting rate. Take a look at the resulting watch face:</p>
 
-<figure>
-<p><img src="https://szonov.com/assets/watch_images/cropped.gif" alt=""></p>
-  <figcaption>My custom implementation of the stress metric, available immediately on the watch face without any additional watch button navigation. The gif, capturing my watch face once a minute, demonstrates my heart rate varying as I start in a relaxed, sitting position then do some jumping jacks and then relax again. With the help of this custom watch face, I am able to see the effect of motion, exercise and my internal state on my body’s stress state.</figcaption>
+<figure class="figcaption-default">
+<p><div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="1000 / 1000" data-custom-width-percentage="100" style="width: 100%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/watch_images/cropped.gif" alt="" class="buffer-image" width="100%">
+</div></div></p>
+  <figcaption>My custom implementation of the stress metric, available immediately on the watch face without any additional watch button navigation. The gif, capturing my watch face once a minute, demonstrates my heart rate varying as I start in a relaxed, sitting position then do some jumping jacks and then relax again. With the help of this custom watch face, I am able to see the effect of motion, exercise and my internal state on my body’s stress state.<br><br>You can see the code at <a href="https://github.com/mannyray/StressWatchFace">https://github.com/mannyray/StressWatchFace</a></figcaption>
 </figure>
 
 <p>This graph allows you to look into the history of your heart rate; to see if your heart rate is accelerating or decelerating. For the gif above, I modified the code to allow for playback of live recorded data, to demonstrate how the watch face works (it’s not actually measuring the pulse of the table). For the represented data, I started in a sitting position, stood up did some jumping jacks, and at last I sat back down. My heart started at a resting rate in the 40’s/50’s and then went up to the 90’s, and then went back down to resting. The gif shows minute by minute updates. The live scroll can only last <a href="https://forums.garmin.com/outdoor-recreation/outdoor-recreation/f/fenix-7-series/291191/hi-power-mode/1405564#1405564">10 seconds at a time</a>, when the watch is ‘active’, due to a strict battery saving restriction implemented by Garmin. During the live scroll, the graph shifts pixel by pixel, with the right most data containing the latest heart rate. If you want the latest graph data at any time, then you just have to ‘activate’ your watch using the wrist gesture (demonstrated below - as the watch is activated the screen turns on and the graph starts displaying live heart data and at the end the watch goes back to ‘sleep’ mode).</p>
 
-<figure>
-<p><img src="https://szonov.com/assets/watch_images/activate_watch.gif" alt=""></p>
+<figure class="figcaption-default">
+<p><div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="540 / 960" data-custom-width-percentage="100" style="width: 100%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/watch_images/activate_watch.gif" alt="" class="buffer-image" width="100%">
+</div></div></p>
   <figcaption>To see a live scrolling view of your heart data in the past three minutes you must flick your wrist to activate the watch. After 10 seconds the watch goes to sleep again.</figcaption>
 </figure>
 
@@ -469,8 +528,11 @@
 
 <p>For the technical reader, who is looking to create their own watch face, Garmin provides the ability to <a href="https://medium.com/@JoshuaTheMiller/making-a-watchface-for-garmin-devices-8c3ce28cae08">simulate your watch</a> on the computer, so the development becomes very quick. The programming is straight forward, and Github &amp; Garmin forums provide a plethora of examples to assist you in your project. The code I wrote can be found <a href="https://github.com/mannyray/StressWatchFace">here</a>, hosted on github for everyone to use and modify! In regard to the code, I was most satisfied with the the <a href="https://github.com/mannyray/StressWatchFace/blob/master/source/DataLinkedList.mc">data structure</a> used in storing the incoming heart rate. For this structure I used an array as a linked list for ease of handling fresh/stale data, with the added condition that the data entries in the array are equally spaced apart in time, and that there is logic to handle spotty/missing data. In addition, I implemented <a href="https://github.com/mannyray/StressWatchFace/blob/master/source/DataLinkedListTest.mc">tests for the data structure</a>, to give confidence in its usability, and therefore allow for reuse of the code in other applications with live sensor data. The <a href="https://github.com/mannyray/StressWatchFace/blob/master/source/MannyrayWatchFaceView.mc#L360">graph code here</a> turned out very aesthetically pleasing. I was happy to conquer this, as one of my the concerns when coding up the watch was <em>“will it look good?”</em>.</p>
 
-<figure>
-<p><img src="https://szonov.com/assets/watch_images/watch_face_picture.jpg" alt=""></p>
+<figure class="figcaption-default">
+<p><div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="2452 / 2452" data-custom-width-percentage="100" style="width: 100%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/watch_images/watch_face_picture.jpg" alt="" class="buffer-image" width="100%">
+</div></div></p>
   <figcaption>My custom watch face - I think it looks good. The rolling bar graph is colour coded showing the heart beat for the last three minutes. The graph is 180 pixels in width meaning that each bar represent one second. The higher the heart beat, the more redder is the colour. If your heart rate is more calm and slow then the colour is more green. This is meant to be a visual feedback mechanism to let you know when you are too stressed. A ring is drawn around the watch perimeter with the same colour as the current heart rate to make it easier for the user to get the visual feedback: ‘is my heart rate too high? Let’s calm down.’</figcaption>
 </figure>
 
@@ -518,8 +580,11 @@
 
 <p>The stress metric is based on the heart rate and <a href="https://medium.com/@altini_marco/the-ultimate-guide-to-heart-rate-variability-hrv-part-1-70a0a392fff4">heart rate variability (hrv)</a>. <a href="https://www.garmin.com/en-US/garmin-technology/health-science/stress-tracking/">Garmin</a> scales the metrics from 0 to 100 in order of increasing stress. Below is a sample image of Garmin watch view of my stress during a morning where I had to go for an early flight.</p>
 
-<figure class="figcaption">
-<p><img src="https://szonov.com/assets/watch_images/stress_view.jpg" alt=""></p>
+<figure class="figcaption-default">
+<p><div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="2453 / 2452" data-custom-width-percentage="100" style="width: 100%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/watch_images/stress_view.jpg" alt="" class="buffer-image" width="100%">
+</div></div></p>
   <figcaption>A Garmin’s watch’s stress view during a busy early morning. The metric is scaled from 0 to 100 in order of increasing stress. The calm, blue, below 25, stress occured when I was sleeping.</figcaption>
 </figure>
 
@@ -534,15 +599,21 @@
 
 <p>Unfortunately, when programming the watch face, <a href="https://forums.garmin.com/developer/connect-iq/f/discussion/286382/stress-and-heart-rate-in-low-power-mode">one cannot get access to a ‘live’ stress metric</a>. Therefore, I used the next best thing for displaying live stress data, which was the live heart rate, as these two fields are correlated. I created a watch face with a graph that displayed the heart rate for the past three minutes, and that refreshed every second. I colour coded the heart rate in the graph in order to communicate to the user when their heart rate was exceeding a resting rate. Take a look at the resulting watch face:</p>
 
-<figure>
-<p><img src="https://szonov.com/assets/watch_images/cropped.gif" alt=""></p>
-  <figcaption>My custom implementation of the stress metric, available immediately on the watch face without any additional watch button navigation. The gif, capturing my watch face once a minute, demonstrates my heart rate varying as I start in a relaxed, sitting position then do some jumping jacks and then relax again. With the help of this custom watch face, I am able to see the effect of motion, exercise and my internal state on my body’s stress state.</figcaption>
+<figure class="figcaption-default">
+<p><div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="1000 / 1000" data-custom-width-percentage="100" style="width: 100%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/watch_images/cropped.gif" alt="" class="buffer-image" width="100%">
+</div></div></p>
+  <figcaption>My custom implementation of the stress metric, available immediately on the watch face without any additional watch button navigation. The gif, capturing my watch face once a minute, demonstrates my heart rate varying as I start in a relaxed, sitting position then do some jumping jacks and then relax again. With the help of this custom watch face, I am able to see the effect of motion, exercise and my internal state on my body’s stress state.<br><br>You can see the code at <a href="https://github.com/mannyray/StressWatchFace">https://github.com/mannyray/StressWatchFace</a></figcaption>
 </figure>
 
 <p>This graph allows you to look into the history of your heart rate; to see if your heart rate is accelerating or decelerating. For the gif above, I modified the code to allow for playback of live recorded data, to demonstrate how the watch face works (it’s not actually measuring the pulse of the table). For the represented data, I started in a sitting position, stood up did some jumping jacks, and at last I sat back down. My heart started at a resting rate in the 40’s/50’s and then went up to the 90’s, and then went back down to resting. The gif shows minute by minute updates. The live scroll can only last <a href="https://forums.garmin.com/outdoor-recreation/outdoor-recreation/f/fenix-7-series/291191/hi-power-mode/1405564#1405564">10 seconds at a time</a>, when the watch is ‘active’, due to a strict battery saving restriction implemented by Garmin. During the live scroll, the graph shifts pixel by pixel, with the right most data containing the latest heart rate. If you want the latest graph data at any time, then you just have to ‘activate’ your watch using the wrist gesture (demonstrated below - as the watch is activated the screen turns on and the graph starts displaying live heart data and at the end the watch goes back to ‘sleep’ mode).</p>
 
-<figure>
-<p><img src="https://szonov.com/assets/watch_images/activate_watch.gif" alt=""></p>
+<figure class="figcaption-default">
+<p><div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="540 / 960" data-custom-width-percentage="100" style="width: 100%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/watch_images/activate_watch.gif" alt="" class="buffer-image" width="100%">
+</div></div></p>
   <figcaption>To see a live scrolling view of your heart data in the past three minutes you must flick your wrist to activate the watch. After 10 seconds the watch goes to sleep again.</figcaption>
 </figure>
 
@@ -586,8 +657,11 @@
 
 <p>For the technical reader, who is looking to create their own watch face, Garmin provides the ability to <a href="https://medium.com/@JoshuaTheMiller/making-a-watchface-for-garmin-devices-8c3ce28cae08">simulate your watch</a> on the computer, so the development becomes very quick. The programming is straight forward, and Github &amp; Garmin forums provide a plethora of examples to assist you in your project. The code I wrote can be found <a href="https://github.com/mannyray/StressWatchFace">here</a>, hosted on github for everyone to use and modify! In regard to the code, I was most satisfied with the the <a href="https://github.com/mannyray/StressWatchFace/blob/master/source/DataLinkedList.mc">data structure</a> used in storing the incoming heart rate. For this structure I used an array as a linked list for ease of handling fresh/stale data, with the added condition that the data entries in the array are equally spaced apart in time, and that there is logic to handle spotty/missing data. In addition, I implemented <a href="https://github.com/mannyray/StressWatchFace/blob/master/source/DataLinkedListTest.mc">tests for the data structure</a>, to give confidence in its usability, and therefore allow for reuse of the code in other applications with live sensor data. The <a href="https://github.com/mannyray/StressWatchFace/blob/master/source/MannyrayWatchFaceView.mc#L360">graph code here</a> turned out very aesthetically pleasing. I was happy to conquer this, as one of my the concerns when coding up the watch was <em>“will it look good?”</em>.</p>
 
-<figure>
-<p><img src="https://szonov.com/assets/watch_images/watch_face_picture.jpg" alt=""></p>
+<figure class="figcaption-default">
+<p><div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="2452 / 2452" data-custom-width-percentage="100" style="width: 100%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/watch_images/watch_face_picture.jpg" alt="" class="buffer-image" width="100%">
+</div></div></p>
   <figcaption>My custom watch face - I think it looks good. The rolling bar graph is colour coded showing the heart beat for the last three minutes. The graph is 180 pixels in width meaning that each bar represent one second. The higher the heart beat, the more redder is the colour. If your heart rate is more calm and slow then the colour is more green. This is meant to be a visual feedback mechanism to let you know when you are too stressed. A ring is drawn around the watch perimeter with the same colour as the current heart rate to make it easier for the user to get the visual feedback: ‘is my heart rate too high? Let’s calm down.’</figcaption>
 </figure>
 
@@ -808,8 +882,47 @@
         });
     }
 </script>
-</body>
 
+<script>
+    const wrappers = document.querySelectorAll('.placeholder-wrapper');
+    console.log(wrappers);
+    wrappers.forEach(wrapper => {
+        // Parse aspect ratio expression in data-aspect-ratio attribute
+        const ratioExpr = wrapper.dataset.aspectRatio;
+        let aspectRatio = NaN;
+        try {
+            // Evaluate the aspect ratio (e.g. "1645 / 1077")
+            aspectRatio = Function('"use strict";return (' + ratioExpr + ')')();
+        } catch {
+            aspectRatio = NaN;
+        }
+        
+        let widthPercentage = 100;
+        if (wrapper && wrapper.dataset && wrapper.dataset.customWidthPercentage !== undefined) {
+            widthPercentage = wrapper.dataset.customWidthPercentage;
+        }
+        console.log(widthPercentage);
+        console.log("GGGG")
+        
+
+        if (!isNaN(aspectRatio)) {
+            wrapper.style.paddingBottom = `${aspectRatio * widthPercentage}%`;
+        } else {
+            // fallback to 1:1 if invalid
+            wrapper.style.paddingBottom = `100%`;
+        }
+
+        const img = wrapper.querySelector('.buffer-image');
+        const placeholder = wrapper.querySelector('.placeholder');
+
+        img.onload = function () {
+            placeholder.style.display = 'none';
+            img.style.display = 'block';
+            wrapper.style.paddingBottom = '0';  // Remove padding-bottom, avoid whitespace
+        };
+    });
+</script>
+</body>
   </article>
 
 </div>

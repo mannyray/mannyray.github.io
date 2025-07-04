@@ -200,7 +200,9 @@
   </header>
 
   <article class="post-content">
-    <body>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<body>
 <p style="height:0px;width:0px"></p>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -369,29 +371,29 @@ The script for recording the weather:</p>
 <p><em>scrape.py</em></p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c1">#!/usr/bin/python
-</span><span class="kn">import</span> <span class="n">requests</span>
-<span class="kn">import</span> <span class="n">json</span>
-<span class="kn">import</span> <span class="n">time</span>
-<span class="kn">import</span> <span class="n">os</span>
+</span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">os</span>
 
-<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">"</span><span class="s">https://api.uwaterloo.ca/v2/weather/current.json</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"https://api.uwaterloo.ca/v2/weather/current.json"</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">response</span><span class="p">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span> <span class="c1">#200 means everything is OK
-</span>	<span class="n">json_data</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="nf">loads</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
-	<span class="n">current_temperature</span> <span class="o">=</span> <span class="n">json_data</span><span class="p">[</span><span class="sh">"</span><span class="s">data</span><span class="sh">"</span><span class="p">][</span><span class="sh">"</span><span class="s">temperature_current_c</span><span class="sh">"</span><span class="p">]</span>
+</span>	<span class="n">json_data</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
+	<span class="n">current_temperature</span> <span class="o">=</span> <span class="n">json_data</span><span class="p">[</span><span class="s">"data"</span><span class="p">][</span><span class="s">"temperature_current_c"</span><span class="p">]</span>
 	
 	<span class="c1">#record temperature in file with current date
-</span>        <span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="sh">'</span><span class="s">TZ</span><span class="sh">'</span><span class="p">]</span><span class="o">=</span><span class="sh">'</span><span class="s">America/New_York</span><span class="sh">'</span>
-	<span class="n">current_date_file</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="nf">strftime</span><span class="p">(</span><span class="sh">"</span><span class="s">%Y_%m_%d_%H.txt</span><span class="sh">"</span><span class="p">)</span>
+</span>        <span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="s">'TZ'</span><span class="p">]</span><span class="o">=</span><span class="s">'America/New_York'</span>
+	<span class="n">current_date_file</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">"%Y_%m_%d_%H.txt"</span><span class="p">)</span>
 
 	<span class="c1">#files are stored in folder called data
-</span>	<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">exists</span><span class="p">(</span><span class="sh">"</span><span class="s">data</span><span class="sh">"</span><span class="p">):</span>
-		<span class="n">os</span><span class="p">.</span><span class="nf">makedirs</span><span class="p">(</span><span class="sh">"</span><span class="s">data</span><span class="sh">"</span><span class="p">)</span>
+</span>	<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">exists</span><span class="p">(</span><span class="s">"data"</span><span class="p">):</span>
+		<span class="n">os</span><span class="p">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s">"data"</span><span class="p">)</span>
 				
-	<span class="n">f</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">data/</span><span class="sh">"</span><span class="o">+</span><span class="n">current_date_file</span><span class="p">,</span> <span class="sh">"</span><span class="s">a+</span><span class="sh">"</span><span class="p">)</span>
-	<span class="n">f</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="n">current_temperature</span><span class="p">)</span><span class="o">+</span><span class="sh">"</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
-	<span class="n">f</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
+	<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"data/"</span><span class="o">+</span><span class="n">current_date_file</span><span class="p">,</span> <span class="s">"a+"</span><span class="p">)</span>
+	<span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">current_temperature</span><span class="p">)</span><span class="o">+</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+	<span class="n">f</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
 <span class="k">else</span><span class="p">:</span>
-	<span class="k">raise</span> <span class="nc">RuntimeError</span><span class="p">(</span><span class="sh">"</span><span class="s">API request failed.</span><span class="sh">"</span><span class="p">)</span> </code></pre></figure>
+	<span class="k">raise</span> <span class="nb">RuntimeError</span><span class="p">(</span><span class="s">"API request failed."</span><span class="p">)</span> </code></pre></figure>
 
 <p>A response is obtained from api.uwaterloo.ca which contains all sorts of weather data. Only the current temperature in celcius is saved in a file with format <code class="language-plaintext highlighter-rouge">%Y_%m_%d_%H.txt</code> in directory <code class="language-plaintext highlighter-rouge">data</code>. Let’s assume your script is running on this instance scraping data on a daily basis. What if something goes wrong? A very easy/rough (not best) solution uses my previous <a href="http://szonov.com/programming/2017/07/16/Creating-a-notification/">post</a> describing how to send yourself an email by using curl. This leads to the following error handling, wrapper script:</p>
 
@@ -703,6 +705,7 @@ $ mysql_secure_installation
     }
 </script>
 </body>
+</html>
 
   </article>
 
