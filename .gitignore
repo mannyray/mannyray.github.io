@@ -1,4 +1,5 @@
 *.DS_Store
+assets_backup/*
 *~
 _site/*
 website_build/_site/*

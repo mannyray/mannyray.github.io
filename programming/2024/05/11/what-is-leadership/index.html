@@ -200,9 +200,57 @@
   </header>
 
   <article class="post-content">
-    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html>
-<body>
+    <body>
+<style>
+    image-container {
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    /* Wrapper preserves aspect ratio */
+    .placeholder-wrapper {
+        position: relative;
+        /* padding-bottom set dynamically by JS */
+        overflow: hidden;
+
+    }
+
+    .placeholder {
+      position: absolute;
+      text-align: center;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Spinner styles */
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #ccc;
+      border-top-color: #666;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .buffer-image {
+        display: none;
+        height: auto;
+        position: relative; /* no absolute */
+    }
+</style>
+
 <p style="height:0px;width:0px"></p>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -373,7 +421,10 @@
 
 <p>To start packing for a ride you do need to think of some basics like how many days you want before major pitstops  - this is set by the amount of clean underwear you have - then you need to find a laundry place and a day to rest those muscles. All other items just come into place. In the image below (feel free to open it in a new tab for a closer zoom!), you will see what I am bringing for my bike ride:</p>
 
-<p><img src="https://szonov.com/assets/bike_trip.jpg" alt="img"></p>
+<p><div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="4284 / 5712" data-custom-width-percentage="100" style="width: 100%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/bike_trip.jpg" alt="img" class="buffer-image" width="100%">
+</div></div></p>
 
 <ul>
   <li>Prayer book and icons! God makes me a super professional.</li>
@@ -616,9 +667,47 @@
         });
     }
 </script>
-</body>
-</html>
 
+<script>
+    const wrappers = document.querySelectorAll('.placeholder-wrapper');
+    console.log(wrappers);
+    wrappers.forEach(wrapper => {
+        // Parse aspect ratio expression in data-aspect-ratio attribute
+        const ratioExpr = wrapper.dataset.aspectRatio;
+        let aspectRatio = NaN;
+        try {
+            // Evaluate the aspect ratio (e.g. "1645 / 1077")
+            aspectRatio = Function('"use strict";return (' + ratioExpr + ')')();
+        } catch {
+            aspectRatio = NaN;
+        }
+        
+        let widthPercentage = 100;
+        if (wrapper && wrapper.dataset && wrapper.dataset.customWidthPercentage !== undefined) {
+            widthPercentage = wrapper.dataset.customWidthPercentage;
+        }
+        console.log(widthPercentage);
+        console.log("GGGG")
+        
+
+        if (!isNaN(aspectRatio)) {
+            wrapper.style.paddingBottom = `${aspectRatio * widthPercentage}%`;
+        } else {
+            // fallback to 1:1 if invalid
+            wrapper.style.paddingBottom = `100%`;
+        }
+
+        const img = wrapper.querySelector('.buffer-image');
+        const placeholder = wrapper.querySelector('.placeholder');
+
+        img.onload = function () {
+            placeholder.style.display = 'none';
+            img.style.display = 'block';
+            wrapper.style.paddingBottom = '0';  // Remove padding-bottom, avoid whitespace
+        };
+    });
+</script>
+</body>
   </article>
 
 </div>
