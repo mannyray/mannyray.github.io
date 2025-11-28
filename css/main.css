@@ -40,7 +40,7 @@ pre, code { font-size: 15px; border: 1px solid #e8e8e8; border-radius: 3px; back
 
 code { padding: 1px 5px; }
 
-pre { padding: 8px 12px; overflow-x: scroll; }
+pre { padding: 8px 12px; overflow-x: auto; max-width: 500px; }
 
 pre > code { border: 0; padding-right: 0; padding-left: 0; }
 

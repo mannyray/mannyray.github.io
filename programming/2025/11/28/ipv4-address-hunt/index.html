@@ -1,0 +1,2335 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>IPv4 address hunt</title>
+  <meta name="description" content="">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://szonov.com/programming/2025/11/28/ipv4-address-hunt/">
+  <link rel="alternate" type="application/rss+xml" title="Stan Zonov" href="https://szonov.com/feed.xml" />
+</head>
+
+
+  <body>
+	
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Stan Zonov</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+	<a class="page-link" href=""></a>
+        
+		
+			<a class="page-link" href="/about/">About</a>
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			
+		
+        
+		
+			<a class="page-link" href="/photos/">Photos</a>
+		
+        
+	<a class="page-link" href="/">Blog</a>
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+ 	 
+    <h1 class="post-title">IPv4 address hunt</h1>
+    <p class="post-meta">Nov 28, 2025</p>
+  </header>
+
+  <article class="post-content">
+    <body>
+<style>
+    image-container {
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    /* Wrapper preserves aspect ratio */
+    .placeholder-wrapper {
+        position: relative;
+        /* padding-bottom set dynamically by JS */
+        overflow: hidden;
+
+    }
+
+    .placeholder {
+      position: absolute;
+      text-align: center;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Spinner styles */
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #ccc;
+      border-top-color: #666;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .buffer-image {
+        display: none;
+        height: auto;
+        position: relative; /* no absolute */
+    }
+</style>
+
+<p style="height:0px;width:0px"></p>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+    .toc_and_content_table{
+        border: none;
+    }
+    .toc {
+        width: 25%;
+        vertical-align:top;
+        border: none;
+        padding:0px;
+        border: none;
+    }
+    .content {
+        padding: 10px;
+        border: none;
+    }
+    .scrollable{
+        height: auto;        /* Allow it to grow based on content */
+        max-height: 100vh;
+        overflow-y: auto;
+    }
+    .sticky-top {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        background: #fff; /* Background for the sticky menu */
+    }
+    #menu {
+        list-style-type: none; /* Remove bullets */
+        padding: 0; /* Remove padding */
+        margin: 0; /* Remove margin */
+    }
+    #menu li {
+        margin: 5px 0; /* Space between bars */
+        position: relative
+    }
+    #menu a {
+        display: block; /* Make the link a block element */
+        padding: 2px; /* Space inside the bars */
+        background: #f0f0f0; /* Light gray background for bars */
+        text-decoration: none; /* Remove underline */
+        color: #333; /* Text color */
+        border-radius: 4px; /* Rounded corners */
+        transition: background 0.3s; /* Smooth background transition */
+    }
+    #menu a:hover {
+        background: #e0e0e0; /* Darker gray on hover */
+    }
+    .active {
+        font-weight: bold;
+        color: blue; /* Change the color for highlighting */
+    }
+    .active::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        border-radius: 4px;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: #007bff; /* Active background color */
+        transform: scaleX(0); /* Start with no width */
+        transform-origin: left; /* Scale from the left */
+        animation: load 0.5s forwards; /* Loading animation */
+        background: rgba(0, 123, 255, 0.5); /* Semi-transparent active background color */
+    }
+    @keyframes load {
+        0% {
+            transform: scaleX(0); /* Start with no width */
+        }
+        70% {
+            transform:  scaleX(1); /* Scale to full width */
+        }
+        85% {
+            transform: scaleX(0.95); /* Bounce effect */
+        }
+        100% {
+            transform: scaleX(1); /* Return to full width */
+        }
+    }
+    .section {
+        border: 0;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+    
+    .desktop-only {
+        display: none;
+    }
+    /* Show mobile paragraph on mobile devices */
+    .mobile-only {
+        display: block;
+    }
+    /* Media query for non-mobile devices */
+    @media (min-width: 768px) {
+        .desktop-only {
+            display: block;
+        }
+        .mobile-only {
+            display: none;
+        }
+    }
+    
+    /* mobile version*/
+    .popup-button {
+        font-size: 24px;
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%); /* Center vertically */
+        padding: 10px 20px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+        cursor: pointer;
+        opacity: 0; /* Start invisible */
+        visibility: hidden; /* Initially hidden */
+        transition: opacity 0.5s ease, visibility 0.5s ease; /* Fade effect */
+    }
+    .popup-button.show {
+        opacity: 1; /* Fully visible */
+        visibility: visible; /* Make it visible */
+    }
+    .target-section {
+        background-color: #f0f0f0;
+    }
+    .sidebar {
+        position: fixed;
+        right: 0; /* Align sidebar directly to the right edge */
+        width: 200px; /* Set the width of the sidebar */
+        max-height: 80vh; /* Limit height for scrolling */
+        background: #fff; /* Background for the sidebar */
+        padding: 10px; /* Padding inside the sidebar */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        z-index: 1000; /* Ensure it appears above other elements */
+        transform: translate(0, -50%) scale(0); /* Start hidden and minimized */
+        transform-origin: right center; /* Scale from the right */
+        transition: transform 0.3s ease, visibility 0.5s ease; /* Smooth transition */
+        visibility: hidden; /* Initially hidden */
+        border: 1px solid #ccc; /* Add a border */
+        border-radius: 8px; /* Slightly rounded corners */
+    }
+    .sidebar.show {
+        transform: translate(0, -50%) scale(1); /* Show the sidebar */
+        visibility: visible; /* Make it visible */
+    }
+    .sidebar h3 {
+        margin: 0; /* Remove default margin */
+        padding: 0; /* Remove default padding */
+        height: 40px; /* Set height for better alignment */
+    }
+    .mobile-scrollable{
+        height: auto;        /* Allow it to grow based on content */
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+</style>
+                    <div class="desktop-only">
+                    <table class="toc_and_content_table">
+                    <tr>
+                    <td class="toc">
+                    <div class="sticky-top">
+                    <h3>
+<i class="fa fa-list-ol"></i> Contents</h3>
+                    <div class="scrollable">
+                    <ul id="menu">
+                    <li><a href="#section-introduction-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Introduction</a></li>
+  <li><a href="#section-touching-every-address-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Touching every address</a></li>
+  <li><a href="#section-touching-1-naive-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Touching 1: naive</a></li>
+  <li><a href="#section-touching-2-seek-ahead-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Touching 2: seek ahead</a></li>
+  <li><a href="#section-touching-3-parallelize-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Touching 3: parallelize</a></li>
+  <li><a href="#section-optimizing-the-data-structure-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Optimizing the data structure</a></li>
+  <li><a href="#section-optimizing-1-default-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Optimizing 1: default</a></li>
+  <li><a href="#section-optimization-2-custom-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Optimization 2: custom</a></li>
+  <li><a href="#section-optimization-3-parallelize-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Optimization 3: parallelize</a></li>
+  <li><a href="#section-handling-the-real-data-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Handling the real data</a></li>
+                    </ul>
+                    </div>
+                    </div>
+                    </td>
+                    <td class="content">
+                    <!--toc_start-->
+
+<div id="section-introduction-1" class="section"><div>
+<hr>
+<h2 id="introduction-1">Introduction</h2>
+
+<p>Hello dear reader!</p>
+
+<p>In this blog post we will solve the following problem:</p>
+
+<blockquote>
+  <p>You have a simple text file with IPv4 addresses. An IPv4 address is defined as a unique label for a device on a network, written as four numbers separated by periods where each number is in range of <code class="language-plaintext highlighter-rouge">[0,255]</code> (e.g. <code class="language-plaintext highlighter-rouge">192.132.44.2</code> ). One line is one address, line by line. You should calculate the number of unique addresses in this file using as little memory and time as possible. There is a “naive” algorithm for solving this problem (read line by line, put lines into HashSet). It’s better if your implementation is more complicated and faster than this naive algorithm. The task must be completed in Golang. The file is unlimited in size and can occupy tens and hundreds of gigabytes. A test file could be around 120Gb.</p>
+</blockquote>
+
+<p>The blog will read a bit like a verbose explanation of basic programming data structures and optimization in a discover-as-I-go-along fashion.</p>
+
+</div></div>
+<div id="section-touching-every-address-1" class="section"><div>
+<hr>
+<h2 id="touching-every-address-1">Touching every address</h2>
+
+<p>No matter how our code ends up computing the number of unique addresses, one thing we can be sure of: every line in the file must be visited, because if we skip a line then we might be skipping acknowledging a unique IPv4 address and therefore skipping incrementing our unique address count by one.</p>
+
+<p>Furthermore, as suggested in the problem description, accessing the addresses line by line would be a “naive”, inefficient solution - a big reason for which is that there is room for potential parallelism in our solution. We could split the files in to chunks of the file and within each chunk compute unique addresses and then somehow combine the solution at the end for a total unique count.</p>
+
+<p>In this section, we are primarily focused on how to visit each line in the file as efficiently as possible so we will avoid the exact uniqueness computing algorithm involved for now. This will allow us to solve the overall problem in separate parts. Since we are just visiting and not handling any computations then we will call our visit of each IPv4 address a simple touch.</p>
+
+<figure class="figcaption-default">
+<center>
+<div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="1536 / 1024" data-custom-width-percentage="50" style="width: 50%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/ipv4/touch.png" width="100%" class="buffer-image">
+</div></div>
+</center>
+  <figcaption>Lightly touching each line in a computer file. Thanks for generating this image chatgpt!</figcaption>
+</figure>
+
+<p>Given that our file is 120Gb in size and that the shortest, ASCII represented, address is a four single digit numbers with three dots and a newline character (e.g. <code class="language-plaintext highlighter-rouge">1.2.3.4\n</code>), with 1 byte per character we get an upper bound of 15 billion address in our file (120GB/8bytes). Although all addresses will not necessarily be the shortest ASCII length-ed address, our estimation is an effective way of giving an upper bound number to what we are working with.</p>
+
+</div></div>
+<div id="section-touching-1-naive-1" class="section"><div>
+<hr>
+<h2 id="touching-1-naive-1">Touching 1: naive</h2>
+
+<p>If we parallelize our uniqueness computation then we would likely have multiple processes accessing the file at the same time. Each process would handle a separate chunk of the file. However, let’s not get ahead of ourselves and just focus on reading the lines with one process. Time to get my hands dirty and start coding.</p>
+
+<p>Now although I had a link to download a test 120Gb file… I wasn’t going to open that up on my machine due to hardware and network concerns. I needed something smaller and local to test with ASAP. I needed a script to generate the test data. For this I hit up chatgpt:</p>
+
+<blockquote>
+  <p>&gt; how many ASCII characters would equal 1gb in memory</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>&lt;chatgpt responds …&gt;</strong></p>
+</blockquote>
+
+<blockquote>
+  <p>&gt; okay. Given that that is the case, can you write a python script that writes a file of a series of consecutive numbers, starting at one and incrementing by one with each number on a separate line such that the file is near 1gb in size</p>
+</blockquote>
+
+<p>Chatgpt produced a beautiful <a href="https://github.com/mannyray/ipv4_address/blob/master/touching_every_address/generate_file.py"><code class="language-plaintext highlighter-rouge">generate_file.py</code></a> script which I executed to get a 1Gb file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> python3 generate_file.py test.txt
+<span class="o">&gt;</span> <span class="nb">du</span> <span class="nt">-sh</span> test.txt 
+1.0G    test.txt
+<span class="o">&gt;</span> <span class="nb">head</span> <span class="nt">-n</span> 1 test.txt 
+1
+<span class="o">&gt;</span> <span class="nb">tail</span> <span class="nt">-n</span> 1 test.txt
+118485293
+</code></pre></div></div>
+
+<p>The test file starts at <code class="language-plaintext highlighter-rouge">1</code> and ends with <code class="language-plaintext highlighter-rouge">118485293</code> for a total 1Gb file size. With this test file, we transform our unique IP address problem to an analogous problem of summing up all the numbers in the file. The summing problem is similar in that there is a big file to be processed where each line needs to be touched. Fortunately, for the summing problem, checking for correctness is a simple <code class="language-plaintext highlighter-rouge">O(1)</code> operation as the formula for getting the sum of numbers from <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">N</code> is <code class="language-plaintext highlighter-rouge">SUM_FROM_1_TO_N(N) = (N*(N+1))/2</code>.</p>
+
+<p>The first Go code I wrote here, as a warm up, was <a href="https://github.com/mannyray/ipv4_address/blob/master/touching_every_address/basic_read.go"><code class="language-plaintext highlighter-rouge">basic_read.go</code></a> (no chatgpt, but I did have to refresh myself on stackoverflow for how to load and read a file). The code sequentially read the file line by line and then added the numbers up in a rolling sum after which I confirmed for sum correctness against the formula:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; go build basic_read.go
+&gt; time ./basic_read
+Rolling sum: 7019382387890571
+Rolling sum matched formula!
+./basic_read  12.56s user 0.44s system 102% cpu 12.707 total
+</code></pre></div></div>
+
+<p>This code in <code class="language-plaintext highlighter-rouge">basic_read.go</code> would match the naive solution for the unique IPv4 address problem due to reading file line by line from beginning to start.</p>
+
+</div></div>
+<div id="section-touching-2-seek-ahead-1" class="section"><div>
+<hr>
+<h2 id="touching-2-seek-ahead-1">Touching 2: seek ahead</h2>
+
+<p>Next, I decided to try to parallelize my file reading. We could have multiple file readers, all reading the file at the same time at different locations. Before parallelizing, I must figure out how a to have a single reader start reading a file at an arbitrary location. According to <a href="https://pkg.go.dev/os#File.Seek">documentation</a>, the <code class="language-plaintext highlighter-rouge">Seek</code> method could be of assistance here:</p>
+
+<div class="language-golang highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="p">(</span><span class="n">f</span> <span class="o">*</span><span class="n">File</span><span class="p">)</span> <span class="n">Seek</span><span class="p">(</span><span class="n">offset</span> <span class="kt">int64</span><span class="p">,</span> <span class="n">whence</span> <span class="kt">int</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">ret</span> <span class="kt">int64</span><span class="p">,</span> <span class="n">err</span> <span class="kt">error</span><span class="p">)</span>
+</code></pre></div></div>
+<p>where</p>
+<blockquote>
+  <p>Seek sets the offset for the next Read or Write on file to offset, interpreted according to whence: 0 means relative to the origin of the file, 1 means relative to the current offset, and 2 means relative to the end.</p>
+</blockquote>
+
+<p>Now let’s do a quick sanity check. From the problem statement: <code class="language-plaintext highlighter-rouge">The file is unlimited in size and can occupy tens and hundreds of gigabytes</code>. The max val for <code class="language-plaintext highlighter-rouge">int64</code> is <code class="language-plaintext highlighter-rouge">9,223,372,036,854,775,807</code> and <code class="language-plaintext highlighter-rouge">Seek</code> offsets in bytes. Thus, if we had a file large enough where <code class="language-plaintext highlighter-rouge">int64</code> max val bytes in would be a file’s halfway mark then as long as our file is less than 9 billion Gb then the <code class="language-plaintext highlighter-rouge">Seek</code> offset can easily hit past the halfway point. Therefore, <code class="language-plaintext highlighter-rouge">Seek</code> is a good candidate for dealing in our context of files measured in hundreds of Gb.</p>
+
+<p>Next up, I decided to write up some code to experiment with the <code class="language-plaintext highlighter-rouge">Seek</code> method. If I <code class="language-plaintext highlighter-rouge">Seek</code> somewhere in the middle of a file between number <code class="language-plaintext highlighter-rouge">1</code> and last number in file <code class="language-plaintext highlighter-rouge">118 485 293</code> (say <code class="language-plaintext highlighter-rouge">50 000 000</code>) then I can do the rolling sum from that middle number to <code class="language-plaintext highlighter-rouge">118 485 293</code> and can still verify for sum correctness by subtracting the sums (e.g. <code class="language-plaintext highlighter-rouge">SUM_FROM_1_TO_N(118 485 293) - SUM_FROM_1_TO_N(50 000 000-1)</code>).</p>
+
+<p>The problem I encounter now is that I am thinking of splitting the file line by line, but <code class="language-plaintext highlighter-rouge">Seek</code> deals in byte offsets meaning that it is possible for me to offset to the middle of a number since each number past <code class="language-plaintext highlighter-rouge">9</code> is at least two bytes in length when stored in ASCII format. I will have to search for the newline character <code class="language-plaintext highlighter-rouge">'\n'</code> as that is what separates each line and new number. I solve this concern in <a href="https://github.com/mannyray/ipv4_address/blob/master/touching_every_address/intermediate_read.go"><code class="language-plaintext highlighter-rouge">intermediate_sum.go</code></a> with function:</p>
+
+<div class="language-golang highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="n">MAX_BYTE_COUNT</span> <span class="o">=</span> <span class="m">11</span><span class="p">;</span>
+<span class="c">/*
+We scan MAX_BYTE_COUNT ahead using ReadAt to find the nearest "\n",
+after which we return the index of the "\n" + 1 to indicate the next
+fresh line of data.
+*/</span>
+<span class="k">func</span> <span class="n">getNextNewLineByteLocation</span><span class="p">(</span><span class="n">f</span> <span class="o">*</span><span class="n">os</span><span class="o">.</span><span class="n">File</span><span class="p">,</span> <span class="n">startingLocation</span> <span class="kt">int64</span><span class="p">)</span>
+    <span class="p">(</span> <span class="n">byteOfNearestStartingNewLine</span> <span class="kt">int64</span><span class="p">,</span> <span class="n">err</span> <span class="kt">error</span> <span class="p">)</span> <span class="p">{</span>
+<span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We set <code class="language-plaintext highlighter-rouge">MAX_BYTE_COUNT</code> to <code class="language-plaintext highlighter-rouge">11</code> because in our current case of 1Gb file we have max number <code class="language-plaintext highlighter-rouge">118 485 293</code> (<code class="language-plaintext highlighter-rouge">9</code> digits) wrapped by a new line <code class="language-plaintext highlighter-rouge">'\n'</code> on both sides. In the case of IPv4 addresses, the max length-ed address is <code class="language-plaintext highlighter-rouge">15</code> (e.g. <code class="language-plaintext highlighter-rouge">255.255.255.255</code>) so we would set <code class="language-plaintext highlighter-rouge">MAX_BYTE_COUNT</code> to <code class="language-plaintext highlighter-rouge">17</code>.</p>
+
+<p>Running our code we get:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;./intermediate_read 
+File size: 1073741828 bytes
+Initial offset: 50000000 bytes
+File pointer reset offset to fresh line: 50000008 bytes in
+The first number, with offset read: 6388890
+Rolling sum: 6998973433368966
+Rolling sum matched formula!
+</code></pre></div></div>
+
+</div></div>
+<div id="section-touching-3-parallelize-1" class="section"><div>
+<hr>
+<h2 id="touching-3-parallelize-1">Touching 3: parallelize</h2>
+
+<p>Now that we have the ability to use <code class="language-plaintext highlighter-rouge">Seek</code> to read at an arbitrary point in the file, we can now see if we can have multiple readers of the file, each reading their own offset portion in parallel. Each reader would read the numbers and sum them up right up until the next area in the file that another reader was working on. Each reader would store their sum and once all readers are done, the resulting sum would be added up for the grand cumulative sum.</p>
+
+<figure class="figcaption-default">
+<center>
+<div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="1024 / 1536" data-custom-width-percentage="70" style="width: 70%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/ipv4/readers.png" width="100%" class="buffer-image">
+</div></div>
+</center>
+  <figcaption>Instead of having one reader summing up the numbers in the file, we can have multiple to make things faster. Thanks for generating this image chatgpt!</figcaption>
+</figure>
+
+<p>We can define the length of each chunk of file to be read by reader by dividing up the files’s over length in bytes by how many readers we will use. The previously written function <code class="language-plaintext highlighter-rouge">getNextNewLineByteLocation</code> will assist us in determining where each reader should start and end to make sure we don’t miss a single line:</p>
+
+<style>
+  .expandable {
+    --preview-height: 120px;   /* how much is visible when collapsed */
+    --fade-size: 120px;         /* how tall the fade-out is at the bottom */
+    --transition-ms: 280ms;
+
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    margin: 2rem auto;
+  }
+
+    .expandable__row {
+      display: flex; /* horizontal row: bar + content */
+      width: 100%;
+    }
+    
+  .expandable__content {
+    overflow: hidden;
+    max-height: var(--preview-height);
+    transition: max-height var(--transition-ms) ease;
+  }
+
+  /* Fade-out effect when collapsed: uses CSS mask (with -webkit- prefix for Safari) */
+  .expandable--collapsed .expandable__content {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 0%,
+      black calc(var(--preview-height) - var(--fade-size)),
+      transparent var(--preview-height)
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0,0,0,1) 0%,
+      rgba(0,0,0,1) calc(var(--preview-height) - var(--fade-size)),
+      rgba(0,0,0,0) var(--preview-height)
+    );
+    -webkit-mask-size: 100% var(--preview-height);
+    mask-size: 100% var(--preview-height);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
+  /* Expanded state: remove mask and allow full height */
+  .expandable--expanded .expandable__content {
+    -webkit-mask-image: none;
+    mask-image: none;
+    /* Use a very large max-height so the transition can animate open */
+    max-height: 200vh;
+  }
+
+  .expandable__toggle {
+    margin-top: 0.5rem;
+    border: 0;
+    padding: 0.6rem 0.9rem;
+    border-radius: 0.6rem;
+    background: #111;
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    width: 100%;
+  }
+    
+.expandable__bar {
+    border-left: 4px solid #ccc;   /* grey vertical bar */
+    padding-left: 1em;
+}
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .expandable__content { transition: none; }
+  }
+</style>
+
+<section class="expandable expandable--collapsed"><div class="expandable__row">
+<div class="expandable__bar"></div>
+<div class="expandable__content" aria-hidden="false">
+<div class="language-golang highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">totalSize</span> <span class="o">:=</span> <span class="n">fileInfo</span><span class="o">.</span><span class="n">Size</span><span class="p">()</span>
+
+<span class="c">//compute offsets that are used in separating </span>
+<span class="c">//each chunk used by each reader</span>
+<span class="n">approximate_chunk_length</span> <span class="o">:=</span> <span class="n">totalSize</span><span class="o">/</span><span class="n">chunks_to_be_separately_read</span>
+<span class="k">var</span> <span class="n">offsets</span> <span class="p">[</span><span class="n">chunks_to_be_separately_read</span><span class="o">+</span><span class="m">1</span><span class="p">]</span><span class="kt">int64</span>
+<span class="n">offsets</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="o">=</span> <span class="kt">int64</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="o">:=</span><span class="m">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span> <span class="n">chunks_to_be_separately_read</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">{</span>
+    <span class="n">roughOffSet</span> <span class="o">:=</span> <span class="n">offsets</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="m">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">approximate_chunk_length</span>
+    <span class="n">freshLineOffSet</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">getNextNewLineByteLocation</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">roughOffSet</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span><span class="p">{</span>
+        <span class="nb">panic</span><span class="p">(</span><span class="n">fmt</span><span class="o">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">"getNextNewLineBytLocation error: %s"</span><span class="p">,</span> <span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">()))</span>
+    <span class="p">}</span>
+    <span class="n">offsets</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">freshLineOffSet</span>
+<span class="p">}</span>
+<span class="n">offsets</span><span class="p">[</span><span class="n">chunks_to_be_separately_read</span><span class="p">]</span> <span class="o">=</span> <span class="n">totalSize</span>
+</code></pre></div></div>
+</div>
+</div>
+<button class="expandable__toggle" type="button" aria-expanded="false" aria-controls="bio-content"> Show more </button></section>
+<script>
+{
+    const scriptEl = document.currentScript;
+    const section = scriptEl.previousElementSibling;
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        (function () {
+            const btn = section.querySelector('.expandable__toggle');
+            
+            function updateUI(expanded) {
+                section.classList.toggle('expandable--collapsed', !expanded);
+                section.classList.toggle('expandable--expanded', expanded);
+                btn.setAttribute('aria-expanded', String(expanded));
+                btn.textContent = expanded ? 'Show less' : 'Show more';
+                
+                // Scroll into view only when collapsing
+                if (!expanded) {
+                    const rect = section.getBoundingClientRect();
+                    const isTopVisible = rect.top >= 0 && rect.top <= window.innerHeight;
+                    if (!isTopVisible) {
+                        section.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                }
+            }
+            btn.addEventListener('click', function () {
+                const expanded = btn.getAttribute('aria-expanded') === 'true';
+                updateUI(!expanded);
+            });
+            // Optional: ensure we start collapsed
+            updateUI(false);
+        })();
+    }
+                              );
+}
+</script>
+
+<p>We then unleash the readers on each chunk via go routines (All this code is in <a href="https://github.com/mannyray/ipv4_address/blob/master/touching_every_address/advanced_read.go"><code class="language-plaintext highlighter-rouge">advanced_read.go</code></a>):</p>
+
+<style>
+  .expandable {
+    --preview-height: 120px;   /* how much is visible when collapsed */
+    --fade-size: 120px;         /* how tall the fade-out is at the bottom */
+    --transition-ms: 280ms;
+
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    margin: 2rem auto;
+  }
+
+    .expandable__row {
+      display: flex; /* horizontal row: bar + content */
+      width: 100%;
+    }
+    
+  .expandable__content {
+    overflow: hidden;
+    max-height: var(--preview-height);
+    transition: max-height var(--transition-ms) ease;
+  }
+
+  /* Fade-out effect when collapsed: uses CSS mask (with -webkit- prefix for Safari) */
+  .expandable--collapsed .expandable__content {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 0%,
+      black calc(var(--preview-height) - var(--fade-size)),
+      transparent var(--preview-height)
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0,0,0,1) 0%,
+      rgba(0,0,0,1) calc(var(--preview-height) - var(--fade-size)),
+      rgba(0,0,0,0) var(--preview-height)
+    );
+    -webkit-mask-size: 100% var(--preview-height);
+    mask-size: 100% var(--preview-height);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
+  /* Expanded state: remove mask and allow full height */
+  .expandable--expanded .expandable__content {
+    -webkit-mask-image: none;
+    mask-image: none;
+    /* Use a very large max-height so the transition can animate open */
+    max-height: 200vh;
+  }
+
+  .expandable__toggle {
+    margin-top: 0.5rem;
+    border: 0;
+    padding: 0.6rem 0.9rem;
+    border-radius: 0.6rem;
+    background: #111;
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    width: 100%;
+  }
+    
+.expandable__bar {
+    border-left: 4px solid #ccc;   /* grey vertical bar */
+    padding-left: 1em;
+}
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .expandable__content { transition: none; }
+  }
+</style>
+
+<section class="expandable expandable--collapsed"><div class="expandable__row">
+<div class="expandable__bar"></div>
+<div class="expandable__content" aria-hidden="false">
+<div class="language-golang highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">resultsChan</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="n">result</span><span class="p">,</span> <span class="n">chunks_to_be_separately_read</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">wg</span> <span class="n">sync</span><span class="o">.</span><span class="n">WaitGroup</span>
+
+
+<span class="k">for</span> <span class="n">i</span><span class="o">:=</span><span class="m">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span> <span class="n">chunks_to_be_separately_read</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">{</span>
+    <span class="n">wg</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+    <span class="n">starting_byte</span> <span class="o">:=</span> <span class="n">offsets</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">bytes_to_be_read</span> <span class="o">:=</span> <span class="n">offsets</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="m">1</span><span class="p">]</span><span class="o">-</span><span class="n">offsets</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="c">// launch a go routine for each chunk of the file</span>
+    <span class="c">// that computes the sum for all the numbers starting at </span>
+    <span class="c">// starting_byte location and going bytes_to_be_read ahead</span>
+    <span class="k">go</span> <span class="n">getSum</span><span class="p">(</span><span class="n">filePath</span><span class="p">,</span> <span class="n">starting_byte</span><span class="p">,</span> <span class="n">bytes_to_be_read</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">wg</span><span class="p">,</span> <span class="n">resultsChan</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c">// wait for all the routines to finish as only</span>
+<span class="c">// then can we compute the correct overall sum</span>
+<span class="k">go</span> <span class="k">func</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">wg</span><span class="o">.</span><span class="n">Wait</span><span class="p">()</span>
+    <span class="nb">close</span><span class="p">(</span><span class="n">resultsChan</span><span class="p">)</span>
+<span class="p">}()</span>
+
+<span class="c">// the go routines saved their sums for their file chunk</span>
+<span class="c">// within resultsChan. We extract those sums and compute</span>
+<span class="c">// a grand sum to get the sum of all the lines in the file</span>
+<span class="n">rolling_sum</span> <span class="o">:=</span> <span class="n">big</span><span class="o">.</span><span class="n">NewInt</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">res</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">resultsChan</span> <span class="p">{</span>
+    <span class="n">rolling_sum</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="n">rolling_sum</span><span class="p">,</span><span class="n">res</span><span class="o">.</span><span class="n">rolling_sum</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+</div>
+</div>
+<button class="expandable__toggle" type="button" aria-expanded="false" aria-controls="bio-content"> Show more </button></section>
+<script>
+{
+    const scriptEl = document.currentScript;
+    const section = scriptEl.previousElementSibling;
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        (function () {
+            const btn = section.querySelector('.expandable__toggle');
+            
+            function updateUI(expanded) {
+                section.classList.toggle('expandable--collapsed', !expanded);
+                section.classList.toggle('expandable--expanded', expanded);
+                btn.setAttribute('aria-expanded', String(expanded));
+                btn.textContent = expanded ? 'Show less' : 'Show more';
+                
+                // Scroll into view only when collapsing
+                if (!expanded) {
+                    const rect = section.getBoundingClientRect();
+                    const isTopVisible = rect.top >= 0 && rect.top <= window.innerHeight;
+                    if (!isTopVisible) {
+                        section.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                }
+            }
+            btn.addEventListener('click', function () {
+                const expanded = btn.getAttribute('aria-expanded') === 'true';
+                updateUI(!expanded);
+            });
+            // Optional: ensure we start collapsed
+            updateUI(false);
+        })();
+    }
+                              );
+}
+</script>
+
+<p>We also modify the code to be able to take a commandline argument so we can specify how many readers we want. We test our code with reader count in range <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">10</code> (thanks chatgpt for this quick <a href="https://github.com/mannyray/ipv4_address/blob/master/touching_every_address/bash_script.sh">bash script</a>):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for </span>READER_COUNT <span class="k">in</span> <span class="o">{</span>1..10<span class="o">}</span><span class="p">;</span> <span class="k">do</span>
+    <span class="c"># Capture the real time from the `time` output</span>
+    <span class="nv">TIME_OUTPUT</span><span class="o">=</span><span class="si">$(</span> <span class="o">{</span> <span class="nb">time</span> ./advanced_read <span class="s2">"</span><span class="nv">$READER_COUNT</span><span class="s2">"</span><span class="p">;</span> <span class="o">}</span> 2&gt;&amp;1 <span class="o">&gt;</span>/dev/null <span class="si">)</span>
+    <span class="c"># Extract the "real" elapsed time</span>
+    <span class="nv">TIME</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$TIME_OUTPUT</span><span class="s2">"</span> | <span class="nb">grep </span>real | <span class="nb">awk</span> <span class="s1">'{print $2}'</span><span class="si">)</span>
+
+    <span class="nb">echo</span> <span class="s2">"READER_COUNT: </span><span class="nv">$READER_COUNT</span><span class="s2">, TIME_TO_RUN: </span><span class="nv">$TIME</span><span class="s2">"</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p>where we get the output:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>READER_COUNT: 1, TIME_TO_RUN: 0m13.245s
+READER_COUNT: 2, TIME_TO_RUN: 0m7.289s
+READER_COUNT: 3, TIME_TO_RUN: 0m5.262s
+READER_COUNT: 4, TIME_TO_RUN: 0m4.229s
+READER_COUNT: 5, TIME_TO_RUN: 0m3.671s
+READER_COUNT: 6, TIME_TO_RUN: 0m3.558s
+READER_COUNT: 7, TIME_TO_RUN: 0m3.611s
+READER_COUNT: 8, TIME_TO_RUN: 0m3.590s
+READER_COUNT: 9, TIME_TO_RUN: 0m3.602s
+READER_COUNT: 10, TIME_TO_RUN: 0m3.641s
+</code></pre></div></div>
+
+<p>We have thus cut our read time from about <code class="language-plaintext highlighter-rouge">13.2</code> seconds to <code class="language-plaintext highlighter-rouge">3.5</code> when we parallelize our reading operation (roughly <code class="language-plaintext highlighter-rouge">70%</code> improvement)! The formula <code class="language-plaintext highlighter-rouge">SUM_FROM_1_TO_N</code> is used here to make sure that despite our reduction in runtime, no line is missed, via some sort of off-by-one error, in computing the overall sum.</p>
+
+<p>Although our optimization investigation in this section has been on a test <code class="language-plaintext highlighter-rouge">1Gb</code> file for a number counting problem, we now have some hope that the IPv4 address processing code we will write will parse the text file faster than the naive line by line approach if it has multiple readers.</p>
+
+</div></div>
+<div id="section-optimizing-the-data-structure-1" class="section"><div>
+<hr>
+<h2 id="optimizing-the-data-structure-1">Optimizing the data structure</h2>
+
+<p>In the previous sections we developed code to have multiple go routines (readers) split and process a file in chunks. This allowed us to process the data quicker than just visiting each file line sequentially from beginning to end. Each reader then summed up the numbers within each section. Once all the routines were done, a global sum was computed of all the lines in the file based on each routine’s sum.</p>
+
+<p>Switching back to the original IPv4 address problem, we remind ourselves that we are interested in computing the amount of unique addresses in the overall file. Unfortunately, having go routines compute unique address counts within each file chunk and then summing the count at the end will not work, because a unique count number for each file chunk cannot confirm if the the same address appeared in both file chunks which would lead us to overcount.</p>
+
+<p>Therefore, each go routine that processes a portion of the file must output some sort of set of unique addresses. Once we have the sets from each routine we can combine them like a venn diagram of sorts such that we don’t double count the intersecting entries.</p>
+
+<figure class="figcaption-default">
+<center>
+<div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="1024 / 1024" data-custom-width-percentage="70" style="width: 70%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/ipv4/address_intersection.png" width="100%" class="buffer-image">
+</div></div>
+</center>
+  <figcaption>Unique addresses found by each reader have some unique addresses to those found in other chunks - we make sure to not double count them. Thanks for generating this image chatgpt!</figcaption>
+</figure>
+
+</div></div>
+<div id="section-optimizing-1-default-1" class="section"><div>
+<hr>
+<h2 id="optimizing-1-default-1">Optimizing 1: default</h2>
+
+<p>The good candidate data structure for this venn diagram like computation would be a set, but as I understand there is no such native structure in golang, so instead I will just use a map/dictionary to mock a set. For the non programming reader of this article - forgive me as I won’t dive too deep into what a map is as it is considered a pretty standard data structure in programming (read more <a href="https://victoriametrics.com/blog/go-map/">here</a>).</p>
+
+<p>There is potential to use some sort of custom data structure that would perhaps take advantage of the fixed structure of the IPv4 addresses. However, with a custom data structure you need to be very careful and do lots of custom tests to be sure it works - I’m just itching to test the 120Gb file! A sturdy structure like the map might just be good enough.</p>
+
+<p>Similar to the previous section, I first create a script that can help me generate some test data. I will reuse the script of writing consecutive numbers to a 1Gb <code class="language-plaintext highlighter-rouge">test.txt</code> file from before, but instead of consecutive numbers, I will set it to be a random number on each line. Our objective will be not getting a sum of all numbers, but computing how many unique numbers there are - similar to computing how many unique IPv4 addresses there are.</p>
+
+<p>I then write some basic go code (<a href="https://github.com/mannyray/ipv4_address/blob/master/unique_lines/basic_unique.go"><code class="language-plaintext highlighter-rouge">basic_unique.go</code></a>) that reads the file of random numbers line by line with a single reader and counts up unique counts using a the default map structure. The code is so short that I’ll just paste it here:</p>
+
+<style>
+  .expandable {
+    --preview-height: 120px;   /* how much is visible when collapsed */
+    --fade-size: 120px;         /* how tall the fade-out is at the bottom */
+    --transition-ms: 280ms;
+
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    margin: 2rem auto;
+  }
+
+    .expandable__row {
+      display: flex; /* horizontal row: bar + content */
+      width: 100%;
+    }
+    
+  .expandable__content {
+    overflow: hidden;
+    max-height: var(--preview-height);
+    transition: max-height var(--transition-ms) ease;
+  }
+
+  /* Fade-out effect when collapsed: uses CSS mask (with -webkit- prefix for Safari) */
+  .expandable--collapsed .expandable__content {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 0%,
+      black calc(var(--preview-height) - var(--fade-size)),
+      transparent var(--preview-height)
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0,0,0,1) 0%,
+      rgba(0,0,0,1) calc(var(--preview-height) - var(--fade-size)),
+      rgba(0,0,0,0) var(--preview-height)
+    );
+    -webkit-mask-size: 100% var(--preview-height);
+    mask-size: 100% var(--preview-height);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
+  /* Expanded state: remove mask and allow full height */
+  .expandable--expanded .expandable__content {
+    -webkit-mask-image: none;
+    mask-image: none;
+    /* Use a very large max-height so the transition can animate open */
+    max-height: 200vh;
+  }
+
+  .expandable__toggle {
+    margin-top: 0.5rem;
+    border: 0;
+    padding: 0.6rem 0.9rem;
+    border-radius: 0.6rem;
+    background: #111;
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    width: 100%;
+  }
+    
+.expandable__bar {
+    border-left: 4px solid #ccc;   /* grey vertical bar */
+    padding-left: 1em;
+}
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .expandable__content { transition: none; }
+  }
+</style>
+
+<section class="expandable expandable--collapsed"><div class="expandable__row">
+<div class="expandable__bar"></div>
+<div class="expandable__content" aria-hidden="false">
+<div class="language-golang highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+    <span class="s">"bufio"</span>
+    <span class="s">"fmt"</span>
+    <span class="s">"log"</span>
+    <span class="s">"os"</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">file</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">os</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s">"test.txt"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">Fatal</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">defer</span> <span class="n">file</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
+
+    <span class="n">scanner</span> <span class="o">:=</span> <span class="n">bufio</span><span class="o">.</span><span class="n">NewScanner</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="n">unique_map</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="k">struct</span><span class="p">{})</span>
+
+    <span class="k">for</span> <span class="n">scanner</span><span class="o">.</span><span class="n">Scan</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">current_line</span> <span class="o">:=</span> <span class="n">scanner</span><span class="o">.</span><span class="n">Text</span><span class="p">()</span>
+        <span class="n">unique_map</span><span class="p">[</span><span class="n">current_line</span><span class="p">]</span> <span class="o">=</span> <span class="k">struct</span><span class="p">{}{}</span>
+    <span class="p">}</span>
+
+    <span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Unique numbers: %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_map</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+</div>
+</div>
+<button class="expandable__toggle" type="button" aria-expanded="false" aria-controls="bio-content"> Show more </button></section>
+<script>
+{
+    const scriptEl = document.currentScript;
+    const section = scriptEl.previousElementSibling;
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        (function () {
+            const btn = section.querySelector('.expandable__toggle');
+            
+            function updateUI(expanded) {
+                section.classList.toggle('expandable--collapsed', !expanded);
+                section.classList.toggle('expandable--expanded', expanded);
+                btn.setAttribute('aria-expanded', String(expanded));
+                btn.textContent = expanded ? 'Show less' : 'Show more';
+                
+                // Scroll into view only when collapsing
+                if (!expanded) {
+                    const rect = section.getBoundingClientRect();
+                    const isTopVisible = rect.top >= 0 && rect.top <= window.innerHeight;
+                    if (!isTopVisible) {
+                        section.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                }
+            }
+            btn.addEventListener('click', function () {
+                const expanded = btn.getAttribute('aria-expanded') === 'true';
+                updateUI(!expanded);
+            });
+            // Optional: ensure we start collapsed
+            updateUI(false);
+        })();
+    }
+                              );
+}
+</script>
+
+<p>Running the code I get:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; go build basic_unique.go
+&gt; time ./basic_unique 
+Unique numbers: 102894356
+./basic_unique  43.04s user 35.84s system 114% cpu 1:08.86 total
+&gt; wc -l test.txt
+108580761 test.txt
+</code></pre></div></div>
+
+<p>In a file of <code class="language-plaintext highlighter-rouge">108 580 761</code> lines we get <code class="language-plaintext highlighter-rouge">102 894 356</code> unique entries ( or in other words we have that about <code class="language-plaintext highlighter-rouge">5%</code> of the lines are duplicates). The code execution is over a minute in length which compared to <code class="language-plaintext highlighter-rouge">basic_read</code> from before, where we summed up numbers instead of storing unique numbers, is 5 times slower (compared to <code class="language-plaintext highlighter-rouge">12</code> seconds)!</p>
+
+<p>Next, I created another test text file such that the random numbers are in a smaller range (from <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">1 000</code>) in order for the size of <code class="language-plaintext highlighter-rouge">unique_map</code> in our code be smaller.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; time ./basic_unique
+Unique numbers: 1000
+./basic_unique  6.44s user 0.21s system 100% cpu 6.618 total
+&gt; wc -l test2.txt 
+ 275813149 test2.txt
+</code></pre></div></div>
+
+<p>Wow! Even though we are still processing a 1Gb file, when we reduce our random number range and therefore our memory size of our map, our runtime reduces from 1 minute to 6 seconds!</p>
+
+<p>This variance in runtime based on the size of the map gives me pause. Perhaps I might have to create some custom data structure or at least consider the data I am dealing with in more detail.</p>
+
+<figure class="figcaption-default">
+<center>
+<div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="225 / 400" data-custom-width-percentage="70" style="width: 70%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/ipv4/out.gif" width="100%" class="buffer-image">
+</div></div>
+</center>
+  <figcaption>Programmers, by nature, are lazy so I thought I could get away with not coding up a custom data structure…I was wrong</figcaption>
+</figure>
+
+</div></div>
+<div id="section-optimization-2-custom-1" class="section"><div>
+<hr>
+<h2 id="optimization-2-custom-1">Optimization 2: custom</h2>
+
+<p>Ladies and gentleman, for the next part please fasten your seatbelts as there will a lot of paper napkin math that will be annoying to read through!</p>
+
+<p>For IPv4 addresses we have about <code class="language-plaintext highlighter-rouge">4</code> billion possible address ( <code class="language-plaintext highlighter-rouge">&lt;A&gt;.&lt;B&gt;.&lt;C&gt;.&lt;D&gt;</code> where <code class="language-plaintext highlighter-rouge">A,B,C,D</code> are in range of <code class="language-plaintext highlighter-rouge">[0,255]</code> which leads to <code class="language-plaintext highlighter-rouge">256^4 = (2^8)^4 = 2^32 = 4 294 967 296</code> possible addresses ). Furthermore, we previously discussed how a 120Gb file might contain <code class="language-plaintext highlighter-rouge">15</code> billion IPv4 addresses which means that for a 120Gb or bigger file we expect to have many duplicates as line count significantly exceeds unique address count.</p>
+
+<p>From preliminary googlin’ I confirmed that a hash key in a map is typically 64 bits long <code class="language-plaintext highlighter-rouge">(8 bytes)</code>. This means a number <code class="language-plaintext highlighter-rouge">123</code> key in a map stored as <code class="language-plaintext highlighter-rouge">unique_map[123] = struct{}{}</code> (in range <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">N</code>) will be stored as a <code class="language-plaintext highlighter-rouge">64</code> bit value. Given that there are <code class="language-plaintext highlighter-rouge">64</code> bits and each bit can be <code class="language-plaintext highlighter-rouge">0</code> or <code class="language-plaintext highlighter-rouge">1</code> then the map can store <code class="language-plaintext highlighter-rouge">2^64</code> (<code class="language-plaintext highlighter-rouge">18 446 744 073 709 551 616</code>) possible keys. This number is much bigger than the possible IPv4 addresses. As implied in the previous paragraph, we only need <code class="language-plaintext highlighter-rouge">32</code> bits (from the <code class="language-plaintext highlighter-rouge">256^4 = 2^32</code> calculation) to represent all the IPv4 addresses - each IPv4 address can be represented by a <code class="language-plaintext highlighter-rouge">32</code> bit number (see diagram below).</p>
+
+<figure class="figcaption-default">
+<center>
+<div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="1536 / 1024" data-custom-width-percentage="70" style="width: 70%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/ipv4/transform.png" width="100%" class="buffer-image">
+</div></div>
+</center>
+  <figcaption>Diagram explaining how we convert an IPv4 to a  number. An IPv4 address <code class="language-plaintext highlighter-rouge">&lt;A&gt;.&lt;B&gt;.&lt;C&gt;.&lt;D&gt;</code> is such that <code class="language-plaintext highlighter-rouge">A,B,C,D</code> are in range of <code class="language-plaintext highlighter-rouge">[0,255] = [0,2^8-1]</code> meaning we need <code class="language-plaintext highlighter-rouge">8</code> bits to express each of <code class="language-plaintext highlighter-rouge">A,B,C,D</code>. Since the dots are redundant then an address can be expressed as a <code class="language-plaintext highlighter-rouge">32</code> bits binary structure which is equivalent to some number like <code class="language-plaintext highlighter-rouge">3232235786</code>. Thanks chatgpt for the diagram!</figcaption>
+</figure>
+
+<p>If instead of the default map’s <code class="language-plaintext highlighter-rouge">64</code> bit hash keys, we use <code class="language-plaintext highlighter-rouge">32</code> bit keys to match the maximum bits needs to store a IPv4 address, we can cut half our memory taken up by our map.</p>
+
+<p>Halving the storage is pretty good. That means in the case where our code encounters the maximum amount <code class="language-plaintext highlighter-rouge">2^32</code> of unique IPv4 addresses then our map will have <code class="language-plaintext highlighter-rouge">2^32</code> keys where each key is <code class="language-plaintext highlighter-rouge">32 = 2^5</code> bits long. This means that our memory usage will be about <code class="language-plaintext highlighter-rouge">2^32*2^5 = 2^37</code> bits which is about 17Gb. This still sounds too much … that’s like the memory taken up by at least a few full length movie files.</p>
+
+<p>We can use a clever trick where instead of <code class="language-plaintext highlighter-rouge">2^37</code> map structure we just need a bit array of length <code class="language-plaintext highlighter-rouge">2^32</code> where if the <code class="language-plaintext highlighter-rouge">i</code>th entry in the bit array is binary <code class="language-plaintext highlighter-rouge">1</code> then that represents that  the number <code class="language-plaintext highlighter-rouge">i</code> was encountered (or its IPv4 equivalent). With this bit array we don’t explicitly store the number <code class="language-plaintext highlighter-rouge">i</code> which was the case in the previous paragraph with storing each <code class="language-plaintext highlighter-rouge">32</code> bit long key. The default map structure might perform better in the cases there are few unique IPv4 addresses as most of our bit array will be idling binary zeros, but that is fine given that we are dealing with such large test files that we are likely dealing with a higher unique count.</p>
+
+<p>Our custom data structure reduces our memory requirement from 17Gb to about 0.5Gb which sounds pretty sweet.</p>
+
+<p>There are no default bit array data types in Go so I created my own ( see <a href="https://github.com/mannyray/ipv4_address/blob/master/unique_lines/intermediate_unique.go"><code class="language-plaintext highlighter-rouge">intermediate_unique.go</code></a> along with the tests needed for some basic confidence in correctness). To compute the amount of unique entries stored in our bit array, we just count all the entries set to binary <code class="language-plaintext highlighter-rouge">1</code>.</p>
+
+<p>With this custom bit array structure I reran the unique counter on the text file with numbers in range from <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">1 000 000 000</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="nb">time</span> ./intermediate_unique
+Unique numbers: 102894356
+./intermediate_unique  6.32s user 0.20s system 100% cpu 6.519 total
+</code></pre></div></div>
+
+<p>It now takes <code class="language-plaintext highlighter-rouge">10%</code> of the previous <code class="language-plaintext highlighter-rouge">1</code> minute runtime. Our custom data structure was able to significantly reduce our runtime. I also wanted to confirm that I am actually using less memory now:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span>  gtime <span class="nt">-f</span> <span class="s2">"Max Memory: %M KB"</span> ./basic_unique
+Unique numbers: 102894356
+Max Memory: 4731040 KB
+<span class="o">&gt;</span> gtime <span class="nt">-f</span> <span class="s2">"Max Memory: %M KB"</span> ./intermediate_unique
+Unique numbers: 102894356
+Max Memory: 136816 KB
+</code></pre></div></div>
+
+<p>We went from using 4.7Gb with our default map in <code class="language-plaintext highlighter-rouge">basic_unique.go</code> to 0.13Gb in <code class="language-plaintext highlighter-rouge">intermediate_unique.go</code> (the latter is less than the aforementioned 0.5Gb estimate because the bit array code was customized to use minimum amount of memory required to handle the known largest possible number to be encountered (in our test case <code class="language-plaintext highlighter-rouge">1 000 000 000</code> -  needs <code class="language-plaintext highlighter-rouge">30</code> bits instead of full <code class="language-plaintext highlighter-rouge">32</code>)) .</p>
+
+<p>Since there is a direct connection between random numbers in range `[0,2^32-1] and random IPv4 addresses then for counting unique address we will use our custom bit array structure in combination with a function to convert an address to its number equivalent.</p>
+
+<p>We will combine this reduction in runtime and memory with the parallel readers from before in the next section.</p>
+
+</div></div>
+<div id="section-optimization-3-parallelize-1" class="section"><div>
+<hr>
+<h2 id="optimization-3-parallelize-1">Optimization 3: parallelize</h2>
+
+<p>We will split our file of random numbers into chunks so that we can have multiple processes working at the same time. Each process will separately track its unique numbers encountered in its own bit array. After each process is done, we will need to combine all of their results using exclusive or (XOR) operation. Referring to the venn diagram from before, XOR is our way of preventing from double counting (code is in <a href="https://github.com/mannyray/ipv4_address/blob/master/unique_lines/advanced_unique.go"><code class="language-plaintext highlighter-rouge">advanced_unique.go</code></a>)</p>
+
+<p>In the previous section, we discovered that for the purpose of IPv4 address tracking, our bit array will be around 0.5Gb in size. If we have multiple readers then this will be 0.5Gb per reader.</p>
+
+<p>There might be a way to optimize our memory usage even further such that we only use one common bit array for all the readers, but this solution would involve more custom coding and writing some lock structure to deal with concurrent access to the bit array. In practice this may actually lead to slower runtime. We will avoid this for now as even with a few threads we are using much less memory than the default golang map approach of 17Gb.</p>
+
+<p>Using a <a href="https://github.com/mannyray/ipv4_address/blob/master/unique_lines/bash_script.sh">bash script</a> we track the runtime and memory usage of our unique number calculating code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; ./bash_script.sh 
+READER_COUNT: 1, RUNTIME: 6.53s, MAX_MEM: 0.255 GB
+READER_COUNT: 2, RUNTIME: 3.37s, MAX_MEM: 0.380 GB
+READER_COUNT: 3, RUNTIME: 2.41s, MAX_MEM: 0.505 GB
+READER_COUNT: 4, RUNTIME: 1.89s, MAX_MEM: 0.631 GB
+READER_COUNT: 5, RUNTIME: 1.56s, MAX_MEM: 0.756 GB
+READER_COUNT: 6, RUNTIME: 1.46s, MAX_MEM: 0.881 GB
+READER_COUNT: 7, RUNTIME: 1.37s, MAX_MEM: 1.006 GB
+READER_COUNT: 8, RUNTIME: 1.32s, MAX_MEM: 1.131 GB
+READER_COUNT: 9, RUNTIME: 1.28s, MAX_MEM: 1.257 GB
+READER_COUNT: 10, RUNTIME: 1.23s, MAX_MEM: 1.382 GB
+READER_COUNT: 11, RUNTIME: 1.19s, MAX_MEM: 1.507 GB
+READER_COUNT: 12, RUNTIME: 1.20s, MAX_MEM: 1.632 GB
+READER_COUNT: 13, RUNTIME: 1.18s, MAX_MEM: 1.757 GB
+READER_COUNT: 14, RUNTIME: 1.21s, MAX_MEM: 1.883 GB
+READER_COUNT: 15, RUNTIME: 1.21s, MAX_MEM: 2.008 GB
+</code></pre></div></div>
+
+<p>Our script confirms that parallelizing reduces runtime, despite a bump in memory usage. We go from 6 seconds to 1 second runtime - this is a great improvement from our initial 1 minute long naive hash approach.</p>
+
+</div></div>
+<div id="section-handling-the-real-data-1" class="section"><div>
+<hr>
+<h2 id="handling-the-real-data-1">Handling the real data</h2>
+
+<p>From the previous work in <code class="language-plaintext highlighter-rouge">Touching every address</code> and <code class="language-plaintext highlighter-rouge">Optimizing the data structure</code>, we now have code (in <a href="https://github.com/mannyray/ipv4_address/blob/master/final/unique_address_count.go"><code class="language-plaintext highlighter-rouge">unique_address_count.go</code></a>) that can process a file of IPv4 addresses efficiently - at least more so than the default approach of reading the stuff line by line and using a hash set. Now how does it handle a more challenging data set?</p>
+
+<p>I was still not willing to analyze the 120Gb test file on my machine so I fired up an AWS EC2 instance of the t3.2xlarge type ( 8 vCPUs and 32 GiB ) and processing the 120Gb files, with <code class="language-plaintext highlighter-rouge">20</code> go routines, took 14 minutes which counted <code class="language-plaintext highlighter-rouge">1 000 000 000</code> unique addresses in a file with <code class="language-plaintext highlighter-rouge">8 000 000 000</code> lines.</p>
+
+<figure class="figcaption-default">
+<center>
+<div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="524 / 1034" data-custom-width-percentage="90" style="width: 90%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/ipv4/final.png" width="100%" class="buffer-image">
+</div></div>
+</center>
+  <figcaption>Screen cap of me running the code on EC2 instance</figcaption>
+</figure>
+
+<p>Interestingly, computing the line count (via <code class="language-plaintext highlighter-rouge">wc -l</code>) also took 14 minutes, but this is not to suggest that my  <code class="language-plaintext highlighter-rouge">unique_address_count.go</code> is (overly) deficient in my implementation since <code class="language-plaintext highlighter-rouge">wc</code> code does not have to carry bit arrays in memory. I think the equal <code class="language-plaintext highlighter-rouge">wc</code> timing leads me to the following mellow conclusion: at least computing unique line count is not slower than computing total line count.</p>
+
+<p>Overall, it was fun to code in go. My biggest struggle was remaining consistent between camelCase and snake_case.</p>
+
+<figure class="figcaption-default">
+<center>
+<div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="1024 / 1024" data-custom-width-percentage="70" style="width: 70%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/ipv4/mellow.png" width="100%" class="buffer-image">
+</div></div>
+</center>
+  <figcaption>Hey chatgpt…generate an image of a mellow situation with a glass half full</figcaption>
+</figure>
+
+</div></div>
+
+                    </td>
+                    </tr>
+                    </table>
+                    </div>
+                    <div class="mobile-only">
+                    <div class="target-section" id="target-section-1">
+                    <!--toc_start-->
+
+<div id="section-introduction-1" class="section"><div id="mobile-section-introduction-1" class="section">
+<hr>
+<h2 id="introduction-1">Introduction</h2>
+
+<p>Hello dear reader!</p>
+
+<p>In this blog post we will solve the following problem:</p>
+
+<blockquote>
+  <p>You have a simple text file with IPv4 addresses. An IPv4 address is defined as a unique label for a device on a network, written as four numbers separated by periods where each number is in range of <code class="language-plaintext highlighter-rouge">[0,255]</code> (e.g. <code class="language-plaintext highlighter-rouge">192.132.44.2</code> ). One line is one address, line by line. You should calculate the number of unique addresses in this file using as little memory and time as possible. There is a “naive” algorithm for solving this problem (read line by line, put lines into HashSet). It’s better if your implementation is more complicated and faster than this naive algorithm. The task must be completed in Golang. The file is unlimited in size and can occupy tens and hundreds of gigabytes. A test file could be around 120Gb.</p>
+</blockquote>
+
+<p>The blog will read a bit like a verbose explanation of basic programming data structures and optimization in a discover-as-I-go-along fashion.</p>
+
+</div></div>
+<div id="section-touching-every-address-1" class="section"><div id="mobile-section-touching-every-address-1" class="section">
+<hr>
+<h2 id="touching-every-address-1">Touching every address</h2>
+
+<p>No matter how our code ends up computing the number of unique addresses, one thing we can be sure of: every line in the file must be visited, because if we skip a line then we might be skipping acknowledging a unique IPv4 address and therefore skipping incrementing our unique address count by one.</p>
+
+<p>Furthermore, as suggested in the problem description, accessing the addresses line by line would be a “naive”, inefficient solution - a big reason for which is that there is room for potential parallelism in our solution. We could split the files in to chunks of the file and within each chunk compute unique addresses and then somehow combine the solution at the end for a total unique count.</p>
+
+<p>In this section, we are primarily focused on how to visit each line in the file as efficiently as possible so we will avoid the exact uniqueness computing algorithm involved for now. This will allow us to solve the overall problem in separate parts. Since we are just visiting and not handling any computations then we will call our visit of each IPv4 address a simple touch.</p>
+
+<figure class="figcaption-default">
+<center>
+<div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="1536 / 1024" data-custom-width-percentage="50" style="width: 50%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/ipv4/touch.png" width="100%" class="buffer-image">
+</div></div>
+</center>
+  <figcaption>Lightly touching each line in a computer file. Thanks for generating this image chatgpt!</figcaption>
+</figure>
+
+<p>Given that our file is 120Gb in size and that the shortest, ASCII represented, address is a four single digit numbers with three dots and a newline character (e.g. <code class="language-plaintext highlighter-rouge">1.2.3.4\n</code>), with 1 byte per character we get an upper bound of 15 billion address in our file (120GB/8bytes). Although all addresses will not necessarily be the shortest ASCII length-ed address, our estimation is an effective way of giving an upper bound number to what we are working with.</p>
+
+</div></div>
+<div id="section-touching-1-naive-1" class="section"><div id="mobile-section-touching-1-naive-1" class="section">
+<hr>
+<h2 id="touching-1-naive-1">Touching 1: naive</h2>
+
+<p>If we parallelize our uniqueness computation then we would likely have multiple processes accessing the file at the same time. Each process would handle a separate chunk of the file. However, let’s not get ahead of ourselves and just focus on reading the lines with one process. Time to get my hands dirty and start coding.</p>
+
+<p>Now although I had a link to download a test 120Gb file… I wasn’t going to open that up on my machine due to hardware and network concerns. I needed something smaller and local to test with ASAP. I needed a script to generate the test data. For this I hit up chatgpt:</p>
+
+<blockquote>
+  <p>&gt; how many ASCII characters would equal 1gb in memory</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>&lt;chatgpt responds …&gt;</strong></p>
+</blockquote>
+
+<blockquote>
+  <p>&gt; okay. Given that that is the case, can you write a python script that writes a file of a series of consecutive numbers, starting at one and incrementing by one with each number on a separate line such that the file is near 1gb in size</p>
+</blockquote>
+
+<p>Chatgpt produced a beautiful <a href="https://github.com/mannyray/ipv4_address/blob/master/touching_every_address/generate_file.py"><code class="language-plaintext highlighter-rouge">generate_file.py</code></a> script which I executed to get a 1Gb file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> python3 generate_file.py test.txt
+<span class="o">&gt;</span> <span class="nb">du</span> <span class="nt">-sh</span> test.txt 
+1.0G    test.txt
+<span class="o">&gt;</span> <span class="nb">head</span> <span class="nt">-n</span> 1 test.txt 
+1
+<span class="o">&gt;</span> <span class="nb">tail</span> <span class="nt">-n</span> 1 test.txt
+118485293
+</code></pre></div></div>
+
+<p>The test file starts at <code class="language-plaintext highlighter-rouge">1</code> and ends with <code class="language-plaintext highlighter-rouge">118485293</code> for a total 1Gb file size. With this test file, we transform our unique IP address problem to an analogous problem of summing up all the numbers in the file. The summing problem is similar in that there is a big file to be processed where each line needs to be touched. Fortunately, for the summing problem, checking for correctness is a simple <code class="language-plaintext highlighter-rouge">O(1)</code> operation as the formula for getting the sum of numbers from <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">N</code> is <code class="language-plaintext highlighter-rouge">SUM_FROM_1_TO_N(N) = (N*(N+1))/2</code>.</p>
+
+<p>The first Go code I wrote here, as a warm up, was <a href="https://github.com/mannyray/ipv4_address/blob/master/touching_every_address/basic_read.go"><code class="language-plaintext highlighter-rouge">basic_read.go</code></a> (no chatgpt, but I did have to refresh myself on stackoverflow for how to load and read a file). The code sequentially read the file line by line and then added the numbers up in a rolling sum after which I confirmed for sum correctness against the formula:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; go build basic_read.go
+&gt; time ./basic_read
+Rolling sum: 7019382387890571
+Rolling sum matched formula!
+./basic_read  12.56s user 0.44s system 102% cpu 12.707 total
+</code></pre></div></div>
+
+<p>This code in <code class="language-plaintext highlighter-rouge">basic_read.go</code> would match the naive solution for the unique IPv4 address problem due to reading file line by line from beginning to start.</p>
+
+</div></div>
+<div id="section-touching-2-seek-ahead-1" class="section"><div id="mobile-section-touching-2-seek-ahead-1" class="section">
+<hr>
+<h2 id="touching-2-seek-ahead-1">Touching 2: seek ahead</h2>
+
+<p>Next, I decided to try to parallelize my file reading. We could have multiple file readers, all reading the file at the same time at different locations. Before parallelizing, I must figure out how a to have a single reader start reading a file at an arbitrary location. According to <a href="https://pkg.go.dev/os#File.Seek">documentation</a>, the <code class="language-plaintext highlighter-rouge">Seek</code> method could be of assistance here:</p>
+
+<div class="language-golang highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="p">(</span><span class="n">f</span> <span class="o">*</span><span class="n">File</span><span class="p">)</span> <span class="n">Seek</span><span class="p">(</span><span class="n">offset</span> <span class="kt">int64</span><span class="p">,</span> <span class="n">whence</span> <span class="kt">int</span><span class="p">)</span>
+    <span class="p">(</span><span class="n">ret</span> <span class="kt">int64</span><span class="p">,</span> <span class="n">err</span> <span class="kt">error</span><span class="p">)</span>
+</code></pre></div></div>
+<p>where</p>
+<blockquote>
+  <p>Seek sets the offset for the next Read or Write on file to offset, interpreted according to whence: 0 means relative to the origin of the file, 1 means relative to the current offset, and 2 means relative to the end.</p>
+</blockquote>
+
+<p>Now let’s do a quick sanity check. From the problem statement: <code class="language-plaintext highlighter-rouge">The file is unlimited in size and can occupy tens and hundreds of gigabytes</code>. The max val for <code class="language-plaintext highlighter-rouge">int64</code> is <code class="language-plaintext highlighter-rouge">9,223,372,036,854,775,807</code> and <code class="language-plaintext highlighter-rouge">Seek</code> offsets in bytes. Thus, if we had a file large enough where <code class="language-plaintext highlighter-rouge">int64</code> max val bytes in would be a file’s halfway mark then as long as our file is less than 9 billion Gb then the <code class="language-plaintext highlighter-rouge">Seek</code> offset can easily hit past the halfway point. Therefore, <code class="language-plaintext highlighter-rouge">Seek</code> is a good candidate for dealing in our context of files measured in hundreds of Gb.</p>
+
+<p>Next up, I decided to write up some code to experiment with the <code class="language-plaintext highlighter-rouge">Seek</code> method. If I <code class="language-plaintext highlighter-rouge">Seek</code> somewhere in the middle of a file between number <code class="language-plaintext highlighter-rouge">1</code> and last number in file <code class="language-plaintext highlighter-rouge">118 485 293</code> (say <code class="language-plaintext highlighter-rouge">50 000 000</code>) then I can do the rolling sum from that middle number to <code class="language-plaintext highlighter-rouge">118 485 293</code> and can still verify for sum correctness by subtracting the sums (e.g. <code class="language-plaintext highlighter-rouge">SUM_FROM_1_TO_N(118 485 293) - SUM_FROM_1_TO_N(50 000 000-1)</code>).</p>
+
+<p>The problem I encounter now is that I am thinking of splitting the file line by line, but <code class="language-plaintext highlighter-rouge">Seek</code> deals in byte offsets meaning that it is possible for me to offset to the middle of a number since each number past <code class="language-plaintext highlighter-rouge">9</code> is at least two bytes in length when stored in ASCII format. I will have to search for the newline character <code class="language-plaintext highlighter-rouge">'\n'</code> as that is what separates each line and new number. I solve this concern in <a href="https://github.com/mannyray/ipv4_address/blob/master/touching_every_address/intermediate_read.go"><code class="language-plaintext highlighter-rouge">intermediate_sum.go</code></a> with function:</p>
+
+<div class="language-golang highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="n">MAX_BYTE_COUNT</span> <span class="o">=</span> <span class="m">11</span><span class="p">;</span>
+<span class="c">/*
+We scan MAX_BYTE_COUNT ahead using ReadAt to find the nearest "\n",
+after which we return the index of the "\n" + 1 to indicate the next
+fresh line of data.
+*/</span>
+<span class="k">func</span> <span class="n">getNextNewLineByteLocation</span><span class="p">(</span><span class="n">f</span> <span class="o">*</span><span class="n">os</span><span class="o">.</span><span class="n">File</span><span class="p">,</span> <span class="n">startingLocation</span> <span class="kt">int64</span><span class="p">)</span>
+    <span class="p">(</span> <span class="n">byteOfNearestStartingNewLine</span> <span class="kt">int64</span><span class="p">,</span> <span class="n">err</span> <span class="kt">error</span> <span class="p">)</span> <span class="p">{</span>
+<span class="o">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We set <code class="language-plaintext highlighter-rouge">MAX_BYTE_COUNT</code> to <code class="language-plaintext highlighter-rouge">11</code> because in our current case of 1Gb file we have max number <code class="language-plaintext highlighter-rouge">118 485 293</code> (<code class="language-plaintext highlighter-rouge">9</code> digits) wrapped by a new line <code class="language-plaintext highlighter-rouge">'\n'</code> on both sides. In the case of IPv4 addresses, the max length-ed address is <code class="language-plaintext highlighter-rouge">15</code> (e.g. <code class="language-plaintext highlighter-rouge">255.255.255.255</code>) so we would set <code class="language-plaintext highlighter-rouge">MAX_BYTE_COUNT</code> to <code class="language-plaintext highlighter-rouge">17</code>.</p>
+
+<p>Running our code we get:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;./intermediate_read 
+File size: 1073741828 bytes
+Initial offset: 50000000 bytes
+File pointer reset offset to fresh line: 50000008 bytes in
+The first number, with offset read: 6388890
+Rolling sum: 6998973433368966
+Rolling sum matched formula!
+</code></pre></div></div>
+
+</div></div>
+<div id="section-touching-3-parallelize-1" class="section"><div id="mobile-section-touching-3-parallelize-1" class="section">
+<hr>
+<h2 id="touching-3-parallelize-1">Touching 3: parallelize</h2>
+
+<p>Now that we have the ability to use <code class="language-plaintext highlighter-rouge">Seek</code> to read at an arbitrary point in the file, we can now see if we can have multiple readers of the file, each reading their own offset portion in parallel. Each reader would read the numbers and sum them up right up until the next area in the file that another reader was working on. Each reader would store their sum and once all readers are done, the resulting sum would be added up for the grand cumulative sum.</p>
+
+<figure class="figcaption-default">
+<center>
+<div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="1024 / 1536" data-custom-width-percentage="70" style="width: 70%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/ipv4/readers.png" width="100%" class="buffer-image">
+</div></div>
+</center>
+  <figcaption>Instead of having one reader summing up the numbers in the file, we can have multiple to make things faster. Thanks for generating this image chatgpt!</figcaption>
+</figure>
+
+<p>We can define the length of each chunk of file to be read by reader by dividing up the files’s over length in bytes by how many readers we will use. The previously written function <code class="language-plaintext highlighter-rouge">getNextNewLineByteLocation</code> will assist us in determining where each reader should start and end to make sure we don’t miss a single line:</p>
+
+<style>
+  .expandable {
+    --preview-height: 120px;   /* how much is visible when collapsed */
+    --fade-size: 120px;         /* how tall the fade-out is at the bottom */
+    --transition-ms: 280ms;
+
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    margin: 2rem auto;
+  }
+
+    .expandable__row {
+      display: flex; /* horizontal row: bar + content */
+      width: 100%;
+    }
+    
+  .expandable__content {
+    overflow: hidden;
+    max-height: var(--preview-height);
+    transition: max-height var(--transition-ms) ease;
+  }
+
+  /* Fade-out effect when collapsed: uses CSS mask (with -webkit- prefix for Safari) */
+  .expandable--collapsed .expandable__content {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 0%,
+      black calc(var(--preview-height) - var(--fade-size)),
+      transparent var(--preview-height)
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0,0,0,1) 0%,
+      rgba(0,0,0,1) calc(var(--preview-height) - var(--fade-size)),
+      rgba(0,0,0,0) var(--preview-height)
+    );
+    -webkit-mask-size: 100% var(--preview-height);
+    mask-size: 100% var(--preview-height);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
+  /* Expanded state: remove mask and allow full height */
+  .expandable--expanded .expandable__content {
+    -webkit-mask-image: none;
+    mask-image: none;
+    /* Use a very large max-height so the transition can animate open */
+    max-height: 200vh;
+  }
+
+  .expandable__toggle {
+    margin-top: 0.5rem;
+    border: 0;
+    padding: 0.6rem 0.9rem;
+    border-radius: 0.6rem;
+    background: #111;
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    width: 100%;
+  }
+    
+.expandable__bar {
+    border-left: 4px solid #ccc;   /* grey vertical bar */
+    padding-left: 1em;
+}
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .expandable__content { transition: none; }
+  }
+</style>
+
+<section class="expandable expandable--collapsed"><div class="expandable__row">
+<div class="expandable__bar"></div>
+<div class="expandable__content" aria-hidden="false">
+<div class="language-golang highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">totalSize</span> <span class="o">:=</span> <span class="n">fileInfo</span><span class="o">.</span><span class="n">Size</span><span class="p">()</span>
+
+<span class="c">//compute offsets that are used in separating </span>
+<span class="c">//each chunk used by each reader</span>
+<span class="n">approximate_chunk_length</span> <span class="o">:=</span> <span class="n">totalSize</span><span class="o">/</span><span class="n">chunks_to_be_separately_read</span>
+<span class="k">var</span> <span class="n">offsets</span> <span class="p">[</span><span class="n">chunks_to_be_separately_read</span><span class="o">+</span><span class="m">1</span><span class="p">]</span><span class="kt">int64</span>
+<span class="n">offsets</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="o">=</span> <span class="kt">int64</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="o">:=</span><span class="m">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span> <span class="n">chunks_to_be_separately_read</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">{</span>
+    <span class="n">roughOffSet</span> <span class="o">:=</span> <span class="n">offsets</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="m">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">approximate_chunk_length</span>
+    <span class="n">freshLineOffSet</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">getNextNewLineByteLocation</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">roughOffSet</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span><span class="p">{</span>
+        <span class="nb">panic</span><span class="p">(</span><span class="n">fmt</span><span class="o">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">"getNextNewLineBytLocation error: %s"</span><span class="p">,</span> <span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">()))</span>
+    <span class="p">}</span>
+    <span class="n">offsets</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">freshLineOffSet</span>
+<span class="p">}</span>
+<span class="n">offsets</span><span class="p">[</span><span class="n">chunks_to_be_separately_read</span><span class="p">]</span> <span class="o">=</span> <span class="n">totalSize</span>
+</code></pre></div></div>
+</div>
+</div>
+<button class="expandable__toggle" type="button" aria-expanded="false" aria-controls="bio-content"> Show more </button></section>
+<script>
+{
+    const scriptEl = document.currentScript;
+    const section = scriptEl.previousElementSibling;
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        (function () {
+            const btn = section.querySelector('.expandable__toggle');
+            
+            function updateUI(expanded) {
+                section.classList.toggle('expandable--collapsed', !expanded);
+                section.classList.toggle('expandable--expanded', expanded);
+                btn.setAttribute('aria-expanded', String(expanded));
+                btn.textContent = expanded ? 'Show less' : 'Show more';
+                
+                // Scroll into view only when collapsing
+                if (!expanded) {
+                    const rect = section.getBoundingClientRect();
+                    const isTopVisible = rect.top >= 0 && rect.top <= window.innerHeight;
+                    if (!isTopVisible) {
+                        section.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                }
+            }
+            btn.addEventListener('click', function () {
+                const expanded = btn.getAttribute('aria-expanded') === 'true';
+                updateUI(!expanded);
+            });
+            // Optional: ensure we start collapsed
+            updateUI(false);
+        })();
+    }
+                              );
+}
+</script>
+
+<p>We then unleash the readers on each chunk via go routines (All this code is in <a href="https://github.com/mannyray/ipv4_address/blob/master/touching_every_address/advanced_read.go"><code class="language-plaintext highlighter-rouge">advanced_read.go</code></a>):</p>
+
+<style>
+  .expandable {
+    --preview-height: 120px;   /* how much is visible when collapsed */
+    --fade-size: 120px;         /* how tall the fade-out is at the bottom */
+    --transition-ms: 280ms;
+
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    margin: 2rem auto;
+  }
+
+    .expandable__row {
+      display: flex; /* horizontal row: bar + content */
+      width: 100%;
+    }
+    
+  .expandable__content {
+    overflow: hidden;
+    max-height: var(--preview-height);
+    transition: max-height var(--transition-ms) ease;
+  }
+
+  /* Fade-out effect when collapsed: uses CSS mask (with -webkit- prefix for Safari) */
+  .expandable--collapsed .expandable__content {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 0%,
+      black calc(var(--preview-height) - var(--fade-size)),
+      transparent var(--preview-height)
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0,0,0,1) 0%,
+      rgba(0,0,0,1) calc(var(--preview-height) - var(--fade-size)),
+      rgba(0,0,0,0) var(--preview-height)
+    );
+    -webkit-mask-size: 100% var(--preview-height);
+    mask-size: 100% var(--preview-height);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
+  /* Expanded state: remove mask and allow full height */
+  .expandable--expanded .expandable__content {
+    -webkit-mask-image: none;
+    mask-image: none;
+    /* Use a very large max-height so the transition can animate open */
+    max-height: 200vh;
+  }
+
+  .expandable__toggle {
+    margin-top: 0.5rem;
+    border: 0;
+    padding: 0.6rem 0.9rem;
+    border-radius: 0.6rem;
+    background: #111;
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    width: 100%;
+  }
+    
+.expandable__bar {
+    border-left: 4px solid #ccc;   /* grey vertical bar */
+    padding-left: 1em;
+}
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .expandable__content { transition: none; }
+  }
+</style>
+
+<section class="expandable expandable--collapsed"><div class="expandable__row">
+<div class="expandable__bar"></div>
+<div class="expandable__content" aria-hidden="false">
+<div class="language-golang highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">resultsChan</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">chan</span> <span class="n">result</span><span class="p">,</span> <span class="n">chunks_to_be_separately_read</span><span class="p">)</span>
+<span class="k">var</span> <span class="n">wg</span> <span class="n">sync</span><span class="o">.</span><span class="n">WaitGroup</span>
+
+
+<span class="k">for</span> <span class="n">i</span><span class="o">:=</span><span class="m">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span> <span class="n">chunks_to_be_separately_read</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">{</span>
+    <span class="n">wg</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+    <span class="n">starting_byte</span> <span class="o">:=</span> <span class="n">offsets</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">bytes_to_be_read</span> <span class="o">:=</span> <span class="n">offsets</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="m">1</span><span class="p">]</span><span class="o">-</span><span class="n">offsets</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="c">// launch a go routine for each chunk of the file</span>
+    <span class="c">// that computes the sum for all the numbers starting at </span>
+    <span class="c">// starting_byte location and going bytes_to_be_read ahead</span>
+    <span class="k">go</span> <span class="n">getSum</span><span class="p">(</span><span class="n">filePath</span><span class="p">,</span> <span class="n">starting_byte</span><span class="p">,</span> <span class="n">bytes_to_be_read</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">wg</span><span class="p">,</span> <span class="n">resultsChan</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c">// wait for all the routines to finish as only</span>
+<span class="c">// then can we compute the correct overall sum</span>
+<span class="k">go</span> <span class="k">func</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">wg</span><span class="o">.</span><span class="n">Wait</span><span class="p">()</span>
+    <span class="nb">close</span><span class="p">(</span><span class="n">resultsChan</span><span class="p">)</span>
+<span class="p">}()</span>
+
+<span class="c">// the go routines saved their sums for their file chunk</span>
+<span class="c">// within resultsChan. We extract those sums and compute</span>
+<span class="c">// a grand sum to get the sum of all the lines in the file</span>
+<span class="n">rolling_sum</span> <span class="o">:=</span> <span class="n">big</span><span class="o">.</span><span class="n">NewInt</span><span class="p">(</span><span class="m">0</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">res</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">resultsChan</span> <span class="p">{</span>
+    <span class="n">rolling_sum</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="n">rolling_sum</span><span class="p">,</span><span class="n">res</span><span class="o">.</span><span class="n">rolling_sum</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
+</div>
+</div>
+<button class="expandable__toggle" type="button" aria-expanded="false" aria-controls="bio-content"> Show more </button></section>
+<script>
+{
+    const scriptEl = document.currentScript;
+    const section = scriptEl.previousElementSibling;
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        (function () {
+            const btn = section.querySelector('.expandable__toggle');
+            
+            function updateUI(expanded) {
+                section.classList.toggle('expandable--collapsed', !expanded);
+                section.classList.toggle('expandable--expanded', expanded);
+                btn.setAttribute('aria-expanded', String(expanded));
+                btn.textContent = expanded ? 'Show less' : 'Show more';
+                
+                // Scroll into view only when collapsing
+                if (!expanded) {
+                    const rect = section.getBoundingClientRect();
+                    const isTopVisible = rect.top >= 0 && rect.top <= window.innerHeight;
+                    if (!isTopVisible) {
+                        section.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                }
+            }
+            btn.addEventListener('click', function () {
+                const expanded = btn.getAttribute('aria-expanded') === 'true';
+                updateUI(!expanded);
+            });
+            // Optional: ensure we start collapsed
+            updateUI(false);
+        })();
+    }
+                              );
+}
+</script>
+
+<p>We also modify the code to be able to take a commandline argument so we can specify how many readers we want. We test our code with reader count in range <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">10</code> (thanks chatgpt for this quick <a href="https://github.com/mannyray/ipv4_address/blob/master/touching_every_address/bash_script.sh">bash script</a>):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for </span>READER_COUNT <span class="k">in</span> <span class="o">{</span>1..10<span class="o">}</span><span class="p">;</span> <span class="k">do</span>
+    <span class="c"># Capture the real time from the `time` output</span>
+    <span class="nv">TIME_OUTPUT</span><span class="o">=</span><span class="si">$(</span> <span class="o">{</span> <span class="nb">time</span> ./advanced_read <span class="s2">"</span><span class="nv">$READER_COUNT</span><span class="s2">"</span><span class="p">;</span> <span class="o">}</span> 2&gt;&amp;1 <span class="o">&gt;</span>/dev/null <span class="si">)</span>
+    <span class="c"># Extract the "real" elapsed time</span>
+    <span class="nv">TIME</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$TIME_OUTPUT</span><span class="s2">"</span> | <span class="nb">grep </span>real | <span class="nb">awk</span> <span class="s1">'{print $2}'</span><span class="si">)</span>
+
+    <span class="nb">echo</span> <span class="s2">"READER_COUNT: </span><span class="nv">$READER_COUNT</span><span class="s2">, TIME_TO_RUN: </span><span class="nv">$TIME</span><span class="s2">"</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p>where we get the output:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>READER_COUNT: 1, TIME_TO_RUN: 0m13.245s
+READER_COUNT: 2, TIME_TO_RUN: 0m7.289s
+READER_COUNT: 3, TIME_TO_RUN: 0m5.262s
+READER_COUNT: 4, TIME_TO_RUN: 0m4.229s
+READER_COUNT: 5, TIME_TO_RUN: 0m3.671s
+READER_COUNT: 6, TIME_TO_RUN: 0m3.558s
+READER_COUNT: 7, TIME_TO_RUN: 0m3.611s
+READER_COUNT: 8, TIME_TO_RUN: 0m3.590s
+READER_COUNT: 9, TIME_TO_RUN: 0m3.602s
+READER_COUNT: 10, TIME_TO_RUN: 0m3.641s
+</code></pre></div></div>
+
+<p>We have thus cut our read time from about <code class="language-plaintext highlighter-rouge">13.2</code> seconds to <code class="language-plaintext highlighter-rouge">3.5</code> when we parallelize our reading operation (roughly <code class="language-plaintext highlighter-rouge">70%</code> improvement)! The formula <code class="language-plaintext highlighter-rouge">SUM_FROM_1_TO_N</code> is used here to make sure that despite our reduction in runtime, no line is missed, via some sort of off-by-one error, in computing the overall sum.</p>
+
+<p>Although our optimization investigation in this section has been on a test <code class="language-plaintext highlighter-rouge">1Gb</code> file for a number counting problem, we now have some hope that the IPv4 address processing code we will write will parse the text file faster than the naive line by line approach if it has multiple readers.</p>
+
+</div></div>
+<div id="section-optimizing-the-data-structure-1" class="section"><div id="mobile-section-optimizing-the-data-structure-1" class="section">
+<hr>
+<h2 id="optimizing-the-data-structure-1">Optimizing the data structure</h2>
+
+<p>In the previous sections we developed code to have multiple go routines (readers) split and process a file in chunks. This allowed us to process the data quicker than just visiting each file line sequentially from beginning to end. Each reader then summed up the numbers within each section. Once all the routines were done, a global sum was computed of all the lines in the file based on each routine’s sum.</p>
+
+<p>Switching back to the original IPv4 address problem, we remind ourselves that we are interested in computing the amount of unique addresses in the overall file. Unfortunately, having go routines compute unique address counts within each file chunk and then summing the count at the end will not work, because a unique count number for each file chunk cannot confirm if the the same address appeared in both file chunks which would lead us to overcount.</p>
+
+<p>Therefore, each go routine that processes a portion of the file must output some sort of set of unique addresses. Once we have the sets from each routine we can combine them like a venn diagram of sorts such that we don’t double count the intersecting entries.</p>
+
+<figure class="figcaption-default">
+<center>
+<div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="1024 / 1024" data-custom-width-percentage="70" style="width: 70%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/ipv4/address_intersection.png" width="100%" class="buffer-image">
+</div></div>
+</center>
+  <figcaption>Unique addresses found by each reader have some unique addresses to those found in other chunks - we make sure to not double count them. Thanks for generating this image chatgpt!</figcaption>
+</figure>
+
+</div></div>
+<div id="section-optimizing-1-default-1" class="section"><div id="mobile-section-optimizing-1-default-1" class="section">
+<hr>
+<h2 id="optimizing-1-default-1">Optimizing 1: default</h2>
+
+<p>The good candidate data structure for this venn diagram like computation would be a set, but as I understand there is no such native structure in golang, so instead I will just use a map/dictionary to mock a set. For the non programming reader of this article - forgive me as I won’t dive too deep into what a map is as it is considered a pretty standard data structure in programming (read more <a href="https://victoriametrics.com/blog/go-map/">here</a>).</p>
+
+<p>There is potential to use some sort of custom data structure that would perhaps take advantage of the fixed structure of the IPv4 addresses. However, with a custom data structure you need to be very careful and do lots of custom tests to be sure it works - I’m just itching to test the 120Gb file! A sturdy structure like the map might just be good enough.</p>
+
+<p>Similar to the previous section, I first create a script that can help me generate some test data. I will reuse the script of writing consecutive numbers to a 1Gb <code class="language-plaintext highlighter-rouge">test.txt</code> file from before, but instead of consecutive numbers, I will set it to be a random number on each line. Our objective will be not getting a sum of all numbers, but computing how many unique numbers there are - similar to computing how many unique IPv4 addresses there are.</p>
+
+<p>I then write some basic go code (<a href="https://github.com/mannyray/ipv4_address/blob/master/unique_lines/basic_unique.go"><code class="language-plaintext highlighter-rouge">basic_unique.go</code></a>) that reads the file of random numbers line by line with a single reader and counts up unique counts using a the default map structure. The code is so short that I’ll just paste it here:</p>
+
+<style>
+  .expandable {
+    --preview-height: 120px;   /* how much is visible when collapsed */
+    --fade-size: 120px;         /* how tall the fade-out is at the bottom */
+    --transition-ms: 280ms;
+
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    margin: 2rem auto;
+  }
+
+    .expandable__row {
+      display: flex; /* horizontal row: bar + content */
+      width: 100%;
+    }
+    
+  .expandable__content {
+    overflow: hidden;
+    max-height: var(--preview-height);
+    transition: max-height var(--transition-ms) ease;
+  }
+
+  /* Fade-out effect when collapsed: uses CSS mask (with -webkit- prefix for Safari) */
+  .expandable--collapsed .expandable__content {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 0%,
+      black calc(var(--preview-height) - var(--fade-size)),
+      transparent var(--preview-height)
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0,0,0,1) 0%,
+      rgba(0,0,0,1) calc(var(--preview-height) - var(--fade-size)),
+      rgba(0,0,0,0) var(--preview-height)
+    );
+    -webkit-mask-size: 100% var(--preview-height);
+    mask-size: 100% var(--preview-height);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
+  /* Expanded state: remove mask and allow full height */
+  .expandable--expanded .expandable__content {
+    -webkit-mask-image: none;
+    mask-image: none;
+    /* Use a very large max-height so the transition can animate open */
+    max-height: 200vh;
+  }
+
+  .expandable__toggle {
+    margin-top: 0.5rem;
+    border: 0;
+    padding: 0.6rem 0.9rem;
+    border-radius: 0.6rem;
+    background: #111;
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    width: 100%;
+  }
+    
+.expandable__bar {
+    border-left: 4px solid #ccc;   /* grey vertical bar */
+    padding-left: 1em;
+}
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .expandable__content { transition: none; }
+  }
+</style>
+
+<section class="expandable expandable--collapsed"><div class="expandable__row">
+<div class="expandable__bar"></div>
+<div class="expandable__content" aria-hidden="false">
+<div class="language-golang highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+    <span class="s">"bufio"</span>
+    <span class="s">"fmt"</span>
+    <span class="s">"log"</span>
+    <span class="s">"os"</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">file</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">os</span><span class="o">.</span><span class="n">Open</span><span class="p">(</span><span class="s">"test.txt"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">Fatal</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">defer</span> <span class="n">file</span><span class="o">.</span><span class="n">Close</span><span class="p">()</span>
+
+    <span class="n">scanner</span> <span class="o">:=</span> <span class="n">bufio</span><span class="o">.</span><span class="n">NewScanner</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="n">unique_map</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="k">struct</span><span class="p">{})</span>
+
+    <span class="k">for</span> <span class="n">scanner</span><span class="o">.</span><span class="n">Scan</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">current_line</span> <span class="o">:=</span> <span class="n">scanner</span><span class="o">.</span><span class="n">Text</span><span class="p">()</span>
+        <span class="n">unique_map</span><span class="p">[</span><span class="n">current_line</span><span class="p">]</span> <span class="o">=</span> <span class="k">struct</span><span class="p">{}{}</span>
+    <span class="p">}</span>
+
+    <span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Unique numbers: %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_map</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+</div>
+</div>
+<button class="expandable__toggle" type="button" aria-expanded="false" aria-controls="bio-content"> Show more </button></section>
+<script>
+{
+    const scriptEl = document.currentScript;
+    const section = scriptEl.previousElementSibling;
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        (function () {
+            const btn = section.querySelector('.expandable__toggle');
+            
+            function updateUI(expanded) {
+                section.classList.toggle('expandable--collapsed', !expanded);
+                section.classList.toggle('expandable--expanded', expanded);
+                btn.setAttribute('aria-expanded', String(expanded));
+                btn.textContent = expanded ? 'Show less' : 'Show more';
+                
+                // Scroll into view only when collapsing
+                if (!expanded) {
+                    const rect = section.getBoundingClientRect();
+                    const isTopVisible = rect.top >= 0 && rect.top <= window.innerHeight;
+                    if (!isTopVisible) {
+                        section.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                }
+            }
+            btn.addEventListener('click', function () {
+                const expanded = btn.getAttribute('aria-expanded') === 'true';
+                updateUI(!expanded);
+            });
+            // Optional: ensure we start collapsed
+            updateUI(false);
+        })();
+    }
+                              );
+}
+</script>
+
+<p>Running the code I get:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; go build basic_unique.go
+&gt; time ./basic_unique 
+Unique numbers: 102894356
+./basic_unique  43.04s user 35.84s system 114% cpu 1:08.86 total
+&gt; wc -l test.txt
+108580761 test.txt
+</code></pre></div></div>
+
+<p>In a file of <code class="language-plaintext highlighter-rouge">108 580 761</code> lines we get <code class="language-plaintext highlighter-rouge">102 894 356</code> unique entries ( or in other words we have that about <code class="language-plaintext highlighter-rouge">5%</code> of the lines are duplicates). The code execution is over a minute in length which compared to <code class="language-plaintext highlighter-rouge">basic_read</code> from before, where we summed up numbers instead of storing unique numbers, is 5 times slower (compared to <code class="language-plaintext highlighter-rouge">12</code> seconds)!</p>
+
+<p>Next, I created another test text file such that the random numbers are in a smaller range (from <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">1 000</code>) in order for the size of <code class="language-plaintext highlighter-rouge">unique_map</code> in our code be smaller.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; time ./basic_unique
+Unique numbers: 1000
+./basic_unique  6.44s user 0.21s system 100% cpu 6.618 total
+&gt; wc -l test2.txt 
+ 275813149 test2.txt
+</code></pre></div></div>
+
+<p>Wow! Even though we are still processing a 1Gb file, when we reduce our random number range and therefore our memory size of our map, our runtime reduces from 1 minute to 6 seconds!</p>
+
+<p>This variance in runtime based on the size of the map gives me pause. Perhaps I might have to create some custom data structure or at least consider the data I am dealing with in more detail.</p>
+
+<figure class="figcaption-default">
+<center>
+<div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="225 / 400" data-custom-width-percentage="70" style="width: 70%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/ipv4/out.gif" width="100%" class="buffer-image">
+</div></div>
+</center>
+  <figcaption>Programmers, by nature, are lazy so I thought I could get away with not coding up a custom data structure…I was wrong</figcaption>
+</figure>
+
+</div></div>
+<div id="section-optimization-2-custom-1" class="section"><div id="mobile-section-optimization-2-custom-1" class="section">
+<hr>
+<h2 id="optimization-2-custom-1">Optimization 2: custom</h2>
+
+<p>Ladies and gentleman, for the next part please fasten your seatbelts as there will a lot of paper napkin math that will be annoying to read through!</p>
+
+<p>For IPv4 addresses we have about <code class="language-plaintext highlighter-rouge">4</code> billion possible address ( <code class="language-plaintext highlighter-rouge">&lt;A&gt;.&lt;B&gt;.&lt;C&gt;.&lt;D&gt;</code> where <code class="language-plaintext highlighter-rouge">A,B,C,D</code> are in range of <code class="language-plaintext highlighter-rouge">[0,255]</code> which leads to <code class="language-plaintext highlighter-rouge">256^4 = (2^8)^4 = 2^32 = 4 294 967 296</code> possible addresses ). Furthermore, we previously discussed how a 120Gb file might contain <code class="language-plaintext highlighter-rouge">15</code> billion IPv4 addresses which means that for a 120Gb or bigger file we expect to have many duplicates as line count significantly exceeds unique address count.</p>
+
+<p>From preliminary googlin’ I confirmed that a hash key in a map is typically 64 bits long <code class="language-plaintext highlighter-rouge">(8 bytes)</code>. This means a number <code class="language-plaintext highlighter-rouge">123</code> key in a map stored as <code class="language-plaintext highlighter-rouge">unique_map[123] = struct{}{}</code> (in range <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">N</code>) will be stored as a <code class="language-plaintext highlighter-rouge">64</code> bit value. Given that there are <code class="language-plaintext highlighter-rouge">64</code> bits and each bit can be <code class="language-plaintext highlighter-rouge">0</code> or <code class="language-plaintext highlighter-rouge">1</code> then the map can store <code class="language-plaintext highlighter-rouge">2^64</code> (<code class="language-plaintext highlighter-rouge">18 446 744 073 709 551 616</code>) possible keys. This number is much bigger than the possible IPv4 addresses. As implied in the previous paragraph, we only need <code class="language-plaintext highlighter-rouge">32</code> bits (from the <code class="language-plaintext highlighter-rouge">256^4 = 2^32</code> calculation) to represent all the IPv4 addresses - each IPv4 address can be represented by a <code class="language-plaintext highlighter-rouge">32</code> bit number (see diagram below).</p>
+
+<figure class="figcaption-default">
+<center>
+<div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="1536 / 1024" data-custom-width-percentage="70" style="width: 70%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/ipv4/transform.png" width="100%" class="buffer-image">
+</div></div>
+</center>
+  <figcaption>Diagram explaining how we convert an IPv4 to a  number. An IPv4 address <code class="language-plaintext highlighter-rouge">&lt;A&gt;.&lt;B&gt;.&lt;C&gt;.&lt;D&gt;</code> is such that <code class="language-plaintext highlighter-rouge">A,B,C,D</code> are in range of <code class="language-plaintext highlighter-rouge">[0,255] = [0,2^8-1]</code> meaning we need <code class="language-plaintext highlighter-rouge">8</code> bits to express each of <code class="language-plaintext highlighter-rouge">A,B,C,D</code>. Since the dots are redundant then an address can be expressed as a <code class="language-plaintext highlighter-rouge">32</code> bits binary structure which is equivalent to some number like <code class="language-plaintext highlighter-rouge">3232235786</code>. Thanks chatgpt for the diagram!</figcaption>
+</figure>
+
+<p>If instead of the default map’s <code class="language-plaintext highlighter-rouge">64</code> bit hash keys, we use <code class="language-plaintext highlighter-rouge">32</code> bit keys to match the maximum bits needs to store a IPv4 address, we can cut half our memory taken up by our map.</p>
+
+<p>Halving the storage is pretty good. That means in the case where our code encounters the maximum amount <code class="language-plaintext highlighter-rouge">2^32</code> of unique IPv4 addresses then our map will have <code class="language-plaintext highlighter-rouge">2^32</code> keys where each key is <code class="language-plaintext highlighter-rouge">32 = 2^5</code> bits long. This means that our memory usage will be about <code class="language-plaintext highlighter-rouge">2^32*2^5 = 2^37</code> bits which is about 17Gb. This still sounds too much … that’s like the memory taken up by at least a few full length movie files.</p>
+
+<p>We can use a clever trick where instead of <code class="language-plaintext highlighter-rouge">2^37</code> map structure we just need a bit array of length <code class="language-plaintext highlighter-rouge">2^32</code> where if the <code class="language-plaintext highlighter-rouge">i</code>th entry in the bit array is binary <code class="language-plaintext highlighter-rouge">1</code> then that represents that  the number <code class="language-plaintext highlighter-rouge">i</code> was encountered (or its IPv4 equivalent). With this bit array we don’t explicitly store the number <code class="language-plaintext highlighter-rouge">i</code> which was the case in the previous paragraph with storing each <code class="language-plaintext highlighter-rouge">32</code> bit long key. The default map structure might perform better in the cases there are few unique IPv4 addresses as most of our bit array will be idling binary zeros, but that is fine given that we are dealing with such large test files that we are likely dealing with a higher unique count.</p>
+
+<p>Our custom data structure reduces our memory requirement from 17Gb to about 0.5Gb which sounds pretty sweet.</p>
+
+<p>There are no default bit array data types in Go so I created my own ( see <a href="https://github.com/mannyray/ipv4_address/blob/master/unique_lines/intermediate_unique.go"><code class="language-plaintext highlighter-rouge">intermediate_unique.go</code></a> along with the tests needed for some basic confidence in correctness). To compute the amount of unique entries stored in our bit array, we just count all the entries set to binary <code class="language-plaintext highlighter-rouge">1</code>.</p>
+
+<p>With this custom bit array structure I reran the unique counter on the text file with numbers in range from <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">1 000 000 000</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="nb">time</span> ./intermediate_unique
+Unique numbers: 102894356
+./intermediate_unique  6.32s user 0.20s system 100% cpu 6.519 total
+</code></pre></div></div>
+
+<p>It now takes <code class="language-plaintext highlighter-rouge">10%</code> of the previous <code class="language-plaintext highlighter-rouge">1</code> minute runtime. Our custom data structure was able to significantly reduce our runtime. I also wanted to confirm that I am actually using less memory now:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span>  gtime <span class="nt">-f</span> <span class="s2">"Max Memory: %M KB"</span> ./basic_unique
+Unique numbers: 102894356
+Max Memory: 4731040 KB
+<span class="o">&gt;</span> gtime <span class="nt">-f</span> <span class="s2">"Max Memory: %M KB"</span> ./intermediate_unique
+Unique numbers: 102894356
+Max Memory: 136816 KB
+</code></pre></div></div>
+
+<p>We went from using 4.7Gb with our default map in <code class="language-plaintext highlighter-rouge">basic_unique.go</code> to 0.13Gb in <code class="language-plaintext highlighter-rouge">intermediate_unique.go</code> (the latter is less than the aforementioned 0.5Gb estimate because the bit array code was customized to use minimum amount of memory required to handle the known largest possible number to be encountered (in our test case <code class="language-plaintext highlighter-rouge">1 000 000 000</code> -  needs <code class="language-plaintext highlighter-rouge">30</code> bits instead of full <code class="language-plaintext highlighter-rouge">32</code>)) .</p>
+
+<p>Since there is a direct connection between random numbers in range `[0,2^32-1] and random IPv4 addresses then for counting unique address we will use our custom bit array structure in combination with a function to convert an address to its number equivalent.</p>
+
+<p>We will combine this reduction in runtime and memory with the parallel readers from before in the next section.</p>
+
+</div></div>
+<div id="section-optimization-3-parallelize-1" class="section"><div id="mobile-section-optimization-3-parallelize-1" class="section">
+<hr>
+<h2 id="optimization-3-parallelize-1">Optimization 3: parallelize</h2>
+
+<p>We will split our file of random numbers into chunks so that we can have multiple processes working at the same time. Each process will separately track its unique numbers encountered in its own bit array. After each process is done, we will need to combine all of their results using exclusive or (XOR) operation. Referring to the venn diagram from before, XOR is our way of preventing from double counting (code is in <a href="https://github.com/mannyray/ipv4_address/blob/master/unique_lines/advanced_unique.go"><code class="language-plaintext highlighter-rouge">advanced_unique.go</code></a>)</p>
+
+<p>In the previous section, we discovered that for the purpose of IPv4 address tracking, our bit array will be around 0.5Gb in size. If we have multiple readers then this will be 0.5Gb per reader.</p>
+
+<p>There might be a way to optimize our memory usage even further such that we only use one common bit array for all the readers, but this solution would involve more custom coding and writing some lock structure to deal with concurrent access to the bit array. In practice this may actually lead to slower runtime. We will avoid this for now as even with a few threads we are using much less memory than the default golang map approach of 17Gb.</p>
+
+<p>Using a <a href="https://github.com/mannyray/ipv4_address/blob/master/unique_lines/bash_script.sh">bash script</a> we track the runtime and memory usage of our unique number calculating code:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; ./bash_script.sh 
+READER_COUNT: 1, RUNTIME: 6.53s, MAX_MEM: 0.255 GB
+READER_COUNT: 2, RUNTIME: 3.37s, MAX_MEM: 0.380 GB
+READER_COUNT: 3, RUNTIME: 2.41s, MAX_MEM: 0.505 GB
+READER_COUNT: 4, RUNTIME: 1.89s, MAX_MEM: 0.631 GB
+READER_COUNT: 5, RUNTIME: 1.56s, MAX_MEM: 0.756 GB
+READER_COUNT: 6, RUNTIME: 1.46s, MAX_MEM: 0.881 GB
+READER_COUNT: 7, RUNTIME: 1.37s, MAX_MEM: 1.006 GB
+READER_COUNT: 8, RUNTIME: 1.32s, MAX_MEM: 1.131 GB
+READER_COUNT: 9, RUNTIME: 1.28s, MAX_MEM: 1.257 GB
+READER_COUNT: 10, RUNTIME: 1.23s, MAX_MEM: 1.382 GB
+READER_COUNT: 11, RUNTIME: 1.19s, MAX_MEM: 1.507 GB
+READER_COUNT: 12, RUNTIME: 1.20s, MAX_MEM: 1.632 GB
+READER_COUNT: 13, RUNTIME: 1.18s, MAX_MEM: 1.757 GB
+READER_COUNT: 14, RUNTIME: 1.21s, MAX_MEM: 1.883 GB
+READER_COUNT: 15, RUNTIME: 1.21s, MAX_MEM: 2.008 GB
+</code></pre></div></div>
+
+<p>Our script confirms that parallelizing reduces runtime, despite a bump in memory usage. We go from 6 seconds to 1 second runtime - this is a great improvement from our initial 1 minute long naive hash approach.</p>
+
+</div></div>
+<div id="section-handling-the-real-data-1" class="section"><div id="mobile-section-handling-the-real-data-1" class="section">
+<hr>
+<h2 id="handling-the-real-data-1">Handling the real data</h2>
+
+<p>From the previous work in <code class="language-plaintext highlighter-rouge">Touching every address</code> and <code class="language-plaintext highlighter-rouge">Optimizing the data structure</code>, we now have code (in <a href="https://github.com/mannyray/ipv4_address/blob/master/final/unique_address_count.go"><code class="language-plaintext highlighter-rouge">unique_address_count.go</code></a>) that can process a file of IPv4 addresses efficiently - at least more so than the default approach of reading the stuff line by line and using a hash set. Now how does it handle a more challenging data set?</p>
+
+<p>I was still not willing to analyze the 120Gb test file on my machine so I fired up an AWS EC2 instance of the t3.2xlarge type ( 8 vCPUs and 32 GiB ) and processing the 120Gb files, with <code class="language-plaintext highlighter-rouge">20</code> go routines, took 14 minutes which counted <code class="language-plaintext highlighter-rouge">1 000 000 000</code> unique addresses in a file with <code class="language-plaintext highlighter-rouge">8 000 000 000</code> lines.</p>
+
+<figure class="figcaption-default">
+<center>
+<div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="524 / 1034" data-custom-width-percentage="90" style="width: 90%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/ipv4/final.png" width="100%" class="buffer-image">
+</div></div>
+</center>
+  <figcaption>Screen cap of me running the code on EC2 instance</figcaption>
+</figure>
+
+<p>Interestingly, computing the line count (via <code class="language-plaintext highlighter-rouge">wc -l</code>) also took 14 minutes, but this is not to suggest that my  <code class="language-plaintext highlighter-rouge">unique_address_count.go</code> is (overly) deficient in my implementation since <code class="language-plaintext highlighter-rouge">wc</code> code does not have to carry bit arrays in memory. I think the equal <code class="language-plaintext highlighter-rouge">wc</code> timing leads me to the following mellow conclusion: at least computing unique line count is not slower than computing total line count.</p>
+
+<p>Overall, it was fun to code in go. My biggest struggle was remaining consistent between camelCase and snake_case.</p>
+
+<figure class="figcaption-default">
+<center>
+<div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="1024 / 1024" data-custom-width-percentage="70" style="width: 70%;">
+<div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
+<img src="/assets/ipv4/mellow.png" width="100%" class="buffer-image">
+</div></div>
+</center>
+  <figcaption>Hey chatgpt…generate an image of a mellow situation with a glass half full</figcaption>
+</figure>
+
+</div></div>
+
+                    </div>
+                    <div id="sidebar-1" class="sidebar">
+                    <h3 style="display: flex; align-items: center; justify-content: space-between;">
+                    <span><i class="fa fa-list-ol"></i> Contents</span>
+                    <span class="close-button" id="close-buttons-1" style="font-size: 24px;">×</span>
+                    </h3>
+                    <div class="mobile-scrollable">
+                    <ul id="menu">
+                    <li><a href="#mobile-section-introduction-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Introduction</a></li>
+  <li><a href="#mobile-section-touching-every-address-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Touching every address</a></li>
+  <li><a href="#mobile-section-touching-1-naive-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Touching 1: naive</a></li>
+  <li><a href="#mobile-section-touching-2-seek-ahead-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Touching 2: seek ahead</a></li>
+  <li><a href="#mobile-section-touching-3-parallelize-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Touching 3: parallelize</a></li>
+  <li><a href="#mobile-section-optimizing-the-data-structure-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Optimizing the data structure</a></li>
+  <li><a href="#mobile-section-optimizing-1-default-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Optimizing 1: default</a></li>
+  <li><a href="#mobile-section-optimization-2-custom-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Optimization 2: custom</a></li>
+  <li><a href="#mobile-section-optimization-3-parallelize-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Optimization 3: parallelize</a></li>
+  <li><a href="#mobile-section-handling-the-real-data-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Handling the real data</a></li>
+                    </ul>
+                    </div>
+                    </div>
+                    <button class="popup-button" id="popup-button-1"><i class="fa fa-list-ol"></i></button>
+                    </div>
+<!--toc_end-->
+<script>
+    function isMobileOnlyView() {
+        return window.matchMedia("(max-width: 767px)").matches;
+    }
+
+    if (isMobileOnlyView()) {
+        
+        let popupButtons = [];
+        let targetSections = [];
+        let sidebars = [];
+        let closebuttons = [];
+        let sections_in_target_section = [];
+        let links_in_sidebar = [];
+        let i = 1;
+        let popupButton;
+        while ((popupButton = document.getElementById(`popup-button-${i}`)) !== null) {
+            popupButtons.push(popupButton);
+            const targetSection = document.getElementById(`target-section-${i}`)
+            targetSections.push(targetSection);
+            const sidebar = document.getElementById(`sidebar-${i}`);
+            sidebars.push(sidebar);
+            closebuttons.push(document.getElementById(`close-buttons-${i}`));
+
+            const mobileSections = targetSection.querySelectorAll('[id^="mobile-section"]');
+            // Convert NodeList to an array and push it to sections_in_target_section
+            sections_in_target_section.push(Array.from(mobileSections));
+
+            const links = sidebar.querySelectorAll('a');
+            links_in_sidebar.push(Array.from(links));
+            i++;
+        }
+        
+        let popupButtonCount = i - 1;
+        
+        window.addEventListener('scroll', function() {
+            for (let i = 1; i <= popupButtonCount; i++) {
+                const popupButton = popupButtons[i-1];
+                const targetSection = targetSections[i-1]
+                const sectionPosition = targetSection.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+                
+                // Check if the target section is halfway through the viewport
+                if (sectionPosition.top < viewportHeight / 2 && sectionPosition.bottom > viewportHeight / 2) {
+                    popupButton.classList.add('show'); // Show the button
+                } else {
+                    popupButton.classList.remove('show'); // Hide the button
+                }
+                
+                const sidebar = sidebars[i-1];
+                // Hide sidebar on scroll (only on mobile)
+                if (sidebar.classList.contains('show') && window.innerWidth <= 768) {
+                    sidebar.classList.remove('show'); // Hide the sidebar
+                }
+                
+                // Highlight active link based on scroll position
+                let currentSectionId = '';
+                sections_in_target_section[i-1].forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    const sectionBottom = section.getBoundingClientRect().bottom;
+
+                    // Check if the section is in view and at the top of the viewport
+                    if (sectionTop <= viewportHeight / 2 && sectionBottom > viewportHeight / 2) {
+                        currentSectionId = section.id;
+                    }
+                });
+                
+                 links_in_sidebar[i-1].forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSectionId}`) {
+                        link.classList.add('active'); // Highlight active link
+                    }
+                });
+            }
+        });
+        
+        for (let i = 1; i <= popupButtonCount; i++) {
+            // Function to toggle sidebar visibility
+            let popupButton = popupButtons[i-1];
+            popupButton.addEventListener('click', function() {
+                const sidebar = sidebars[i-1];
+                sidebar.classList.toggle('show'); // Toggle sidebar visibility
+                if (sidebar.classList.contains('show')) {
+                    // Calculate the sidebar height and set its position
+                    const sidebarHeight = sidebar.scrollHeight; // Use scrollHeight for accurate height
+                    const windowHeight = window.innerHeight; // Get the window height
+                    const topPosition = (windowHeight / 2); // - (sidebarHeight / 2); // Calculate top position
+                    sidebar.style.top = `${topPosition}px`; // Set the top position
+                    
+                    links_in_sidebar[i-1].forEach(link => {
+                       if (link.classList.contains('active')) {
+
+                           function delay(time) {
+                             return new Promise(resolve => setTimeout(resolve, time));
+                           }
+                           function scroll_adjust(){
+                               // add the delay so that the sidebar can be loaded from zero size
+                               // before getting all the various coordinates used in calculation
+                               const scrollableElement = link.closest(".mobile-scrollable");
+                               const scollableRect = scrollableElement.getBoundingClientRect();
+                               const linkRect = link.getBoundingClientRect();
+                               
+                               if( ( linkRect.y + 100 ) > ( scollableRect.y + scollableRect.height ) || linkRect.y < scollableRect.y){
+                                   const scrollTop = linkRect.top - scollableRect.top + scrollableElement.scrollTop - (scollableRect.height / 2) + (link.offsetHeight / 2);
+                                   scrollableElement.scrollTo({ top: scrollTop, behavior: 'smooth' });
+                               }
+                           }
+                           
+                           delay(1000).then(() =>scroll_adjust() );
+                       }
+                    })
+                }
+                
+                // Close sidebar when close button is clicked
+                closebuttons[i-1].addEventListener('click', function() {
+                    sidebar.classList.remove('show'); // Hide the sidebar
+                });
+                
+                // Close sidebar when clicking outside of it
+                document.addEventListener('click', function(event) {
+                    if (sidebar.classList.contains('show') && !sidebar.contains(event.target) && !popupButton.contains(event.target)) {
+                        sidebar.classList.remove('show'); // Hide the sidebar
+                    }
+                });
+                
+            });
+        }
+    } else {
+        // for desktop
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            const links = document.querySelectorAll('#menu a');
+            
+            let currentSection = ''
+            let current = ''
+            
+            // highlight the active link based on where the location of scroll
+            output_string = window.scrollY + ""
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const sectionBottom = section.getBoundingClientRect().bottom;
+                
+                output_string = output_string + "(" +sectionTop + ", " + sectionBottom + ")"
+                if (sectionTop > 50 ) {
+                    if(currentSection == ''){
+                        currentSection = section
+                    }
+                    else if(currentSection.getBoundingClientRect().top > 0 && sectionTop < currentSection.getBoundingClientRect().top ){
+                        currentSection = section
+                    }
+                    current = currentSection.getAttribute('id');
+                }
+                else if (sectionBottom > 50  ){
+                    if(currentSection == ''){
+                        currentSection = section
+                    }
+                    else if( sectionBottom < currentSection.getBoundingClientRect().bottom ){
+                        currentSection = section
+                    }
+                    current = currentSection.getAttribute('id');
+                }
+            });
+            
+            links.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                    // For cases when scrollable toc is bigger than screen view
+                    // and active link is outside of view
+                    const scrollableElement = link.closest(".scrollable");
+                    const scollableRect = scrollableElement.getBoundingClientRect();
+                    const linkRect = link.getBoundingClientRect();
+                    
+                    if( ( linkRect.y + 100 ) > ( scollableRect.y + scollableRect.height ) || linkRect.y < scollableRect.y){
+                        const scrollTop = linkRect.top - scollableRect.top + scrollableElement.scrollTop - (scollableRect.height / 2) + (link.offsetHeight / 2);
+                        scrollableElement.scrollTo({ top: scrollTop, behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    }
+</script>
+
+<script>
+    const wrappers = document.querySelectorAll('.placeholder-wrapper');
+    console.log(wrappers);
+    wrappers.forEach(wrapper => {
+        // Parse aspect ratio expression in data-aspect-ratio attribute
+        const ratioExpr = wrapper.dataset.aspectRatio;
+        let aspectRatio = NaN;
+        try {
+            // Evaluate the aspect ratio (e.g. "1645 / 1077")
+            aspectRatio = Function('"use strict";return (' + ratioExpr + ')')();
+        } catch {
+            aspectRatio = NaN;
+        }
+        
+        let widthPercentage = 100;
+        if (wrapper && wrapper.dataset && wrapper.dataset.customWidthPercentage !== undefined) {
+            widthPercentage = wrapper.dataset.customWidthPercentage;
+        }
+        console.log(widthPercentage);
+        console.log("GGGG")
+        
+
+        if (!isNaN(aspectRatio)) {
+            wrapper.style.paddingBottom = `${aspectRatio * widthPercentage}%`;
+        } else {
+            // fallback to 1:1 if invalid
+            wrapper.style.paddingBottom = `100%`;
+        }
+
+        const img = wrapper.querySelector('.buffer-image');
+        const placeholder = wrapper.querySelector('.placeholder');
+
+        img.onload = function () {
+            placeholder.style.display = 'none';
+            img.style.display = 'block';
+            wrapper.style.paddingBottom = '0';  // Remove padding-bottom, avoid whitespace
+        };
+    });
+</script>
+</body>
+  </article>
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+	<div class="wrapper">
+
+		<!--<p style="color:grey">Welcome to my site. Take a look around and don't be shy, shoot me a message!</p>-->
+	</div>
+  <div class="wrapper">
+
+    <!--<h2 class="footer-heading">Stan Zonov</h2>-->
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-2">
+        <ul class="contact-list">
+          <!--<li>Stan Zonov</li>-->
+          <!--<li>hello at szonov.com</li>-->
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-1">
+	     
+        <ul class="social-media-list">
+	   <!--
+            <p>
+
+<span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+																	<g transform="scale(0.035)">
+                  <path fill="#828282" d="M101.3 141.6v228.9h0.3 308.4 0.8V141.6H101.3zM375.7 167.8l-119.7 91.5 -119.6-91.5H375.7zM127.6 194.1l64.1 49.1 -64.1 64.1V194.1zM127.8 344.2l84.9-84.9 43.2 33.1 43-32.9 84.7 84.7L127.8 344.2 127.8 344.2zM384.4 307.8l-64.4-64.4 64.4-49.3V307.8z"/>
+																</g>
+                </svg>
+              </span>
+
+              <span class="username">hello at szonov.com</span>
+	    </p>
+	    </li>-->
+
+
+          
+
+          
+
+
+          
+
+
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+        <p class="text"></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

@@ -5,9 +5,747 @@
     <description></description>
     <link>https://szonov.com/</link>
     <atom:link href="https://szonov.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 06 Aug 2025 12:58:35 -0500</pubDate>
-    <lastBuildDate>Wed, 06 Aug 2025 12:58:35 -0500</lastBuildDate>
+    <pubDate>Fri, 28 Nov 2025 18:35:26 -0500</pubDate>
+    <lastBuildDate>Fri, 28 Nov 2025 18:35:26 -0500</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
+    
+      <item>
+        <title>IPv4 address hunt</title>
+        <description>&lt;!--toc_start--&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;Hello dear reader!&lt;/p&gt;
+
+&lt;p&gt;In this blog post we will solve the following problem:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;You have a simple text file with IPv4 addresses. An IPv4 address is defined as a unique label for a device on a network, written as four numbers separated by periods where each number is in range of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[0,255]&lt;/code&gt; (e.g. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.132.44.2&lt;/code&gt; ). One line is one address, line by line. You should calculate the number of unique addresses in this file using as little memory and time as possible. There is a “naive” algorithm for solving this problem (read line by line, put lines into HashSet). It’s better if your implementation is more complicated and faster than this naive algorithm. The task must be completed in Golang. The file is unlimited in size and can occupy tens and hundreds of gigabytes. A test file could be around 120Gb.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The blog will read a bit like a verbose explanation of basic programming data structures and optimization in a discover-as-I-go-along fashion.&lt;/p&gt;
+
+&lt;h2 id=&quot;touching-every-address&quot;&gt;Touching every address&lt;/h2&gt;
+
+&lt;p&gt;No matter how our code ends up computing the number of unique addresses, one thing we can be sure of: every line in the file must be visited, because if we skip a line then we might be skipping acknowledging a unique IPv4 address and therefore skipping incrementing our unique address count by one.&lt;/p&gt;
+
+&lt;p&gt;Furthermore, as suggested in the problem description, accessing the addresses line by line would be a “naive”, inefficient solution - a big reason for which is that there is room for potential parallelism in our solution. We could split the files in to chunks of the file and within each chunk compute unique addresses and then somehow combine the solution at the end for a total unique count.&lt;/p&gt;
+
+&lt;p&gt;In this section, we are primarily focused on how to visit each line in the file as efficiently as possible so we will avoid the exact uniqueness computing algorithm involved for now. This will allow us to solve the overall problem in separate parts. Since we are just visiting and not handling any computations then we will call our visit of each IPv4 address a simple touch.&lt;/p&gt;
+
+&lt;figure class=&quot;figcaption-default&quot;&gt;
+&lt;center&gt;
+&lt;img src=&quot;/assets/ipv4/touch.png&quot; width=&quot;50%&quot; /&gt;
+&lt;/center&gt;
+  &lt;figcaption&gt;Lightly touching each line in a computer file. Thanks for generating this image chatgpt!&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Given that our file is 120Gb in size and that the shortest, ASCII represented, address is a four single digit numbers with three dots and a newline character (e.g. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1.2.3.4\n&lt;/code&gt;), with 1 byte per character we get an upper bound of 15 billion address in our file (120GB/8bytes). Although all addresses will not necessarily be the shortest ASCII length-ed address, our estimation is an effective way of giving an upper bound number to what we are working with.&lt;/p&gt;
+
+&lt;h2 id=&quot;touching-1-naive&quot;&gt;Touching 1: naive&lt;/h2&gt;
+
+&lt;p&gt;If we parallelize our uniqueness computation then we would likely have multiple processes accessing the file at the same time. Each process would handle a separate chunk of the file. However, let’s not get ahead of ourselves and just focus on reading the lines with one process. Time to get my hands dirty and start coding.&lt;/p&gt;
+
+&lt;p&gt;Now although I had a link to download a test 120Gb file… I wasn’t going to open that up on my machine due to hardware and network concerns. I needed something smaller and local to test with ASAP. I needed a script to generate the test data. For this I hit up chatgpt:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&amp;gt; how many ASCII characters would equal 1gb in memory&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;&amp;lt;chatgpt responds …&amp;gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&amp;gt; okay. Given that that is the case, can you write a python script that writes a file of a series of consecutive numbers, starting at one and incrementing by one with each number on a separate line such that the file is near 1gb in size&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Chatgpt produced a beautiful &lt;a href=&quot;https://github.com/mannyray/ipv4_address/blob/master/touching_every_address/generate_file.py&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;generate_file.py&lt;/code&gt;&lt;/a&gt; script which I executed to get a 1Gb file:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; python3 generate_file.py test.txt
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;du&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-sh&lt;/span&gt; test.txt 
+1.0G    test.txt
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 1 test.txt 
+1
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 1 test.txt
+118485293
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The test file starts at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; and ends with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;118485293&lt;/code&gt; for a total 1Gb file size. With this test file, we transform our unique IP address problem to an analogous problem of summing up all the numbers in the file. The summing problem is similar in that there is a big file to be processed where each line needs to be touched. Fortunately, for the summing problem, checking for correctness is a simple &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;O(1)&lt;/code&gt; operation as the formula for getting the sum of numbers from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;N&lt;/code&gt; is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SUM_FROM_1_TO_N(N) = (N*(N+1))/2&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The first Go code I wrote here, as a warm up, was &lt;a href=&quot;https://github.com/mannyray/ipv4_address/blob/master/touching_every_address/basic_read.go&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;basic_read.go&lt;/code&gt;&lt;/a&gt; (no chatgpt, but I did have to refresh myself on stackoverflow for how to load and read a file). The code sequentially read the file line by line and then added the numbers up in a rolling sum after which I confirmed for sum correctness against the formula:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; go build basic_read.go
+&amp;gt; time ./basic_read
+Rolling sum: 7019382387890571
+Rolling sum matched formula!
+./basic_read  12.56s user 0.44s system 102% cpu 12.707 total
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This code in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;basic_read.go&lt;/code&gt; would match the naive solution for the unique IPv4 address problem due to reading file line by line from beginning to start.&lt;/p&gt;
+
+&lt;h2 id=&quot;touching-2-seek-ahead&quot;&gt;Touching 2: seek ahead&lt;/h2&gt;
+
+&lt;p&gt;Next, I decided to try to parallelize my file reading. We could have multiple file readers, all reading the file at the same time at different locations. Before parallelizing, I must figure out how a to have a single reader start reading a file at an arbitrary location. According to &lt;a href=&quot;https://pkg.go.dev/os#File.Seek&quot;&gt;documentation&lt;/a&gt;, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Seek&lt;/code&gt; method could be of assistance here:&lt;/p&gt;
+
+&lt;div class=&quot;language-golang highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Seek&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;offset&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;whence&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ret&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;where&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Seek sets the offset for the next Read or Write on file to offset, interpreted according to whence: 0 means relative to the origin of the file, 1 means relative to the current offset, and 2 means relative to the end.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Now let’s do a quick sanity check. From the problem statement: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;The file is unlimited in size and can occupy tens and hundreds of gigabytes&lt;/code&gt;. The max val for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;int64&lt;/code&gt; is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;9,223,372,036,854,775,807&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Seek&lt;/code&gt; offsets in bytes. Thus, if we had a file large enough where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;int64&lt;/code&gt; max val bytes in would be a file’s halfway mark then as long as our file is less than 9 billion Gb then the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Seek&lt;/code&gt; offset can easily hit past the halfway point. Therefore, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Seek&lt;/code&gt; is a good candidate for dealing in our context of files measured in hundreds of Gb.&lt;/p&gt;
+
+&lt;p&gt;Next up, I decided to write up some code to experiment with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Seek&lt;/code&gt; method. If I &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Seek&lt;/code&gt; somewhere in the middle of a file between number &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; and last number in file &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;118 485 293&lt;/code&gt; (say &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;50 000 000&lt;/code&gt;) then I can do the rolling sum from that middle number to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;118 485 293&lt;/code&gt; and can still verify for sum correctness by subtracting the sums (e.g. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SUM_FROM_1_TO_N(118 485 293) - SUM_FROM_1_TO_N(50 000 000-1)&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;The problem I encounter now is that I am thinking of splitting the file line by line, but &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Seek&lt;/code&gt; deals in byte offsets meaning that it is possible for me to offset to the middle of a number since each number past &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;9&lt;/code&gt; is at least two bytes in length when stored in ASCII format. I will have to search for the newline character &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;\n&apos;&lt;/code&gt; as that is what separates each line and new number. I solve this concern in &lt;a href=&quot;https://github.com/mannyray/ipv4_address/blob/master/touching_every_address/intermediate_read.go&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;intermediate_sum.go&lt;/code&gt;&lt;/a&gt; with function:&lt;/p&gt;
+
+&lt;div class=&quot;language-golang highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MAX_BYTE_COUNT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;/*
+We scan MAX_BYTE_COUNT ahead using ReadAt to find the nearest &quot;\n&quot;,
+after which we return the index of the &quot;\n&quot; + 1 to indicate the next
+fresh line of data.
+*/&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getNextNewLineByteLocation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;startingLocation&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;byteOfNearestStartingNewLine&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;error&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We set &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MAX_BYTE_COUNT&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;11&lt;/code&gt; because in our current case of 1Gb file we have max number &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;118 485 293&lt;/code&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;9&lt;/code&gt; digits) wrapped by a new line &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;\n&apos;&lt;/code&gt; on both sides. In the case of IPv4 addresses, the max length-ed address is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;15&lt;/code&gt; (e.g. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;255.255.255.255&lt;/code&gt;) so we would set &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MAX_BYTE_COUNT&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;17&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Running our code we get:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;./intermediate_read 
+File size: 1073741828 bytes
+Initial offset: 50000000 bytes
+File pointer reset offset to fresh line: 50000008 bytes in
+The first number, with offset read: 6388890
+Rolling sum: 6998973433368966
+Rolling sum matched formula!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;touching-3-parallelize&quot;&gt;Touching 3: parallelize&lt;/h2&gt;
+
+&lt;p&gt;Now that we have the ability to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Seek&lt;/code&gt; to read at an arbitrary point in the file, we can now see if we can have multiple readers of the file, each reading their own offset portion in parallel. Each reader would read the numbers and sum them up right up until the next area in the file that another reader was working on. Each reader would store their sum and once all readers are done, the resulting sum would be added up for the grand cumulative sum.&lt;/p&gt;
+
+&lt;figure class=&quot;figcaption-default&quot;&gt;
+&lt;center&gt;
+&lt;img src=&quot;/assets/ipv4/readers.png&quot; width=&quot;70%&quot; /&gt;
+&lt;/center&gt;
+  &lt;figcaption&gt;Instead of having one reader summing up the numbers in the file, we can have multiple to make things faster. Thanks for generating this image chatgpt!&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;We can define the length of each chunk of file to be read by reader by dividing up the files’s over length in bytes by how many readers we will use. The previously written function &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;getNextNewLineByteLocation&lt;/code&gt; will assist us in determining where each reader should start and end to make sure we don’t miss a single line:&lt;/p&gt;
+
+&lt;style&gt;
+  .expandable {
+    --preview-height: 120px;   /* how much is visible when collapsed */
+    --fade-size: 120px;         /* how tall the fade-out is at the bottom */
+    --transition-ms: 280ms;
+
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    margin: 2rem auto;
+  }
+
+    .expandable__row {
+      display: flex; /* horizontal row: bar + content */
+      width: 100%;
+    }
+    
+  .expandable__content {
+    overflow: hidden;
+    max-height: var(--preview-height);
+    transition: max-height var(--transition-ms) ease;
+  }
+
+  /* Fade-out effect when collapsed: uses CSS mask (with -webkit- prefix for Safari) */
+  .expandable--collapsed .expandable__content {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 0%,
+      black calc(var(--preview-height) - var(--fade-size)),
+      transparent var(--preview-height)
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0,0,0,1) 0%,
+      rgba(0,0,0,1) calc(var(--preview-height) - var(--fade-size)),
+      rgba(0,0,0,0) var(--preview-height)
+    );
+    -webkit-mask-size: 100% var(--preview-height);
+    mask-size: 100% var(--preview-height);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
+  /* Expanded state: remove mask and allow full height */
+  .expandable--expanded .expandable__content {
+    -webkit-mask-image: none;
+    mask-image: none;
+    /* Use a very large max-height so the transition can animate open */
+    max-height: 200vh;
+  }
+
+  .expandable__toggle {
+    margin-top: 0.5rem;
+    border: 0;
+    padding: 0.6rem 0.9rem;
+    border-radius: 0.6rem;
+    background: #111;
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    width: 100%;
+  }
+    
+.expandable__bar {
+    border-left: 4px solid #ccc;   /* grey vertical bar */
+    padding-left: 1em;
+}
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .expandable__content { transition: none; }
+  }
+&lt;/style&gt;
+
+&lt;section class=&quot;expandable expandable--collapsed&quot;&gt;&lt;div class=&quot;expandable__row&quot;&gt;&lt;div class=&quot;expandable__bar&quot;&gt;&lt;/div&gt;&lt;div class=&quot;expandable__content&quot; aria-hidden=&quot;false&quot;&gt;
+&lt;div class=&quot;language-golang highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;totalSize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fileInfo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;//compute offsets that are used in separating &lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;//each chunk used by each reader&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;approximate_chunk_length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;totalSize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chunks_to_be_separately_read&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;offsets&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chunks_to_be_separately_read&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int64&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;offsets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;chunks_to_be_separately_read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;roughOffSet&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;offsets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;approximate_chunk_length&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;freshLineOffSet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getNextNewLineByteLocation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;roughOffSet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;panic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Sprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;getNextNewLineBytLocation error: %s&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()))&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;offsets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;freshLineOffSet&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;offsets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chunks_to_be_separately_read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;totalSize&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;button class=&quot;expandable__toggle&quot; type=&quot;button&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;bio-content&quot;&gt; Show more &lt;/button&gt;&lt;/section&gt;
+&lt;script&gt;
+{
+    const scriptEl = document.currentScript;
+    const section = scriptEl.previousElementSibling;
+    
+    document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
+        (function () {
+            const btn = section.querySelector(&apos;.expandable__toggle&apos;);
+            
+            function updateUI(expanded) {
+                section.classList.toggle(&apos;expandable--collapsed&apos;, !expanded);
+                section.classList.toggle(&apos;expandable--expanded&apos;, expanded);
+                btn.setAttribute(&apos;aria-expanded&apos;, String(expanded));
+                btn.textContent = expanded ? &apos;Show less&apos; : &apos;Show more&apos;;
+                
+                // Scroll into view only when collapsing
+                if (!expanded) {
+                    const rect = section.getBoundingClientRect();
+                    const isTopVisible = rect.top &gt;= 0 &amp;&amp; rect.top &lt;= window.innerHeight;
+                    if (!isTopVisible) {
+                        section.scrollIntoView({ behavior: &quot;smooth&quot;, block: &quot;start&quot; });
+                    }
+                }
+            }
+            btn.addEventListener(&apos;click&apos;, function () {
+                const expanded = btn.getAttribute(&apos;aria-expanded&apos;) === &apos;true&apos;;
+                updateUI(!expanded);
+            });
+            // Optional: ensure we start collapsed
+            updateUI(false);
+        })();
+    }
+                              );
+}
+&lt;/script&gt;
+
+&lt;p&gt;We then unleash the readers on each chunk via go routines (All this code is in &lt;a href=&quot;https://github.com/mannyray/ipv4_address/blob/master/touching_every_address/advanced_read.go&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;advanced_read.go&lt;/code&gt;&lt;/a&gt;):&lt;/p&gt;
+
+&lt;style&gt;
+  .expandable {
+    --preview-height: 120px;   /* how much is visible when collapsed */
+    --fade-size: 120px;         /* how tall the fade-out is at the bottom */
+    --transition-ms: 280ms;
+
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    margin: 2rem auto;
+  }
+
+    .expandable__row {
+      display: flex; /* horizontal row: bar + content */
+      width: 100%;
+    }
+    
+  .expandable__content {
+    overflow: hidden;
+    max-height: var(--preview-height);
+    transition: max-height var(--transition-ms) ease;
+  }
+
+  /* Fade-out effect when collapsed: uses CSS mask (with -webkit- prefix for Safari) */
+  .expandable--collapsed .expandable__content {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 0%,
+      black calc(var(--preview-height) - var(--fade-size)),
+      transparent var(--preview-height)
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0,0,0,1) 0%,
+      rgba(0,0,0,1) calc(var(--preview-height) - var(--fade-size)),
+      rgba(0,0,0,0) var(--preview-height)
+    );
+    -webkit-mask-size: 100% var(--preview-height);
+    mask-size: 100% var(--preview-height);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
+  /* Expanded state: remove mask and allow full height */
+  .expandable--expanded .expandable__content {
+    -webkit-mask-image: none;
+    mask-image: none;
+    /* Use a very large max-height so the transition can animate open */
+    max-height: 200vh;
+  }
+
+  .expandable__toggle {
+    margin-top: 0.5rem;
+    border: 0;
+    padding: 0.6rem 0.9rem;
+    border-radius: 0.6rem;
+    background: #111;
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    width: 100%;
+  }
+    
+.expandable__bar {
+    border-left: 4px solid #ccc;   /* grey vertical bar */
+    padding-left: 1em;
+}
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .expandable__content { transition: none; }
+  }
+&lt;/style&gt;
+
+&lt;section class=&quot;expandable expandable--collapsed&quot;&gt;&lt;div class=&quot;expandable__row&quot;&gt;&lt;div class=&quot;expandable__bar&quot;&gt;&lt;/div&gt;&lt;div class=&quot;expandable__content&quot; aria-hidden=&quot;false&quot;&gt;
+&lt;div class=&quot;language-golang highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;resultsChan&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;make&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;chan&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;chunks_to_be_separately_read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wg&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sync&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;WaitGroup&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;chunks_to_be_separately_read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;wg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;starting_byte&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;offsets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;bytes_to_be_read&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;offsets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;offsets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// launch a go routine for each chunk of the file&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// that computes the sum for all the numbers starting at &lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// starting_byte location and going bytes_to_be_read ahead&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;go&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getSum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;starting_byte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bytes_to_be_read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;resultsChan&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;// wait for all the routines to finish as only&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;// then can we compute the correct overall sum&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;go&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;wg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Wait&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resultsChan&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}()&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;// the go routines saved their sums for their file chunk&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;// within resultsChan. We extract those sums and compute&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;// a grand sum to get the sum of all the lines in the file&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rolling_sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;big&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NewInt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;range&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;resultsChan&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;rolling_sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rolling_sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rolling_sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;button class=&quot;expandable__toggle&quot; type=&quot;button&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;bio-content&quot;&gt; Show more &lt;/button&gt;&lt;/section&gt;
+&lt;script&gt;
+{
+    const scriptEl = document.currentScript;
+    const section = scriptEl.previousElementSibling;
+    
+    document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
+        (function () {
+            const btn = section.querySelector(&apos;.expandable__toggle&apos;);
+            
+            function updateUI(expanded) {
+                section.classList.toggle(&apos;expandable--collapsed&apos;, !expanded);
+                section.classList.toggle(&apos;expandable--expanded&apos;, expanded);
+                btn.setAttribute(&apos;aria-expanded&apos;, String(expanded));
+                btn.textContent = expanded ? &apos;Show less&apos; : &apos;Show more&apos;;
+                
+                // Scroll into view only when collapsing
+                if (!expanded) {
+                    const rect = section.getBoundingClientRect();
+                    const isTopVisible = rect.top &gt;= 0 &amp;&amp; rect.top &lt;= window.innerHeight;
+                    if (!isTopVisible) {
+                        section.scrollIntoView({ behavior: &quot;smooth&quot;, block: &quot;start&quot; });
+                    }
+                }
+            }
+            btn.addEventListener(&apos;click&apos;, function () {
+                const expanded = btn.getAttribute(&apos;aria-expanded&apos;) === &apos;true&apos;;
+                updateUI(!expanded);
+            });
+            // Optional: ensure we start collapsed
+            updateUI(false);
+        })();
+    }
+                              );
+}
+&lt;/script&gt;
+
+&lt;p&gt;We also modify the code to be able to take a commandline argument so we can specify how many readers we want. We test our code with reader count in range &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;10&lt;/code&gt; (thanks chatgpt for this quick &lt;a href=&quot;https://github.com/mannyray/ipv4_address/blob/master/touching_every_address/bash_script.sh&quot;&gt;bash script&lt;/a&gt;):&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;READER_COUNT &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;1..10&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# Capture the real time from the `time` output&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;TIME_OUTPUT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;time&lt;/span&gt; ./advanced_read &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$READER_COUNT&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; 2&amp;gt;&amp;amp;1 &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;/dev/null &lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# Extract the &quot;real&quot; elapsed time&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;TIME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$TIME_OUTPUT&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep &lt;/span&gt;real | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;{print $2}&apos;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;READER_COUNT: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$READER_COUNT&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;, TIME_TO_RUN: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$TIME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;where we get the output:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;READER_COUNT: 1, TIME_TO_RUN: 0m13.245s
+READER_COUNT: 2, TIME_TO_RUN: 0m7.289s
+READER_COUNT: 3, TIME_TO_RUN: 0m5.262s
+READER_COUNT: 4, TIME_TO_RUN: 0m4.229s
+READER_COUNT: 5, TIME_TO_RUN: 0m3.671s
+READER_COUNT: 6, TIME_TO_RUN: 0m3.558s
+READER_COUNT: 7, TIME_TO_RUN: 0m3.611s
+READER_COUNT: 8, TIME_TO_RUN: 0m3.590s
+READER_COUNT: 9, TIME_TO_RUN: 0m3.602s
+READER_COUNT: 10, TIME_TO_RUN: 0m3.641s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We have thus cut our read time from about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;13.2&lt;/code&gt; seconds to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3.5&lt;/code&gt; when we parallelize our reading operation (roughly &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;70%&lt;/code&gt; improvement)! The formula &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SUM_FROM_1_TO_N&lt;/code&gt; is used here to make sure that despite our reduction in runtime, no line is missed, via some sort of off-by-one error, in computing the overall sum.&lt;/p&gt;
+
+&lt;p&gt;Although our optimization investigation in this section has been on a test &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1Gb&lt;/code&gt; file for a number counting problem, we now have some hope that the IPv4 address processing code we will write will parse the text file faster than the naive line by line approach if it has multiple readers.&lt;/p&gt;
+
+&lt;h2 id=&quot;optimizing-the-data-structure&quot;&gt;Optimizing the data structure&lt;/h2&gt;
+
+&lt;p&gt;In the previous sections we developed code to have multiple go routines (readers) split and process a file in chunks. This allowed us to process the data quicker than just visiting each file line sequentially from beginning to end. Each reader then summed up the numbers within each section. Once all the routines were done, a global sum was computed of all the lines in the file based on each routine’s sum.&lt;/p&gt;
+
+&lt;p&gt;Switching back to the original IPv4 address problem, we remind ourselves that we are interested in computing the amount of unique addresses in the overall file. Unfortunately, having go routines compute unique address counts within each file chunk and then summing the count at the end will not work, because a unique count number for each file chunk cannot confirm if the the same address appeared in both file chunks which would lead us to overcount.&lt;/p&gt;
+
+&lt;p&gt;Therefore, each go routine that processes a portion of the file must output some sort of set of unique addresses. Once we have the sets from each routine we can combine them like a venn diagram of sorts such that we don’t double count the intersecting entries.&lt;/p&gt;
+
+&lt;figure class=&quot;figcaption-default&quot;&gt;
+&lt;center&gt;
+&lt;img src=&quot;/assets/ipv4/address_intersection.png&quot; width=&quot;70%&quot; /&gt;
+&lt;/center&gt;
+  &lt;figcaption&gt;Unique addresses found by each reader have some unique addresses to those found in other chunks - we make sure to not double count them. Thanks for generating this image chatgpt!&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&quot;optimizing-1-default&quot;&gt;Optimizing 1: default&lt;/h2&gt;
+
+&lt;p&gt;The good candidate data structure for this venn diagram like computation would be a set, but as I understand there is no such native structure in golang, so instead I will just use a map/dictionary to mock a set. For the non programming reader of this article - forgive me as I won’t dive too deep into what a map is as it is considered a pretty standard data structure in programming (read more &lt;a href=&quot;https://victoriametrics.com/blog/go-map/&quot;&gt;here&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;There is potential to use some sort of custom data structure that would perhaps take advantage of the fixed structure of the IPv4 addresses. However, with a custom data structure you need to be very careful and do lots of custom tests to be sure it works - I’m just itching to test the 120Gb file! A sturdy structure like the map might just be good enough.&lt;/p&gt;
+
+&lt;p&gt;Similar to the previous section, I first create a script that can help me generate some test data. I will reuse the script of writing consecutive numbers to a 1Gb &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;test.txt&lt;/code&gt; file from before, but instead of consecutive numbers, I will set it to be a random number on each line. Our objective will be not getting a sum of all numbers, but computing how many unique numbers there are - similar to computing how many unique IPv4 addresses there are.&lt;/p&gt;
+
+&lt;p&gt;I then write some basic go code (&lt;a href=&quot;https://github.com/mannyray/ipv4_address/blob/master/unique_lines/basic_unique.go&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;basic_unique.go&lt;/code&gt;&lt;/a&gt;) that reads the file of random numbers line by line with a single reader and counts up unique counts using a the default map structure. The code is so short that I’ll just paste it here:&lt;/p&gt;
+
+&lt;style&gt;
+  .expandable {
+    --preview-height: 120px;   /* how much is visible when collapsed */
+    --fade-size: 120px;         /* how tall the fade-out is at the bottom */
+    --transition-ms: 280ms;
+
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    margin: 2rem auto;
+  }
+
+    .expandable__row {
+      display: flex; /* horizontal row: bar + content */
+      width: 100%;
+    }
+    
+  .expandable__content {
+    overflow: hidden;
+    max-height: var(--preview-height);
+    transition: max-height var(--transition-ms) ease;
+  }
+
+  /* Fade-out effect when collapsed: uses CSS mask (with -webkit- prefix for Safari) */
+  .expandable--collapsed .expandable__content {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 0%,
+      black calc(var(--preview-height) - var(--fade-size)),
+      transparent var(--preview-height)
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0,0,0,1) 0%,
+      rgba(0,0,0,1) calc(var(--preview-height) - var(--fade-size)),
+      rgba(0,0,0,0) var(--preview-height)
+    );
+    -webkit-mask-size: 100% var(--preview-height);
+    mask-size: 100% var(--preview-height);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
+  /* Expanded state: remove mask and allow full height */
+  .expandable--expanded .expandable__content {
+    -webkit-mask-image: none;
+    mask-image: none;
+    /* Use a very large max-height so the transition can animate open */
+    max-height: 200vh;
+  }
+
+  .expandable__toggle {
+    margin-top: 0.5rem;
+    border: 0;
+    padding: 0.6rem 0.9rem;
+    border-radius: 0.6rem;
+    background: #111;
+    color: white;
+    cursor: pointer;
+    font: inherit;
+    width: 100%;
+  }
+    
+.expandable__bar {
+    border-left: 4px solid #ccc;   /* grey vertical bar */
+    padding-left: 1em;
+}
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .expandable__content { transition: none; }
+  }
+&lt;/style&gt;
+
+&lt;section class=&quot;expandable expandable--collapsed&quot;&gt;&lt;div class=&quot;expandable__row&quot;&gt;&lt;div class=&quot;expandable__bar&quot;&gt;&lt;/div&gt;&lt;div class=&quot;expandable__content&quot; aria-hidden=&quot;false&quot;&gt;
+&lt;div class=&quot;language-golang highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;bufio&quot;&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;fmt&quot;&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;log&quot;&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;os&quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;test.txt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;err&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Fatal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;defer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;scanner&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bufio&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NewScanner&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;unique_map&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;make&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{})&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scanner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Scan&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;current_line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scanner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;unique_map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current_line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}{}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Unique numbers: %d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unique_map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;/div&gt;&lt;/div&gt;&lt;button class=&quot;expandable__toggle&quot; type=&quot;button&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;bio-content&quot;&gt; Show more &lt;/button&gt;&lt;/section&gt;
+&lt;script&gt;
+{
+    const scriptEl = document.currentScript;
+    const section = scriptEl.previousElementSibling;
+    
+    document.addEventListener(&quot;DOMContentLoaded&quot;, function() {
+        (function () {
+            const btn = section.querySelector(&apos;.expandable__toggle&apos;);
+            
+            function updateUI(expanded) {
+                section.classList.toggle(&apos;expandable--collapsed&apos;, !expanded);
+                section.classList.toggle(&apos;expandable--expanded&apos;, expanded);
+                btn.setAttribute(&apos;aria-expanded&apos;, String(expanded));
+                btn.textContent = expanded ? &apos;Show less&apos; : &apos;Show more&apos;;
+                
+                // Scroll into view only when collapsing
+                if (!expanded) {
+                    const rect = section.getBoundingClientRect();
+                    const isTopVisible = rect.top &gt;= 0 &amp;&amp; rect.top &lt;= window.innerHeight;
+                    if (!isTopVisible) {
+                        section.scrollIntoView({ behavior: &quot;smooth&quot;, block: &quot;start&quot; });
+                    }
+                }
+            }
+            btn.addEventListener(&apos;click&apos;, function () {
+                const expanded = btn.getAttribute(&apos;aria-expanded&apos;) === &apos;true&apos;;
+                updateUI(!expanded);
+            });
+            // Optional: ensure we start collapsed
+            updateUI(false);
+        })();
+    }
+                              );
+}
+&lt;/script&gt;
+
+&lt;p&gt;Running the code I get:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; go build basic_unique.go
+&amp;gt; time ./basic_unique 
+Unique numbers: 102894356
+./basic_unique  43.04s user 35.84s system 114% cpu 1:08.86 total
+&amp;gt; wc -l test.txt
+108580761 test.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In a file of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;108 580 761&lt;/code&gt; lines we get &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;102 894 356&lt;/code&gt; unique entries ( or in other words we have that about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;5%&lt;/code&gt; of the lines are duplicates). The code execution is over a minute in length which compared to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;basic_read&lt;/code&gt; from before, where we summed up numbers instead of storing unique numbers, is 5 times slower (compared to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;12&lt;/code&gt; seconds)!&lt;/p&gt;
+
+&lt;p&gt;Next, I created another test text file such that the random numbers are in a smaller range (from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 000&lt;/code&gt;) in order for the size of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;unique_map&lt;/code&gt; in our code be smaller.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; time ./basic_unique
+Unique numbers: 1000
+./basic_unique  6.44s user 0.21s system 100% cpu 6.618 total
+&amp;gt; wc -l test2.txt 
+ 275813149 test2.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Wow! Even though we are still processing a 1Gb file, when we reduce our random number range and therefore our memory size of our map, our runtime reduces from 1 minute to 6 seconds!&lt;/p&gt;
+
+&lt;p&gt;This variance in runtime based on the size of the map gives me pause. Perhaps I might have to create some custom data structure or at least consider the data I am dealing with in more detail.&lt;/p&gt;
+
+&lt;figure class=&quot;figcaption-default&quot;&gt;
+&lt;center&gt;
+&lt;img src=&quot;/assets/ipv4/out.gif&quot; width=&quot;70%&quot; /&gt;
+&lt;/center&gt;
+  &lt;figcaption&gt;Programmers, by nature, are lazy so I thought I could get away with not coding up a custom data structure…I was wrong&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;h2 id=&quot;optimization-2-custom&quot;&gt;Optimization 2: custom&lt;/h2&gt;
+
+&lt;p&gt;Ladies and gentleman, for the next part please fasten your seatbelts as there will a lot of paper napkin math that will be annoying to read through!&lt;/p&gt;
+
+&lt;p&gt;For IPv4 addresses we have about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;4&lt;/code&gt; billion possible address ( &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;A&amp;gt;.&amp;lt;B&amp;gt;.&amp;lt;C&amp;gt;.&amp;lt;D&amp;gt;&lt;/code&gt; where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;A,B,C,D&lt;/code&gt; are in range of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[0,255]&lt;/code&gt; which leads to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;256^4 = (2^8)^4 = 2^32 = 4 294 967 296&lt;/code&gt; possible addresses ). Furthermore, we previously discussed how a 120Gb file might contain &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;15&lt;/code&gt; billion IPv4 addresses which means that for a 120Gb or bigger file we expect to have many duplicates as line count significantly exceeds unique address count.&lt;/p&gt;
+
+&lt;p&gt;From preliminary googlin’ I confirmed that a hash key in a map is typically 64 bits long &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(8 bytes)&lt;/code&gt;. This means a number &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;123&lt;/code&gt; key in a map stored as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;unique_map[123] = struct{}{}&lt;/code&gt; (in range &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;N&lt;/code&gt;) will be stored as a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;64&lt;/code&gt; bit value. Given that there are &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;64&lt;/code&gt; bits and each bit can be &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; then the map can store &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2^64&lt;/code&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;18 446 744 073 709 551 616&lt;/code&gt;) possible keys. This number is much bigger than the possible IPv4 addresses. As implied in the previous paragraph, we only need &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;32&lt;/code&gt; bits (from the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;256^4 = 2^32&lt;/code&gt; calculation) to represent all the IPv4 addresses - each IPv4 address can be represented by a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;32&lt;/code&gt; bit number (see diagram below).&lt;/p&gt;
+
+&lt;figure class=&quot;figcaption-default&quot;&gt;
+&lt;center&gt;
+&lt;img src=&quot;/assets/ipv4/transform.png&quot; width=&quot;70%&quot; /&gt;
+&lt;/center&gt;
+  &lt;figcaption&gt;Diagram explaining how we convert an IPv4 to a  number. An IPv4 address &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;A&amp;gt;.&amp;lt;B&amp;gt;.&amp;lt;C&amp;gt;.&amp;lt;D&amp;gt;&lt;/code&gt; is such that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;A,B,C,D&lt;/code&gt; are in range of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[0,255] = [0,2^8-1]&lt;/code&gt; meaning we need &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;8&lt;/code&gt; bits to express each of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;A,B,C,D&lt;/code&gt;. Since the dots are redundant then an address can be expressed as a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;32&lt;/code&gt; bits binary structure which is equivalent to some number like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3232235786&lt;/code&gt;. Thanks chatgpt for the diagram!&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;If instead of the default map’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;64&lt;/code&gt; bit hash keys, we use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;32&lt;/code&gt; bit keys to match the maximum bits needs to store a IPv4 address, we can cut half our memory taken up by our map.&lt;/p&gt;
+
+&lt;p&gt;Halving the storage is pretty good. That means in the case where our code encounters the maximum amount &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2^32&lt;/code&gt; of unique IPv4 addresses then our map will have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2^32&lt;/code&gt; keys where each key is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;32 = 2^5&lt;/code&gt; bits long. This means that our memory usage will be about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2^32*2^5 = 2^37&lt;/code&gt; bits which is about 17Gb. This still sounds too much … that’s like the memory taken up by at least a few full length movie files.&lt;/p&gt;
+
+&lt;p&gt;We can use a clever trick where instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2^37&lt;/code&gt; map structure we just need a bit array of length &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2^32&lt;/code&gt; where if the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt;th entry in the bit array is binary &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; then that represents that  the number &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; was encountered (or its IPv4 equivalent). With this bit array we don’t explicitly store the number &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; which was the case in the previous paragraph with storing each &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;32&lt;/code&gt; bit long key. The default map structure might perform better in the cases there are few unique IPv4 addresses as most of our bit array will be idling binary zeros, but that is fine given that we are dealing with such large test files that we are likely dealing with a higher unique count.&lt;/p&gt;
+
+&lt;p&gt;Our custom data structure reduces our memory requirement from 17Gb to about 0.5Gb which sounds pretty sweet.&lt;/p&gt;
+
+&lt;p&gt;There are no default bit array data types in Go so I created my own ( see &lt;a href=&quot;https://github.com/mannyray/ipv4_address/blob/master/unique_lines/intermediate_unique.go&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;intermediate_unique.go&lt;/code&gt;&lt;/a&gt; along with the tests needed for some basic confidence in correctness). To compute the amount of unique entries stored in our bit array, we just count all the entries set to binary &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;With this custom bit array structure I reran the unique counter on the text file with numbers in range from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 000 000 000&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;time&lt;/span&gt; ./intermediate_unique
+Unique numbers: 102894356
+./intermediate_unique  6.32s user 0.20s system 100% cpu 6.519 total
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;It now takes &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;10%&lt;/code&gt; of the previous &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; minute runtime. Our custom data structure was able to significantly reduce our runtime. I also wanted to confirm that I am actually using less memory now:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;  gtime &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Max Memory: %M KB&quot;&lt;/span&gt; ./basic_unique
+Unique numbers: 102894356
+Max Memory: 4731040 KB
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; gtime &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Max Memory: %M KB&quot;&lt;/span&gt; ./intermediate_unique
+Unique numbers: 102894356
+Max Memory: 136816 KB
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We went from using 4.7Gb with our default map in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;basic_unique.go&lt;/code&gt; to 0.13Gb in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;intermediate_unique.go&lt;/code&gt; (the latter is less than the aforementioned 0.5Gb estimate because the bit array code was customized to use minimum amount of memory required to handle the known largest possible number to be encountered (in our test case &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 000 000 000&lt;/code&gt; -  needs &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;30&lt;/code&gt; bits instead of full &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;32&lt;/code&gt;)) .&lt;/p&gt;
+
+&lt;p&gt;Since there is a direct connection between random numbers in range `[0,2^32-1] and random IPv4 addresses then for counting unique address we will use our custom bit array structure in combination with a function to convert an address to its number equivalent.&lt;/p&gt;
+
+&lt;p&gt;We will combine this reduction in runtime and memory with the parallel readers from before in the next section.&lt;/p&gt;
+
+&lt;h2 id=&quot;optimization-3-parallelize&quot;&gt;Optimization 3: parallelize&lt;/h2&gt;
+
+&lt;p&gt;We will split our file of random numbers into chunks so that we can have multiple processes working at the same time. Each process will separately track its unique numbers encountered in its own bit array. After each process is done, we will need to combine all of their results using exclusive or (XOR) operation. Referring to the venn diagram from before, XOR is our way of preventing from double counting (code is in &lt;a href=&quot;https://github.com/mannyray/ipv4_address/blob/master/unique_lines/advanced_unique.go&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;advanced_unique.go&lt;/code&gt;&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;In the previous section, we discovered that for the purpose of IPv4 address tracking, our bit array will be around 0.5Gb in size. If we have multiple readers then this will be 0.5Gb per reader.&lt;/p&gt;
+
+&lt;p&gt;There might be a way to optimize our memory usage even further such that we only use one common bit array for all the readers, but this solution would involve more custom coding and writing some lock structure to deal with concurrent access to the bit array. In practice this may actually lead to slower runtime. We will avoid this for now as even with a few threads we are using much less memory than the default golang map approach of 17Gb.&lt;/p&gt;
+
+&lt;p&gt;Using a &lt;a href=&quot;https://github.com/mannyray/ipv4_address/blob/master/unique_lines/bash_script.sh&quot;&gt;bash script&lt;/a&gt; we track the runtime and memory usage of our unique number calculating code:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; ./bash_script.sh 
+READER_COUNT: 1, RUNTIME: 6.53s, MAX_MEM: 0.255 GB
+READER_COUNT: 2, RUNTIME: 3.37s, MAX_MEM: 0.380 GB
+READER_COUNT: 3, RUNTIME: 2.41s, MAX_MEM: 0.505 GB
+READER_COUNT: 4, RUNTIME: 1.89s, MAX_MEM: 0.631 GB
+READER_COUNT: 5, RUNTIME: 1.56s, MAX_MEM: 0.756 GB
+READER_COUNT: 6, RUNTIME: 1.46s, MAX_MEM: 0.881 GB
+READER_COUNT: 7, RUNTIME: 1.37s, MAX_MEM: 1.006 GB
+READER_COUNT: 8, RUNTIME: 1.32s, MAX_MEM: 1.131 GB
+READER_COUNT: 9, RUNTIME: 1.28s, MAX_MEM: 1.257 GB
+READER_COUNT: 10, RUNTIME: 1.23s, MAX_MEM: 1.382 GB
+READER_COUNT: 11, RUNTIME: 1.19s, MAX_MEM: 1.507 GB
+READER_COUNT: 12, RUNTIME: 1.20s, MAX_MEM: 1.632 GB
+READER_COUNT: 13, RUNTIME: 1.18s, MAX_MEM: 1.757 GB
+READER_COUNT: 14, RUNTIME: 1.21s, MAX_MEM: 1.883 GB
+READER_COUNT: 15, RUNTIME: 1.21s, MAX_MEM: 2.008 GB
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Our script confirms that parallelizing reduces runtime, despite a bump in memory usage. We go from 6 seconds to 1 second runtime - this is a great improvement from our initial 1 minute long naive hash approach.&lt;/p&gt;
+
+&lt;h2 id=&quot;handling-the-real-data&quot;&gt;Handling the real data&lt;/h2&gt;
+
+&lt;p&gt;From the previous work in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Touching every address&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Optimizing the data structure&lt;/code&gt;, we now have code (in &lt;a href=&quot;https://github.com/mannyray/ipv4_address/blob/master/final/unique_address_count.go&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;unique_address_count.go&lt;/code&gt;&lt;/a&gt;) that can process a file of IPv4 addresses efficiently - at least more so than the default approach of reading the stuff line by line and using a hash set. Now how does it handle a more challenging data set?&lt;/p&gt;
+
+&lt;p&gt;I was still not willing to analyze the 120Gb test file on my machine so I fired up an AWS EC2 instance of the t3.2xlarge type ( 8 vCPUs and 32 GiB ) and processing the 120Gb files, with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;20&lt;/code&gt; go routines, took 14 minutes which counted &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 000 000 000&lt;/code&gt; unique addresses in a file with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;8 000 000 000&lt;/code&gt; lines.&lt;/p&gt;
+
+&lt;figure class=&quot;figcaption-default&quot;&gt;
+&lt;center&gt;
+&lt;img src=&quot;/assets/ipv4/final.png&quot; width=&quot;90%&quot; /&gt;
+&lt;/center&gt;
+  &lt;figcaption&gt;Screen cap of me running the code on EC2 instance&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Interestingly, computing the line count (via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wc -l&lt;/code&gt;) also took 14 minutes, but this is not to suggest that my  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;unique_address_count.go&lt;/code&gt; is (overly) deficient in my implementation since &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wc&lt;/code&gt; code does not have to carry bit arrays in memory. I think the equal &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wc&lt;/code&gt; timing leads me to the following mellow conclusion: at least computing unique line count is not slower than computing total line count.&lt;/p&gt;
+
+&lt;p&gt;Overall, it was fun to code in go. My biggest struggle was remaining consistent between camelCase and snake_case.&lt;/p&gt;
+
+&lt;figure class=&quot;figcaption-default&quot;&gt;
+&lt;center&gt;
+&lt;img src=&quot;/assets/ipv4/mellow.png&quot; width=&quot;70%&quot; /&gt;
+&lt;/center&gt;
+  &lt;figcaption&gt;Hey chatgpt…generate an image of a mellow situation with a glass half full&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;!--toc_end--&gt;
+</description>
+        <pubDate>Fri, 28 Nov 2025 07:00:01 -0500</pubDate>
+        <link>https://szonov.com/programming/2025/11/28/ipv4-address-hunt/</link>
+        <guid isPermaLink="true">https://szonov.com/programming/2025/11/28/ipv4-address-hunt/</guid>
+        
+        
+        <category>programming</category>
+        
+      </item>
     
       <item>
         <title>What is leadership?</title>
@@ -84,7 +822,7 @@
 &lt;/ul&gt;
 
 </description>
-        <pubDate>Sat, 11 May 2024 19:00:01 -0500</pubDate>
+        <pubDate>Sat, 11 May 2024 20:00:01 -0400</pubDate>
         <link>https://szonov.com/programming/2024/05/11/what-is-leadership/</link>
         <guid isPermaLink="true">https://szonov.com/programming/2024/05/11/what-is-leadership/</guid>
         
@@ -192,7 +930,7 @@
 
 &lt;!--toc_end--&gt;
 </description>
-        <pubDate>Mon, 25 Dec 2023 06:00:00 -0600</pubDate>
+        <pubDate>Mon, 25 Dec 2023 07:00:00 -0500</pubDate>
         <link>https://szonov.com/programming/2023/12/25/the-bionicle-man/</link>
         <guid isPermaLink="true">https://szonov.com/programming/2023/12/25/the-bionicle-man/</guid>
         
@@ -253,7 +991,7 @@
 
 &lt;p&gt;I have a few other projects in mind for my website. One’s website is a fun and good way to motivate yourself to explore and to showcase your explorations. It is a little bit like who has the coolest lawn decorations and maybe considered a little self centered (I confess). I hope to not ‘smell my own farts’ too much here. My goal is to create tools and new processes and see if it helps others. The more the better.&lt;/p&gt;
 </description>
-        <pubDate>Mon, 14 Nov 2022 18:00:00 -0600</pubDate>
+        <pubDate>Mon, 14 Nov 2022 19:00:00 -0500</pubDate>
         <link>https://szonov.com/programming/2022/11/14/photo-gallery/</link>
         <guid isPermaLink="true">https://szonov.com/programming/2022/11/14/photo-gallery/</guid>
         
@@ -274,7 +1012,7 @@
 
 &lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/hot_peppers.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 </description>
-        <pubDate>Tue, 12 Jul 2022 19:00:00 -0500</pubDate>
+        <pubDate>Tue, 12 Jul 2022 20:00:00 -0400</pubDate>
         <link>https://szonov.com/planting/2022/07/12/hot-peppers/</link>
         <guid isPermaLink="true">https://szonov.com/planting/2022/07/12/hot-peppers/</guid>
         
@@ -308,7 +1046,7 @@
 &lt;/ul&gt;
 
 </description>
-        <pubDate>Wed, 02 Feb 2022 14:00:00 -0600</pubDate>
+        <pubDate>Wed, 02 Feb 2022 15:00:00 -0500</pubDate>
         <link>https://szonov.com/programming/2022/02/02/train-pictures/</link>
         <guid isPermaLink="true">https://szonov.com/programming/2022/02/02/train-pictures/</guid>
         
@@ -331,7 +1069,7 @@
 
 &lt;p&gt;It was great to learn React. It was unsual and the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setState&lt;/code&gt; command at times seemed like the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;goto&lt;/code&gt; command that I always thought was improper to use. It took some time to adjust. I am grateful for the learning experience.&lt;/p&gt;
 </description>
-        <pubDate>Mon, 03 Jan 2022 11:00:00 -0600</pubDate>
+        <pubDate>Mon, 03 Jan 2022 12:00:00 -0500</pubDate>
         <link>https://szonov.com/programming/2022/01/03/react-image-tagging/</link>
         <guid isPermaLink="true">https://szonov.com/programming/2022/01/03/react-image-tagging/</guid>
         
@@ -535,7 +1273,7 @@ git checkout benchmark_app
 
 &lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/prototype/out.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 </description>
-        <pubDate>Fri, 12 Nov 2021 11:00:00 -0600</pubDate>
+        <pubDate>Fri, 12 Nov 2021 12:00:00 -0500</pubDate>
         <link>https://szonov.com/programming/2021/11/12/tensorflow-lite-speed-comparison/</link>
         <guid isPermaLink="true">https://szonov.com/programming/2021/11/12/tensorflow-lite-speed-comparison/</guid>
         
@@ -558,7 +1296,7 @@ git checkout benchmark_app
 
 &lt;p&gt;The repository for the code can be found &lt;a href=&quot;https://github.com/mannyray/machineLearningStarter&quot;&gt;here&lt;/a&gt;. The repository is meant to provide a series of scripts and instructions on how to get started with Tensorflow tflite models on the Android.&lt;/p&gt;
 </description>
-        <pubDate>Fri, 05 Nov 2021 17:00:00 -0500</pubDate>
+        <pubDate>Fri, 05 Nov 2021 18:00:00 -0400</pubDate>
         <link>https://szonov.com/programming/2021/11/05/detecting-coins-with-tensorflow/</link>
         <guid isPermaLink="true">https://szonov.com/programming/2021/11/05/detecting-coins-with-tensorflow/</guid>
         
@@ -616,249 +1354,9 @@ git checkout benchmark_app
 
 &lt;p&gt;If you are a reader who is looking for a SORT algorihtm, I hope you find mine useful!&lt;/p&gt;
 </description>
-        <pubDate>Mon, 30 Aug 2021 17:00:00 -0500</pubDate>
+        <pubDate>Mon, 30 Aug 2021 18:00:00 -0400</pubDate>
         <link>https://szonov.com/programming/2021/08/30/simple-online-realtime-tracking/</link>
         <guid isPermaLink="true">https://szonov.com/programming/2021/08/30/simple-online-realtime-tracking/</guid>
-        
-        
-        <category>programming</category>
-        
-      </item>
-    
-      <item>
-        <title>Controlling DSLR using Android App, Raspberry Pi and gphoto2</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;Updated this blog post in March 2025 to make it more readable and include additional examples! Site best viewed on desktop.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-
-&lt;p&gt;Hello dear reader! In this post I will be discussing how to control a DSLR camera using an Android app, Raspberry Pi, gphoto2 and some &lt;a href=&quot;https://github.com/mannyray/bluetoothPhoto&quot;&gt;code&lt;/a&gt;. I found this capability very useful for my endeavours and hope that you may as well for yours. I will go over motivations, how to setup, linked code and an example use case.&lt;/p&gt;
-
-&lt;p&gt;Here is a view of the deployed system below (with the Android phone, in my hand, taking the picture):&lt;/p&gt;
-
-&lt;center&gt;
-&lt;img src=&quot;https://szonov.com/assets/dlsr_control/schema.png&quot; width=&quot;60%&quot; /&gt;
-&lt;/center&gt;
-
-&lt;p&gt;Quick notes:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;gphoto2 is a free application that can be used to control a variety of &lt;a href=&quot;http://www.gphoto.org/proj/libgphoto2/support.php&quot;&gt;different cameras&lt;/a&gt; via commandline.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The Raspberry Pi can be replaced with another computer. Raspberry Pi is chosen as it is leightweight and cheap.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Android app is useful because it allows for wireless, remote control and a nice user interface. It communicates with the Raspberry Pi. However, the Android app is not strictly necessary as you can just use the Raspberry Pi to communicate with the camera via gphoto2 directly. If using the Android app, then the Raspberry Pi acts as a middleman between the phone and camera.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Here is a video of my personal project where I used the code and concepts discussed in this blog post to use AI to capture pictures of train graffiti:&lt;/p&gt;
-
-&lt;center&gt;
-&lt;iframe width=&quot;100%&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/PlVF_0MooQE?si=NQgzYZ8iBfVBtsIx&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/center&gt;
-
-&lt;h2 id=&quot;here-are-reasons-why-you-may-find-the-setup-useful&quot;&gt;Here are reasons why you may find the setup useful:&lt;/h2&gt;
-
-&lt;!--toc_start--&gt;
-&lt;h2 id=&quot;cameras-come-with-limitations&quot;&gt;Cameras come with limitations&lt;/h2&gt;
-
-&lt;p&gt;In this blog I will be using the Canon M100.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/m100.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;In the case of the M100, the camera has a limitation on how long you can take time-lapse photos for. In the image below, three screenshots from the M100 configuration screen show that you can set to take photos every 2 to 4 seconds and up to 900 shots. Combining the two upper limits you can only takes a time-lapse spanning an hour in time.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/camera_settings.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;What if you want to take a time-lapse of a full day? With the use of a battery cable and this setup you can overcome such limitations as you are no longer limited by your battery running out. The Android acts as user interface enhancement instead of using gphoto2 commandline directly on the Raspberry Pi.&lt;/p&gt;
-
-&lt;p&gt;M100 battery cable:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/wired_battery.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;the-camera-manufacturer-provided-android-app-is-not-sufficient&quot;&gt;The camera manufacturer provided Android app is not sufficient&lt;/h2&gt;
-
-&lt;p&gt;The Android app provided here can be modified to monitor for events for which regular manufacture provided Android (in this case Canon) apps for your camera will not have. Want to take picture at a specific time? Take a picture only when you detect something in the field of focus of cell phone camera? Take a picture when you say “action”? You will have to code this yourself for which the Android app introduced in this post provides a great starting point.&lt;/p&gt;
-
-&lt;p&gt;The programmatic freedom allows one to integrate your camera into a variety of applications.&lt;/p&gt;
-
-&lt;h2 id=&quot;broken-camera-screen&quot;&gt;Broken camera screen&lt;/h2&gt;
-
-&lt;p&gt;May sound like a stretch but I had this happen. Camera menu screen was busted. The app can be useful here for providing a basic screen interface.&lt;/p&gt;
-
-&lt;!--toc_end--&gt;
-
-&lt;h2 id=&quot;how-to-setup-the-system&quot;&gt;How to Setup the system&lt;/h2&gt;
-
-&lt;p&gt;With some of the motivations out of the way, we now discuss how to set it all up:&lt;/p&gt;
-
-&lt;!--toc_start--&gt;
-&lt;h2 id=&quot;install-gphoto2-on-raspberry-pi&quot;&gt;Install gphoto2 on Raspberry Pi&lt;/h2&gt;
-
-&lt;p&gt;You will have to install gphoto2 software. &lt;a href=&quot;https://github.com/gonzalo/gphoto2-updater&quot;&gt;This&lt;/a&gt; is a good repository on how to do this.&lt;/p&gt;
-
-&lt;h2 id=&quot;connect-the-camera-to-the-raspberry-pi&quot;&gt;Connect the Camera to the Raspberry Pi&lt;/h2&gt;
-
-&lt;p&gt;Connect the camera to the Raspberry Pi. In the case of the M100, I use the USB to mini USB B. Cable below:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/wire.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The mini USB B port on the M100 is pictured below.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/port.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The result will look something like this:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/connection.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Turn your camera on and see if your camera has a setting to stay on without sleeping. On the M100 the setting looks like:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/never_off.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;In the Raspberry Pi terminal run&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ps aux | grep gphoto
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;and run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kill&lt;/code&gt; on the non &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep&lt;/code&gt; results. Next run&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gphoto2 --shell
-&amp;gt;trigger-capture
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/initial_connection.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Sometimes taking pictures will fail. In the image above, the failure was due to camera not focusing while in auto focus mode. For the second picture, I had to make sure I had better lighting.&lt;/p&gt;
-
-&lt;p&gt;gphoto2 supports many &lt;a href=&quot;http://www.gphoto.org/proj/libgphoto2/support.php&quot;&gt;cameras&lt;/a&gt; to varying degrees. Your debug process and figuring out how to run your camera will thus vary. Be patient. By searching your error on a search engine you can usually find a thread on gphoto2’s repository or some stackoverflow post discussing a potential workaround. Here are some links that I found useful:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/gphoto/libgphoto2/issues/521&quot;&gt;maybe you are using an older version of gphoto2&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/gphoto/libgphoto2/issues/30&quot;&gt;use debug mode&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/gphoto/libgphoto2/issues/197&quot;&gt;saving to sd card&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;…happy debugging!&lt;/p&gt;
-
-&lt;h2 id=&quot;connecting-raspberry-pi-to-android-phone&quot;&gt;Connecting Raspberry Pi to Android Phone&lt;/h2&gt;
-
-&lt;p&gt;Connect your phone and Raspberry Pi together. There are many instructions online on how to do this like &lt;a href=&quot;https://bluedot.readthedocs.io/en/latest/pairpiandroid.html&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;setting-up-the-bluetooth-server-on-raspberry-pi&quot;&gt;Setting up the Bluetooth server on Raspberry Pi&lt;/h2&gt;
-
-&lt;p&gt;On the Raspberry Pi you will have to run&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo python server.py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The python script can be found in github code &lt;a href=&quot;https://github.com/mannyray/bluetoothPhoto/tree/master/bluetooth_server&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Apply a setting to your Raspberry Pi so it does not fall asleep and stays on.&lt;/p&gt;
-
-&lt;p&gt;If you experience errors: make sure to install the required packages. For potential debugging when failing to advertise I found &lt;a href=&quot;https://stackoverflow.com/questions/37913796/bluetooth-error-no-advertisable-device&quot;&gt;this&lt;/a&gt; to be helpful.&lt;/p&gt;
-
-&lt;h2 id=&quot;build-the-android-app&quot;&gt;Build the Android app&lt;/h2&gt;
-
-&lt;p&gt;You must be able to build the Android app using Android Studio. This can get a bit involved for a first time builder. I recommend starting &lt;a href=&quot;https://developer.android.com/training/basics/firstapp&quot;&gt;here&lt;/a&gt; to get introduced to the basics.&lt;/p&gt;
-
-&lt;p&gt;The location of the app code is in github code &lt;a href=&quot;https://github.com/mannyray/bluetoothPhoto/tree/master/bluetooth_android_app/Bluetooth&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Install the app on your phone and open it up!
-&lt;!--toc_end--&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;intermission&quot;&gt;Intermission&lt;/h2&gt;
-
-&lt;p&gt;If you followed instructions above you now have&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Bluetooth-paired the Android phone and Raspberry Pi&lt;/li&gt;
-  &lt;li&gt;Launched the Bluetooth server on the Raspberry Pi&lt;/li&gt;
-  &lt;li&gt;Connected your camera to the Raspberry Pi&lt;/li&gt;
-  &lt;li&gt;Built and installed the application on your Android.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;final-setup-result&quot;&gt;Final setup result:&lt;/h2&gt;
-
-&lt;!--toc_start--&gt;
-
-&lt;h2 id=&quot;physical-view&quot;&gt;Physical view&lt;/h2&gt;
-
-&lt;p&gt;For illustration purposes I have setup the Raspberry Pi and camera.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/test_setup.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The camera is connected to the Raspberry Pi and the battery is cable powered.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/camera_test_setup.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The test subject image here is a map of Winnipeg:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/camera_test_subject.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The Bluetooth server on the Raspberry Pi is running and waiting for a connection.&lt;/p&gt;
-
-&lt;h2 id=&quot;running-the-android-phone-app&quot;&gt;Running the Android Phone App&lt;/h2&gt;
-
-&lt;p&gt;Now let us launch the Android application which is called “Bluetooth”. The landing page will look like&lt;/p&gt;
-
-&lt;center&gt;
-&lt;img src=&quot;https://szonov.com/assets/dlsr_control/landing_page.png&quot; width=&quot;60%&quot; /&gt;
-&lt;/center&gt;
-
-&lt;p&gt;Here is me holding the phone:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/view_of_phone.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;After pressing connect you will be redicted to&lt;/p&gt;
-
-&lt;center&gt;
-&lt;img src=&quot;https://szonov.com/assets/dlsr_control/choose_page.png&quot; width=&quot;60%&quot; /&gt;
-&lt;/center&gt;
-
-&lt;p&gt;And the Raspberry Pi will accept the connection:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/bluetooth_server_waiting.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;server-reaction&quot;&gt;Server reaction&lt;/h2&gt;
-
-&lt;p&gt;When selecting “Single picture” and pressing the camera button you will see:&lt;/p&gt;
-
-&lt;center&gt;
-&lt;img src=&quot;https://szonov.com/assets/dlsr_control/picture_taken.png&quot; width=&quot;60%&quot; /&gt;
-&lt;/center&gt;
-
-&lt;p&gt;The Bluetooth server will reflect these pictures taken:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/bluetooth_server_picture_taken.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;The picture is also saved to the SD card of the camera.&lt;/p&gt;
-
-&lt;p&gt;The other option here is to take a time-lapse:&lt;/p&gt;
-
-&lt;center&gt;
-&lt;img src=&quot;https://szonov.com/assets/dlsr_control/time_lapse.png&quot; width=&quot;60%&quot; /&gt;
-&lt;/center&gt;
-
-&lt;p&gt;The “Shutdown Signal” is for when you want to disconnect and quit the Bluetooth server. The app will then redict you back to the landing page.&lt;/p&gt;
-
-&lt;!--toc_end--&gt;
-
-&lt;h2 id=&quot;time-lapse-example&quot;&gt;Time-lapse example&lt;/h2&gt;
-
-&lt;p&gt;Here is an example of the time-lapse feature. After the pictures were taken I combined them to form a gif. Earlier, I suggested that the M100’s time-lapse feature could be extended for a whole day. I was a bit lazy to do that for this post and did something that is quicker and would take up less memory:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://szonov.com/assets/dlsr_control/sand.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Now the skeptical reader might ask: “Why do you need an Android app to send a single command to start executing a time-lapse or even a single photograph? Why not modify &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;server.py&lt;/code&gt; and run the code straight on the Raspberry Pi?”&lt;/p&gt;
-
-&lt;p&gt;It is true. In such cases the phone is unnecessary. I could just run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gphoto2 --shell&lt;/code&gt; in the terminal. However, for applications where you need more advance features, the Android phone is very versatile. In this &lt;a href=&quot;https://szonov.com/programming/2021/03/28/prototype/&quot;&gt;post&lt;/a&gt; I describe such an advanced application that builds on top of the logic introduced here by using the phone’s camera and a Tensorflow model. This post is supposed to provide starting code and general introduction to combining the phone, camera and Raspberry Pi together. Happy hacking!&lt;/p&gt;
-</description>
-        <pubDate>Sun, 15 Aug 2021 07:00:00 -0500</pubDate>
-        <link>https://szonov.com/programming/2021/08/15/controlling-dslr-using-android-app-raspberry-pi-and-gphoto2/</link>
-        <guid isPermaLink="true">https://szonov.com/programming/2021/08/15/controlling-dslr-using-android-app-raspberry-pi-and-gphoto2/</guid>
         
         
         <category>programming</category>
