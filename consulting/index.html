@@ -7,11 +7,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>About</title>
+  <title>Consulting</title>
   <meta name="description" content="">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="https://szonov.com/about/">
+  <link rel="canonical" href="https://szonov.com/consulting/">
   <link rel="alternate" type="application/rss+xml" title="Stan Zonov" href="https://szonov.com/feed.xml" />
 </head>
 
@@ -198,11 +198,12 @@
         <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">About</h1>
+    <h1 class="post-title">Consulting</h1>
   </header>
 
   <article class="post-content">
-    <style>
+    <body>
+<style>
     image-container {
         margin-bottom: 20px;
         position: relative;
@@ -251,20 +252,102 @@
         position: relative; /* no absolute */
     }
 </style>
-<p>If there is one thing that I want to be known for and one thing only then it would be the fact that I am an LGBTBBQ activist</p>
+<p>Is your workplace a little bland? A little hunkered down from years of “we do this because that’s how we we always do this”. A little stiff? A little tragedy of the commons? A little je ne sais quoi?</p>
 
-<p>… and please don’t worry; it’s not the <em>‘we do strange stuff to our pelvic region and we need your child to know about it <strong>🚨ASAP🚨</strong> and if that sounds a little off to you then I’ll call you a mister meany man’</em> kind of activism.</p>
+<p>Would you like to transform it to something better?</p>
 
-<p>Go to <a href="https://lgbtbbq.com/">LGBTBBQ.com</a> to learn more.</p>
+<p>Reach me at <code class="language-plaintext highlighter-rouge">consulting@szonov.com</code> to book a consultation.</p>
 
-<p>If you need to reach me then just shoot me an email at <code class="language-plaintext highlighter-rouge">mister_meany_man@szonov.com</code>.</p>
+<p>Press “Transform” below to get a glimpse of what I offer:</p>
 
-<p><div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="768 / 1022" data-custom-width-percentage="100" style="width: 100%;">
+
+
+  <meta charset="UTF-8">
+  <title>Image Transform Example</title>
+  <style>
+    .image-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .image-container img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .transform-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 10px 16px;
+      border: none;
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 6px;
+    }
+
+    .back-button {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      padding: 8px 12px;
+      border: none;
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      border-radius: 6px;
+      display: none; /* hidden initially */
+    }
+  </style>
+
+
+  <div class="image-container">
+    <div class="image-container" style="width: 100%;"><div class="placeholder-wrapper" data-aspect-ratio="1634 / 2400" data-custom-width-percentage="100" style="width: 100%;">
 <div class="placeholder" style="width: 100%;"><div class="spinner"></div></div>
-<img src="/assets/moped.png" class="buffer-image" width="100%">
-</div></div></p>
+<img id="transformImage" src="/assets/school/school.png" alt="Original" class="buffer-image" width="100%">
+</div></div>
 
-<p>Last updated 2025/11/15</p>
+    <button id="transformBtn" class="transform-button" onclick="transformImage()">
+      Transform
+    </button>
+
+    <button id="backBtn" class="back-button" onclick="goBack()">
+      ← Back
+    </button>
+  </div>
+
+  <script>
+    const originalSrc = "/assets/school/school.png";
+    const transformedSrc = "/assets/school/after.png";
+
+    function transformImage() {
+      const img = document.getElementById("transformImage");
+      const transformBtn = document.getElementById("transformBtn");
+      const backBtn = document.getElementById("backBtn");
+
+      img.src = transformedSrc;
+      transformBtn.style.display = "none";
+      backBtn.style.display = "block";
+    }
+
+    function goBack() {
+      const img = document.getElementById("transformImage");
+      const transformBtn = document.getElementById("transformBtn");
+      const backBtn = document.getElementById("backBtn");
+
+      img.src = originalSrc;
+      transformBtn.style.display = "block";
+      backBtn.style.display = "none";
+    }
+  </script>
+
+
+
 <script>
     const wrappers = document.querySelectorAll('.placeholder-wrapper');
     console.log(wrappers);
@@ -304,7 +387,7 @@
         };
     });
 </script>
-
+</body>
   </article>
 
 </div>

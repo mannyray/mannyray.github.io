@@ -38,7 +38,7 @@
         
 		
 			<a class="page-link" href="/about/">About</a>
-		
+        
         
 		
 			
@@ -54,6 +54,10 @@
         
 		
 			
+		
+        
+		
+            <a class="page-link" href="/consulting/">Consulting</a>
 		
         
 		
@@ -204,7 +208,7 @@
 <html>
 <body>
 <p style="height:0px;width:0px"></p>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/content_font/content_font.css">
 
 <style>
     .toc_and_content_table{
@@ -405,7 +409,7 @@
                     <td class="toc">
                     <div class="sticky-top">
                     <h3>
-<i class="fa fa-list-ol"></i> Contents</h3>
+<span class="icon-list-ol" style="position: relative; top: 2px;"></span> Contents</h3>
                     <div class="scrollable">
                     <ul id="menu">
                     <li><a href="#section-cameras-come-with-limitations-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Cameras come with limitations</a></li>
@@ -499,7 +503,7 @@
                     </div>
                     <div id="sidebar-1" class="sidebar">
                     <h3 style="display: flex; align-items: center; justify-content: space-between;">
-                    <span><i class="fa fa-list-ol"></i> Contents</span>
+                    <span><span class="icon-list-ol" style="position: relative; top: 2px;"></span> Contents</span>
                     <span class="close-button" id="close-buttons-1" style="font-size: 24px;">×</span>
                     </h3>
                     <div class="mobile-scrollable">
@@ -510,7 +514,7 @@
                     </ul>
                     </div>
                     </div>
-                    <button class="popup-button" id="popup-button-1"><i class="fa fa-list-ol"></i></button>
+                    <button class="popup-button" id="popup-button-1"><span class="icon-list-ol"></span></button>
                     </div>
 <!--toc_end-->
 
@@ -524,7 +528,7 @@
                     <td class="toc">
                     <div class="sticky-top">
                     <h3>
-<i class="fa fa-list-ol"></i> Contents</h3>
+<span class="icon-list-ol" style="position: relative; top: 2px;"></span> Contents</h3>
                     <div class="scrollable">
                     <ul id="menu">
                     <li><a href="#section-install-gphoto2-on-raspberry-pi-3" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Install gphoto2 on Raspberry Pi</a></li>
@@ -724,7 +728,7 @@
                     </div>
                     <div id="sidebar-2" class="sidebar">
                     <h3 style="display: flex; align-items: center; justify-content: space-between;">
-                    <span><i class="fa fa-list-ol"></i> Contents</span>
+                    <span><span class="icon-list-ol" style="position: relative; top: 2px;"></span> Contents</span>
                     <span class="close-button" id="close-buttons-2" style="font-size: 24px;">×</span>
                     </h3>
                     <div class="mobile-scrollable">
@@ -737,7 +741,7 @@
                     </ul>
                     </div>
                     </div>
-                    <button class="popup-button" id="popup-button-2"><i class="fa fa-list-ol"></i></button>
+                    <button class="popup-button" id="popup-button-2"><span class="icon-list-ol"></span></button>
                     </div>
 <!--toc_end-->
 
@@ -759,7 +763,7 @@
                     <td class="toc">
                     <div class="sticky-top">
                     <h3>
-<i class="fa fa-list-ol"></i> Contents</h3>
+<span class="icon-list-ol" style="position: relative; top: 2px;"></span> Contents</h3>
                     <div class="scrollable">
                     <ul id="menu">
                     <li><a href="#section-physical-view-5" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Physical view</a></li>
@@ -923,7 +927,7 @@
                     </div>
                     <div id="sidebar-3" class="sidebar">
                     <h3 style="display: flex; align-items: center; justify-content: space-between;">
-                    <span><i class="fa fa-list-ol"></i> Contents</span>
+                    <span><span class="icon-list-ol" style="position: relative; top: 2px;"></span> Contents</span>
                     <span class="close-button" id="close-buttons-3" style="font-size: 24px;">×</span>
                     </h3>
                     <div class="mobile-scrollable">
@@ -934,7 +938,7 @@
                     </ul>
                     </div>
                     </div>
-                    <button class="popup-button" id="popup-button-3"><i class="fa fa-list-ol"></i></button>
+                    <button class="popup-button" id="popup-button-3"><span class="icon-list-ol"></span></button>
                     </div>
 <!--toc_end-->
 
@@ -947,7 +951,7 @@
 <p>Now the skeptical reader might ask: “Why do you need an Android app to send a single command to start executing a time-lapse or even a single photograph? Why not modify <code class="language-plaintext highlighter-rouge">server.py</code> and run the code straight on the Raspberry Pi?”</p>
 
 <p>It is true. In such cases the phone is unnecessary. I could just run <code class="language-plaintext highlighter-rouge">gphoto2 --shell</code> in the terminal. However, for applications where you need more advance features, the Android phone is very versatile. In this <a href="https://szonov.com/programming/2021/03/28/prototype/">post</a> I describe such an advanced application that builds on top of the logic introduced here by using the phone’s camera and a Tensorflow model. This post is supposed to provide starting code and general introduction to combining the phone, camera and Raspberry Pi together. Happy hacking!</p>
-<script>
+<script defer>
     function isMobileOnlyView() {
         return window.matchMedia("(max-width: 767px)").matches;
     }

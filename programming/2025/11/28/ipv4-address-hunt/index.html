@@ -38,7 +38,7 @@
         
 		
 			<a class="page-link" href="/about/">About</a>
-		
+        
         
 		
 			
@@ -54,6 +54,10 @@
         
 		
 			
+		
+        
+		
+            <a class="page-link" href="/consulting/">Consulting</a>
 		
         
 		
@@ -252,7 +256,7 @@
 </style>
 
 <p style="height:0px;width:0px"></p>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/css/content_font/content_font.css">
 
 <style>
     .toc_and_content_table{
@@ -417,7 +421,7 @@
                     <td class="toc">
                     <div class="sticky-top">
                     <h3>
-<i class="fa fa-list-ol"></i> Contents</h3>
+<span class="icon-list-ol" style="position: relative; top: 2px;"></span> Contents</h3>
                     <div class="scrollable">
                     <ul id="menu">
                     <li><a href="#section-introduction-1" onclick="event.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });">Introduction</a></li>
@@ -2022,7 +2026,7 @@ READER_COUNT: 15, RUNTIME: 1.21s, MAX_MEM: 2.008 GB
                     </div>
                     <div id="sidebar-1" class="sidebar">
                     <h3 style="display: flex; align-items: center; justify-content: space-between;">
-                    <span><i class="fa fa-list-ol"></i> Contents</span>
+                    <span><span class="icon-list-ol" style="position: relative; top: 2px;"></span> Contents</span>
                     <span class="close-button" id="close-buttons-1" style="font-size: 24px;">×</span>
                     </h3>
                     <div class="mobile-scrollable">
@@ -2040,10 +2044,10 @@ READER_COUNT: 15, RUNTIME: 1.21s, MAX_MEM: 2.008 GB
                     </ul>
                     </div>
                     </div>
-                    <button class="popup-button" id="popup-button-1"><i class="fa fa-list-ol"></i></button>
+                    <button class="popup-button" id="popup-button-1"><span class="icon-list-ol"></span></button>
                     </div>
 <!--toc_end-->
-<script>
+<script defer>
     function isMobileOnlyView() {
         return window.matchMedia("(max-width: 767px)").matches;
     }
