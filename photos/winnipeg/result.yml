@@ -2,6 +2,11 @@ cover: thumbnail/IMG_9895_thumb.JPG
 name: Winnipeg
 images:
 - caption: ''
+  month: '3'
+  name: 094A7933.JPG
+  thumbnail: thumbnail/094A7933_thumb.JPG
+  year: '2025'
+- caption: ''
   month: '7'
   name: 094A0678.JPG
   thumbnail: thumbnail/094A0678_thumb.JPG
